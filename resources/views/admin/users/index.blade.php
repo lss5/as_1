@@ -13,6 +13,7 @@
                       <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Roles</th>
                         <th scope="col">Actions</th>
                       </tr>
                     </thead>
@@ -21,9 +22,14 @@
                         <tr>
                           <td>{{ $user->name }}</td>
                           <td>{{ $user->email }}</td>
+                          <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                           <td>
-                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm">Edit</a>
-                            <a href="{{ route('admin.users.destroy', $user) }}" class="btn btn-danger btn-sm">Delete</a>
+                            <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm float-left">Edit</a>
+                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="float-left ml-1">
+                              @csrf
+                              {{ method_field('DELETE') }}
+                              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
                           </td>
                         </tr>
                       @endforeach
