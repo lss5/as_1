@@ -60,10 +60,11 @@
                                                 document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-                                    <a href="{{ route('admin.users.index') }}" class="dropdown-item">
-                                        User management
-                                    </a>
-
+                                    @can('manage-users')
+                                        <a href="{{ route('admin.users.index') }}" class="dropdown-item">
+                                            User management
+                                        </a>
+                                    @endcan
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -75,7 +76,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <div class="container">
+            @include('partials.alerts')
+        </div>
+        <main class="pt-4">
             @yield('content')
         </main>
     </div>

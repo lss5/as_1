@@ -12,15 +12,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'FeedController@index')->name('index');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:manage-users')->group(function(){
+Route::get('/home', 'HomeController@home')->name('home');
+
+Route::namespace('Admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/admin/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
 });
+
+Route::middleware('auth', 'can:manage-posts')->group(function(){
+    Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
+});
+// Route::get('/posts', 'PostController@list')->name('posts.list');
+Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
+
+Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
