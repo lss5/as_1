@@ -23,6 +23,7 @@ Route::namespace('Admin')->name('admin.')->middleware('can:manage-users')->group
 });
 
 Route::middleware('auth', 'can:manage-posts')->group(function(){
+    Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
     Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
 });
 // Route::get('/posts', 'PostController@list')->name('posts.list');

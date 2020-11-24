@@ -54,7 +54,7 @@ class UsersController extends Controller
         return view('admin.users.edit')->with([
             'user' => $user,
             'roles' => $roles,
-        ]);
+        ])->with('warning', 'Warning! Dont edit Role' );
     }
 
     /**
@@ -72,7 +72,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->save();
 
-        return redirect()->route('admin.users.index');
+        return redirect()->route('admin.users.index')->with('success', 'User has been updated.');
     }
 
     /**
@@ -90,6 +90,6 @@ class UsersController extends Controller
         $user->roles()->detach();
         $user->delete();
 
-        return redirect()->route('admin.users.index')->with('success', 'User has been deleted');
+        return redirect()->route('admin.users.index')->with('success', 'User has been deleted.');
     }
 }
