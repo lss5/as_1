@@ -14,19 +14,29 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', 'FeedController@index')->name('index');
+Route::get('/', 'HomeController@index')->name('index');
 
 Route::get('/home', 'HomeController@home')->name('home');
 
+    // Only auth users 
+Route::middleware('auth')->group(function(){
+    Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
+    // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
+});
+
+Route::resource('/products', 'ProductController')
+    ->except(['create', 'edit', 'store', 'update', 'destroy']);
+
+    // Only moder users
 Route::namespace('Admin')->name('admin.')->middleware('can:manage-users')->group(function(){
     Route::resource('/admin/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
 });
+
 
 Route::middleware('auth', 'can:manage-posts')->group(function(){
     Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
     Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
 });
+
 // Route::get('/posts', 'PostController@list')->name('posts.list');
 Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
-
-Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);

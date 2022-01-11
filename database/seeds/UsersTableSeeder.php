@@ -14,8 +14,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
-        DB::table('role_user')->truncate();
+        // User::truncate();
+        // DB::table('role_user')->truncate();
 
         $adminRole = Role::where('uniq_name', 'admin')->first();
         $ownerRole = Role::where('uniq_name', 'owner')->first();
@@ -24,19 +24,19 @@ class UsersTableSeeder extends Seeder
         $admin = User::create([
             'name' => 'Adminstrator name',
             'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('12345678'),
         ]);
 
         $owner = User::create([
             'name' => 'Owner name',
             'email' => 'owner@owner.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('12345678'),
         ]);
 
         $moder = User::create([
             'name' => 'Moderator name',
             'email' => 'moder@moder.com',
-            'password' => Hash::make('password'),
+            'password' => Hash::make('12345678'),
         ]);
 
         $admin->roles()->attach($adminRole);

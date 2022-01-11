@@ -42,11 +42,6 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Role');
     }
 
-    public function pets()
-    {
-        return $this->hasMany('App\Pet');
-    }
-
     public function comments()
     {
         return $this->hasMany('App\Comment');
