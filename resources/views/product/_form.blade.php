@@ -3,7 +3,7 @@
         <label for="title">Your product title</label>
     </div>
     <div class="col-sm-12 col-lg-9">
-        <input name="title" value="{{ old('title') }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp" placeholder="model or name">
+        <input name="title" value="{{ $product->title ?? old('title') }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp" placeholder="model or name">
         <small id="titleHelp" class="form-text text-muted">max: 255</small>
     </div>
 </div>
@@ -16,6 +16,25 @@
         <small id="descriptionHelp" class="form-text text-muted">Only true information</small>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-12 col-lg-3">
+        <label for="image">Your product image</label>
+    </div>
+    <div class="col-sm-12 col-lg-9">
+        <input type="file" name="image" id="image" class="@error('image') is-invalid @enderror">
+        @error('image')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+        @if (isset($product) && $product->image)
+            <small class="form-text text-muted">
+                {{ $product->image }}
+            </small>
+        @endif
+    </div>
+</div>
+
 <div class="row">
     <div class="col-12">
         <button type="submit" class="btn btn-outline-success mr-2" role="button" aria-pressed="true">Create</button>

@@ -13,7 +13,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        App\Product::class => App\Policies\ProductPolicy::class,
+        App\User::class => App\Policies\UserPolicy::class,
     ];
 
     /**
@@ -25,29 +26,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Gate::define('edit-users', function($user){
+        Gate::define('admin', function($user){
             return $user->hasRole('admin');
         });
 
-        Gate::define('delete-users', function($user){
-            return $user->hasRole('admin');
-        });
-
-        Gate::define('manage-users', function($user){
+        Gate::define('moder', function($user){
             return $user->hasAnyRoles(['admin', 'moder']);
-        });
-
-        Gate::define('create-post', function($user){
-            return $user->hasAnyRoles(['admin', 'user']);
-        });
-
-        // Posts middleware
-        Gate::define('manage-posts', function($user){
-            return $user->hasAnyRoles(['admin', 'moder', 'owner']);
-        });
-
-        Gate::define('manage-posts', function($user){
-            return $user->hasAnyRoles(['admin', 'moder', 'owner']);
         });
     }
 }

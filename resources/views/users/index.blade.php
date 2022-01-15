@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <h3>Manage users</h3>
             <div class="card">
                 <div class="card-header">Users</div>
 
@@ -24,10 +25,10 @@
                           <td>{{ $user->email }}</td>
                           <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
                           <td>
-                            @can('edit-users')
+                            @can('admin')
                               <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm float-left">Edit</a>
                             @endcan
-                            @can('delete-users')
+                            @can('admin')
                               <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="float-left ml-1">
                                 @csrf
                                 {{ method_field('DELETE') }}

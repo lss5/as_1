@@ -16,9 +16,9 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/home', 'HomeController@home')->name('home');
+Route::middleware('auth')->get('/home', 'HomeController@home')->name('home');
 
-    // Only auth users 
+    // Only auth users
 Route::middleware('auth')->group(function(){
     Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
     // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
@@ -28,11 +28,12 @@ Route::resource('/products', 'ProductController')
     ->except(['create', 'edit', 'store', 'update', 'destroy']);
 
     // Only moder users
-Route::namespace('Admin')->name('admin.')->middleware('can:manage-users')->group(function(){
-    Route::resource('/admin/users', 'UsersController', ['except' => ['show', 'create', 'store']]);
+Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
+    Route::resource('/admin/users', 'UsersController');
+    Route::resource('/admin/products', 'ProductsController');
 });
 
-
+// ------------------- old -------------------
 Route::middleware('auth', 'can:manage-posts')->group(function(){
     Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
     Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);

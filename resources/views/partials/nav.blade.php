@@ -9,7 +9,12 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
-
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('products.create') }}">Sell<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ route('products.index') }}">Buy<span class="sr-only">(current)</span></a>
+            </li>
         </ul>
 
         <!-- Right Side Of Navbar -->
@@ -32,28 +37,32 @@
                     <a class="nav-link" href="{{ route('posts.index') }}">My Posts<span class="sr-only">(current)</span></a>
                 </li> --}}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('products.create') }}">New Sell<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ route('home') }}">Selling<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('products.index') }}">All<span class="sr-only">(current)</span></a>
-                </li>
-                
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                        <a href="{{ route('home') }}" class="dropdown-item">
+                            Summary
+                        </a>
+                        @can('viewAny', App\User::class)
+                            <a href="{{ route('admin.users.index') }}" class="dropdown-item">
+                                User management
+                            </a>
+                        @endcan
+                        @can('viewAny', App\Product::class)
+                            <a href="{{ route('admin.products.index') }}" class="dropdown-item">
+                                Listing manage
+                            </a>
+                        @endcan
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
                             {{ __('Logout') }}
                         </a>
-                        @can('manage-users')
-                            <a href="{{ route('admin.users.index') }}" class="dropdown-item">
-                                User management
-                            </a>
-                        @endcan
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
