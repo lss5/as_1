@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image as ImageFacade;
 
 class ProductController extends Controller
 {
@@ -20,7 +22,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create');
+        return view('product.create')->with(['product_images' => 0]);
     }
 
     public function store(Request $request)
@@ -28,17 +30,24 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:255'],
             'description' => ['nullable', 'string', 'max:4096'],
+            'image1' => ['sometimes','file','image','max:3000'],
+            'image2' => 'sometimes|file|image|max:3000',
+            'image3' => 'sometimes|file|image|max:3000',
         ]);
 
         $product = new Product;
-
         $product->title = $request->title;
         $product->description = $request->description;
         $product->user_id = Auth::user()->id;
-
         $product->save();
+        // Product::create($request->only(['title', 'description']));
 
-        return redirect()->route('products.show', $product)->with('success', 'New advert created!');
+        $files = $request->allFiles();
+        if (!empty($files)) {
+            $this->storeImage($product, $files);
+        }
+
+        return redirect()->route('products.show', $product)->with('success', 'New listing created!');
     }
 
     public function show(Product $product)
@@ -50,16 +59,54 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        //
+        return view('product.edit')->with([
+            'product' => $product,
+            'product_images' => $product->images->count(),
+        ]);
     }
 
     public function update(Request $request, Product $product)
     {
-        //
+        $validatedData = $request->validate([
+            'title' => ['required', 'string', 'min:5', 'max:255'],
+            'description' => ['nullable', 'string', 'max:4096'],
+            'image1' => ['sometimes','file','image','max:3000'],
+            'image2' => 'sometimes|file|image|max:3000',
+            'image3' => 'sometimes|file|image|max:3000',
+        ]);
+
+        $product->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            // 'active' => $active,
+        ]);
+
+        $files = $request->allFiles();
+        if (!empty($files)) {
+            $this->storeImage($product, $files);
+        }
+
+        return redirect()->route('products.show', $product)->with('success', 'Listing updated!');
     }
 
     public function destroy(Product $product)
     {
-        //
+        return redirect()->route('products.index')->with('success', 'Listing updated!');
+    }
+
+    public function storeImage(Product $product, array $files)
+    {
+        foreach ($files as $key => $file) {
+            $image_link = $file->store('products', 'public');
+            $product->images()->create([
+                'link' => $image_link,
+            ]);
+            $imageFacade = ImageFacade::make(public_path('storage/'.$image_link))->fit(500, 350, function ($constraint) {
+                $constraint->upsize();
+            });
+            $imageFacade->save();
+        }
+
+        return true;
     }
 }

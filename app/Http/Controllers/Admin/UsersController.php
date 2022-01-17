@@ -7,6 +7,7 @@ use App\User;
 use App\Role;
 use Gate;
 use Illuminate\Http\Request;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -17,7 +18,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        if (Auth::user()->can('viewAny', Product::class)) {
+        if (Auth::user()->can('viewAny', User::class)) {
             $users = User::all();
             return view('users.index')->with('users', $users);
         } else {
@@ -27,7 +28,7 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        if (Auth::user()->can('view', Product::class)) {
+        if (Auth::user()->can('view', $user)) {
         } else {
             return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
         }
@@ -35,7 +36,7 @@ class UsersController extends Controller
 
     public function edit(User $user)
     {
-        if (Auth::user()->can('update', Product::class))
+        if (Auth::user()->can('update', $user))
         {
             $roles = Role::all();
     
@@ -50,10 +51,10 @@ class UsersController extends Controller
 
     public function update(Request $request, User $user)
     {
-        if (Auth::user()->can('update', Product::class))
+        if (Auth::user()->can('update', $user))
         {
             $user->roles()->sync($request->roles);
-    
+
             $user->email = $request->email;
             $user->name = $request->name;
             $user->save();
@@ -67,7 +68,7 @@ class UsersController extends Controller
 
     public function destroy(User $user)
     {
-        if (Auth::user()->can('delete', Product::class))
+        if (Auth::user()->can('delete', $user))
         {
             $user->roles()->detach();
             $user->delete();

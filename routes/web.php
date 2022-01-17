@@ -21,6 +21,7 @@ Route::middleware('auth')->get('/home', 'HomeController@home')->name('home');
     // Only auth users
 Route::middleware('auth')->group(function(){
     Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
+    Route::resource('/images', 'ImageController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
     // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
 });
 
