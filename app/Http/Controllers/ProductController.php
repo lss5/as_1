@@ -59,34 +59,44 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        return view('product.edit')->with([
-            'product' => $product,
-            'product_images' => $product->images->count(),
-        ]);
+        if (Auth::user()->can('update', $product))
+        {
+            return view('product.edit')->with([
+                'product' => $product,
+                'product_images' => $product->images->count(),
+            ]);
+        } else {
+            return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
+        }
     }
 
     public function update(Request $request, Product $product)
     {
-        $validatedData = $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:255'],
-            'description' => ['nullable', 'string', 'max:4096'],
-            'image1' => ['sometimes','file','image','max:3000'],
-            'image2' => 'sometimes|file|image|max:3000',
-            'image3' => 'sometimes|file|image|max:3000',
-        ]);
+        if (Auth::user()->can('update', $product))
+        {
+            $validatedData = $request->validate([
+                'title' => ['required', 'string', 'min:5', 'max:255'],
+                'description' => ['nullable', 'string', 'max:4096'],
+                'image1' => ['sometimes','file','image','max:3000'],
+                'image2' => 'sometimes|file|image|max:3000',
+                'image3' => 'sometimes|file|image|max:3000',
+            ]);
 
-        $product->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            // 'active' => $active,
-        ]);
+            $product->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                // 'active' => $active,
+            ]);
 
-        $files = $request->allFiles();
-        if (!empty($files)) {
-            $this->storeImage($product, $files);
+            $files = $request->allFiles();
+            if (!empty($files)) {
+                $this->storeImage($product, $files);
+            }
+
+            return redirect()->route('products.show', $product)->with('success', 'Listing updated!');
+        } else {
+            return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
         }
-
-        return redirect()->route('products.show', $product)->with('success', 'Listing updated!');
     }
 
     public function destroy(Product $product)

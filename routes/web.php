@@ -17,6 +17,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::middleware('auth')->get('/home', 'HomeController@home')->name('home');
+Route::middleware('auth')->get('/home/listings', 'HomeController@listings')->name('listings');
 
     // Only auth users
 Route::middleware('auth')->group(function(){
