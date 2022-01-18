@@ -15,6 +15,19 @@ class Image extends Model
         return $this->belongsTo('App\Product');
     }
 
+    public function save(array $options = [])
+    {
+        $save = parent::save($options);
+
+        // crop image
+        $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(500, 350, function ($constraint) {
+            $constraint->upsize();
+        });
+        $imageFacade->save();
+
+        return $save;
+    }
+
     public function delete()
     {
         if (Storage::disk('public')->exists($this->link)) {
@@ -23,31 +36,4 @@ class Image extends Model
         return parent::delete();
     }
 
-    public function storeImage()
-    {
-        // if (request()->has('delete_image')) {
-        //     if (Storage::disk('public')->exists($this->image)) {
-        //         Storage::disk('public')->delete($this->image);
-        //     }
-        //     $this->update([
-        //         'image' => null,
-        //     ]);
-        // }
-        // if (request()->hasFile('image')) {
-        //     if (Storage::disk('public')->exists($this->image)) {
-        //         Storage::disk('public')->delete($this->image);
-        //     }
-        //     $image = request()->file('image')->store('products', 'public');
-        //     $this->update([
-        //         'link' => $image,
-        //         'link' => $image,
-        //         'title' => $request
-        //     ]);
-
-        //     $image = ImageFacade::make(public_path('storage/'.$this->image))->fit(500, 500, function ($constraint) {
-        //         $constraint->upsize();
-        //     });
-        //     $image->save();
-        // }
-    }
 }

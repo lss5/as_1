@@ -6,7 +6,6 @@ use App\Product;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image as ImageFacade;
 
 class ProductController extends Controller
 {
@@ -107,14 +106,9 @@ class ProductController extends Controller
     public function storeImage(Product $product, array $files)
     {
         foreach ($files as $key => $file) {
-            $image_link = $file->store('products', 'public');
             $product->images()->create([
-                'link' => $image_link,
+                'link' => $file->store('products', 'public'),
             ]);
-            $imageFacade = ImageFacade::make(public_path('storage/'.$image_link))->fit(500, 350, function ($constraint) {
-                $constraint->upsize();
-            });
-            $imageFacade->save();
         }
 
         return true;
