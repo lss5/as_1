@@ -1,16 +1,15 @@
-@extends('layouts.app')
+@extends('home.layout')
 
-@section('content')
-<div class="container">
+@section('content_p')
     <div class="row">
-        <div class="col-12">
-            <h3>Your listings</h3>
-        </div>
         @forelse ($products as $product)
-        <div class="col-4 mt-2">
+        <div class="col-md-12 col-lg-4 my-2">
             @include('partials.product_card')
         </div>
-        @endforeach
+        @empty
+        <div class="col-12">
+            <h3>No products selling</h3>
+        </div>
+        @endforelse
     </div>
-</div>
 @endsection

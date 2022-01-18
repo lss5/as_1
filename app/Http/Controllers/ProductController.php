@@ -47,7 +47,7 @@ class ProductController extends Controller
             $this->storeImage($product, $files);
         }
 
-        return redirect()->route('products.show', $product)->with('success', 'New listing created!');
+        return redirect()->route('products.show', $product)->with('success', 'New listing created');
     }
 
     public function show(Product $product)
@@ -66,7 +66,7 @@ class ProductController extends Controller
                 'product_images' => $product->images->count(),
             ]);
         } else {
-            return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
@@ -93,15 +93,15 @@ class ProductController extends Controller
                 $this->storeImage($product, $files);
             }
 
-            return redirect()->route('products.show', $product)->with('success', 'Listing updated!');
+            return redirect()->route('products.show', $product)->with('success', 'Listing updated');
         } else {
-            return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
     public function destroy(Product $product)
     {
-        return redirect()->route('products.index')->with('success', 'Listing updated!');
+        return redirect()->route('products.show', $product)->with('danger', 'Listing deleted');
     }
 
     public function storeImage(Product $product, array $files)

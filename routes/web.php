@@ -16,8 +16,10 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::middleware('auth')->get('/home', 'HomeController@home')->name('home');
-Route::middleware('auth')->get('/home/listings', 'HomeController@listings')->name('listings');
+Route::middleware('auth')->name('home.')->group(function(){
+    Route::get('/home', 'HomeController@home')->name('index');
+    Route::get('/home/products', 'HomeController@listings')->name('listings');
+});
 
     // Only auth users
 Route::middleware('auth')->group(function(){
@@ -25,10 +27,7 @@ Route::middleware('auth')->group(function(){
     Route::resource('/images', 'ImageController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
     // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
 });
-
-Route::resource('/products', 'ProductController')
-    ->except(['create', 'edit', 'store', 'update', 'destroy']);
-
+Route::resource('/products', 'ProductController')->except(['create', 'edit', 'store', 'update', 'destroy']);
     // Only moder users
 Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
     Route::resource('/admin/users', 'UsersController');
@@ -36,10 +35,10 @@ Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
 });
 
 // ------------------- old -------------------
-Route::middleware('auth', 'can:manage-posts')->group(function(){
-    Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
-    Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
-});
+// Route::middleware('auth', 'can:manage-posts')->group(function(){
+//     Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
+//     Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
+// });
 
 // Route::get('/posts', 'PostController@list')->name('posts.list');
-Route::get('/posts/{post}', 'PostController@show')->name('posts.show');
+// Route::get('/posts/{post}', 'PostController@show')->name('posts.show');

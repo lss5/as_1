@@ -15,6 +15,14 @@ class Image extends Model
         return $this->belongsTo('App\Product');
     }
 
+    public function delete()
+    {
+        if (Storage::disk('public')->exists($this->link)) {
+            Storage::disk('public')->delete($this->link);
+        }
+        return parent::delete();
+    }
+
     public function storeImage()
     {
         // if (request()->has('delete_image')) {

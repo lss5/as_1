@@ -19,7 +19,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->route('home')->with('warning', '403 | This action is unauthorized');
+        return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
     }
 
     public function show(Product $product)
@@ -42,6 +42,9 @@ class ProductsController extends Controller
     public function destroy(Product $product)
     {
         if (Auth::user()->can('delete', $product)) {
+            foreach ($product->images as $image) {
+                $image->delete();
+            }
             $product->delete();
             return redirect()->route('admin.products.index')->with('success', 'Product was deleted');
         } else {

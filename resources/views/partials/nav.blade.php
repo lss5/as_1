@@ -37,7 +37,7 @@
                     <a class="nav-link" href="{{ route('posts.index') }}">My Posts<span class="sr-only">(current)</span></a>
                 </li> --}}
                 <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('listings') }}">Selling<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="{{ route('home.listings') }}">Selling<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -45,7 +45,7 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('home') }}" class="dropdown-item">
+                        <a href="{{ route('home.index') }}" class="dropdown-item">
                             Summary
                         </a>
                         @can('viewAny', App\User::class)
