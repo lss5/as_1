@@ -76,9 +76,6 @@ class ProductController extends Controller
             $validatedData = $request->validate([
                 'title' => ['required', 'string', 'min:5', 'max:255'],
                 'description' => ['nullable', 'string', 'max:4096'],
-                'image1' => ['sometimes','file','image','max:3000'],
-                'image2' => 'sometimes|file|image|max:3000',
-                'image3' => 'sometimes|file|image|max:3000',
             ]);
 
             $product->update([
@@ -87,20 +84,44 @@ class ProductController extends Controller
                 // 'active' => $active,
             ]);
 
-            $files = $request->allFiles();
-            if (!empty($files)) {
-                $this->storeImage($product, $files);
-            }
-
             return redirect()->route('products.show', $product)->with('success', 'Listing updated');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
+    public function addImage(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product))
+        {
+            $validatedData = $request->validate([
+                'image' => ['sometimes','file','image','max:3000'],
+            ]);
+
+            $product->images()->create([
+                'link' => $request->file('image')->store('products', 'public'),
+            ]);
+
+            return redirect()->route('products.images', $product)->with('success', 'Photo uploaded');
+        }
+    }
+
     public function destroy(Product $product)
     {
         return redirect()->route('products.show', $product)->with('danger', 'Listing deleted');
+    }
+
+    public function image(Product $product)
+    {
+        if (Auth::user()->can('update', $product))
+        {
+            return view('product.image')->with([
+                'product' => $product,
+                'product_images' => $product->images->count(),
+            ]);
+        } else {
+            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        }
     }
 
     public function storeImage(Product $product, array $files)

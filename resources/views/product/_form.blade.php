@@ -19,6 +19,9 @@
 <div class="row">
     <div class="col-sm-12 col-lg-3">
         <label for="image1">Your product image</label>
+        @if($product->exists)
+            <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Manage images</a>
+        @endif
     </div>
     <div class="col-sm-12 col-lg-9">
         <div class="row">
@@ -29,24 +32,9 @@
                     <small class="form-text text-muted">
                         <td>{{ date('d-m-Y H:i:s', strtotime($image->created_at)) }}</td>
                     </small>
-                    {{-- <form method="POST" action="{{ route('images.destroy', $image) }}">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-outline-danger btn-sm mr-2" role="button" aria-pressed="true">Delete</button>
-                    </form> --}}
                 </div>
             @endforeach
         @endisset
-        @for ($i = $product_images; $i < 3; $i++)
-            <div class="col-sm-12 col-lg-4">
-                <input type="file" name="image{{$i}}" id="image{{$i}}" class="@error('image{{$i}}') is-invalid @enderror">
-                @error('image{{$i}}')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-        @endfor
         </div>
     </div>
 </div>

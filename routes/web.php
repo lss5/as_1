@@ -16,14 +16,17 @@ Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('index');
 
-Route::middleware('auth')->name('home.')->group(function(){
-    Route::get('/home', 'HomeController@home')->name('index');
-    Route::get('/home/products', 'HomeController@listings')->name('listings');
+Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
+    Route::get('/', 'HomeController@home')->name('index');
+    Route::get('/products', 'HomeController@listings')->name('listings');
 });
 
     // Only auth users
 Route::middleware('auth')->group(function(){
     Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
+    Route::get('/products/{product}/edit/images', 'ProductController@image')->name('products.images');
+    Route::put('/products/{product}/image', 'ProductController@addimage')->name('products.addimage');
+
     Route::resource('/images', 'ImageController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
     // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
 });
