@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container shadow-sm bg-white rounded py-3">
-        <h3>Edit image for product:</h3>
-        <h2>{{ $product->title }}</h2>
+        <h3>Edit photos for product</h3>
+        <h4>{{ $product->title }}</h4>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>

@@ -20,6 +20,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('user_id')->constrained();
             $table->string('title', 255);
             $table->text('description')->nullable();
+            $table->bigInteger('price');
             $table->boolean('active')->default(true);
         });
     }

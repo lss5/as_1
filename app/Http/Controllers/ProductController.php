@@ -27,11 +27,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => ['required', 'string', 'min:5', 'max:255'],
-            'description' => ['nullable', 'string', 'max:4096'],
-            'image1' => ['sometimes','file','image','max:3000'],
-            'image2' => 'sometimes|file|image|max:3000',
-            'image3' => 'sometimes|file|image|max:3000',
+            'title' => 'required| string| min:5| max:255',
+            'description' => 'nullable| string| max:4096',
+            'price' => 'required| integer',
         ]);
 
         $product = new Product;
@@ -41,12 +39,7 @@ class ProductController extends Controller
         $product->save();
         // Product::create($request->only(['title', 'description']));
 
-        $files = $request->allFiles();
-        if (!empty($files)) {
-            $this->storeImage($product, $files);
-        }
-
-        return redirect()->route('products.show', $product)->with('success', 'New listing created');
+        return redirect()->route('products.images', $product)->with('success', 'New listing created');
     }
 
     public function show(Product $product)

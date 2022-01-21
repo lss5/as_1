@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container shadow-sm bg-white rounded py-3">
-        <h2>Edit sale</h2>
+        <h2>Edit listing</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
@@ -17,10 +17,11 @@
             @csrf
             @method('PUT')
             @include('product._form')
+            <hr class="pb-1">
             <div class="row">
                 <div class="col-12">
                     <button type="submit" class="btn btn-outline-success mr-2" role="button" aria-pressed="true">Update</button>
-                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Cancel</a>
+                    <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Back</a>
                 </div>
             </div>
         </form>

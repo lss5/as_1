@@ -13,7 +13,7 @@
     <div class="container py-3 my-3">
         <div class="row">
             <div class="col-md-12 col-lg-6">
-                <h2>{{ $product->title }} Lorem ipsum dolor sit amet consectetur.</h2>
+                <h2>{{ $product->title }}</h2>
             </div>
             @if ($product->images->count() > 0)
                 @foreach ($product->images as $image)
@@ -26,8 +26,6 @@
                     <img src="{{ asset('img/product-no-image.jpeg') }}" class="img" alt="{{ $product->title }}">
                 </div>
             @endif
-            <div class="col-12 my-1">{{ $product->description }}
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam distinctio quisquam voluptates tenetur voluptatem odio nostrum eveniet asperiores repellendus beatae sed animi voluptatibus, architecto debitis et facilis excepturi amet soluta consectetur, similique, exercitationem ipsa! Sequi sunt laudantium dignissimos optio consequuntur?
-            </div>
+            <div class="col-12 my-1">{{ $product->description }}</div>
     </div>
 @endsection

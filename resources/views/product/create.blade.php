@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container shadow-sm bg-white rounded py-3">
-        <h2>New sale</h2>
+        <h2>New listing</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 <ul>
