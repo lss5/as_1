@@ -18,8 +18,8 @@
             @include('product._form')
             <div class="row">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-outline-success mr-2" role="button" aria-pressed="true">Create</button>
-                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Cancel</a>
+                    <button type="submit" class="btn btn-outline-success mx-1" role="button" aria-pressed="true">Create</button>
+                    <a href="{{ route('products.index') }}" class="btn btn-outline-secondary mx-1" role="button" aria-pressed="false">Cancel</a>
                 </div>
             </div>
         </form>

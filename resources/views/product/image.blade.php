@@ -25,7 +25,7 @@
                         <form method="POST" action="{{ route('images.destroy', $image) }}">
                             @method('DELETE')
                             @csrf
-                            <button type="submit" class="btn btn-outline-danger btn-sm my-1" role="button" aria-pressed="true">Delete</button>
+                            <button type="submit" onclick='return confirm("Delete photo?");' role="button" aria-pressed="true" class="btn btn-outline-danger btn-sm my-1">Delete</button>
                         </form>
                     </div>
                 @endforeach
@@ -36,14 +36,14 @@
                         @csrf
                         @method('PUT')
                         <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <button class="btn btn-outline-success" type="submit" id="image-file-button">Upload image</button>
+                            </div>
                             <div class="custom-file">
-                                <input name="image" type="file" class="custom-file-input @error('image') is-invalid @enderror" id="image" aria-describedby="image-button">
-                                <label class="custom-file-label" for="image" aria-describedby="image">Choose file</label>
+                              <input type="file" class="custom-file-input @error('image') is-invalid @enderror" name="image" id="input-file" aria-describedby="image-file-button">
+                              <label class="custom-file-label" for="input-file">Choose file</label>
                             </div>
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-secondary" type="submit" id="image-button">Upload</button>
-                            </div>
-                        </div>
+                          </div>
                     </form>
                 </div>
             @endif
@@ -55,7 +55,10 @@
         </div>
         <hr class="py-1">
         <div class="row">
-            <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-success mx-2">Back</a>
+            <div class="col-12">
+                <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-secondary mx-1">Back</a>
+                <a href="{{ route('products.show', $product) }}" type="button" class="btn btn-outline-secondary mx-1">Show</a>
+            </div>
         </div>
     </div>
 @endsection

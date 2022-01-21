@@ -14,6 +14,7 @@
         <div class="row">
             <div class="col-md-12 col-lg-6">
                 <h2>{{ $product->title }}</h2>
+                <h3>Price: {{ $product->price }}$</h3>
             </div>
             @if ($product->images->count() > 0)
                 @foreach ($product->images as $image)

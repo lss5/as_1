@@ -21,7 +21,7 @@
         <label for="price">Price, USD</label>
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
-        <input id="price" name="price" value="{{ $product->price ?? old('price') }}" type="text" aria-describedby="priceHelp" placeholder="$, USD" class="form-control @error('price') is-invalid @enderror">
+        <input id="price" name="price" value="{{ $product->price ?? old('price') }}" type="number" aria-describedby="priceHelp" placeholder="$, USD" class="form-control @error('price') is-invalid @enderror">
         <small id="priceHelp" class="form-text text-muted">Only integer</small>
     </div>
 </div>

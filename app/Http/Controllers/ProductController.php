@@ -6,6 +6,7 @@ use App\Product;
 use App\Image;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreProduct;
 
 class ProductController extends Controller
 {
@@ -24,17 +25,14 @@ class ProductController extends Controller
         return view('product.create')->with(['product_images' => 0]);
     }
 
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        $validatedData = $request->validate([
-            'title' => 'required| string| min:5| max:255',
-            'description' => 'nullable| string| max:4096',
-            'price' => 'required| integer',
-        ]);
+        $validated = $request->validated();
 
         $product = new Product;
         $product->title = $request->title;
         $product->description = $request->description;
+        $product->price = $request->price;
         $product->user_id = Auth::user()->id;
         $product->save();
         // Product::create($request->only(['title', 'description']));
@@ -62,18 +60,16 @@ class ProductController extends Controller
         }
     }
 
-    public function update(Request $request, Product $product)
+    public function update(StoreProduct $request, Product $product)
     {
         if (Auth::user()->can('update', $product))
         {
-            $validatedData = $request->validate([
-                'title' => ['required', 'string', 'min:5', 'max:255'],
-                'description' => ['nullable', 'string', 'max:4096'],
-            ]);
+            $validated = $request->validated();
 
             $product->update([
                 'title' => $request->title,
                 'description' => $request->description,
+                'price' => $request->price,
                 // 'active' => $active,
             ]);
 
@@ -88,7 +84,7 @@ class ProductController extends Controller
         if (Auth::user()->can('update', $product))
         {
             $validatedData = $request->validate([
-                'image' => ['sometimes','file','image','max:3000'],
+                'image' => 'required| file| image| size:3000',
             ]);
 
             $product->images()->create([

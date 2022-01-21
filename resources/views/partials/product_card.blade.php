@@ -9,7 +9,7 @@
         <p class="card-text">{!! Str::limit($product->description, 88, '...') !!}</p>
     </div>
     <ul class="list-group list-group-flush">
-        <li class="list-group-item">@telegram | 111$</li>
+        <li class="list-group-item">@telegram | {{ $product->price }}$</li>
     </ul>
     <div class="card-body">
         <a href="#" class="card-link">Favorite</a>
