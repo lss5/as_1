@@ -31,6 +31,7 @@ class StoreProduct extends FormRequest
             'title' => 'required| string| min:5| max:255',
             'description' => 'nullable| string| max:4096',
             'price' => 'required| integer',
+            'country' => 'required| integer',
         ];
     }
 }

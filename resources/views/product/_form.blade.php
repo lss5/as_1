@@ -27,6 +27,47 @@
 </div>
 <div class="row">
     <div class="col-sm-12 col-lg-3">
+        <label for="country">Location</label>
+    </div>
+    <div class="col-sm-12 col-lg-9 form-group">
+        <select class="custom-select @error('country') is-invalid @enderror" aria-describedby="countryHelp" name="country" id="country">
+            <option value @if(isset($product) and $product->country_id) selected @endif>Country...</option>
+            @foreach ($countries as $country)
+                @if(isset($product) and $product->exists)
+                    <option value="{{ $country->id }}" @if($product->country_id == $country->id) selected @endif>{{ $country->name }}</option>
+                @else
+                    <option value="{{ $country->id }}">{{ $country->name }}</option>
+                @endif
+            @endforeach
+        </select>
+        <small id="countryHelp" class="form-text text-muted">Where is your product</small>
+        @error('country')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div>
+{{-- <div class="form-group row">
+    <label for="categories" class="col-sm-2 col-form-label">@lang('product.categories')</label>
+    <div class="col-sm-10">
+        <select multiple class="form-control" id="categories[]" name="categories[]">
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}"
+                    @if (old('categories')){{ in_array($category->id, old('categories')) ? 'selected' : '' }}
+                    @elseif ( $product->categories->pluck('id')->all() ){{ in_array($category->id, $product->categories->pluck('id')->all()) ? 'selected' : '' }} @endif
+                    >{{ $category->name }}</option>
+            @endforeach
+        </select>
+        @error('categories')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+</div> --}}
+<div class="row">
+    <div class="col-sm-12 col-lg-3">
         <label for="image1" class="mb-0">Your product image</label>
         @isset($product)
             @if ($product->exists)

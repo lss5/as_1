@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\Image;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
@@ -22,18 +23,24 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create')->with(['product_images' => 0]);
+        return view('product.create')->with([
+            'product_images' => 0,
+            'countries' => Country::all(),
+        ]);
     }
 
     public function store(StoreProduct $request)
     {
         $validated = $request->validated();
 
+        $country = Country::find($request->country);
+
         $product = new Product;
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
         $product->user_id = Auth::user()->id;
+        $product->country()->associate($country);
         $product->save();
         // Product::create($request->only(['title', 'description']));
 
@@ -54,6 +61,7 @@ class ProductController extends Controller
             return view('product.edit')->with([
                 'product' => $product,
                 'product_images' => $product->images->count(),
+                'countries' => Country::all(),
             ]);
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
@@ -73,6 +81,12 @@ class ProductController extends Controller
                 // 'active' => $active,
             ]);
 
+            if ($product->country->id != $request->country) {
+                $country = Country::find($request->country);
+                $product->country()->associate($country);
+                $product->save();
+            }
+
             return redirect()->route('products.show', $product)->with('success', 'Listing updated');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
@@ -84,7 +98,7 @@ class ProductController extends Controller
         if (Auth::user()->can('update', $product))
         {
             $validatedData = $request->validate([
-                'image' => 'required| file| image| size:3000',
+                'image' => 'required| file| image| max:3000',
             ]);
 
             $product->images()->create([

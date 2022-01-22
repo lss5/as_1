@@ -18,6 +18,7 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->foreignId('user_id')->constrained();
+            $table->bigInteger('country_id')->unsigned();
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->bigInteger('price');

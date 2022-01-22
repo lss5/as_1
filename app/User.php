@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Post');
     }
 
+    public function country()
+    {
+        return $this->belongsTo('App\Country');
+    }
+
     public function hasAnyRoles($roles)
     {
         if ($this->roles()->whereIn('uniq_name', $roles)->first()) {
