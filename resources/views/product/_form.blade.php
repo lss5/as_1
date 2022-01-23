@@ -3,7 +3,7 @@
         <label for="title">Your product title</label>
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
-        <input name="title" value="{{ $product->title ?? old('title') }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp" placeholder="model or name">
+        <input name="title" value="{{ old('title') ?? $product->title }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp" placeholder="model or name">
         <small id="titleHelp" class="form-text text-muted">max: 255</small>
     </div>
 </div>
@@ -12,7 +12,9 @@
         <label for="description">Your product description</label>
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
-        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5">{{ $product->description ?? old('description') }}</textarea>
+        <textarea name="description" class="form-control @error('description') is-invalid @enderror" id="description" rows="5">
+            {{ old('description') ?? $product->description }}
+        </textarea>
         <small id="descriptionHelp" class="form-text text-muted">Max:4096</small>
     </div>
 </div>
@@ -21,8 +23,26 @@
         <label for="price">Price, USD</label>
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
-        <input id="price" name="price" value="{{ $product->price ?? old('price') }}" type="number" aria-describedby="priceHelp" placeholder="$, USD" class="form-control @error('price') is-invalid @enderror">
+        <input id="price" name="price" value="{{ old('price') ?? $product->price }}" type="number" aria-describedby="priceHelp" placeholder="$" class="form-control @error('price') is-invalid @enderror">
         <small id="priceHelp" class="form-text text-muted">Only integer</small>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-lg-3">
+        <label for="quantity">Quantity, pcs</label>
+    </div>
+    <div class="col-sm-12 col-lg-9 form-group">
+        <input id="quantity" name="quantity" value="{{ old('quantity') ?? $product->quantity }}" type="number" aria-describedby="quantityHelp" placeholder="pcs" class="form-control @error('quantity') is-invalid @enderror">
+        <small id="quantityHelp" class="form-text text-muted">Available for sale</small>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-lg-3">
+        <label for="moq">MOQ, pcs</label>
+    </div>
+    <div class="col-sm-12 col-lg-9 form-group">
+        <input id="moq" name="moq" value="{{ old('moq') ?? $product->moq }}" type="number" aria-describedby="moqHelp" placeholder="pcs" class="form-control @error('moq') is-invalid @enderror">
+        <small id="moqHelp" class="form-text text-muted">Minimum order quantity</small>
     </div>
 </div>
 <div class="row">
@@ -34,7 +54,7 @@
             <option value @if(isset($product) and $product->country_id) selected @endif>Country...</option>
             @foreach ($countries as $country)
                 @if(isset($product) and $product->exists)
-                    <option value="{{ $country->id }}" @if($product->country_id == $country->id) selected @endif>{{ $country->name }}</option>
+                    <option value="{{ $country->id }}" @if(old('country') == $country->id || $product->country_id == $country->id) selected @endif>{{ $country->name }}</option>
                 @else
                     <option value="{{ $country->id }}">{{ $country->name }}</option>
                 @endif

@@ -10,7 +10,7 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'price'];
+    protected $fillable = ['title', 'description', 'price', 'quantity', 'moq'];
     // public static $count_image = 3; // Count images for product cart
 
     public function user()

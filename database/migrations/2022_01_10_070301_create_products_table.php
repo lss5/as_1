@@ -22,6 +22,8 @@ class CreateProductsTable extends Migration
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->bigInteger('price');
+            $table->Integer('quantity');
+            $table->Integer('moq');
             $table->boolean('active')->default(true);
         });
     }

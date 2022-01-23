@@ -24,6 +24,7 @@ class ProductController extends Controller
     public function create()
     {
         return view('product.create')->with([
+            'product' => new Product,
             'product_images' => 0,
             'countries' => Country::all(),
         ]);
@@ -39,6 +40,8 @@ class ProductController extends Controller
         $product->title = $request->title;
         $product->description = $request->description;
         $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->moq = $request->moq;
         $product->user_id = Auth::user()->id;
         $product->country()->associate($country);
         $product->save();
@@ -78,6 +81,8 @@ class ProductController extends Controller
                 'title' => $request->title,
                 'description' => $request->description,
                 'price' => $request->price,
+                'quantity' => $request->quantity,
+                'moq' => $request->moq,
                 // 'active' => $active,
             ]);
 
