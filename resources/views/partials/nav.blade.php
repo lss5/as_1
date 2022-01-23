@@ -36,11 +36,8 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('posts.index') }}">My Posts<span class="sr-only">(current)</span></a>
                 </li> --}}
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('home.listings') }}">Selling<span class="sr-only">(current)</span></a>
-                </li>
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="btn btn-secondary dropdown-toggle " href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{ Auth::user()->name }}
                     </a>
 
@@ -48,6 +45,10 @@
                         <a href="{{ route('home.index') }}" class="dropdown-item">
                             Summary
                         </a>
+                        <a href="{{ route('home.listings') }}" class="dropdown-item">
+                            Selling
+                        </a>
+                        <div class="dropdown-divider"></div>
                         @can('viewAny', App\User::class)
                             <a href="{{ route('admin.users.index') }}" class="dropdown-item">
                                 User management
@@ -58,6 +59,7 @@
                                 Listing manage
                             </a>
                         @endcan
+                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
