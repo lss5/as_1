@@ -16,6 +16,7 @@
         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
             @csrf
             @include('product._form')
+            <hr class="pb-1">
             <div class="row">
                 <div class="col-12">
                     <button type="submit" class="btn btn-outline-success mx-1" role="button" aria-pressed="true">Create</button>

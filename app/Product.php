@@ -10,8 +10,24 @@ class Product extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['title', 'description', 'price', 'quantity', 'moq'];
-    // public static $count_image = 3; // Count images for product cart
+    protected $fillable = [
+        'title',
+        'description',
+        'price',
+        'quantity',
+        'moq',
+        'power',
+        'hashrate',
+        'hashrate_name',
+        'active',
+        'isnew',
+    ];
+
+    public static $hashrate_names = [
+        'ths' => 'Th/s',
+        'ghs' => 'Gh/s',
+        'mhs' => 'Mh/s',
+    ];
 
     public function user()
     {
@@ -31,5 +47,10 @@ class Product extends Model
     public function country()
     {
         return $this->belongsTo('App\Country');
+    }
+
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category');
     }
 }

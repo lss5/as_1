@@ -56,7 +56,7 @@
         <hr class="py-1">
         <div class="row">
             <div class="col-12">
-                <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-secondary mx-1">Back</a>
+                <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-secondary mx-1">Edit</a>
                 <a href="{{ route('products.show', $product) }}" type="button" class="btn btn-outline-secondary mx-1">Show</a>
             </div>
         </div>

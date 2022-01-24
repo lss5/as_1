@@ -22,9 +22,13 @@ class CreateProductsTable extends Migration
             $table->string('title', 255);
             $table->text('description')->nullable();
             $table->bigInteger('price');
-            $table->Integer('quantity');
-            $table->Integer('moq');
+            $table->Integer('quantity')->unsigned();
+            $table->Integer('moq')->unsigned();
+            $table->Integer('power')->nullable();
+            $table->Integer('hashrate')->nullable();
+            $table->String('hashrate_name')->nullable();
             $table->boolean('active')->default(true);
+            $table->boolean('isnew')->default(false);
         });
     }
 

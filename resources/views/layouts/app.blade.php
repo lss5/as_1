@@ -20,7 +20,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-white">
-    <div id="app">
+    <div id="app" class="mb-5">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             @include('partials.nav')
         </nav>

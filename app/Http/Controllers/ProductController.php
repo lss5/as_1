@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Product;
 use App\Image;
 use App\Country;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -27,6 +29,7 @@ class ProductController extends Controller
             'product' => new Product,
             'product_images' => 0,
             'countries' => Country::all(),
+            'categories' => Category::all(),
         ]);
     }
 
@@ -35,16 +38,23 @@ class ProductController extends Controller
         $validated = $request->validated();
 
         $country = Country::find($request->country);
+        $category = Category::find($request->category);
 
         $product = new Product;
-        $product->title = $request->title;
-        $product->description = $request->description;
+        $product->title = Str::of($request->title)->ucfirst();
+        $product->description = Str::of($request->description)->trim();
         $product->price = $request->price;
         $product->quantity = $request->quantity;
         $product->moq = $request->moq;
+        $product->power = $request->power;
+        $product->hashrate = $request->hashrate;
+        $product->hashrate_name = $request->hashrateName;
+        $product->active = $request->has('active') ? 1 : 0;
+        $product->isnew = $request->has('condition') ? 1 : 0;
         $product->user_id = Auth::user()->id;
         $product->country()->associate($country);
         $product->save();
+        $product->categories()->attach($category->id);
         // Product::create($request->only(['title', 'description']));
 
         return redirect()->route('products.images', $product)->with('success', 'New listing created');
@@ -65,7 +75,8 @@ class ProductController extends Controller
                 'product' => $product,
                 'product_images' => $product->images->count(),
                 'countries' => Country::all(),
-            ]);
+                'categories' => Category::all(),
+        ]);
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
@@ -83,13 +94,25 @@ class ProductController extends Controller
                 'price' => $request->price,
                 'quantity' => $request->quantity,
                 'moq' => $request->moq,
-                // 'active' => $active,
+                'power' => $request->power,
+                'hashrate' => $request->hashrate,
+                'hashrate_name' => $request->hashrateName,
+                'active' => $request->has('active') ? 1 : 0,
+                'isnew' => $request->has('condition') ? 1 : 0,
             ]);
 
             if ($product->country->id != $request->country) {
                 $country = Country::find($request->country);
                 $product->country()->associate($country);
                 $product->save();
+            }
+
+            if (!$product->categories->where('id', $request->category)->first()) {
+                $category = Category::find($request->category);
+                if ($category) {
+                    $product->categories()->detach();
+                    $product->categories()->attach($category->id);
+                }
             }
 
             return redirect()->route('products.show', $product)->with('success', 'Listing updated');
