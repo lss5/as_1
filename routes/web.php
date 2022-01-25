@@ -28,20 +28,11 @@ Route::middleware('auth')->group(function(){
     Route::put('/products/{product}/image', 'ProductController@addimage')->name('products.addimage');
 
     Route::resource('/images', 'ImageController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
-    // Route::resource('/settings', 'SettingController', ['only' => ['index', 'edit', 'update']]);
 });
 Route::resource('/products', 'ProductController')->except(['create', 'edit', 'store', 'update', 'destroy']);
+
     // Only moder users
 Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
     Route::resource('/admin/users', 'UsersController');
     Route::resource('/admin/products', 'ProductsController');
 });
-
-// ------------------- old -------------------
-// Route::middleware('auth', 'can:manage-posts')->group(function(){
-//     Route::resource('/pets', 'PetController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
-//     Route::resource('/posts', 'PostController', ['only' => ['index', 'create', 'edit', 'store', 'update']]);
-// });
-
-// Route::get('/posts', 'PostController@list')->name('posts.list');
-// Route::get('/posts/{post}', 'PostController@show')->name('posts.show');

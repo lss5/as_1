@@ -76,3 +76,4 @@ Stack trace:
 [18-Jan-2022 08:53:40 UTC] PHP Fatal error:  Cannot make static method Illuminate\Database\Eloquent\Model::deleting() non static in class App\Image in /Users/lss/Developer/asicseller/app/Image.php on line 0
 [18-Jan-2022 08:53:41 UTC] PHP Fatal error:  Cannot make static method Illuminate\Database\Eloquent\Model::deleting() non static in class App\Image in /Users/lss/Developer/asicseller/app/Image.php on line 0
 [24-Jan-2022 13:49:37 UTC] PHP Fatal error:  Method Illuminate\Validation\Rules\In::__toString() must not throw an exception, caught ErrorException: Array to string conversion in /Users/lss/Developer/asicseller/vendor/laravel/framework/src/Illuminate/Validation/ValidationRuleParser.php on line 0
+[25-Jan-2022 08:23:55 UTC] PHP Fatal error:  Cannot redeclare App\Filters\ProductFilters::price() in /Users/lss/Developer/asicseller/app/Filters/ProductFilters.php on line 58

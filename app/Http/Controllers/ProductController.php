@@ -10,16 +10,21 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
 use Illuminate\Support\Str;
+use App\Filters\ProductFilters;
 
 class ProductController extends Controller
 {
 
-    public function index(Request $request)
+    public function index(Request $request, ProductFilters $filters)
     {
-        $products = Product::orderBy('created_at', 'desc')->get();
+        $products = Product::filter($filters)
+                ->orderBy('products.created_at', 'desc')
+                ->get();
 
         return view('product.index')->with([
             'products' => $products,
+            'countries' => Country::all(),
+            'categories' => Category::all(),
         ]);
     }
 
