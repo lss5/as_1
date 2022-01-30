@@ -26,7 +26,7 @@ class UserPolicy
 
     public function update(User $user, User $model)
     {
-        return $user->hasRole('admin');
+        return $user->hasRole('admin') || $user->id === $model->id;
     }
 
     public function delete(User $user, User $model)
@@ -36,11 +36,11 @@ class UserPolicy
 
     public function restore(User $user, User $model)
     {
-        return $user->hasRole('admin');
+        return false;
     }
 
     public function forceDelete(User $user, User $model)
     {
-        return $user->hasRole('admin');
+        return false;
     }
 }

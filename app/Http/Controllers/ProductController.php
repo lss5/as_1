@@ -60,7 +60,6 @@ class ProductController extends Controller
         $product->country()->associate($country);
         $product->save();
         $product->categories()->attach($category->id);
-        // Product::create($request->only(['title', 'description']));
 
         return redirect()->route('products.images', $product)->with('success', 'New listing created');
     }

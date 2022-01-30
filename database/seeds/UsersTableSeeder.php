@@ -22,19 +22,28 @@ class UsersTableSeeder extends Seeder
         $moderRole = Role::where('uniq_name', 'moder')->first();
 
         $admin = User::create([
-            'name' => 'Adminstrator name',
+            'name' => 'Adminstrator',
+            'first_name' => 'Johnson',
+            'last_name' => 'Sardenga',
+            'country_id' => 1,
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
         ]);
 
         $premium = User::create([
             'name' => 'Premium',
+            'first_name' => 'Vladimir',
+            'last_name' => 'Putin',
+            'country_id' => 1,
             'email' => 'premium@premium.com',
             'password' => Hash::make('12345678'),
         ]);
 
         $moder = User::create([
-            'name' => 'Moderator name',
+            'name' => 'Moderator',
+            'first_name' => 'Ivan',
+            'last_name' => 'Ivanov',
+            'country_id' => 1,
             'email' => 'moder@moder.com',
             'password' => Hash::make('12345678'),
         ]);
@@ -45,18 +54,27 @@ class UsersTableSeeder extends Seeder
 
         User::create([
             'name' => 'user1',
+            'first_name' => 'Petr',
+            'last_name' => 'Petrov',
+            'country_id' => 1,
             'email' => 'user1@user.com',
             'password' => Hash::make('12345678'),
         ]);
 
         User::create([
             'name' => 'user2',
+            'first_name' => 'Sidor',
+            'last_name' => 'Sidorov',
+            'country_id' => 1,
             'email' => 'user2@user.com',
             'password' => Hash::make('12345678'),
         ]);
 
         User::create([
             'name' => 'user3',
+            'first_name' => 'Dmitry',
+            'last_name' => 'Dmitriev',
+            'country_id' => 1,
             'email' => 'user3@user.com',
             'password' => Hash::make('12345678'),
         ]);

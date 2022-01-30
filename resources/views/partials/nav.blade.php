@@ -48,8 +48,8 @@
                         <a href="{{ route('home.listings') }}" class="dropdown-item">
                             Selling
                         </a>
-                        <div class="dropdown-divider"></div>
                         @can('viewAny', App\User::class)
+                        <div class="dropdown-divider"></div>
                             <a href="{{ route('admin.users.index') }}" class="dropdown-item">
                                 User management
                             </a>

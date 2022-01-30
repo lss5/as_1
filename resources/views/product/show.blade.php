@@ -2,13 +2,13 @@
 
 @section('content')
     @can('update', $product)
-    <div class="container shadow-sm rounded  py-2 my-2">
-        <div class="row">
-            <div class="col-md-12">
-                <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-warning mx-2">Edit</a>
+        <div class="container shadow-sm rounded py-2 my-2">
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-primary btn-sm mx-2">Edit</a>
+                </div>
             </div>
         </div>
-    </div>
     @endcan
     <div class="container py-3 my-3">
         <div class="row">

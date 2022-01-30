@@ -12,13 +12,15 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
     Route::get('/', 'HomeController@home')->name('index');
     Route::get('/products', 'HomeController@listings')->name('listings');
+    Route::get('/settings', 'HomeController@settings')->name('settings');
+    Route::put('/settings/{user}', 'HomeController@setting')->name('settings.update');
 });
 
     // Only auth users

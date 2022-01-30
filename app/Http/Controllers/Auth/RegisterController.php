@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Role;
+use App\Country;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -52,6 +53,9 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['nullable', 'string', 'max:255'],
+            'country' => ['required', 'integer'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -67,15 +71,21 @@ class RegisterController extends Controller
     {
         $user = User::create([
             'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
 
+        $country = Country::find($data['country']);
+        $user->country()->associate($country);
+        $user->save();
+
         /**
          * Default role for register new user = owner
          */
-        $role = Role::select('id')->where('uniq_name', 'owner')->first();
-        $user->roles()->attach($role);
+        // $role = Role::select('id')->where('uniq_name', 'owner')->first();
+        // $user->roles()->attach($role);
 
         return $user;
     }

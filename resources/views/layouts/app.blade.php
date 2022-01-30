@@ -29,7 +29,7 @@
             @include('partials.alerts')
         </div>
 
-        <main class="mt-4">
+        <main class="mt-3">
             @yield('content')
         </main>
     </div>

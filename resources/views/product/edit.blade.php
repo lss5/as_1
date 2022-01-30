@@ -20,7 +20,7 @@
             <hr class="pb-1">
             <div class="row">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-outline-success mr-2" role="button" aria-pressed="true">Update</button>
+                    <button type="submit" class="btn btn-outline-success mr-2" role="button" aria-pressed="true">Save</button>
                     <a href="{{ route('products.show', $product) }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Back</a>
                 </div>
             </div>
