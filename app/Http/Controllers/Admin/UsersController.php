@@ -13,11 +13,6 @@ use App\Http\Requests\UpdateUser;
 
 class UsersController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         if (Auth::user()->can('viewAny', User::class)) {

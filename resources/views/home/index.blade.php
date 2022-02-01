@@ -6,6 +6,9 @@
         <h3>{{ Auth::user()->name }}</h3>
         <h4>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h4>
         <h4>Country: {{ Auth::user()->country->name }}</h4>
+        @foreach (Auth::user()->contacts as $contact)
+            <h5>{{ App\Contact::$types[$contact->type] }}: <b>{{ $contact->value }}</b></h5>
+        @endforeach
     </div>
 </div>
 @endsection

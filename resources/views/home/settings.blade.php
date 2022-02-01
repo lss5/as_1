@@ -1,7 +1,7 @@
 @extends('home.layout')
 
 @section('content_p')
-<form action="{{ route('home.settings.update', $user) }}" method="POST">
+<form class="w-100" action="{{ route('home.settings.update', $user) }}" method="POST">
     <div class="row">
         @csrf
         {{ method_field('PUT') }}
@@ -66,10 +66,68 @@
             @enderror
         </div>
 
-        <div class="col-sm-12 col-md-12 my-2">
+        <div class="col-sm-12 col-md-12 my-1">
             <button type="submit" class="btn btn-outline-success">Save</button>
         </div>
     </div>
-</div>
 </form>
+<hr class="py-2">
+<div class="row">
+    @forelse($user->contacts as $contact)
+    <div class="col-sm-12 col-md-6 mb-3">
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <label for="contact-buttons-{{ $contact->id }}" class="input-group-text">{{ App\Contact::$types[$contact->type] }}</label>
+            </div>
+            <input readonly type="text" class="input-group-text rounded-0" placeholder="{{ $contact->value }}" aria-label="Contact value" aria-describedby="contact-buttons-{{ $contact->id }}">
+            <div class="input-group-append" id="contact-buttons-{{ $contact->id }}">
+                <form action="{{ route('home.contacts.setmain', $contact) }}" method="POST">
+                    @method('PATCH')
+                    @csrf
+                    <button type="submit" class="btn @if($contact->ismain) btn-primary @else btn-outline-primary @endif">Main</button>
+                </form>
+                <form action="{{ route('home.contacts.destroy', $contact) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-outline-danger mx-1" onclick='return confirm("Удалить ?");'>
+                        <i class="fas fa-trash"></i>Delete
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @endforeach
+</div>
+<div class="row">
+    <div class="col-sm-12 col-lg-6 form-group">
+        <form action="{{ route('home.contacts.store', $user) }}" method="POST">
+            @csrf
+            @method('PUT')
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                        <select class="custom-select @error('type') is-invalid @enderror" name="type" id="type">
+                            @foreach (App\Contact::$types as $uniq => $name)
+                                <option @if(old('type') == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <input type="text" name="value" id="value" value="{{ old('value') ?? '' }}" class="form-control @error('value') is-invalid @enderror" aria-label="value">
+                    @error('value')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                    @error('type')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-12 my-1">
+                <button type="submit" class="btn btn-outline-success">Add contact</button>
+            </div>
+        </form>
+    </div>
+</div>
 @endsection

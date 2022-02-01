@@ -48,6 +48,11 @@ class User extends Authenticatable
         return $this->belongsTo('App\Country');
     }
 
+    public function contacts()
+    {
+        return $this->hasMany('App\Contact');
+    }
+
     // ----- Methods ----- //
     public function hasAnyRoles($roles)
     {

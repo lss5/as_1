@@ -58,7 +58,25 @@ class HomeController extends Controller
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
+    }
 
+    public function contact(Request $request, User $user)
+    {
+        if (Auth::user()->can('update', $user)){
+            foreach ($user->contacts as $contact) {
+                $contact->ismain = false;
+                $contact->save();
+            }
+
+            $user->contacts()->create([
+                'value' => $request->value,
+                'type' => $request->type,
+            ]);
+
+            return redirect()->route('home.settings')->with('success', 'Contact saved');
+        } else {
+            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        }
     }
 }
 // ->middleware('can:update,user')

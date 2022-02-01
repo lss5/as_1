@@ -1,5 +1,5 @@
-<a class="" href="{{ route('home.index') }}">Summary</a>
+<a class="" href="{{ route('home.index') }}">{{ __('Summary') }}</a>
 <hr>
-<a class="" href="{{ route('home.listings') }}">Listings</a>
+<a class="" href="{{ route('home.listings') }}">{{ __('Listings') }}</a>
 <hr>
-<a class="" href="{{ route('home.settings', Auth::user()->id) }}">Settings</a>
+<a class="" href="{{ route('home.settings') }}">{{ __('Settings') }}</a>

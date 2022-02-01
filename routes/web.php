@@ -21,6 +21,9 @@ Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
     Route::get('/products', 'HomeController@listings')->name('listings');
     Route::get('/settings', 'HomeController@settings')->name('settings');
     Route::put('/settings/{user}', 'HomeController@setting')->name('settings.update');
+    Route::put('/contacts/{user}', 'ContactController@store')->name('contacts.store');
+    Route::patch('/contacts/{contact}', 'ContactController@setmain')->name('contacts.setmain');
+    Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
 });
 
     // Only auth users
