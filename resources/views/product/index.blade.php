@@ -12,9 +12,9 @@
                 <h5>No find results</h5>
             </div>
         @else
-            <div class="col-12">
-                <h5>Search results</h5>
-            </div>
+            {{-- <div class="col-12">
+                <h5>All products</h5>
+            </div> --}}
             @forelse ($products as $product)
             <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
                 @include('partials.product_card')

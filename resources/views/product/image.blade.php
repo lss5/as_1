@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container shadow-sm bg-white rounded py-3">
+    <div class="container shadow-sm bg-white py-3">
         <h3>Edit photos for product</h3>
         <h4>{{ $product->title }}</h4>
         @if ($errors->any())
@@ -14,8 +14,8 @@
             </div>
         @endif
         <hr class="pb-1">
-        <div class="row">
-            @isset($product->images)
+        @isset($product->images)
+            <div class="row">
                 @foreach ($product->images as $image)
                     <div class="col-sm-12 col-lg-4">
                         <img src="{{ asset('storage/'.$image->link) }}" class="img-thumbnail" alt="...">
@@ -29,30 +29,33 @@
                         </form>
                     </div>
                 @endforeach
-            @endisset
-            @if ($product_images < 3)
-                <div class="col-sm-12 my-2">
+            </div>
+        @endisset
+        @if ($product_images < 3)
+            <div class="row justify-content-center">
+                <div class="col-sm-12 col-lg-6 my-2">
                     <form method="POST" action="{{ route('products.addimage', $product) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
-                              <button class="btn btn-outline-success" type="submit" id="image-file-button">Upload image</button>
+                              <button class="btn btn-outline-success @error('image') is-invalid @enderror" type="submit" id="image-file-button">Upload <i class="fas fa-file-upload"></i></button>
                             </div>
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input @error('image') is-invalid @enderror" name="image" id="input-file" aria-describedby="image-file-button">
-                              <label class="custom-file-label" for="input-file">Choose file</label>
+                              <input name="image" id="image" type="file" class="custom-file-input @error('image') is-invalid @enderror" aria-describedby="image-file-button">
+                              <label class="custom-file-label" for="image" aria-describedby="inputGroupFileAddon02">Choose file</label>
                             </div>
-                          </div>
+                        </div>
                     </form>
+                    <small id="imageHelp" class="form-text text-muted">Select a photo and click upload, a 16:10 aspect ratio is recommended.</small>
                 </div>
+                @error('image')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
             @endif
-            @error('image')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-        </div>
         <hr class="py-1">
         <div class="row">
             <div class="col-12">

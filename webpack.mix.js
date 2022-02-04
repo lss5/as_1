@@ -11,5 +11,12 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.scripts([
+    'node_modules/bs-custom-file-input/dist/bs-custom-file-input.min.js',
+], 'public/js/vendor.js').sourceMaps();
+
+mix.js('resources/js/app.js', 'public/js').sourceMaps();
+
+mix.sass('resources/sass/app.scss', 'public/css');
+
+mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');

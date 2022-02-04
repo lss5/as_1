@@ -2,10 +2,11 @@
 
 @section('content_p')
 <form class="w-100" action="{{ route('home.settings.update', $user) }}" method="POST">
+    <h3 class="font-weight-light">{{ __('Informations') }}</h3>
     <div class="row">
         @csrf
         {{ method_field('PUT') }}
-        
+
         <div class="col-sm-12 col-md-6 mb-3">
             <label for="email">Email</label>
             <input id="email" type="email" @cannot('restore', $user) readonly @endcannot class="form-control" name="email" value="{{ old('email', $user->email) }}" required>
@@ -72,6 +73,7 @@
     </div>
 </form>
 <hr class="py-2">
+<h3 class="font-weight-light">{{ __('Contacts') }}</h3>
 <div class="row">
     @forelse($user->contacts as $contact)
     <div class="col-sm-12 col-md-6 mb-3">

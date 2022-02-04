@@ -43,7 +43,7 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('home.index') }}" class="dropdown-item">
-                            Summary
+                            Profile
                         </a>
                         <a href="{{ route('home.listings') }}" class="dropdown-item">
                             Selling

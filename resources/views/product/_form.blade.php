@@ -141,9 +141,9 @@
 </div>
 <div class="row">
     <div class="col-sm-12 col-lg-3">
-        <label for="image1" class="mb-0">Your product image</label>
+        <label for="image1" class="mb-0">Photos</label>
         @if ($product->exists)
-            <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary mr-2" role="button" aria-pressed="false">Manage images</a>
+            <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary m-1" role="button" aria-pressed="false">Manage photos <i class="fas fa-camera-retro fa-sm"></i></a>
         @else
             <small class="form-text text-muted py-0 my-0">
                 You will be able to add product photos in the next step.

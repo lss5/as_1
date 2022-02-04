@@ -2,8 +2,8 @@
     <div class="col-12">
         <div class="form-row">
             <div class="form-group col-md-6 col-sm-12">
-                <label for="search">Name</label>
-                <input type="text" name="search" class="form-control" id="search" placeholder="Search" value="{{ request()->get('search') ?? '' }}">
+                <label for="search" class="h5">Filters <i class="fas fa-search fa-xs"></i></label>
+                <input type="text" name="search" class="form-control" id="search" placeholder="Name" value="{{ request()->get('search') ?? '' }}">
             </div>
             <div class="form-group col-md-3 col-sm-12">
                 <label for="country">Location</label>
