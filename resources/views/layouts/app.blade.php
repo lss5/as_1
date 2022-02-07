@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,9 +20,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-white">
-    <div id="app" class="mb-5">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<body class="bg-white d-flex flex-column h-100">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             @include('partials.nav')
         </nav>
 
@@ -33,6 +32,9 @@
         <main class="mt-3">
             @yield('content')
         </main>
-    </div>
+
+        <footer class="container mt-auto pt-4 pb-2">
+            @include('partials.footer')
+        </footer>
 </body>
 </html>

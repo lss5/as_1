@@ -146,7 +146,7 @@
             <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary m-1" role="button" aria-pressed="false">Manage photos <i class="fas fa-camera-retro fa-sm"></i></a>
         @else
             <small class="form-text text-muted py-0 my-0">
-                You will be able to add product photos in the next step.
+                You will be able to add product photos after create listing.
             </small>
         @endif
     </div>

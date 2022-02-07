@@ -1,5 +1,5 @@
 <form method="GET" action="{{ route('products.index') }}" class="w-100">
-    <div class="col-12">
+    <div class="col-12 ">
         <div class="form-row">
             <div class="form-group col-md-6 col-sm-12">
                 <label for="search" class="h5">Filters <i class="fas fa-search fa-xs"></i></label>
@@ -60,6 +60,9 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary mb-2">Search</button>
+        <button type="submit" class="btn btn-sm btn-primary">Search</button>
+        <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseFilter collapseFilterButton">
+            <i class="far fa-eye-slash"></i>
+        </button>
     </div>
 </form>

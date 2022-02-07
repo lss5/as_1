@@ -2,21 +2,24 @@
 
 @section('content')
 <div class="container">
-    <div class="row">
+    <div class="row collapse multi-collapse show" id="collapseFilterButton">
+        <div class="col-12">
+            <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseFilter collapseFilterButton">
+                Filters <i class="fas fa-search fa-xs"></i>
+            </button>
+        </div>
+    </div>
+    <div class="row collapse multi-collapse" id="collapseFilter">
         @include('partials.search')
     </div>
-    <hr class="pt-1">
-    <div class="row">
+    <div class="row my-3">
         @if($products->count() < 1)
             <div class="col-12">
                 <h5>No find results</h5>
             </div>
         @else
-            {{-- <div class="col-12">
-                <h5>All products</h5>
-            </div> --}}
             @forelse ($products as $product)
-            <div class="col-sm-12 col-md-6 col-lg-4 mt-2">
+            <div class="col-sm-12 col-md-6 col-lg-4 mt-1">
                 @include('partials.product_card')
             </div>
             @endforeach

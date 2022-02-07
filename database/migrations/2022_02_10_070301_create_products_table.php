@@ -24,6 +24,7 @@ class CreateProductsTable extends Migration
             $table->bigInteger('price');
             $table->Integer('quantity')->unsigned();
             $table->Integer('moq')->unsigned();
+            $table->Integer('views')->unsigned()->default(0);
             $table->Integer('power')->nullable();
             $table->Integer('hashrate')->nullable();
             $table->String('hashrate_name')->nullable();

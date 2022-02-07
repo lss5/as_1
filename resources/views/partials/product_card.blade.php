@@ -25,7 +25,8 @@
                     </p> --}}
                 </div>
                 <div class="col-auto">
-                    @foreach ($product->user->contacts as $contact)
+                    <i class="fas fa-user fa-sm text-muted"></i> {{ $product->user->name}}
+                    {{-- @foreach ($product->user->contacts as $contact)
                         @if ($contact->type == 'tg')
                             <i class="fab fa-telegram fa-lg"></i>
                         @elseif ($contact->type == 'phone')
@@ -33,7 +34,7 @@
                         @elseif ($contact->type == 'whatsapp')
                             <i class="fab fa-whatsapp fa-lg"></i>
                         @endif
-                    @endforeach
+                    @endforeach --}}
                 </div>
             </div>
         </li>
@@ -49,7 +50,7 @@
                 Created: {{ date('j M Y', strtotime($product->created_at)) }}
             </div>
             <div class="col-auto">
-                <small><i class="far fa-eye"></i> 236</small>
+                <small><i class="far fa-eye"></i> {{ $product->views }}</small>
             </div>
         </div>
     </div>
