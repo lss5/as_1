@@ -43,7 +43,7 @@
                             Setting
                         </a>
                         @can('viewAny', App\User::class)
-                        <div class="dropdown-divider"></div>
+                            <div class="dropdown-divider"></div>
                             <a href="{{ route('admin.users.index') }}" class="dropdown-item">
                                 User management
                             </a>

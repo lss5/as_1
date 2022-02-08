@@ -41,7 +41,7 @@ class StoreProduct extends FormRequest
             'hashrateName' => [
                 'required',
                 'string',
-                Rule::in(array_keys(Product::$hashrate_names)),
+                Rule::in(array_keys(Product::$hashrates)),
             ],
         ];
     }

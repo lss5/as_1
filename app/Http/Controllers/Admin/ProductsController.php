@@ -3,19 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Product;
+use App\Country;
+use App\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\Filters\ProductFilters;
 
 class ProductsController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request, ProductFilters $filters)
     {
         if (Auth::user()->can('viewAny', Product::class)) {
-            $products = Product::orderBy('created_at', 'desc')->get();
+            $search = false;
+            if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
+                $search = true;
+            }
+
+            $products = Product::filter($filters)
+                ->orderBy('created_at', 'desc')
+                ->simplePaginate(50);
 
             return view('product.admin.index')->with([
                 'products' => $products,
+                'countries' => Country::all(),
+                'categories' => Category::all(),
+                'searchForm' => $search,
             ]);
         }
 

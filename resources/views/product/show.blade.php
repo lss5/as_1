@@ -17,7 +17,7 @@
                         </tr>
                         <tr>
                             <th scope="row">Hashrate</th>
-                            <td>{{ $product->hashrate }} {{ App\Product::$hashrate_names[$product->hashrate_name] }}</td>
+                            <td>{{ $product->hashrate }} {{ App\Product::$hashrates[$product->hashrate_name] }}</td>
                         </tr>
                         <tr>
                             <th scope="row">Power</th>

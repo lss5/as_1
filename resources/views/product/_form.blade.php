@@ -98,7 +98,7 @@
             <input type="text" name="hashrate" id="hashrate" value="{{ old('hashrate') ?? $product->hashrate }}" class="form-control @error('hashrate') is-invalid @enderror" aria-label="Hashrate" aria-describedby="basic-addon2">
             <div class="input-group-append">
                 <select class="custom-select @error('hashrateName') is-invalid @enderror" name="hashrateName" id="hashrateName">
-                    @foreach (App\Product::$hashrate_names as $uniq => $name)
+                    @foreach (App\Product::$hashrates as $uniq => $name)
                         <option @if(old('hashrateName') == $uniq || $product->hashrate_name == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
                     @endforeach
                 </select>

@@ -11,7 +11,7 @@
                 <span class="badge badge-success">{{ $product->price }} $</span>
             </p>
         </h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrate_names[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrates[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
         <p class="card-text">{!! Str::limit($product->description, 80, '...') !!}</p>
     </div>
     <ul class="list-group list-group-flush">

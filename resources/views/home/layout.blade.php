@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container shadow-sm bg-white rounded py-3">
-    <div class="row">
+    <div class="row my-2">
         <div class="col-md-2">
             @include('partials.home_menu')
         </div>

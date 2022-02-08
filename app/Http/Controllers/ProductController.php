@@ -17,6 +17,16 @@ class ProductController extends Controller
 
     public function index(Request $request, ProductFilters $filters)
     {
+        // if (empty($request->get('order'))) {
+        //     $request->request->add(['order' => 'price']);
+        // }
+
+        // Open search form
+        $search = false;
+        if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
+            $search = true;
+        }
+
         $products = Product::filter($filters)
                 ->where('active', 1)
                 ->orderBy('products.created_at', 'desc')
@@ -26,6 +36,7 @@ class ProductController extends Controller
             'products' => $products,
             'countries' => Country::all(),
             'categories' => Category::all(),
+            'searchForm' => $search,
         ]);
     }
 
@@ -121,7 +132,7 @@ class ProductController extends Controller
                 }
             }
 
-            return redirect()->route('home.listings', $product)->with('success', 'Listing updated');
+            return redirect()->route('products.show', $product)->with('success', 'Listing updated');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }

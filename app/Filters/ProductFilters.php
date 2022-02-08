@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class ProductFilters extends QueryFilter
 {
-    public function search($keyword)
+    public function search($value)
     {
-        return $this->builder->where('title', 'like', '%'.$keyword.'%');
+        return $this->builder->where('title', 'like', '%'.$value.'%');
     }
 
     public function price($value)
@@ -42,11 +42,30 @@ class ProductFilters extends QueryFilter
         return $this->builder->where('country_id', '=', $value);
     }
 
+    public function user($value)
+    {
+        return $this->builder->whereHas('user', function (Builder $query) use ($value) {
+            $query->where('users.name', 'like', '%'.$value.'%');
+        });
+    }
+
     public function category($value)
     {
         return $this->builder->whereHas('categories', function (Builder $query) use ($value) {
             $query->where('categories.id', '=', $value);
         });
+    }
+
+    public function order($value)
+    {
+        return $this->builder->orderBy('products.'.$value, 'asc');
+    }
+
+    public function new($value)
+    {
+        if ($value) {
+            return $this->builder->where('isnew', 1);
+        }
     }
 
 }

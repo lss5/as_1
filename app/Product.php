@@ -25,10 +25,18 @@ class Product extends Model
         'isnew',
     ];
 
-    public static $hashrate_names = [
+    public static $hashrates = [
         'ths' => 'Th/s',
         'ghs' => 'Gh/s',
         'mhs' => 'Mh/s',
+    ];
+
+    public static $sorting = [
+        'created_at' => 'Created',
+        'price' => 'Price',
+        'hashrate' => 'Hashrate',
+        'power' => 'Power',
+        'moq' => 'MOQ',
     ];
 
     public function user()
