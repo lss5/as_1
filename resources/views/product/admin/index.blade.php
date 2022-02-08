@@ -53,6 +53,7 @@
                             <th scope="col">Quantity</th>
                             <th scope="col">Create</th>
                             <th scope="col">Update</th>
+                            <th scope="col">Active</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -69,6 +70,7 @@
                             <td>{{ $product->quantity }}</td>
                             <td>{{ date('d-m-Y H:i:s', strtotime($product->created_at)) }}</td>
                             <td>{{ date('d-m-Y H:i:s', strtotime($product->updated_at)) }}</td>
+                            <td class="text-center">@if ($product->active) <i class="fas fa-check fa-2x"></i> @else <i class="fas fa-times fa-2x"></i> @endif</td>
                         </tr>
                     @endforeach
                     </tbody>

@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-    
     <div class="container py-3 my-3">
         <div class="row">
             <div class="col-12">
