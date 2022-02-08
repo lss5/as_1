@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container my-2">
     <div class="row collapse multi-collapse show" id="collapseFilterButton">
         <div class="col-12">
             <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseFilter collapseFilterButton">
@@ -12,7 +12,8 @@
     <div class="row collapse multi-collapse" id="collapseFilter">
         @include('partials.search')
     </div>
-    <div class="row my-3">
+
+    <div class="row my-2">
         @if($products->count() < 1)
             <div class="col-12">
                 <h5>No find results</h5>
