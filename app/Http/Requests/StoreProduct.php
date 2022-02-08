@@ -29,7 +29,7 @@ class StoreProduct extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required| string| min:5| max:55',
+            'title' => 'required| string| min:5| max:70',
             'category' => 'required| integer| max:5',
             'description' => 'nullable| string| max:4096',
             'price' => 'required| integer| max:9999999',
