@@ -20,7 +20,7 @@ class ProductController extends Controller
         $products = Product::filter($filters)
                 ->where('active', 1)
                 ->orderBy('products.created_at', 'desc')
-                ->get();
+                ->simplePaginate(21);
 
         return view('product.index')->with([
             'products' => $products,

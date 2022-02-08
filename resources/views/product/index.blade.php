@@ -20,10 +20,13 @@
             </div>
         @else
             @forelse ($products as $product)
-            <div class="col-sm-12 col-md-6 col-lg-4 mt-1">
+            <div class="col-sm-12 col-md-6 col-lg-4 my-1">
                 @include('partials.product_card')
             </div>
             @endforeach
+            <div class="col-12 d-flex justify-content-center my-1">
+                {{ $products->withQueryString()->links() }}
+            </div>
         @endif
     </div>
 </div>
