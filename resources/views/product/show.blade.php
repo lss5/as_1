@@ -4,9 +4,11 @@
     
     <div class="container py-3 my-3">
         <div class="row">
+            <div class="col-12">
+                <h1 class="h2">{{ $product->title }}</h1>
+            </div>
             <div class="col-md-12 col-lg-6">
-                <h2>{{ $product->title }}</h2>
-                <h3>Seller: {{ $product->user->name }}</h3>
+                <h4>Seller: {{ $product->user->name }}</h4>
                 <table class="table table-sm w-75">
                     <tbody>
                         <tr>
@@ -34,6 +36,14 @@
                             <td>
                                 <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
                                 {!! Str::limit($product->country->name, 22, '') !!}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Category</th>
+                            <td>
+                                @foreach($product->categories as $category)
+                                    {{ $category->name }}
+                                @endforeach
                             </td>
                         </tr>
                     </tbody>
