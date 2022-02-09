@@ -2,122 +2,95 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="username" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+    <div class="row my-3 justify-content-center">
+        <div class="form-register p-3 text-center shadow-sm bg-white rounded">
+            <h1 class="h3 mb-3 font-weight-normal">{{ __('Register New Account') }}</h1>
+            <form method="POST" action="{{ route('register') }}">
+            @csrf
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="username-prepend"><i class="fas fa-at"></i></span>
+                </div>
+                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Username" aria-label="Username" aria-describedby="username-prepend" autofocus required autocomplete="username">
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="email-prepend"><i class="fas fa-envelope"></i></span>
+                </div>
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" required placeholder="E-mail" aria-label="email" aria-describedby="email-prepend" autocomplete="email">
+                @error('name')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="password-prepend"><i class="fas fa-lock"></i></span>
+                </div>
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required placeholder="Password" aria-label="password" aria-describedby="password-prepend" autocomplete="new-password">
+                @error('password')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="new-password-prepend"><i class="fas fa-lock"></i></span>
+                </div>
+                <input id="password-confirm" name="password_confirmation" type="password" class="form-control" required placeholder="Confirm" aria-label="password" aria-describedby="new-password-prepend" autocomplete="new-password">
+            </div>
+            <div class="row">
+                <div class="col pr-1">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="first-name-prepend"><i class="fas fa-user"></i></span>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="first_name" class="col-md-4 col-form-label text-md-right">{{ __('First name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="first_name" type="text" class="form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="given-name">
-
-                                @error('first_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <input id="first_name" name="first_name" type="text" value="{{ old('first_name') }}" class="form-control" required placeholder="First name" autocomplete="given-name" aria-label="First name" aria-describedby="first-name-prepend">
+                        @error('first_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="col pl-1">
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="last-name-prepend"><i class="fas fa-user"></i></span>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="last_name" class="col-md-4 col-form-label text-md-right">{{ __('Last name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="last_name" name="last_name" value="{{ old('last_name') }}" type="text" class="form-control @error('last_name') is-invalid @enderror" required autocomplete="additional-name">
-
-                                @error('last_name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="country" class="col-md-4 col-form-label text-md-right">{{ __('Country') }}</label>
-
-                            <div class="col-md-6">
-                                <select name="country" id="country" required class="custom-select @error('country') is-invalid @enderror">
-                                    <option value selected>Country...</option>
-                                    @foreach (App\Country::all() as $country)
-                                        <option value="{{ $country->id }}" @if(old('country') == $country->id) selected @endif>{{ $country->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('country')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                        <input id="last_name" name="last_name" type="text" value="{{ old('last_name') }}" class="form-control" required placeholder="Last name" autocomplete="given-name" aria-label="Last name" aria-describedby="last-name-prepend">
+                        @error('last_name')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
                 </div>
             </div>
+
+            <select name="country" id="country" required class="custom-select @error('country') is-invalid @enderror">
+                <option value selected>Select a country</option>
+                @foreach (App\Country::all() as $country)
+                    <option value="{{ $country->id }}" @if(old('country') == $country->id) selected @endif>{{ $country->name }}</option>
+                @endforeach
+            </select>
+            @error('country')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            @enderror
+
+            <button type="submit" class="btn btn-lg btn-success btn-block my-3">
+                {{ __('Register') }}
+            </button>
         </div>
-    </div>
+    </form>
 </div>
 @endsection
