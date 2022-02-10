@@ -15,6 +15,9 @@
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('products.index') }}">Buy<span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
+            </li>
         </ul>
 
         <!-- Right Side Of Navbar -->
