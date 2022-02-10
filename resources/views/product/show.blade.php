@@ -31,7 +31,7 @@
                             <td>{{ $product->moq }} pcs</td>
                         </tr>
                         <tr>
-                            <th scope="row">Location</th>
+                            <th scope="row">Country</th>
                             <td>
                                 <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
                                 {!! Str::limit($product->country->name, 22, '') !!}

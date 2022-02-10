@@ -28,6 +28,17 @@
                         {{ __('Remember Me') }}
                     </label>
                 </div>
+
+                <div class="my-2 d-flex justify-content-center align-items-center flex-column">
+                    {!! NoCaptcha::renderJs() !!}
+                    {!! NoCaptcha::display() !!}
+                    @if ($errors->has('g-recaptcha-response'))
+                        <span class="help-block text-danger">
+                            <strong><small>{{ $errors->first('g-recaptcha-response') }}</small></strong>
+                        </span>
+                    @endif
+                </div>
+
                 <button type="submit" class="btn btn-lg btn-success btn-block">
                     {{ __('Login') }}
                 </button>
