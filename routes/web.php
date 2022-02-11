@@ -20,10 +20,12 @@ Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
     Route::get('/', 'HomeController@home')->name('index');
     Route::get('/products', 'HomeController@listings')->name('listings');
     Route::get('/settings', 'HomeController@settings')->name('settings');
-    Route::put('/settings/{user}', 'HomeController@setting')->name('settings.update');
-    Route::put('/contacts/{user}', 'ContactController@store')->name('contacts.store');
+    Route::patch('/settings/{user}', 'HomeController@setting')->name('settings.update');
+    Route::post('/contacts/{user}', 'ContactController@store')->name('contacts.store');
     Route::patch('/contacts/{contact}', 'ContactController@setmain')->name('contacts.setmain');
     Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
+    Route::get('/f2a/{user}', 'HomeController@f2a')->name('f2a');
+    Route::post('/f2a/{user}', 'HomeController@f2a_verify')->name('f2a.store');
 });
 
     // Only auth users

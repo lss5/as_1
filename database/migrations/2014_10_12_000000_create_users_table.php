@@ -25,6 +25,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->string('plan')->nullable();
+            $table->string('ga_secret')->nullable();
+            $table->boolean('ga_verify')->default(false);
+            $table->boolean('active')->default(false);
         });
     }
 

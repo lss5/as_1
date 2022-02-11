@@ -42,8 +42,8 @@
                         <a href="{{ route('home.index') }}" class="dropdown-item">
                             Profile
                         </a>
-                        <a href="{{ route('home.settings') }}" class="dropdown-item">
-                            Setting
+                        <a href="{{ route('home.listings') }}" class="dropdown-item">
+                            Listings
                         </a>
                         @can('viewAny', App\User::class)
                             <div class="dropdown-divider"></div>

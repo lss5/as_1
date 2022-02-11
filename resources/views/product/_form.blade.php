@@ -1,5 +1,35 @@
 <div class="row">
     <div class="col-sm-12 col-lg-3">
+        <label for="image1" class="mb-0">Photos</label>
+        @if ($product->exists)
+            <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary m-1" role="button" aria-pressed="false">Manage photos <i class="fas fa-camera-retro fa-sm"></i></a>
+        @else
+            <small class="form-text text-muted py-0 my-0">
+                You will be able to add product photos after create listing.
+            </small>
+        @endif
+    </div>
+    <div class="col-sm-12 col-lg-9 form-group">
+        <div class="row">
+        @if ($product->images->count() > 0)
+            @foreach ($product->images as $image)
+                <div class="col-sm-12 col-lg-4">
+                    <img src="{{ asset('storage/'.$image->link) }}" class="img-thumbnail" alt="...">
+                    <small class="form-text text-muted">
+                        <td>{{ date('d-m-Y H:i:s', strtotime($image->created_at)) }}</td>
+                    </small>
+                </div>
+            @endforeach
+        @else
+            <div class="col-12">
+                No product photos
+            </div>
+        @endisset
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-lg-3">
         <label for="title">Your product title</label>
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
@@ -137,36 +167,6 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-12 col-lg-3">
-        <label for="image1" class="mb-0">Photos</label>
-        @if ($product->exists)
-            <a href="{{ route('products.images', $product) }}" class="btn btn-outline-secondary m-1" role="button" aria-pressed="false">Manage photos <i class="fas fa-camera-retro fa-sm"></i></a>
-        @else
-            <small class="form-text text-muted py-0 my-0">
-                You will be able to add product photos after create listing.
-            </small>
-        @endif
-    </div>
-    <div class="col-sm-12 col-lg-9 form-group">
-        <div class="row">
-        @if ($product->images->count() > 0)
-            @foreach ($product->images as $image)
-                <div class="col-sm-12 col-lg-4">
-                    <img src="{{ asset('storage/'.$image->link) }}" class="img-thumbnail" alt="...">
-                    <small class="form-text text-muted">
-                        <td>{{ date('d-m-Y H:i:s', strtotime($image->created_at)) }}</td>
-                    </small>
-                </div>
-            @endforeach
-        @else
-            <div class="col-12">
-                No product photos
-            </div>
-        @endisset
-        </div>
     </div>
 </div>
 <div class="row">

@@ -20,7 +20,7 @@ class Image extends Model
         $save = parent::save($options);
 
         // crop image
-        $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(650, 400, function ($constraint) {
+        $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(720, 600, function ($constraint) {
             $constraint->upsize();
         });
         $imageFacade->save();

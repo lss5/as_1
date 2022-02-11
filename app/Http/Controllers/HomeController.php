@@ -9,13 +9,16 @@ use App\Product;
 use App\User;
 use App\Country;
 use App\Http\Requests\UpdateUser;
+use Sonata\GoogleAuthenticator\GoogleAuthenticator;
+use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
 class HomeController extends Controller
 {
     public function home(Request $request)
     {
-        // $request->session()->flash('success', 'Home action');
-        return view('home.index');
+        return view('home.index')->with([
+            'user' => Auth::user(),
+        ]);
     }
 
     public function index()
@@ -78,5 +81,51 @@ class HomeController extends Controller
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
     }
+
+    public function f2a(Request $request, User $user)
+    {
+        if (Auth::user()->can('update', $user)) {
+            if ($user->ga_verify) {
+                return redirect()->route('home.index')->with('success', 'Your account enable 2-Step Verification');
+            } else {
+                $ga = new GoogleAuthenticator;
+                if (empty($user->ga_secret)) {
+                    $user->ga_secret = $ga->generateSecret();
+                    $user->save();
+                    $request->session()->flash('success', 'Secret key generated');
+                }
+
+                $url = GoogleQrUrl::generate('AsicSeller.com('.$user->email.')', $user->ga_secret);
+            }
+
+            return view('home.2fa')->with([
+                'ga_url' => $url,
+                'user' => $user,
+            ]);
+        } else {
+            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        }
+    }
+
+    public function f2a_verify(Request $request, User $user)
+    {
+        if (Auth::user()->can('update', $user)) {
+            if ($user->ga_verify) {
+                return redirect()->route('home.index')->with('warning', 'Your account enable 2-Step Verification');
+            }
+            $ga = new GoogleAuthenticator;
+            $ga_code = $ga->getCode($user->ga_secret);
+            if ($ga_code == $request->input('code')) {
+                $user->ga_verify = true;
+                $user->save();
+
+                return redirect()->route('home.index')->with('success', '2-Step Verification enabled');
+            } else {
+                return redirect()->back()->with('warning', 'Code unmatch');
+            }
+        } else {
+            return redirect()->back();
+        }
+
+    }
 }
-// ->middleware('can:update,user')

@@ -80,7 +80,7 @@
                 </div>
             @else
                 <div class="col-md-12 col-lg-6">
-                    <img src="{{ asset('img/product-no-image.jpeg') }}" class="img img-fluid" alt="{{ $product->title }}">
+                    <img src="{{ asset('img/product-no-image.png') }}" class="img img-fluid" alt="{{ $product->title }}">
                 </div>
             @endif
         </div>

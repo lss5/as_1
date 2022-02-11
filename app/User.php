@@ -53,6 +53,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Contact');
     }
 
+    public function products()
+    {
+        return $this->hasMany('App\Product');
+    }
+
     public function contact_main()
     {
         return $this->hasMany('App\Contact')->where('ismain', true);

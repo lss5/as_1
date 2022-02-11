@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
 use Illuminate\Support\Str;
 use App\Filters\ProductFilters;
+use Illuminate\Support\Facades\Gate;
 
 class ProductController extends Controller
 {
@@ -42,38 +43,49 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('product.create')->with([
-            'product' => new Product,
-            'product_images' => 0,
-            'countries' => Country::all(),
-            'categories' => Category::all(),
-        ]);
+        $response = Gate::inspect('create', Product::class);
+
+        if ($response->allowed()) {
+            return view('product.create')->with([
+                'product' => new Product,
+                'product_images' => 0,
+                'countries' => Country::all(),
+                'categories' => Category::all(),
+            ]);
+        } else {
+            return redirect()->route('home.index')->with('danger', $response->message());
+        }
     }
 
     public function store(StoreProduct $request)
     {
-        $validated = $request->validated();
+        if (Auth::user()->can('create', Product::class))
+        {
+            $validated = $request->validated();
 
-        $country = Country::find($request->country);
-        $category = Category::find($request->category);
+            $country = Country::find($request->country);
+            $category = Category::find($request->category);
 
-        $product = new Product;
-        $product->title = Str::of($request->title)->ucfirst();
-        $product->description = Str::of($request->description)->trim();
-        $product->price = $request->price;
-        $product->quantity = $request->quantity;
-        $product->moq = $request->moq;
-        $product->power = $request->power;
-        $product->hashrate = $request->hashrate;
-        $product->hashrate_name = $request->hashrateName;
-        $product->active = $request->has('active') ? 1 : 0;
-        $product->isnew = $request->has('condition') ? 1 : 0;
-        $product->user_id = Auth::user()->id;
-        $product->country()->associate($country);
-        $product->save();
-        $product->categories()->attach($category->id);
+            $product = new Product;
+            $product->title = Str::of($request->title)->ucfirst();
+            $product->description = Str::of($request->description)->trim();
+            $product->price = $request->price;
+            $product->quantity = $request->quantity;
+            $product->moq = $request->moq;
+            $product->power = $request->power;
+            $product->hashrate = $request->hashrate;
+            $product->hashrate_name = $request->hashrateName;
+            $product->active = $request->has('active') ? 1 : 0;
+            $product->isnew = $request->has('condition') ? 1 : 0;
+            $product->user_id = Auth::user()->id;
+            $product->country()->associate($country);
+            $product->save();
+            $product->categories()->attach($category->id);
 
-        return redirect()->route('products.images', $product)->with('success', 'New listing created');
+            return redirect()->route('products.images', $product)->with('success', 'New listing created');
+        } else {
+            return redirect()->back()->with('danger', 'Sorry, but you do not create listing');
+        }
     }
 
     public function show(Product $product)

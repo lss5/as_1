@@ -4,8 +4,8 @@
 <form class="w-100" action="{{ route('home.settings.update', $user) }}" method="POST">
     <h3 class="font-weight-light">{{ __('Informations') }}</h3>
     <div class="row">
+        @method('PATCH')
         @csrf
-        {{ method_field('PUT') }}
 
         <div class="col-sm-12 col-md-6 mb-3">
             <label for="email">Email</label>
@@ -20,7 +20,7 @@
 
         <div class="col-sm-12 col-md-6 mb-3">
             <label for="name">Username</label>
-            <input id="name" type="name" @cannot('restore', $user) readonly @endcannot class="form-control" name="name" value="{{ old('name', $user->name) }}" required autofocus>
+            <input id="name" type="name" @cannot('restore', $user) readonly @endcannot class="form-control" name="name" value="{{ old('name', $user->name) }}" required>
 
             @error('name')
                 <span class="invalid-feedback" role="alert">
@@ -31,7 +31,7 @@
 
         <div class="col-sm-12 col-md-6 mb-3">
             <label for="first_name">First name</label>
-            <input id="first_name" name="first_name" type="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name', $user->first_name) }}" required autofocus>
+            <input id="first_name" name="first_name" type="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name', $user->first_name) }}" required>
 
             @error('first_name')
                 <span class="invalid-feedback" role="alert">
@@ -42,7 +42,7 @@
 
         <div class="col-sm-12 col-md-6 mb-3">
             <label for="last_name">Last name</label>
-            <input id="last_name" name="last_name" type="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name', $user->last_name) }}" required autofocus>
+            <input id="last_name" name="last_name" type="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name', $user->last_name) }}">
 
             @error('last_name')
                 <span class="invalid-feedback" role="alert">
@@ -55,7 +55,6 @@
             <label for="country">{{ __('Country') }}</label>
 
             <select name="country" id="country" required class="custom-select @error('country') is-invalid @enderror">
-                <option value selected>Country...</option>
                 @foreach (App\Country::all() as $country)
                     <option value="{{ $country->id }}" @if(old('country') == $country->id || $user->country_id == $country->id) selected @endif>{{ $country->name }}</option>
                 @endforeach
@@ -104,7 +103,6 @@
     <div class="col-sm-12 col-lg-6 form-group">
         <form action="{{ route('home.contacts.store', $user) }}" method="POST">
             @csrf
-            @method('PUT')
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                         <select class="custom-select @error('type') is-invalid @enderror" name="type" id="type">
