@@ -27,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->timestamps();
             $table->string('plan')->nullable();
             $table->string('ga_secret')->nullable();
-            $table->boolean('ga_verify')->default(false);
+            $table->timestamp('ga_verified_at')->nullable();
             $table->boolean('active')->default(false);
         });
     }

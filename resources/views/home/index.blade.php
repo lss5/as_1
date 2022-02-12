@@ -30,6 +30,15 @@
                     <th scope="row">Last name</th>
                     <td>{{ $user->last_name }}</td>
                 </tr>
+                <tr>
+                    <th scope="row">E-mail</th>
+                    <td>
+                        {{ $user->email }}
+                        @if($user->hasVerifiedEmail())
+                            <span class="text-success"><b>(verified)</b></span>
+                        @endif
+                    </td>
+                </tr>
                 @if($user->contacts()->count() < 1)
                     <tr>
                         <th scope="row">Contact</th>
@@ -46,7 +55,7 @@
                 <tr>
                     <th scope="row">2-Step Verification</th>
                     <td>
-                        @if($user->ga_verify)
+                        @if($user->hasVerifiedGA())
                             <span class="text-success"><b>On</b></span>
                         @else
                             Off

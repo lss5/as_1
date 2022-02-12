@@ -85,7 +85,7 @@ class HomeController extends Controller
     public function f2a(Request $request, User $user)
     {
         if (Auth::user()->can('update', $user)) {
-            if ($user->ga_verify) {
+            if ($user->hasVerifiedGA()) {
                 return redirect()->route('home.index')->with('success', 'Your account enable 2-Step Verification');
             } else {
                 $ga = new GoogleAuthenticator;
@@ -110,14 +110,13 @@ class HomeController extends Controller
     public function f2a_verify(Request $request, User $user)
     {
         if (Auth::user()->can('update', $user)) {
-            if ($user->ga_verify) {
+            if ($user->hasVerifiedGA()) {
                 return redirect()->route('home.index')->with('warning', 'Your account enable 2-Step Verification');
             }
             $ga = new GoogleAuthenticator;
             $ga_code = $ga->getCode($user->ga_secret);
             if ($ga_code == $request->input('code')) {
-                $user->ga_verify = true;
-                $user->save();
+                $user->markGAVerified();
 
                 return redirect()->route('home.index')->with('success', '2-Step Verification enabled');
             } else {

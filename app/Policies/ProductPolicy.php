@@ -23,13 +23,21 @@ class ProductPolicy
 
     public function create(User $user)
     {
-        if (empty($user->ga_verify)) {
+        if ($user->hasVerifiedGA()) {
+            if ($user->contacts()->count() > 0) {
+                if ($user->products()->count() >= config('product.limit_create_listing')) {
+                    return Response::deny('Sorry, but we have a limit on the creation of listings.');
+                } else {
+                    return true;
+                }
+            } else {
+                return Response::deny('You need add contact to create a listing. This can be done on the Setting page.');
+            }
+        } else {
             return Response::deny('You need to enable two-factor authentication to create a listing. This can be done on the Profile page.');
         }
-        if ($user->products()->count() >= config('product.limit_create_listing')) {
-            return Response::deny('Sorry, but we have a limit on the creation of listings.');
-        }
-        return true;
+
+        return false;
     }
 
     public function update(User $user, Product $product)

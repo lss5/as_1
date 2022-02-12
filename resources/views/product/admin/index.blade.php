@@ -9,7 +9,7 @@
                     <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseFilter collapseFilterButton">
                         Filters <i class="fas fa-search fa-xs"></i>
                     </button>
-                    <div class="input-group mx-2">
+                    <div class="input-group mx-2 w-auto">
                         <select class="custom-select custom-select-sm" id="order" name="order" aria-label="Sort">
                             @foreach (App\Product::$sorting as $key => $value)
                                 <option value="{{ $key }}" @if($key == request()->get('order')) selected @endif>{{ $value }}</option>
