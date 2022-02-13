@@ -11,5 +11,8 @@
                 <h3>No products selling</h3>
             </div>
         @endforelse
+        <div class="col-12 d-flex justify-content-center my-1">
+            {{ $products->withQueryString()->links() }}
+        </div>
     </div>
 @endsection

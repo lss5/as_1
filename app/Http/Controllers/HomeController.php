@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 use App\Product;
 use App\User;
@@ -28,8 +29,20 @@ class HomeController extends Controller
 
     public function listings(Request $request)
     {
-        $listings = Product::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
-        return view('home.listing')->with(['products' => $listings]);
+        $access = Gate::inspect('create', Product::class);
+        if ($access->allowed()) {
+
+        } else {
+            $request->session()->flash('warning', $access->message());
+        }
+
+        $listings = Product::where('user_id', Auth::user()->id)
+                        ->orderBy('created_at', 'desc')
+                        ->simplePaginate(9);
+
+        return view('home.listing')->with(
+            ['products' => $listings],
+        );
     }
 
     public function settings(Request $request)
