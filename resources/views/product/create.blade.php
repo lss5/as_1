@@ -13,6 +13,21 @@
             </div>
         @endif
         <hr class="pb-1">
+        <div class="row">
+            <div class="col-sm-12 col-lg-3">
+                <label for="image1" class="mb-0">Photos</label>
+            </div>
+            <div class="col-sm-12 col-lg-9 form-group">
+                <div class="row">
+                    <div class="col-12">
+                        No product photos
+                        <small class="form-text text-muted py-0 my-0">
+                            You will be able to add product photos after create listing.
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
             @csrf
             @include('product._form')

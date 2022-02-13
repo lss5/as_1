@@ -48,12 +48,12 @@
                         @can('viewAny', App\User::class)
                             <div class="dropdown-divider"></div>
                             <a href="{{ route('admin.users.index') }}" class="dropdown-item">
-                                User management
+                                Users management
                             </a>
                         @endcan
                         @can('viewAny', App\Product::class)
                             <a href="{{ route('admin.products.index') }}" class="dropdown-item">
-                                Listing manage
+                                Listings manage
                             </a>
                         @endcan
                         <div class="dropdown-divider"></div>

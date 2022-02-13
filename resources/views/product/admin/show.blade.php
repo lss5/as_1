@@ -17,6 +17,7 @@
                             <thead>
                                 <tr>
                                     <th scope="col">Active</th>
+                                    <th scope="col">User</th>
                                     <th scope="col">Date created</th>
                                     <th scope="col">Date updated</th>
                                     <th scope="col">Photos</th>
@@ -25,6 +26,7 @@
                             <tbody>
                                 <tr>
                                     <th scope="row">@if ($product->active) <i class="fas fa-check-square"></i> @else <i class="fas fa-minus-square"></i> @endif</th>
+                                    <td>{{ $product->user->name }}</td>
                                     <td>{{ date('d M Y H:i:s', strtotime($product->created_at)) }}</td>
                                     <td>{{ date('d M Y H:i:s', strtotime($product->updated_at)) }}</td>
                                     <td>{{ $product->images()->count() }}</td>

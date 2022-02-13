@@ -31,10 +31,9 @@ Route::prefix('home')->middleware('auth','verified')->name('home.')->group(funct
     // Only auth users
 Route::middleware('auth')->group(function(){
     Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
-    Route::get('/products/{product}/edit/images', 'ProductController@image')->name('products.images');
     Route::put('/products/{product}/image', 'ProductController@addimage')->name('products.addimage');
 
-    Route::resource('/images', 'ImageController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
+    Route::resource('/images', 'ImageController', ['only' =>['destroy']]);
 });
 Route::resource('/products', 'ProductController')->except(['create', 'edit', 'store', 'update', 'destroy']);
 

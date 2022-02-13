@@ -82,7 +82,7 @@ class ProductController extends Controller
             $product->save();
             $product->categories()->attach($category->id);
 
-            return redirect()->route('products.images', $product)->with('success', 'New listing created');
+            return redirect()->route('products.edit', $product)->with('success', 'New listing created');
         } else {
             return redirect()->back()->with('danger', 'Sorry, but you do not create listing');
         }
@@ -162,13 +162,21 @@ class ProductController extends Controller
                 'link' => $request->file('image')->store('products', 'public'),
             ]);
 
-            return redirect()->route('products.images', $product)->with('success', 'Photo uploaded');
+            return redirect()->route('products.edit', $product)->with('success', 'Photo uploaded');
         }
     }
 
     public function destroy(Product $product)
     {
-        return redirect()->route('products.show', $product)->with('danger', 'Listing deleted');
+        if (Auth::user()->can('delete', $product)) {
+            foreach ($product->images as $image) {
+                $image->delete();
+            }
+            $product->delete();
+            return redirect()->route('home.listings')->with('success', 'Product was deleted');
+        } else {
+            return redirect()->back()->with('warning', 'You can`t delete is item');
+        }
     }
 
     public function image(Product $product)

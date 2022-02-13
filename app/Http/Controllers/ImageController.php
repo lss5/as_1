@@ -16,6 +16,6 @@ class ImageController extends Controller
         }
 
         $image->delete();
-        return redirect()->route('products.images', $image->product)->with('success', 'Image deleted');
+        return redirect()->route('products.edit', $image->product)->with('success', 'Image deleted');
     }
 }

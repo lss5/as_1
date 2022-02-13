@@ -1,6 +1,7 @@
 @extends('home.layout')
 
 @section('content_p')
+    <h3 class="font-weight-light">{{ __('Listings') }}</h3>
     <div class="row">
         @forelse ($products as $product)
             <div class="col-md-12 col-lg-4 my-2">
@@ -8,7 +9,7 @@
             </div>
         @empty
             <div class="col-12">
-                <h3>No products selling</h3>
+                <h2 class="h4">No products selling</h2>
             </div>
         @endforelse
         <div class="col-12 d-flex justify-content-center my-1">

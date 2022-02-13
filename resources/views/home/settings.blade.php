@@ -67,7 +67,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 my-1">
-            <button type="submit" class="btn btn-outline-success">Save</button>
+            <button type="submit" onclick='return confirm("Save change?");' class="btn btn-outline-success">Save</button>
         </div>
     </div>
 </form>
@@ -90,7 +90,7 @@
                 <form action="{{ route('home.contacts.destroy', $contact) }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="btn btn-outline-danger mx-1" onclick='return confirm("Удалить ?");'>
+                    <button type="submit" onclick='return confirm("Delete contact?");' class="btn btn-outline-danger mx-1" onclick='return confirm("Удалить ?");'>
                         <i class="fas fa-trash"></i>Delete
                     </button>
                 </form>
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-12 my-1">
-                <button type="submit" class="btn btn-outline-success">Add contact</button>
+                <button type="submit" onclick='return confirm("Add contact?");' class="btn btn-outline-success">Add contact</button>
             </div>
         </form>
     </div>

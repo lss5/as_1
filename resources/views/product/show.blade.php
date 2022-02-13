@@ -85,12 +85,19 @@
             @endif
         </div>
         @can('update', $product)
-        <div class="row">
-            <div class="col-md-12">
-                <hr class="py-1">
-                <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-primary btn-sm mx-2">Edit</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="py-1">
+                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
+                        <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-primary btn-sm mx-1">Edit</a>
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-danger mx-1" onclick='return confirm("Delete item?");'>
+                            Delete <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
         @endcan
     </div>
 @endsection
