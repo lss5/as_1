@@ -40,9 +40,7 @@ class HomeController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(9);
 
-        return view('home.listing')->with(
-            ['products' => $listings],
-        );
+        return view('home.listing')->with(['products' => $listings]);
     }
 
     public function settings(Request $request)
