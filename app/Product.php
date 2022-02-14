@@ -21,7 +21,6 @@ class Product extends Model
         'power',
         'hashrate',
         'hashrate_name',
-        'active',
         'isnew',
     ];
 
@@ -67,5 +66,11 @@ class Product extends Model
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);
+    }
+
+    public function delete()
+    {
+        $this->forceFill(['active_at' => null])->save();
+        return parent::delete();
     }
 }

@@ -14,6 +14,7 @@ use App\Http\Requests\StoreProduct;
 use Illuminate\Support\Str;
 use App\Filters\ProductFilters;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 class ProductController extends Controller
 {
@@ -31,7 +32,7 @@ class ProductController extends Controller
         }
 
         $products = Product::filter($filters)
-                ->where('active', 1)
+                ->whereDate('active_at', '>', Carbon::now())
                 ->orderBy('products.created_at', 'desc')
                 ->simplePaginate(21);
 
@@ -77,7 +78,6 @@ class ProductController extends Controller
             $product->power = $request->power;
             $product->hashrate = $request->hashrate;
             $product->hashrate_name = $request->hashrateName;
-            $product->active = $request->has('active') ? 1 : 0;
             $product->isnew = $request->has('condition') ? 1 : 0;
             $product->user_id = Auth::user()->id;
             $product->country()->associate($country);
@@ -128,7 +128,6 @@ class ProductController extends Controller
                 'power' => $request->power,
                 'hashrate' => $request->hashrate,
                 'hashrate_name' => $request->hashrateName,
-                'active' => $request->has('active') ? 1 : 0,
                 'isnew' => $request->has('condition') ? 1 : 0,
             ]);
 
@@ -197,5 +196,20 @@ class ProductController extends Controller
         return view('product.user')->with([
             'user' => $user,
         ]);
+    }
+
+    public function reactivate(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product)) {
+            if(!is_null($product->active_at) && $product->active_at < Carbon::now()) {
+                $product->forceFill([
+                    'active_at' => Carbon::now()->addMonths(2),
+                ])->save();
+            }
+
+            return redirect()->route('home.listings')->with('success', 'Product republished');
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+        }
     }
 }

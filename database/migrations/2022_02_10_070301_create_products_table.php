@@ -28,8 +28,8 @@ class CreateProductsTable extends Migration
             $table->Integer('power')->nullable();
             $table->Integer('hashrate')->nullable();
             $table->String('hashrate_name')->nullable();
-            $table->boolean('active')->default(true);
             $table->boolean('isnew')->default(false);
+            $table->timestamp('active_at')->nullable();
         });
     }
 

@@ -53,14 +53,12 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Chad', 'TD', 'TCD', '148', 'ISO 3166-2:TD');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Chile', 'CL', 'CHL', '152', 'ISO 3166-2:CL');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('China', 'CN', 'CHN', '156', 'ISO 3166-2:CN');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Christmas Island', 'CX', 'CXR', '162', 'ISO 3166-2:CX');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Colombia', 'CO', 'COL', '170', 'ISO 3166-2:CO');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Comoros', 'KM', 'COM', '174', 'ISO 3166-2:KM');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Congo', 'CG', 'COG', '178', 'ISO 3166-2:CG');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Congo, the Democratic Republic of the', 'CD', 'COD', '180', 'ISO 3166-2:CD');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Cook Islands', 'CK', 'COK', '184', 'ISO 3166-2:CK');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Costa Rica', 'CR', 'CRI', '188', 'ISO 3166-2:CR');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Côte d\'Ivoire', 'CI', 'CIV', '384', 'ISO 3166-2:CI');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Croatia', 'HR', 'HRV', '191', 'ISO 3166-2:HR');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Cuba', 'CU', 'CUB', '192', 'ISO 3166-2:CU');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Curaçao', 'CW', 'CUW', '531', 'ISO 3166-2:CW');
@@ -78,13 +76,9 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Estonia', 'EE', 'EST', '233', 'ISO 3166-2:EE');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Ethiopia', 'ET', 'ETH', '231', 'ISO 3166-2:ET');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Falkland Islands (Malvinas)', 'FK', 'FLK', '238', 'ISO 3166-2:FK');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Faroe Islands', 'FO', 'FRO', '234', 'ISO 3166-2:FO');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Fiji', 'FJ', 'FJI', '242', 'ISO 3166-2:FJ');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Finland', 'FI', 'FIN', '246', 'ISO 3166-2:FI');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('France', 'FR', 'FRA', '250', 'ISO 3166-2:FR');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('French Guiana', 'GF', 'GUF', '254', 'ISO 3166-2:GF');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('French Polynesia', 'PF', 'PYF', '258', 'ISO 3166-2:PF');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('French Southern Territories', 'TF', 'ATF', '260', 'ISO 3166-2:TF');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Gabon', 'GA', 'GAB', '266', 'ISO 3166-2:GA');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Gambia', 'GM', 'GMB', '270', 'ISO 3166-2:GM');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Georgia', 'GE', 'GEO', '268', 'ISO 3166-2:GE');
@@ -96,7 +90,6 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Grenada', 'GD', 'GRD', '308', 'ISO 3166-2:GD');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guadeloupe', 'GP', 'GLP', '312', 'ISO 3166-2:GP');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guatemala', 'GT', 'GTM', '320', 'ISO 3166-2:GT');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guernsey', 'GG', 'GGY', '831', 'ISO 3166-2:GG');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guinea', 'GN', 'GIN', '324', 'ISO 3166-2:GN');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guinea-Bissau', 'GW', 'GNB', '624', 'ISO 3166-2:GW');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Guyana', 'GY', 'GUY', '328', 'ISO 3166-2:GY');
@@ -154,7 +147,6 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Monaco', 'MC', 'MCO', '492', 'ISO 3166-2:MC');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Mongolia', 'MN', 'MNG', '496', 'ISO 3166-2:MN');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Montenegro', 'ME', 'MNE', '499', 'ISO 3166-2:ME');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Montserrat', 'MS', 'MSR', '500', 'ISO 3166-2:MS');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Morocco', 'MA', 'MAR', '504', 'ISO 3166-2:MA');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Mozambique', 'MZ', 'MOZ', '508', 'ISO 3166-2:MZ');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Myanmar', 'MM', 'MMR', '104', 'ISO 3166-2:MM');
@@ -205,13 +197,11 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Seychelles', 'SC', 'SYC', '690', 'ISO 3166-2:SC');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Sierra Leone', 'SL', 'SLE', '694', 'ISO 3166-2:SL');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Singapore', 'SG', 'SGP', '702', 'ISO 3166-2:SG');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Sint Maarten (Dutch part)', 'SX', 'SXM', '534', 'ISO 3166-2:SX');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Slovakia', 'SK', 'SVK', '703', 'ISO 3166-2:SK');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Slovenia', 'SI', 'SVN', '705', 'ISO 3166-2:SI');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Solomon Islands', 'SB', 'SLB', '090', 'ISO 3166-2:SB');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Somalia', 'SO', 'SOM', '706', 'ISO 3166-2:SO');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('South Africa', 'ZA', 'ZAF', '710', 'ISO 3166-2:ZA');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('South Georgia and the South Sandwich Islands', 'GS', 'SGS', '239', 'ISO 3166-2:GS');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Spain', 'ES', 'ESP', '724', 'ISO 3166-2:ES');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Sri Lanka', 'LK', 'LKA', '144', 'ISO 3166-2:LK');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Sudan', 'SD', 'SDN', '736', 'ISO 3166-2:SD');
@@ -248,7 +238,6 @@ INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_co
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Viet Nam', 'VN', 'VNM', '704', 'ISO 3166-2:VN');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Virgin Islands, British', 'VG', 'VGB', '092', 'ISO 3166-2:VG');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Virgin Islands, U.S.', 'VI', 'VIR', '850', 'ISO 3166-2:VI');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Wallis and Futuna', 'WF', 'WLF', '876', 'ISO 3166-2:WF');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Western Sahara', 'EH', 'ESH', '732', 'ISO 3166-2:EH');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Yemen', 'YE', 'YEM', '887', 'ISO 3166-2:YE');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Zambia', 'ZM', 'ZMB', '894', 'ISO 3166-2:ZM');

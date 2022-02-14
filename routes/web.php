@@ -33,6 +33,7 @@ Route::prefix('home')->middleware('auth','verified')->name('home.')->group(funct
 Route::middleware('auth')->group(function(){
     Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
     Route::put('/products/{product}/image', 'ProductController@addimage')->name('products.addimage');
+    Route::put('/products/{product}/reactivate', 'ProductController@reactivate')->name('products.reactivate');
 
     Route::resource('/images', 'ImageController', ['only' =>['destroy']]);
 });
@@ -40,7 +41,9 @@ Route::resource('/products', 'ProductController')->except(['create', 'edit', 'st
 Route::get('/users/{user}', 'ProductController@user')->name('products.user');
 
     // Only moder users
-Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
-    Route::resource('/admin/users', 'UsersController');
-    Route::resource('/admin/products', 'ProductsController');
+Route::prefix('admin')->namespace('Admin')->name('admin.')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/users', 'UsersController');
+    Route::resource('/products', 'ProductsController');
+    Route::put('/products/activate/{product}', 'ProductsController@activate')->name('products.activate');
+    Route::put('/products/restore/{product}', 'ProductsController@restore')->name('products.restore');
 });

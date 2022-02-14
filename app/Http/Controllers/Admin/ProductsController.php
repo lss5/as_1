@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Filters\ProductFilters;
+use Carbon\Carbon;
 
 class ProductsController extends Controller
 {
@@ -21,6 +22,7 @@ class ProductsController extends Controller
             }
 
             $products = Product::filter($filters)
+                ->withTrashed()
                 ->orderBy('created_at', 'desc')
                 ->simplePaginate(50);
 
@@ -59,9 +61,33 @@ class ProductsController extends Controller
                 $image->delete();
             }
             $product->delete();
-            return redirect()->route('admin.products.index')->with('success', 'Product was deleted');
+            return redirect()->route('admin.products.index')->with('success', 'Product deleted');
         } else {
             return redirect()->back()->with('warning', 'You can`t delete is item');
+        }
+    }
+
+    public function activate(Request $request, Product $product)
+    {
+        if (Auth::user()->can('restore', $product)) {
+            $product->forceFill([
+                'active_at' => Carbon::now()->addMonth(),
+            ])->save();
+
+            return redirect()->route('admin.products.index')->with('success', 'Product activated');
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+        }
+    }
+
+    public function restore(Request $request, $product)
+    {
+        $product = Product::withTrashed()->find($product);
+        if (Auth::user()->can('restore', $product)) {
+            $product->restore();
+            return redirect()->route('admin.products.index')->with('success', 'Product restored');
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
         }
     }
 }

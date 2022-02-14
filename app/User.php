@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Carbon\Carbon;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -56,6 +57,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function products()
     {
         return $this->hasMany('App\Product');
+    }
+
+    public function products_active()
+    {
+        return $this->hasMany('App\Product')->whereDate('active_at', '>', Carbon::now());
     }
 
     public function contact_main()

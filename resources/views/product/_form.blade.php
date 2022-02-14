@@ -136,19 +136,3 @@
         @enderror
     </div>
 </div>
-<div class="row">
-    <div class="col-sm-12 col-lg-3">
-        <label for="active">Active</label>
-    </div>
-    <div class="col-sm-12 col-lg-9 form-group">
-        <div class="custom-control custom-switch">
-            <input id="active" name="active" type="checkbox" class="custom-control-input"
-            @if ($product->exists)
-                @if (old('active') ?? $product->active == 1) checked="checked" @endif
-            @else
-                checked="checked"
-            @endif>
-            <label class="custom-control-label" for="active">Show listing in search site</label>
-        </div>
-    </div>
-</div>

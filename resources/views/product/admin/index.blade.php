@@ -52,15 +52,14 @@
                             <th scope="col">MOQ</th>
                             <th scope="col">Quantity</th>
                             <th scope="col">Create</th>
-                            <th scope="col">Update</th>
                             <th scope="col">Active</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
-                        <tr>
+                        <tr @if(!is_null($product->deleted_at))class="table-secondary"@endif>
                             <th scope="row">{{ $product->id }}</th>
-                            <td><a href="{{ route('admin.products.show', $product) }}">{!! Str::limit($product->title, 25, '') !!}</a></td>
+                            <td><a href="{{ route('products.show', $product) }}">{!! Str::limit($product->title, 25, '') !!}</a></td>
                             <td>{{ $product->user->name }}</td>
                             <td>{!! Str::limit($product->country->name, 22, '') !!}</td>
                             <td>{{ $product->price }}</td>
@@ -68,9 +67,36 @@
                             <td>{{ $product->power }}</td>
                             <td>{{ $product->moq }}</td>
                             <td>{{ $product->quantity }}</td>
-                            <td>{{ date('d-m-Y H:i:s', strtotime($product->created_at)) }}</td>
-                            <td>{{ date('d-m-Y H:i:s', strtotime($product->updated_at)) }}</td>
-                            <td class="text-center">@if ($product->active) <i class="fas fa-check fa-2x"></i> @else <i class="fas fa-times fa-2x"></i> @endif</td>
+                            <td>{{ date('d-m-Y', strtotime($product->created_at)) }}</td>
+                            <td class="text-center">
+                                @if($product->trashed())
+                                    <form action="{{ route('admin.products.restore', $product) }}" method="POST">
+                                        @csrf
+                                        @method('PUT')
+                                        <button class="btn btn-outline-primary btn-sm" type="submit">Restore</button>
+                                    </form>
+                                @else
+                                    @if(is_null($product->active_at))
+                                        <form action="{{ route('admin.products.activate', $product) }}" method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <button class="btn btn-success btn-sm" type="submit">Activate</button>
+                                        </form>
+                                    @else
+                                        @if(now() < $product->active_at)
+                                            <button type="button" class="btn btn-sm btn-outline-success">
+                                                Act {{ date('d M', strtotime($product->active_at)) }}
+                                            </button>
+                                        @else
+                                            <form action="{{ route('products.reactivate', $product) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-outline-secondary">RePublic ({{ date('d M', strtotime($product->active_at)) }})</button>
+                                            </form>
+                                        @endif
+                                    @endif
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

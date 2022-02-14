@@ -47,15 +47,15 @@
         </div>
     </div>
     <div class="row my-2">
-        @if($user->products()->count() < 1)
+        @if($user->products_active()->count() < 1)
             <div class="col-12">
-                <h5>No find results</h5>
+                <h5>No listings</h5>
             </div>
         @else
             <div class="col-12">
                 <h2 class="h4">listings</h1>
             </div>
-            @forelse ($user->products as $product)
+            @forelse ($user->products_active as $product)
             <div class="col-sm-12 col-md-6 col-lg-4 my-1">
                 @include('partials.product_card')
             </div>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Carbon\Carbon;
 
 use App\Product;
 use App\User;
@@ -34,13 +35,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $popular = Product::where('active', 1)
+        $popular = Product::whereDate('active_at', '>', Carbon::now())
                 ->has('images')
                 ->orderBy('views', 'desc')
                 ->limit(4)
                 ->get();
 
-        $newest = Product::where('active', 1)
+        $newest = Product::whereDate('active_at', '>', Carbon::now())
                 ->has('images')
                 ->orderBy('created_at', 'desc')
                 ->limit(4)

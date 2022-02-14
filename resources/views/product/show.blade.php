@@ -54,6 +54,12 @@
                                     @endforeach
                                 </td>
                             </tr>
+                            <tr>
+                                <th scope="row">Published</th>
+                                <td>
+                                    {{ date('d M Y', strtotime($product->created_at)) }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
