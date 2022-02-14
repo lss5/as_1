@@ -17,7 +17,6 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::prefix('home')->middleware('auth','verified')->name('home.')->group(function(){
-    Route::get('/', 'HomeController@home')->name('index');
     Route::get('/products', 'HomeController@listings')->name('listings');
     Route::get('/settings', 'HomeController@settings')->name('settings');
     Route::patch('/settings/{user}', 'HomeController@setting')->name('settings.update');
@@ -26,6 +25,7 @@ Route::prefix('home')->middleware('auth','verified')->name('home.')->group(funct
     Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
     Route::get('/f2a/{user}', 'HomeController@f2a')->name('f2a');
     Route::post('/f2a/{user}', 'HomeController@f2a_verify')->name('f2a.store');
+    Route::get('/{id?}', 'HomeController@home')->name('index');
     // Route::get('/messages', 'MessageController@index')->name('messages');
 });
 

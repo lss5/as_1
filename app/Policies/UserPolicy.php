@@ -16,7 +16,7 @@ class UserPolicy
 
     public function view(User $user, User $model)
     {
-        return $user->hasRole('admin');
+        return $user->hasRole('admin') || $user->id === $model->id;
     }
 
     public function create(User $user)

@@ -15,10 +15,20 @@ use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
 class HomeController extends Controller
 {
-    public function home(Request $request)
+    public function home(Request $request, $id = null)
     {
+        $user = User::find($id);
+
+        if($user) {
+            if (Auth::user()->cannot('view', $user)) {
+                $user = Auth::user();
+            }
+        } else {
+            $user = Auth::user();
+        }
+
         return view('home.index')->with([
-            'user' => Auth::user(),
+            'user' => $user,
         ]);
     }
 
