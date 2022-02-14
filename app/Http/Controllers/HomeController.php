@@ -34,7 +34,22 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('welcome');
+        $popular = Product::where('active', 1)
+                ->has('images')
+                ->orderBy('views', 'desc')
+                ->limit(4)
+                ->get();
+
+        $newest = Product::where('active', 1)
+                ->has('images')
+                ->orderBy('created_at', 'desc')
+                ->limit(4)
+                ->get();
+
+        return view('welcome')->with([
+            'popular' => $popular,
+            'newest' => $newest,
+        ]);
     }
 
     public function listings(Request $request)

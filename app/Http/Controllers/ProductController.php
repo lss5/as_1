@@ -181,19 +181,6 @@ class ProductController extends Controller
         }
     }
 
-    public function image(Product $product)
-    {
-        if (Auth::user()->can('update', $product))
-        {
-            return view('product.image')->with([
-                'product' => $product,
-                'product_images' => $product->images->count(),
-            ]);
-        } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
-        }
-    }
-
     public function storeImage(Product $product, array $files)
     {
         foreach ($files as $key => $file) {
