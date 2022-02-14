@@ -16,7 +16,14 @@
             <tbody>
                 <tr>
                     <th scope="row">Username</th>
-                    <td>{{ $user->name }}</td>
+                    <td>
+                        {{ $user->name }}
+                        @if($user->hasVerifiedUser())
+                            <span class="text-success"><b>(verified)</b></span>
+                        @else
+                            <a href="#" type="button" class="btn btn-success btn-sm mx-2">Verify <i class="fas fa-user-check"></i></a>
+                        @endif
+                    </td>
                 </tr>
                 <tr>
                     <th scope="row">Country</th>

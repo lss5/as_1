@@ -4,12 +4,19 @@
     <div class="container py-3 my-3">
         <div class="row">
             <div class="col-12">
-                <h1 class="h2">{{ $product->title }}</h1>
+                <h1 class="h3">{{ $product->title }}</h1>
             </div>
             <div class="col-md-12 col-lg-6">
-                <h4>Seller: {{ $product->user->name }}</h4>
+                <h5>Seller: {{ $product->user->name }}</h5>
+                @if($product->user->hasVerifiedUser())
+                    <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
+                @endif
                 <table class="table table-sm w-75">
                     <tbody>
+                        <tr>
+                            <th scope="row">Condition</th>
+                            <td>@if($product->isnew) New @else Used @endif</td>
+                        </tr>
                         <tr>
                             <th scope="row">Price</th>
                             <td>{{ $product->price }} $</td>
@@ -34,7 +41,7 @@
                             <th scope="row">Country</th>
                             <td>
                                 <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
-                                {!! Str::limit($product->country->name, 22, '') !!}
+                                {{ $product->country->name }}
                             </td>
                         </tr>
                         <tr>

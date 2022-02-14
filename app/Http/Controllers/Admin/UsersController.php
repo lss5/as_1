@@ -59,12 +59,19 @@ class UsersController extends Controller
             $user->first_name = $request->first_name;
             $user->last_name = $request->last_name;
             $user->bio = $request->bio;
+            if (is_null($request->verified)) {
+                $user->user_verified_at = null;
+            }
             $user->save();
 
             if ($user->country_id != $request->country) {
                 $country = Country::find($request->country);
                 $user->country()->associate($country);
                 $user->save();
+            }
+
+            if (is_null($user->user_verified_at) && $request->verified == '1') {
+                $user->markUserVerified();
             }
     
             return redirect()->route('admin.users.index')->with('success', 'User has been updated.');

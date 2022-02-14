@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-8 my-2">
+        <div class="col-md-12 col-lg-12 my-2">
             <h3>Registered users</h3>
             <table class="table">
                 <thead class="thead-dark">
@@ -19,10 +19,13 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <td>{{ $user->name }}</td>
+                        <td>
+                            @if($user->hasVerifiedUser()) <i class="fas fa-user-check text-success" data-toggle="tooltip" data-placement="top" title="user verified:{{ $user->user_verified_at }}"></i>@endif
+                            {{ $user->name }}
+                        </td>
                         <td>
                             {{ $user->email }}
-                            @if($user->hasVerifiedEmail()) <i class="fas fa-envelope text-success" data-toggle="tooltip" data-placement="top" title="email verified:{{ $user->email_verified_at }}"></i>@endif
+                            @if($user->hasVerifiedEmail()) <i class="fas fa-envelope text-primary" data-toggle="tooltip" data-placement="top" title="email verified:{{ $user->email_verified_at }}"></i>@endif
                             @if($user->hasVerifiedGA()) <i class="fab fa-google-plus text-muted" data-toggle="tooltip" data-placement="top" title="2FA verified:{{ $user->ga_verified_at }}"></i>@endif
                         </td>
                         <td>

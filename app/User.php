@@ -94,4 +94,16 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
     }
 
+    public function hasVerifiedUser()
+    {
+        return ! is_null($this->user_verified_at);
+    }
+
+    public function markUserVerified()
+    {
+        return $this->forceFill([
+            'user_verified_at' => $this->freshTimestamp(),
+        ])->save();
+    }
+
 }

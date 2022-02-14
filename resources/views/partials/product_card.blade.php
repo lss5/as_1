@@ -8,7 +8,11 @@
         <h5 class="card-title">
             <a href="{{ route('products.show', $product) }}" class="stretched-link text-decoration-none text-reset">{!! Str::limit($product->title, 28, '') !!}</a>
             <p class="lead d-inline">
-                <span class="badge badge-success">{{ $product->price }} $</span>
+                @if($product->user->hasVerifiedUser())
+                    <span class="badge badge-success">{{ $product->price }} $</span>
+                @else
+                    <span class="badge badge-secondary">{{ $product->price }} $</span>
+                @endif
             </p>
         </h5>
         <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrates[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
@@ -22,7 +26,12 @@
                     <small>{!! Str::limit($product->country->name, 22, '') !!}</small>
                 </div>
                 <div class="col-auto">
-                    <i class="fas fa-user fa-sm text-muted"></i> {{ $product->user->name}}
+                    @if($product->user->hasVerifiedUser())
+                        <i class="fas fa-user-check text-success"></i>
+                    @else
+                        <i class="fas fa-user fa-sm text-muted"></i>
+                    @endif
+                    {{ $product->user->name}}
                 </div>
             </div>
         </li>

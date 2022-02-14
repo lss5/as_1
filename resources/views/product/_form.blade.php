@@ -37,8 +37,6 @@
             <input id="condition" name="condition" type="checkbox" class="custom-control-input"
             @if ($product->exists)
                 @if (old('condition') ?? $product->isnew == 1) checked="checked" @endif
-            @else
-                checked="checked"
             @endif>
             <label class="custom-control-label" for="condition">Brand new</label>
         </div>

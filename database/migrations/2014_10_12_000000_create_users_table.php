@@ -29,6 +29,7 @@ class CreateUsersTable extends Migration
             $table->string('ga_secret')->nullable();
             $table->timestamp('ga_verified_at')->nullable();
             $table->boolean('active')->default(false);
+            $table->timestamp('user_verified_at')->nullable();
         });
     }
 
