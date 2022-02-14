@@ -11,49 +11,52 @@
                 @if($product->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
                 @endif
-                <table class="table table-sm w-75">
-                    <tbody>
-                        <tr>
-                            <th scope="row">Condition</th>
-                            <td>@if($product->isnew) New @else Used @endif</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Price</th>
-                            <td>{{ $product->price }} $</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Hashrate</th>
-                            <td>{{ $product->hashrate }} {{ App\Product::$hashrates[$product->hashrate_name] }}</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Power</th>
-                            <td>{{ $product->power }} W</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Quantity</th>
-                            <td>{{ $product->quantity }} pcs</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Minimum order quantity</th>
-                            <td>{{ $product->moq }} pcs</td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Country</th>
-                            <td>
-                                <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
-                                {{ $product->country->name }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">Category</th>
-                            <td>
-                                @foreach($product->categories as $category)
-                                    {{ $category->name }}
-                                @endforeach
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="col-sm-12 col-lg-10">
+
+                    <table class="table table-sm w-100">
+                        <tbody>
+                            <tr>
+                                <th scope="row">Condition</th>
+                                <td>@if($product->isnew) New @else Used @endif</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Price</th>
+                                <td>{{ $product->price }} $</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Hashrate</th>
+                                <td>{{ $product->hashrate }} {{ App\Product::$hashrates[$product->hashrate_name] }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Power</th>
+                                <td>{{ $product->power }} W</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Quantity</th>
+                                <td>{{ $product->quantity }} pcs</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Minimum order quantity</th>
+                                <td>{{ $product->moq }} pcs</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Country</th>
+                                <td>
+                                    <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
+                                    {{ $product->country->name }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Category</th>
+                                <td>
+                                    @foreach($product->categories as $category)
+                                        {{ $category->name }}
+                                    @endforeach
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
                 <h4>Contacts</h4>
                 <table class="table table-sm table-borderless w-auto">
                     <tbody>
