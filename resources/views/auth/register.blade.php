@@ -75,7 +75,7 @@
                 @enderror
             </div>
 
-            <select name="country" id="country" class="custom-select custom-select-lg @error('country') is-invalid @enderror">
+            <select name="country" id="country" class="custom-select @error('country') is-invalid @enderror">
                 <option value selected>Select a country</option>
                 @foreach (App\Country::all() as $country)
                     <option value="{{ $country->id }}" @if(old('country') == $country->id) selected @endif>{{ $country->name }}</option>

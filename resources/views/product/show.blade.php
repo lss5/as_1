@@ -67,7 +67,7 @@
                         @endif
                             <td>{{ $contact->value }}</td>
                         </tr>
-                        @endforeach
+                    @endforeach
                     </tbody>
                 </table>
                 {{ $product->description }}
