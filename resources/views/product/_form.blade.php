@@ -120,12 +120,11 @@
     </div>
     <div class="col-sm-12 col-lg-9 form-group">
         <select class="custom-select @error('country') is-invalid @enderror" aria-describedby="countryHelp" name="country" id="country">
-            <option value @if($product->country_id) selected @endif>Country...</option>
             @foreach ($countries as $country)
                 @if($product->exists)
                     <option value="{{ $country->id }}" @if(old('country') == $country->id || $product->country_id == $country->id) selected @endif>{{ $country->name }}</option>
                 @else
-                    <option value="{{ $country->id }}" @if(old('country') == $country->id) selected @endif>{{ $country->name }}</option>
+                    <option value="{{ $country->id }}" @if(old('country') == $country->id || $country->id == Auth::user()->country_id) selected @endif>{{ $country->name }}</option>
                 @endif
             @endforeach
         </select>
