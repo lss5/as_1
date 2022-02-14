@@ -6,6 +6,8 @@ use App\Product;
 use App\Image;
 use App\Country;
 use App\Category;
+use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreProduct;
@@ -201,5 +203,12 @@ class ProductController extends Controller
         }
 
         return true;
+    }
+
+    public function user(User $user)
+    {
+        return view('product.user')->with([
+            'user' => $user,
+        ]);
     }
 }

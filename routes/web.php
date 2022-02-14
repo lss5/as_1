@@ -26,6 +26,7 @@ Route::prefix('home')->middleware('auth','verified')->name('home.')->group(funct
     Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
     Route::get('/f2a/{user}', 'HomeController@f2a')->name('f2a');
     Route::post('/f2a/{user}', 'HomeController@f2a_verify')->name('f2a.store');
+    // Route::get('/messages', 'MessageController@index')->name('messages');
 });
 
     // Only auth users
@@ -36,6 +37,7 @@ Route::middleware('auth')->group(function(){
     Route::resource('/images', 'ImageController', ['only' =>['destroy']]);
 });
 Route::resource('/products', 'ProductController')->except(['create', 'edit', 'store', 'update', 'destroy']);
+Route::get('/users/{user}', 'ProductController@user')->name('products.user');
 
     // Only moder users
 Route::namespace('Admin')->name('admin.')->middleware('auth')->group(function(){
