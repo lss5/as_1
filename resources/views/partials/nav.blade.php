@@ -40,10 +40,14 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('home.index') }}" class="dropdown-item">
-                            Profile
+                            Home
                         </a>
-                        <a href="{{ route('home.listings') }}" class="dropdown-item">
-                            Listings
+                        <a href="{{ route('home.messages.index') }}" class="dropdown-item">
+                            {{ __('Messages') }}
+                            <?php $count = Auth::user()->newThreadsCount(); ?>
+                            @if($count > 0)
+                                <span class="badge badge-success badge-pill">{{ $count }}</span>
+                            @endif
                         </a>
                         @can('viewAny', App\User::class)
                             <div class="dropdown-divider"></div>

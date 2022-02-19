@@ -1,10 +1,11 @@
 <?php
 
+use Cmgmyr\Messenger\Models\Models;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCommentsTable extends Migration
+class AddSoftdeletesToThreadsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +14,8 @@ class CreateCommentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('comments', function (Blueprint $table) {
-            $table->id();
-            $table->string('message', 255);
-            $table->timestamps();
-            $table->foreignId('product_id')->constrained();
-            $table->foreignId('user_id')->constrained();
+        Schema::table(Models::table('threads'), function (Blueprint $table) {
+            $table->softDeletes();
         });
     }
 
@@ -29,6 +26,8 @@ class CreateCommentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('comments');
+        Schema::table(Models::table('threads'), function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 }

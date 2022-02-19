@@ -167,6 +167,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         Anhskohbo\NoCaptcha\NoCaptchaServiceProvider::class,
+        Cmgmyr\Messenger\MessengerServiceProvider::class,
 
         /*
          * Application Service Providers...

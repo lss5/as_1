@@ -6,10 +6,12 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
+use Cmgmyr\Messenger\Traits\Messagable;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmail 
 {
     use Notifiable;
+    use Messagable;
 
     protected $fillable = [
         'name',
@@ -32,16 +34,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public function roles()
     {
         return $this->belongsToMany('App\Role');
-    }
-
-    public function comments()
-    {
-        return $this->hasMany('App\Comment');
-    }
-
-    public function posts()
-    {
-        return $this->hasMany('App\Post');
     }
 
     public function country()

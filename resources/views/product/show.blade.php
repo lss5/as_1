@@ -7,7 +7,16 @@
                 <h1 class="h3">{{ $product->title }}</h1>
             </div>
             <div class="col-md-12 col-lg-6">
-                <h5>Seller: <a href="{{ route('products.user', $product->user) }}">{{ $product->user->name }}</a></h5>
+                <div class="d-flex justify-content-between align-items-center m-2">
+                    <p class="h5 m-0">Seller: <a href="{{ route('products.user', $product->user) }}">{{ $product->user->name }}</a></p>
+                    <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                        <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                        <input type="hidden" name="type" value="product">
+                        <button type="submit" class="btn btn-sm btn-success mx-1">
+                            Send <i class="fas fa-envelope"></i>
+                        </button>
+                    </form>
+                </div>
                 @if($product->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
                 @endif

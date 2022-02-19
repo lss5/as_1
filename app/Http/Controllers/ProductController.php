@@ -156,7 +156,7 @@ class ProductController extends Controller
         if (Auth::user()->can('update', $product))
         {
             $validatedData = $request->validate([
-                'image' => 'required| file| image| max:3000',
+                'image' => 'required| file| image| max:3000| dimensions:min_width=500,min_height=300',
             ]);
 
             $product->images()->create([
