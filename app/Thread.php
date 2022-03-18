@@ -10,7 +10,7 @@ class Thread extends ParentThread
     protected $fillable = ['subject', 'parent_id', 'type'];
 
     public static $types = [
-        'user' => 'User', // User to User (parent_id empty)
+        'person' => 'Person', // User to User (parent_id empty)
         'product' => 'Product', // User to User seller (parent_id = Product)
         'support' => 'Support', // User to Support (parent_id = Product or Empty, participant = Admin)
         'plaint' => 'Plaint', // User to Support (parent_id = Product or Empty, participant = Admin)
@@ -18,7 +18,12 @@ class Thread extends ParentThread
 
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Product', 'parent_id');
+    }
+
+    public function messages()
+    {
+        return parent::messages()->orderBy('messenger_messages.created_at', 'desc');
     }
 
 }

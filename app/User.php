@@ -104,4 +104,10 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
     }
 
+    public static function getAdmin()
+    {
+        return Role::where('uniq_name', '=', 'admin')->first()->users()->first();
+    }
+
+
 }

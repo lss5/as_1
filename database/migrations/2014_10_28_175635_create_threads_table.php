@@ -13,7 +13,7 @@ class CreateThreadsTable extends Migration
             $table->increments('id');
             $table->string('subject');
             $table->timestamps();
-            $table->bigInteger('parent_id')->unsigned();
+            $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->string('type', 36);
         });
     }

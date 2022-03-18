@@ -32,6 +32,19 @@ class MessageController extends Controller
         ]);
     }
 
+    public function show(Request $request, $id)
+    {
+        try {
+            $thread = Thread::findOrFail($id);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        }
+
+        $thread->markAsRead(Auth::id());
+
+        return view('message.show', compact('thread'));
+    }
+
     public function create(Request $request)
     {
         $request->validate([
@@ -40,41 +53,67 @@ class MessageController extends Controller
         ]);
 
         $user = Auth::user();
-        switch ($request->type) {
+        $participant = User::getAdmin();
+        $type = $request->type;
+        $parent_id = false;
+        $subject = 'Help request';
+
+        switch ($type) {
             case 'product':
                 $product = Product::findOrFail($request->parent_id);
+                // if current user is owner
                 if ($user->id == $product->user->id ) {
-                    $type = 'support';
+                    return redirect()->route('home.index')->with('warning', '404 | Not Found');
+                    break;
                 }
                 // All threads for Product on Auth user
-                $threads = $user->threads()->where('parent_id', '=', $request->parent_id)->where('type', '=', $request->type)->get();
+                // Redirect on exist thread
+                $threads = $user->threads()->where('parent_id', '=', $request->parent_id)->where('type', '=', $type)->get();
                 foreach ($threads as $thread) {
                     $count_participants_thread = $thread->participants()->where('user_id', '=', $product->user->id)->count();
                     if ($count_participants_thread == 1) {
                         return redirect()->route('home.messages.show', $thread);
                     }
                 }
+
+                $participant = $product->user;
+                $subject = $product->title;
+                $parent_id = $product->id;
                 break;
 
             case 'support':
                 if ($request->has('parent_id')) {
                     $product = Product::findOrFail($request->parent_id);
+                    $parent_id = $product->id;
                     $subject = $product->title;
-                }  else {
-                    $subject = 'Support help';
+                    // if current user is owner
+                    if ($user->id == $product->user->id) {
+                    }
+                    // All threads for Product on Auth user
+                    // Redirect on exist thread
+                    $threads = $user->threads()->where('parent_id', '=', $request->parent_id)->where('type', '=', $type)->get();
+                } else {
+                    $threads = $user->threads()->whereNull('parent_id')->where('type', '=', $type)->get();
                 }
+
+                foreach ($threads as $thread) {
+                    $count_participants_thread = $thread->participants()->where('user_id', '=', $participant->id)->count();
+                    if ($count_participants_thread == 1) {
+                        return redirect()->route('home.messages.show', $thread);
+                    }
+                }
+                break;
+
             default:
                 return redirect()->route('home.index')->with('warning', '404 | Not Found');
                 break;
         }
-        $parent_id = $product->id;
-        $subject = $product->title;
-        $type = $request->type;
 
         return view('message.create')->with([
             'parent_id' => $parent_id,
             'type' => $type,
             'subject' => $subject,
+            'participant' => $participant,
         ]);
     }
 
@@ -86,31 +125,45 @@ class MessageController extends Controller
             'parent_id' => ['filled', 'integer'],
         ]);
 
+        $participants = [];
+        $admin = User::getAdmin();
+        $subject = 'Help request';
+        $parent_id = false;
+
         switch ($request->type) {
             case 'product':
-                $parent = Product::findOrFail($request->parent_id);
-                $subject = $parent->title;
+                $product = Product::findOrFail($request->parent_id);
+                $parent_id = $product->id;
+                $subject = $product->title;
+                $participants[] = $product->user->id;
                 break;
 
             case 'support':
+                $participants[] = $admin->id;
                 if ($request->has('parent_id')) {
-                    $parent = Product::findOrFail($request->parent_id);
-                    $subject = $parent->title;
-                }  else {
-                    $subject = 'Support help';
+                    $product = Product::findOrFail($request->parent_id);
+                    $parent_id = $product->id;
+                    $subject = $product->title;
                 }
+                break;
+
             default:
                 return redirect()->route('home.index')->with('warning', '404 | Not Found');
                 break;
         }
 
-        $subject = $subject;
-
-        $thread = Thread::create([
-            'subject' => $subject,
-            'parent_id' => $parent->id,
-            'type' => $request->type,
-        ]);
+        if ($parent_id) {
+            $thread = Thread::create([
+                'subject' => $subject,
+                'parent_id' => $parent_id,
+                'type' => $request->type,
+            ]);
+        } else {
+            $thread = Thread::create([
+                'subject' => $subject,
+                'type' => $request->type,
+            ]);
+        }
 
         // Message
         Message::create([
@@ -127,22 +180,9 @@ class MessageController extends Controller
         ]);
 
         // Recipients
-        $thread->addParticipant([$parent->user->id]);
+        $thread->addParticipant($participants);
 
         return redirect()->route('home.messages.index')->with('success', 'Message sended');
-    }
-
-    public function show(Request $request, $id)
-    {
-        try {
-            $thread = Thread::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
-        }
-
-        $thread->markAsRead(Auth::id());
-
-        return view('message.show', compact('thread'));
     }
 
     public function edit(Message $message)

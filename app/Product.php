@@ -63,6 +63,11 @@ class Product extends Model
         return $this->belongsToMany('App\Category');
     }
 
+    public function threads()
+    {
+        return $this->hasOne('App\Thread', 'parent_id');
+    }
+
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);

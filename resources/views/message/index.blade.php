@@ -1,7 +1,7 @@
 @extends('home.layout')
 
 @section('content_p')
-<div class="container">
+{{-- <div class="container"> --}}
     {{-- <form method="GET" action="{{ route('products.index') }}" class="w-100">
         <div class="row my-2" id="collapseFilterButton">
             <div class="col-12">
@@ -27,27 +27,72 @@
             @include('partials.search')
         </div>
     </form> --}}
-    
+
     <div class="row">
         <div class="col-sm-12">
-            <h1 class="h3">{{ __('Messages') }}</h1>
-            <div class="list-group">
-                @forelse($threads as $thread)
-                    <?php $unread = $thread->isUnread(Auth::id()); ?>
-                    <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action @if($unread) list-group-item-success @endif">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">{{ $thread->participantsString(Auth::id()) }}</h5>
-                            <small>{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
-                        </div>
-                        <p class="mb-1">{{ $thread->latestMessage->body }}</p>
-                        <small>{{ $thread->subject }}</small>
-                    </a>
-                @endforeach
+            <div class="d-flex justify-content-between">
+                <h1 class="h3">{{ __('Messages') }}</h1>
+                <div class="m-0 p-0">
+                    <form action="{{ route('home.messages.create') }}" id="help-request-form" method="GET" class="form-inline">
+                        <input type="hidden" name="type" value="support">
+                        <button type="submit" class="btn btn-sm btn-outline-success mx-1">
+                            Help request <i class="fas fa-headset"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
+            @if ($threads->count() > 0)
+                <div class="list-group">
+                    @forelse($threads as $thread)
+                        <?php $auth_user_id = Auth::id(); ?>
+                        <?php $unread = $thread->isUnread($auth_user_id); ?>
+                        <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action @if($unread) list-group-item-dark @endif">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">{{ $thread->participantsString($auth_user_id) }}</h5>
+                                <small>{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
+                            </div>
+                            <p class="mb-1">
+                                @if($thread->latestMessage->user->id == $auth_user_id)
+                                    <small class="text-muted">You:</small>
+                                @else
+                                    <small class="text-muted">{{ $thread->latestMessage->user->name }}:</small>
+                                @endif
+                                {{ html_entity_decode(Str::limit($thread->latestMessage->body, 99, '...')) }}
+                            </p>
+                            <div class="d-flex w-100 justify-content-between align-content-end">
+                                <small>{{ $thread->subject }}</small>
+                                <p class="m-0 h6">
+                                    @switch($thread->type)
+                                        @case('product')
+                                            <span class="badge badge-secondary">{{ App\Thread::$types[$thread->type] }}</span>
+                                            @break
+                                        @case('support')
+                                            {{-- @if (empty($thread->parent_id))
+                                                <span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
+                                            @else
+                                            @endif --}}
+                                            <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }}</span>
+                                            @break
+                                        @default
+                                            
+                                    @endswitch
+                                </p>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            @else
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">No messages</h4>
+                    <p>You have not sent or received any messages yet. You can start a dialogue with the seller by clicking the "send" button in the product card. After sending the message, the dialogue with the user will be available on this page.</p>
+                    <hr>
+                    <p class="mb-0">For assistance, you can contact our customer <a href="{{ route('home.messages.create') }}" class="alert-link" onclick="event.preventDefault(); document.getElementById('help-request-form').submit();">support center</a> for assistance.</p>
+                </div>
+            @endif
         </div>
         <div class="col-12 d-flex justify-content-center my-1">
             {{-- {{ $products->withQueryString()->links() }} --}}
         </div>
     </div>
-    @endsection
+@endsection
     

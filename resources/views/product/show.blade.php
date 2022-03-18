@@ -9,13 +9,24 @@
             <div class="col-md-12 col-lg-6">
                 <div class="d-flex justify-content-between align-items-center m-2">
                     <p class="h5 m-0">Seller: <a href="{{ route('products.user', $product->user) }}">{{ $product->user->name }}</a></p>
-                    <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
-                        <input type="hidden" name="parent_id" value="{{ $product->id }}">
-                        <input type="hidden" name="type" value="product">
-                        <button type="submit" class="btn btn-sm btn-success mx-1">
-                            Send <i class="fas fa-envelope"></i>
-                        </button>
-                    </form>
+                    @if (Auth::check())
+                        <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                            <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                            @if ($product->user->id == Auth::id())
+                                <input type="hidden" name="type" value="support">
+                                <button type="submit" class="btn btn-sm btn-outline-success mx-1">
+                                    Help request <i class="fas fa-headset"></i>
+                                </button>
+                            @else
+                                <input type="hidden" name="type" value="product">
+                                <button type="submit" class="btn btn-sm btn-success mx-1">
+                                    Send <i class="fas fa-envelope"></i>
+                                </button>
+                            @endif
+                        </form>
+                    @else
+                        <small class="m-0">Please <a href="{{ route('login') }}">login</a> for send message to seller</small>
+                    @endif
                 </div>
                 @if($product->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>

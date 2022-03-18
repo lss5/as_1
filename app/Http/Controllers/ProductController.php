@@ -92,7 +92,9 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
+        // Add count views page
         $product->increment('views');
+
         return view('product.show')->with([
             'product' => $product,
         ]);
