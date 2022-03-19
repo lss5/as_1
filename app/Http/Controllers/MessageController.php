@@ -104,6 +104,13 @@ class MessageController extends Controller
                 }
                 break;
 
+            case 'person':
+                if ($request->has('parent_id')) {
+                    $participant = User::findOrFail($request->parent_id);
+                    $parent_id = $participant->id;
+                    $subject = 'Person';
+                    break;
+                }
             default:
                 return redirect()->route('home.index')->with('warning', '404 | Not Found');
                 break;
@@ -145,6 +152,12 @@ class MessageController extends Controller
                     $parent_id = $product->id;
                     $subject = $product->title;
                 }
+                break;
+
+            case 'person':
+                $person = User::findOrFail($request->parent_id);
+                $participants[] = $person->id;
+                $subject = 'Person';
                 break;
 
             default:

@@ -23,6 +23,11 @@
                             <p class="h4 m-0"><span class="badge badge-success">{{ $subject }} <i class="fas fa-headset"></i></span></p>
                         @endif
                         @break
+                    @case('person')
+                        <a href="{{ route('products.user', $parent_id) }}" class="text-decoration-none text-reset h5 m-0">
+                            <span class="badge badge-primary">{{ App\Thread::$types[$type] }} <i class="fas fa-sm fa-user-tie"></i></span>
+                        </a>
+                        @break
                     @default
                 @endswitch
             </div>

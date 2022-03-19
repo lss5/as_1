@@ -73,6 +73,9 @@
                                             @endif --}}
                                             <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }}</span>
                                             @break
+                                        @case('person')
+                                            <span class="badge badge-primary">{{ App\Thread::$types[$thread->type] }}</span>
+                                            @break
                                         @default
                                             
                                     @endswitch

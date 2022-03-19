@@ -23,6 +23,9 @@
                             <p class="h4 m-0"><span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
                         @endif
                         @break
+                    @case('person')
+                        <p class="h5 m-0"><span class="badge badge-primary">{{ $thread->subject }} <i class="fas fa-user-tie"></i></span></p>
+                        @break
                     @default
                 @endswitch
             </div>
