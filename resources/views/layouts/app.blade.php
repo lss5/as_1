@@ -25,9 +25,9 @@
             @include('partials.nav')
         </nav>
 
-        <div class="container">
+        {{-- <div class="container">
             @include('partials.alerts')
-        </div>
+        </div> --}}
 
         <main role="main" class="m-0 p-0">
             @yield('content')
