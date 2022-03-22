@@ -120,6 +120,21 @@
                 </div>
             @endif
         </div>
+        @if (Auth::check() and $product->user->id != Auth::id())
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="py-1">
+                <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                    <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                    <input type="hidden" name="type" value="plaint">
+                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                        Report a scammer <i class="fas fa-headset"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+        @endif
+
         @can('update', $product)
             <div class="row">
                 <div class="col-md-12">

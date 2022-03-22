@@ -26,6 +26,15 @@
                     @case('person')
                         <p class="h5 m-0"><span class="badge badge-primary">{{ $thread->subject }} <i class="fas fa-user-tie"></i></span></p>
                         @break
+                    @case('plaint')
+                        @if($thread->product)
+                        <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                            <span class="badge badge-danger">Scammer <i class="fas fa-sm fa-external-link-alt"></i></span>
+                        </a>
+                        @else
+                            <p class="h4 m-0"><span class="badge badge-success">Scammer <i class="fas fa-headset"></i></span></p>
+                        @endif
+                        @break
                     @default
                 @endswitch
             </div>

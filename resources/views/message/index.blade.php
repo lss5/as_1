@@ -67,14 +67,13 @@
                                             <span class="badge badge-secondary">{{ App\Thread::$types[$thread->type] }}</span>
                                             @break
                                         @case('support')
-                                            {{-- @if (empty($thread->parent_id))
-                                                <span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
-                                            @else
-                                            @endif --}}
                                             <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }}</span>
                                             @break
                                         @case('person')
                                             <span class="badge badge-primary">{{ App\Thread::$types[$thread->type] }}</span>
+                                            @break
+                                        @case('plaint')
+                                            <span class="badge badge-danger">Scammer</span>
                                             @break
                                         @default
                                             
