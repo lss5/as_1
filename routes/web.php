@@ -27,7 +27,7 @@ Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
     Route::get('/f2a/{user}', 'HomeController@f2a')->name('f2a');
     Route::post('/f2a/{user}', 'HomeController@f2a_verify')->name('f2a.store');
     Route::get('/messages/create', 'MessageController@create')->name('messages.create');
-    Route::resource('/messages', 'MessageController')->only(['store', 'update', 'index', 'show']);
+    Route::resource('/messages', 'MessageController')->only(['store', 'update', 'index', 'show', 'destroy']);
     Route::get('/{id?}', 'HomeController@home')->name('index');
 });
 

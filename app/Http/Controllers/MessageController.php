@@ -34,15 +34,13 @@ class MessageController extends Controller
 
     public function show(Request $request, $id)
     {
-        try {
-            $thread = Thread::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        $thread = Thread::findOrFail($id);
+        if (Auth::user()->can('view', $thread)) {
+            $thread->markAsRead(Auth::id());
+            return view('message.show', compact('thread'));
         }
 
-        $thread->markAsRead(Auth::id());
-
-        return view('message.show', compact('thread'));
+        return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
     }
 
     public function create(Request $request)
@@ -217,38 +215,38 @@ class MessageController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'message' => ['required', 'string', 'min:5'],
+            'message' => ['required', 'string'],
         ]);
 
-        try {
-            $thread = Thread::findOrFail($id);
-        } catch (ModelNotFoundException $e) {
-            return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        $thread = Thread::findOrFail($id);
+        if (Auth::user()->can('update', $thread)) {
+
+            $thread->activateAllParticipants();
+
+            // Message
+            Message::create([
+                'thread_id' => $thread->id,
+                'user_id' => Auth::id(),
+                'body' => $request->message,
+            ]);
+
+            // Add replier as a participant
+            $participant = Participant::firstOrCreate([
+                'thread_id' => $thread->id,
+                'user_id' => Auth::id(),
+            ]);
+            $participant->last_read = new Carbon();
+            $participant->save();
+
+            // Recipients
+            // if (Request::has('recipients')) {
+            //     $thread->addParticipant(Request::input('recipients'));
+            // }
+
+            return redirect()->route('home.messages.show', $id);
         }
+        return redirect()->route('home.messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
 
-        $thread->activateAllParticipants();
-
-        // Message
-        Message::create([
-            'thread_id' => $thread->id,
-            'user_id' => Auth::id(),
-            'body' => $request->message,
-        ]);
-
-        // Add replier as a participant
-        $participant = Participant::firstOrCreate([
-            'thread_id' => $thread->id,
-            'user_id' => Auth::id(),
-        ]);
-        $participant->last_read = new Carbon();
-        $participant->save();
-
-        // Recipients
-        // if (Request::has('recipients')) {
-        //     $thread->addParticipant(Request::input('recipients'));
-        // }
-
-        return redirect()->route('home.messages.show', $id);
     }
 
     public function destroy(Message $message)

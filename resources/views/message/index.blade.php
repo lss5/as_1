@@ -49,8 +49,9 @@
                         <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action @if($unread) list-group-item-dark @endif">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ $thread->participantsString($auth_user_id) }}</h5>
-                                <small>{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
+                                <small>{{ Str::limit($thread->subject, 99, '...') }}</small>
                             </div>
+
                             <p class="mb-1">
                                 @if($thread->latestMessage->user->id == $auth_user_id)
                                     <small class="text-muted">You:</small>
@@ -59,8 +60,9 @@
                                 @endif
                                 {{ html_entity_decode(Str::limit($thread->latestMessage->body, 99, '...')) }}
                             </p>
+
                             <div class="d-flex w-100 justify-content-between align-content-end">
-                                <small>{{ $thread->subject }}</small>
+                                <small>{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
                                 <p class="m-0 h6">
                                     @switch($thread->type)
                                         @case('product')
@@ -76,7 +78,7 @@
                                             <span class="badge badge-danger">Scammer</span>
                                             @break
                                         @default
-                                            
+                                            <span class="badge badge-warning">Error</span>
                                     @endswitch
                                 </p>
                             </div>
