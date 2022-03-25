@@ -1,7 +1,6 @@
 @extends('home.layout')
 
 @section('content_p')
-    <h1 class="h3">{{ __('Listings') }}</h1>
     <div class="row">
         @forelse ($products as $product)
             <div class="col-md-12 col-lg-4 my-2">

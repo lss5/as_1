@@ -4,7 +4,7 @@
 <?php $auth_user_id = Auth::user()->id; ?>
 
 <div class="row justify-content-center">
-    <div class="col-sm-12 col-lg-10">
+    <div class="col-12 col-md-10 col-lg-8">
         <div class="m-0 py-2">
             <span class="h4 m-0">
                 @foreach($thread->participants as $participant)
@@ -43,7 +43,7 @@
                                 <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
                                     <span class="badge badge-danger">Scammer <i class="fas fa-sm fa-external-link-alt"></i></span>
                                 </a>
-                                {{ $thread->product->title }}
+                                {{ Str::limit($thread->product->title, 45, '...') }}
                             @else
                                 <p class="h5 m-0"><span class="badge badge-success">Scammer <i class="fas fa-headset"></i></span></p>
                             @endif
@@ -55,7 +55,7 @@
                     <form action="{{ route('home.messages.destroy', $thread) }}" method="POST" class="form-inline">
                         @method('DELETE')
                         @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick='return confirm("Delete item?");'>
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick='return confirm("Delete all messages?");'>
                             Delete <i class="fas fa-trash"></i>
                         </button>
                     </form>

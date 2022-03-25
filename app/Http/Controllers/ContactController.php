@@ -26,7 +26,7 @@ class ContactController extends Controller
         if (Auth::user()->can('update', $user))
         {
             $request->validate([
-                'value' => ['required', 'string', 'max:20'],
+                'value' => ['required', 'string', 'max:30'],
                 'type' => ['required', 'string', Rule::in(array_keys(Contact::$types)),],
             ]);
 
@@ -41,7 +41,7 @@ class ContactController extends Controller
                 'type' => $request->type,
             ]);
 
-            return redirect()->route('home.settings')->with('success', 'Contact saved');
+            return redirect()->route('home.index')->with('success', 'Contact saved');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
@@ -61,7 +61,7 @@ class ContactController extends Controller
                 'ismain' => true,
             ]);
 
-            return redirect()->route('home.settings')->with('success', 'Contact is main');
+            return redirect()->route('home.index')->with('success', 'Contact set is main');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
@@ -90,7 +90,7 @@ class ContactController extends Controller
             $contact->user()->dissociate();
             $contact->delete();
 
-            return redirect()->route('home.settings')->with('success', 'Contact deleted');
+            return redirect()->route('home.index')->with('success', 'Contact deleted');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }

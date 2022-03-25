@@ -1,18 +1,10 @@
 @extends('home.layout')
 
 @section('content_p')
-<div class="row">
-    <div class="col-12">
-        <h1 class="h3">Your account</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <table class="table w-auto">
+<div class="row d-flex justify-content-start">
+    <div class="col-12 col-md-8 col-lg-6">
+        <h1 class="h4">Personal information</h1>
+        <table class="table w-100">
             <tbody>
                 <tr>
                     <th scope="row">Username</th>
@@ -24,10 +16,6 @@
                             <a href="#" type="button" class="btn btn-success btn-sm mx-2">Verify <i class="fas fa-user-check"></i></a>
                         @endif
                     </td>
-                </tr>
-                <tr>
-                    <th scope="row">Country</th>
-                    <td>{{ $user->country->name }} <img src="{{ asset('img/flags/'.$user->country->alpha2_code.'.gif') }}" class="img-fluid" alt="{{$user->country->alpha2_code}}"></td>
                 </tr>
                 <tr>
                     <th scope="row">First name</th>
@@ -46,19 +34,85 @@
                         @endif
                     </td>
                 </tr>
-                @if($user->contacts()->count() < 1)
-                    <tr>
-                        <th scope="row">Contact</th>
-                        <td>Please add contact number</td>
-                    </tr>
-                @else
+                <tr>
+                    <th scope="row">Country</th>
+                    <td>{{ $user->country->name }} <img src="{{ asset('img/flags/'.$user->country->alpha2_code.'.gif') }}" class="img-fluid" alt="{{$user->country->alpha2_code}}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="h4">Contacts</h2>
+        <table class="table w-100">
+            <tbody>
+                @if($user->contacts()->count() > 0)
                     @foreach ($user->contacts as $contact)
                         <tr>
-                            <th scope="row">{{ App\Contact::$types[$contact->type] }}</th>
-                            <td>{{ $contact->value }}</td>
+                            <td colspan="2" class="d-flex justify-content-start align-items-center flex-wrap">
+                                {{ App\Contact::$types[$contact->type] }}
+                                <form action="{{ route('home.contacts.setmain', $contact) }}" method="POST">
+                                    @method('PATCH')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm @if($contact->ismain) btn-primary @else btn-outline-primary @endif ml-1" onclick="return confirm('Delete contact?');">
+                                        Main
+                                    </button>
+                                </form>
+                                <form action="{{ route('home.contacts.destroy', $contact) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button type="submit" class="btn btn-sm btn-outline-danger ml-1" onclick="return confirm('Delete contact?');">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                                <b class="ml-auto">{{ $contact->value }}</b>
+                            </td>
+                            <th scope="row align-left">
+                            </th>
                         </tr>
                     @endforeach
+                @else
+                    <tr>
+                        <td colspan="2">
+                            Please enter correct contact information
+                        </td>
+                    </tr>
                 @endif
+                <tr>
+                    <td colspan="2">
+                        <form action="{{ route('home.contacts.store', $user) }}" method="POST" class="row">
+                            @csrf
+                            <div class="input-group col px-1">
+                                <div class="input-group-prepend">
+                                        <select class="custom-select @error('type') is-invalid @enderror" name="type" id="type">
+                                            @foreach (App\Contact::$types as $uniq => $name)
+                                                <option @if(old('type') == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <input type="text" name="value" id="value" value="{{ old('value') ?? '' }}" class="form-control @error('value') is-invalid @enderror" aria-label="value">
+                                    @error('value')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    @error('type')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="col-auto px-1">
+                                    <button type="submit" onclick='return confirm("Add contact?");' class="btn btn-outline-success">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <h2 class="h4">Security</h2>
+        <table class="table w-100">
+            <tbody>
                 <tr>
                     <th scope="row">2-Step Verification</th>
                     <td>
@@ -70,8 +124,13 @@
                         @endif
                     </td>
                 </tr>
+            </tbody>
+        </table>
+        <h2 class="h4">Subscription</h2>
+        <table class="table w-100">
+            <tbody>
                 <tr>
-                    <th scope="row">Subscription</th>
+                    <th scope="row">Plan</th>
                     <td>Start</td>
                 </tr>
                 <tr>

@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs">
     <li class="nav-item">
-        <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.index')) ? 'active' : '' }}" href="{{ route('home.index') }}">{{ __('Profile') }}</a>
+        <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.index') || request()->routeIs('home.f2a')) ? 'active' : '' }}" href="{{ route('home.index') }}">{{ __('Profile') }}</a>
     </li>
     <li class="nav-item">
         <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.listings')) ? 'active' : '' }}" href="{{ route('home.listings') }}">{{ __('Listings') }}</a>
@@ -17,7 +17,4 @@
             @endif
         </a>
     </li>
-    {{-- <li class="nav-item">
-        <a class="nav-link disabled">Subscription</a>
-    </li> --}}
 </ul>

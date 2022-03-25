@@ -26,7 +26,7 @@
                                 <span class="badge badge-success">{{ App\Thread::$types[$type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
                             </a>
                         @else
-                            <p class="h4 m-0"><span class="badge badge-success">Help request<i class="fas fa-headset"></i></span></p>
+                            <p class="h4 m-0"><span class="badge badge-success">Help request <i class="fas fa-headset"></i></span></p>
                         @endif
                         @break
                     @case('person')
