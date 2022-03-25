@@ -31,8 +31,8 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="d-flex justify-content-between">
-                <h1 class="h3">{{ __('Messages') }}</h1>
-                <div class="m-0 p-0">
+                {{-- <h1 class="h3">{{ __('Messages') }}</h1> --}}
+                <div class="m-0 mb-2 p-0">
                     <form action="{{ route('home.messages.create') }}" id="help-request-form" method="GET" class="form-inline">
                         <input type="hidden" name="type" value="support">
                         <button type="submit" class="btn btn-sm btn-outline-success">
@@ -49,7 +49,7 @@
                         <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action @if($unread) list-group-item-dark @endif">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">{{ $thread->participantsString($auth_user_id) }}</h5>
-                                <small>{{ Str::limit($thread->subject, 99, '...') }}</small>
+                                <small>{{ Str::limit($thread->subject, 20, '...') }}</small>
                             </div>
 
                             <p class="mb-1">

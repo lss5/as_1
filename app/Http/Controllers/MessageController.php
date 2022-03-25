@@ -50,6 +50,7 @@ class MessageController extends Controller
             'type' => ['required', 'string', Rule::in(array_keys(Thread::$types))],
         ]);
 
+        $participants = [];
         $user = Auth::user();
         $participant = User::getAdmin();
         $type = $request->has('type') ? $request->type : false;
@@ -109,10 +110,11 @@ class MessageController extends Controller
                 break;
         }
 
+        $participants[] = $participant;
         return view('message.create')->with([
             'parent_id' => $parent_id,
             'type' => $type,
-            'participant' => $participant,
+            'participants' => $participants,
         ]);
     }
 

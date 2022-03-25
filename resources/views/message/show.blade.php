@@ -5,62 +5,63 @@
 
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-10">
-        <div class="m-0 py-2 d-flex justify-content-between">
-            <div class="m-0 d-flex">
-                <p class="h3 m-0">Messages</p>
-                <form action="{{ route('home.messages.destroy', $thread) }}" method="POST" class="form-inline">
-                    @method('DELETE')
-                    @csrf
-                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1" onclick='return confirm("Delete item?");'>
-                        Delete <i class="fas fa-trash"></i>
-                    </button>
-                </form>
-            </div>
-
-            <div class="m-0 d-inline">
-                @switch($thread->type)
-                    @case('product')
-                        <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
-                            <span class="badge badge-secondary">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
-                        </a>
-                        @break
-                    @case('support')
-                        @if($thread->product)
-                            <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
-                                <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
-                            </a>
-                        @else
-                            <p class="h4 m-0"><span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
-                        @endif
-                        @break
-                    @case('person')
-                        <p class="h5 m-0"><span class="badge badge-primary">{{ $thread->subject }} <i class="fas fa-user-tie"></i></span></p>
-                        @break
-                    @case('plaint')
-                        @if($thread->product)
-                        <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
-                            <span class="badge badge-danger">Scammer <i class="fas fa-sm fa-external-link-alt"></i></span>
-                        </a>
-                        @else
-                            <p class="h4 m-0"><span class="badge badge-success">Scammer <i class="fas fa-headset"></i></span></p>
-                        @endif
-                        @break
-                    @default
-                @endswitch
-            </div>
+        <div class="m-0 py-2">
+            <span class="h4 m-0">
+                @foreach($thread->participants as $participant)
+                    @if($participant->user->id != $auth_user_id)
+                        {{ $participant->user->first_name.' '.$participant->user->last_name }} ({{ $participant->user->name }})
+                    @endif
+                @endforeach
+            </span>
         </div>
 
         <ul class="list-group">
-            <li class="list-group-item p-2">
-                <h4 class="m-0">to:
-                    @foreach($thread->participants as $participant)
-                        @if($participant->user->id != $auth_user_id)
-                            {{ $participant->user->first_name.' '.$participant->user->last_name }} ({{ $participant->user->name }})
-                        @endif
-                    @endforeach
-                </h4>
+            <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
+                <div>
+                    @switch($thread->type)
+                        @case('product')
+                            <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                                <span class="badge badge-secondary">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
+                            </a>
+                            {{ $thread->product->title }}
+                            @break
+                        @case('support')
+                            @if($thread->product)
+                                <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                                    <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
+                                </a>
+                                {{ $thread->product->title }}
+                            @else
+                                <p class="h5 m-0"><span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
+                            @endif
+                            @break
+                        @case('person')
+                            <p class="h5 m-0"><span class="badge badge-primary">{{ $thread->subject }} <i class="fas fa-user-tie"></i></span></p>
+                            @break
+                        @case('plaint')
+                            @if($thread->product)
+                                <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                                    <span class="badge badge-danger">Scammer <i class="fas fa-sm fa-external-link-alt"></i></span>
+                                </a>
+                                {{ $thread->product->title }}
+                            @else
+                                <p class="h5 m-0"><span class="badge badge-success">Scammer <i class="fas fa-headset"></i></span></p>
+                            @endif
+                            @break
+                        @default
+                    @endswitch
+                </div>
+                <div>
+                    <form action="{{ route('home.messages.destroy', $thread) }}" method="POST" class="form-inline">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick='return confirm("Delete item?");'>
+                            Delete <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </li>
-            @switch($thread->type)
+            {{-- @switch($thread->type)
                 @case('product')
                     <li class="list-group-item p-0 d-flex justify-content-start">
                         <div class="w-25">
@@ -86,13 +87,13 @@
                     @break
 
                 @case('support')
-                    {{-- <button class="btn btn-outline-success">
+                    <button class="btn btn-outline-success">
                         {{ App\Thread::$types[$thread->type] }}
-                    </button> --}}
+                    </button>
                     @break
 
                 @default
-            @endswitch
+            @endswitch --}}
 
             <li class="list-group-item p-2 ">
                 <form action="{{ route('home.messages.update', $thread->id) }}" method="post" class="form-inline">
@@ -115,7 +116,7 @@
                         {{-- <h5 class="mb-1">{{ $message->user->name }}</h5> --}}
                         <small class="text-muted"></small>
                         <p class="mb-1 @if($message->user->id == $auth_user_id) text-right @else text-left @endif">{{ html_entity_decode($message->body) }}</p>
-                        <small class="text-muted">@if($message->user->id == $auth_user_id) You @else {{ $message->user->name }} @endif {{ $message->created_at->diffForHumans() }}</small>
+                        <small class="text-muted"><b>@if($message->user->id == $auth_user_id) You @else {{ $message->user->name }} @endif </b>{{ $message->created_at->diffForHumans() }}</small>
                     </div>
                 </li>
             @endforeach

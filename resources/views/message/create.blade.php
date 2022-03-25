@@ -5,9 +5,15 @@
 
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-10">
-        <div class="m-0 py-2 d-flex justify-content-between">
-            <h1 class="h3 m-0">{{ __('New message') }}</h1>
-            <div class="m-0 d-inline">
+        <div class="m-0 py-2 d-flex justify-content-between align-items-center">
+            <span class="h4 m-0">{{ __('New message') }} to:
+                @foreach($participants as $participant)
+                    @if($participant->id != $auth_user_id)
+                        {{ $participant->first_name.' '.$participant->last_name }} ({{ $participant->name }})
+                    @endif
+                @endforeach
+            </span>
+            <div>
                 @switch($type)
                     @case('product')
                         <a href="{{ route('products.show', $parent_id) }}" class="text-decoration-none text-reset h5 m-0">
@@ -17,7 +23,7 @@
                     @case('support')
                         @if($parent_id)
                             <a href="{{ route('products.show', $parent_id) }}" class="text-decoration-none text-reset h5 m-0">
-                                <span class="badge badge-success">{{ App\Thread::$types[$type] }} with listing <i class="fas fa-sm fa-external-link-alt"></i></span>
+                                <span class="badge badge-success">{{ App\Thread::$types[$type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
                             </a>
                         @else
                             <p class="h4 m-0"><span class="badge badge-success">Help request<i class="fas fa-headset"></i></span></p>
@@ -37,6 +43,8 @@
                 @endswitch
             </div>
         </div>
+
+        {{-- validation errors --}}
         @if ($errors->any())
             <ul class="list-group mb-2">
                 @foreach ($errors->all() as $error)
@@ -44,6 +52,7 @@
                 @endforeach
             </ul>
         @endif
+
         <form method="POST" action="{{ route('home.messages.store') }}">
             @csrf
             @if($parent_id)
@@ -54,18 +63,11 @@
             <ul class="list-group">
                 {{-- <li class="list-group-item p-2">{{ $subject }}</li> --}}
                 <li class="list-group-item p-2">
-                    <h4 class="m-0">to:
-                        @if($participant->id != $auth_user_id)
-                            {{ $participant->first_name.' '.$participant->last_name }} ({{ $participant->name }})
-                        @endif
-                    </h4>
-                </li>
-                <li class="list-group-item p-2">
                     <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="3" autofocus>{{ old('message') ?? '' }}</textarea>
                     <small id="textHelp" class="form-text text-muted">Describe your problem or question</small>
                 </li>
             </ul>
-            <button type="submit" class="btn btn-outline-success my-2" role="button" aria-pressed="true">Send</button>
+            <button type="submit" class="btn btn-primary my-2" role="button" aria-pressed="true">Send <i class="fas fa-paper-plane"></i></button>
             <a href="{{ route('home.messages.index') }}" class="btn btn-outline-secondary m-2" role="button" aria-pressed="false">Cancel</a>
         </form>
     </div>

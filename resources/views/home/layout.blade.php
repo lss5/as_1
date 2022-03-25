@@ -6,10 +6,10 @@
         <div class="col-md-12 my-2">
             @include('partials.home_menu')
         </div>
-        {{-- <div class="col-md-12 my-2"> --}}
+
         @include('partials.alerts')
-        {{-- </div> --}}
-        <div class="col-md-12 my-2">
+
+        <div class="col-md-12">
             @yield('content_p')
         </div>
     </div>
