@@ -207,11 +207,6 @@ class MessageController extends Controller
         return redirect()->route('home.messages.index')->with('success', 'Message sended');
     }
 
-    public function edit(Message $message)
-    {
-        //
-    }
-
     public function update(Request $request, $id)
     {
         $request->validate([
@@ -249,8 +244,10 @@ class MessageController extends Controller
 
     }
 
-    public function destroy(Message $message)
+    public function destroy(Request $request, $id)
     {
-        //
+        $thread = Thread::findOrFail($id);
+        $thread->removeParticipant(Auth::id());
+        return redirect()->route('home.messages.index')->with('success', 'The thread "' . $thread->subject . '" archived.');
     }
 }

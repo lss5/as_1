@@ -17,7 +17,6 @@ class UsersTableSeeder extends Seeder
         // User::truncate();
         // DB::table('role_user')->truncate();
 
-        $premiumRole = Role::where('uniq_name', 'premium')->first();
         $adminRole = Role::where('uniq_name', 'admin')->first();
         $moderRole = Role::where('uniq_name', 'moder')->first();
 
@@ -30,27 +29,17 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
 
-        $premium = User::create([
-            'name' => 'Premium',
-            'first_name' => 'Vladimir',
-            'last_name' => 'Putin',
-            'country_id' => 1,
-            'email' => 'premium@premium.com',
-            'password' => Hash::make('12345678'),
-        ]);
+        // $moder = User::create([
+        //     'name' => 'Moderator',
+        //     'first_name' => 'Ivan',
+        //     'last_name' => 'Ivanov',
+        //     'country_id' => 1,
+        //     'email' => 'moder@moder.com',
+        //     'password' => Hash::make('12345678'),
+        // ]);
 
-        $moder = User::create([
-            'name' => 'Moderator',
-            'first_name' => 'Ivan',
-            'last_name' => 'Ivanov',
-            'country_id' => 1,
-            'email' => 'moder@moder.com',
-            'password' => Hash::make('12345678'),
-        ]);
-
-        $premium->roles()->attach($premiumRole);
         $admin->roles()->attach($adminRole);
-        $moder->roles()->attach($moderRole);
+        // $moder->roles()->attach($moderRole);
 
         User::create([
             'name' => 'user1',

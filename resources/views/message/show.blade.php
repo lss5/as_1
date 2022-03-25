@@ -6,7 +6,17 @@
 <div class="row justify-content-center">
     <div class="col-sm-12 col-lg-10">
         <div class="m-0 py-2 d-flex justify-content-between">
-            <h1 class="h3 m-0">Message</h1>
+            <div class="m-0 d-flex">
+                <p class="h3 m-0">Messages</p>
+                <form action="{{ route('home.messages.destroy', $thread) }}" method="POST" class="form-inline">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1" onclick='return confirm("Delete item?");'>
+                        Delete <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+            </div>
+
             <div class="m-0 d-inline">
                 @switch($thread->type)
                     @case('product')
@@ -88,11 +98,13 @@
                 <form action="{{ route('home.messages.update', $thread->id) }}" method="post" class="form-inline">
                     @csrf
                     @method('PUT')
-                    <div class="col-10 px-0">
+                    <div class="col px-0">
                         <textarea name="message" placeholder="Write a message..." class="form-control w-100 @error('message') is-invalid @enderror" autofocus>{{ old('message') ?? ''}}</textarea>
                     </div>
-                    <div class="col-2 px-0 pl-2">
-                        <button type="submit" class="btn btn- btn-primary d-block w-100">Send</button>
+                    <div class="col-auto px-0 pl-2">
+                        <button type="submit" class="btn btn- btn-primary d-block w-100">
+                            <i class="fas fa-reply"></i>
+                        </button>
                     </div>
                 </form>
             </li>
@@ -101,9 +113,9 @@
                     <div class="d-flex w-100 flex-column
                         @if($message->user->id == $auth_user_id) align-items-end @else align-items-start @endif">
                         {{-- <h5 class="mb-1">{{ $message->user->name }}</h5> --}}
-                        <small class="text-muted">@if($message->user->id == $auth_user_id) You @else {{ $message->user->name }} @endif</small>
+                        <small class="text-muted"></small>
                         <p class="mb-1 @if($message->user->id == $auth_user_id) text-right @else text-left @endif">{{ html_entity_decode($message->body) }}</p>
-                        <small class="text-muted mt-1">{{ $message->created_at->diffForHumans() }}</small>
+                        <small class="text-muted">@if($message->user->id == $auth_user_id) You @else {{ $message->user->name }} @endif {{ $message->created_at->diffForHumans() }}</small>
                     </div>
                 </li>
             @endforeach

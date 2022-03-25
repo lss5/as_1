@@ -35,7 +35,7 @@
                 <div class="m-0 p-0">
                     <form action="{{ route('home.messages.create') }}" id="help-request-form" method="GET" class="form-inline">
                         <input type="hidden" name="type" value="support">
-                        <button type="submit" class="btn btn-sm btn-outline-success mx-1">
+                        <button type="submit" class="btn btn-sm btn-outline-success">
                             Help request <i class="fas fa-headset"></i>
                         </button>
                     </form>

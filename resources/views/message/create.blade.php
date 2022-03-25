@@ -61,7 +61,7 @@
                     </h4>
                 </li>
                 <li class="list-group-item p-2">
-                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="3">{{ old('message') ?? '' }}</textarea>
+                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="3" autofocus>{{ old('message') ?? '' }}</textarea>
                     <small id="textHelp" class="form-text text-muted">Describe your problem or question</small>
                 </li>
             </ul>

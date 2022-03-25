@@ -31,8 +31,8 @@
                 @if($product->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
                 @endif
-                <div class="col-sm-12 col-lg-10">
 
+                <div class="col-sm-12 col-lg-10">
                     <table class="table table-sm w-100">
                         <tbody>
                             <tr>
