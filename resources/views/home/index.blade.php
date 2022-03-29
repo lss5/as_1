@@ -51,7 +51,7 @@
                                 <form action="{{ route('home.contacts.setmain', $contact) }}" method="POST">
                                     @method('PATCH')
                                     @csrf
-                                    <button type="submit" class="btn btn-sm @if($contact->ismain) btn-primary @else btn-outline-primary @endif ml-1" onclick="return confirm('Delete contact?');">
+                                    <button type="submit" class="btn btn-sm @if($contact->ismain) btn-primary @else btn-outline-primary @endif ml-1" onclick="return confirm('Set main this contact?');">
                                         Main
                                     </button>
                                 </form>

@@ -23,7 +23,7 @@ class Thread extends ParentThread
 
     public function messages()
     {
-        return parent::messages()->orderBy('messenger_messages.created_at', 'desc');
+        return parent::messages()->orderBy('created_at', 'desc');
     }
 
 }
