@@ -46,9 +46,12 @@
                     @forelse($threads as $thread)
                         <?php $auth_user_id = Auth::id(); ?>
                         <?php $unread = $thread->isUnread($auth_user_id); ?>
-                        <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action @if($unread) list-group-item-dark @endif">
+                        <a href="{{ route('home.messages.show', $thread) }}" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">{{ $thread->participantsString($auth_user_id) }}</h5>
+                                <h5 class="mb-1">
+                                    {{ $thread->participantsString($auth_user_id) }}
+                                    @if($unread) <span class="badge badge-success">New</span> @endif
+                                </h5>
                                 <small>{{ Str::limit($thread->subject, 20, '...') }}</small>
                             </div>
 
