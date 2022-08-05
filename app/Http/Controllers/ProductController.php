@@ -18,6 +18,10 @@ use Carbon\Carbon;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class, 'product');
+    }
 
     public function index(Request $request, ProductFilters $filters)
     {
@@ -46,48 +50,53 @@ class ProductController extends Controller
 
     public function create()
     {
-        $response = Gate::inspect('create', Product::class);
-
-        if ($response->allowed()) {
-            return view('product.create')->with([
-                'product' => new Product,
-                'product_images' => 0,
-                'countries' => Country::all(),
-                'categories' => Category::all(),
-            ]);
-        } else {
-            return redirect()->route('home.index')->with('danger', $response->message());
+        $errors = [];
+        if (!Auth::user()->hasVerifiedGA()) {
+            $errors[] = __('validation.TOTP_authentication');
         }
+
+        if (Auth::user()->contacts()->count() < 1) {
+            $errors[] = __('validation.must_have_contact');
+        }
+
+        if (Auth::user()->products()->count() >= config('product.limit_create_listing')) {
+            $errors[] = __('validation.limit_listing_plan');
+        }
+
+        if (!empty($errors)) {
+            return redirect()->route('home.index')->withErrors($errors, 'danger');
+        }
+
+        
+        return view('product.create')->with([
+            'product' => new Product,
+            'product_images' => 0,
+            'countries' => Country::all(),
+            'categories' => Category::all(),
+        ]);
     }
 
     public function store(StoreProduct $request)
     {
-        if (Auth::user()->can('create', Product::class))
-        {
-            $validated = $request->validated();
+        $country = Country::find($request->country);
+        $category = Category::find($request->category);
 
-            $country = Country::find($request->country);
-            $category = Category::find($request->category);
+        $product = new Product;
+        $product->title = Str::of($request->title)->ucfirst();
+        $product->description = Str::of($request->description)->trim();
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+        $product->moq = $request->moq;
+        $product->power = $request->power;
+        $product->hashrate = $request->hashrate;
+        $product->hashrate_name = $request->hashrateName;
+        $product->isnew = $request->has('condition') ? 1 : 0;
+        $product->user_id = Auth::user()->id;
+        $product->country()->associate($country);
+        $product->save();
+        $product->categories()->attach($category->id);
 
-            $product = new Product;
-            $product->title = Str::of($request->title)->ucfirst();
-            $product->description = Str::of($request->description)->trim();
-            $product->price = $request->price;
-            $product->quantity = $request->quantity;
-            $product->moq = $request->moq;
-            $product->power = $request->power;
-            $product->hashrate = $request->hashrate;
-            $product->hashrate_name = $request->hashrateName;
-            $product->isnew = $request->has('condition') ? 1 : 0;
-            $product->user_id = Auth::user()->id;
-            $product->country()->associate($country);
-            $product->save();
-            $product->categories()->attach($category->id);
-
-            return redirect()->route('products.edit', $product)->with('success', 'New listing created');
-        } else {
-            return redirect()->back()->with('danger', 'Sorry, but you do not create listing');
-        }
+        return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
 
     public function show(Product $product)
@@ -102,55 +111,43 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        if (Auth::user()->can('update', $product))
-        {
-            return view('product.edit')->with([
-                'product' => $product,
-                'product_images' => $product->images->count(),
-                'countries' => Country::all(),
-                'categories' => Category::all(),
+        return view('product.edit')->with([
+            'product' => $product,
+            'product_images' => $product->images->count(),
+            'countries' => Country::all(),
+            'categories' => Category::all(),
         ]);
-        } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
-        }
     }
 
     public function update(StoreProduct $request, Product $product)
     {
-        if (Auth::user()->can('update', $product))
-        {
-            $validated = $request->validated();
+        $product->update([
+            'title' => $request->title,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'moq' => $request->moq,
+            'power' => $request->power,
+            'hashrate' => $request->hashrate,
+            'hashrate_name' => $request->hashrateName,
+            'isnew' => $request->has('condition') ? 1 : 0,
+        ]);
 
-            $product->update([
-                'title' => $request->title,
-                'description' => $request->description,
-                'price' => $request->price,
-                'quantity' => $request->quantity,
-                'moq' => $request->moq,
-                'power' => $request->power,
-                'hashrate' => $request->hashrate,
-                'hashrate_name' => $request->hashrateName,
-                'isnew' => $request->has('condition') ? 1 : 0,
-            ]);
-
-            if ($product->country->id != $request->country) {
-                $country = Country::find($request->country);
-                $product->country()->associate($country);
-                $product->save();
-            }
-
-            if (!$product->categories->where('id', $request->category)->first()) {
-                $category = Category::find($request->category);
-                if ($category) {
-                    $product->categories()->detach();
-                    $product->categories()->attach($category->id);
-                }
-            }
-
-            return redirect()->route('products.show', $product)->with('success', 'Listing updated');
-        } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        if ($product->country->id != $request->country) {
+            $country = Country::find($request->country);
+            $product->country()->associate($country);
+            $product->save();
         }
+
+        if (!$product->categories->where('id', $request->category)->first()) {
+            $category = Category::find($request->category);
+            if ($category) {
+                $product->categories()->detach();
+                $product->categories()->attach($category->id);
+            }
+        }
+
+        return redirect()->route('home.listings', $product)->with('success', 'Listing updated');
     }
 
     public function addImage(Request $request, Product $product)
@@ -171,15 +168,11 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if (Auth::user()->can('delete', $product)) {
-            foreach ($product->images as $image) {
-                $image->delete();
-            }
-            $product->delete();
-            return redirect()->route('home.listings')->with('success', 'Product was deleted');
-        } else {
-            return redirect()->back()->with('warning', 'You can`t delete is item');
+        foreach ($product->images as $image) {
+            $image->delete();
         }
+        $product->delete();
+        return redirect()->route('home.listings')->with('success', 'Product was deleted');
     }
 
     public function storeImage(Product $product, array $files)

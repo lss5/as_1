@@ -4,7 +4,7 @@
 @section('content_p')
 <div class="row">
     <div class="col-md-12 col-xl-8 mb-3 mx-auto">
-        <h1 class="h3">{{ __('2-Step Verification') }}</h1>
+        <h1 class="h4">{{ __('2-Step Verification') }}</h1>
         <p>Two-step verification helps protect you by making it more difficult for someone else to sign in to your AsicSeller account. It uses two different forms of identity: your password, and a contact method (also known as security info). Even if someone else finds your password, they'll be stopped if they don't have access to your security info. This is also why it's important to use different passwords for all your accounts.</p>
         <form class="w-100" action="{{ route('home.f2a.store', $user) }}" method="POST">
             @csrf

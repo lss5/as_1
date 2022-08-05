@@ -55,7 +55,7 @@
                                 Users management
                             </a>
                         @endcan
-                        @can('viewAny', App\Product::class)
+                        @can('viewAny', App\User::class)
                             <a href="{{ route('admin.products.index') }}" class="dropdown-item">
                                 Listings manage
                             </a>

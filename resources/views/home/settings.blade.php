@@ -2,7 +2,7 @@
 
 @section('content_p')
 <form class="w-100" action="{{ route('home.settings.update', $user) }}" method="POST">
-    <h1 class="h3">{{ __('Informations') }}</h1>
+    <h1 class="h4">{{ __('Informations') }}</h1>
     <div class="row">
         @method('PATCH')
         @csrf

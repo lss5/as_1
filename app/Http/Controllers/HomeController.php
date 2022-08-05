@@ -16,23 +16,6 @@ use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
 class HomeController extends Controller
 {
-    public function home(Request $request, $id = null)
-    {
-        $user = User::find($id);
-
-        if($user) {
-            if (Auth::user()->cannot('view', $user)) {
-                $user = Auth::user();
-            }
-        } else {
-            $user = Auth::user();
-        }
-
-        return view('home.index')->with([
-            'user' => $user,
-        ]);
-    }
-
     public function index()
     {
         $popular = Product::whereDate('active_at', '>', Carbon::now())
@@ -50,6 +33,23 @@ class HomeController extends Controller
         return view('welcome')->with([
             'popular' => $popular,
             'newest' => $newest,
+        ]);
+    }
+
+    public function home(Request $request, $id = null)
+    {
+        $user = User::find($id);
+
+        if($user) {
+            if (Auth::user()->cannot('view', $user)) {
+                $user = Auth::user();
+            }
+        } else {
+            $user = Auth::user();
+        }
+
+        return view('home.index')->with([
+            'user' => $user,
         ]);
     }
 
