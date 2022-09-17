@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\ImportData\NetworkPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -16,8 +17,9 @@ use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(NetworkPrice $networkPrice)
     {
+
         $popular = Product::whereDate('active_at', '>', Carbon::now())
                 ->has('images')
                 ->orderBy('views', 'desc')
@@ -33,6 +35,7 @@ class HomeController extends Controller
         return view('welcome')->with([
             'popular' => $popular,
             'newest' => $newest,
+            'prices' => $networkPrice->prices,
         ]);
     }
 

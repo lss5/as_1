@@ -6,8 +6,7 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'AsicSeller') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -20,10 +19,6 @@
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
             @include('partials.nav')
         </nav>
-
-        {{-- <div class="container">
-            @include('partials.alerts')
-        </div> --}}
 
         <main role="main" class="m-0 p-0">
             @yield('content')
