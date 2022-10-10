@@ -32,7 +32,7 @@ class HomeController extends Controller
                 ->limit(4)
                 ->get();
 
-        return view('welcome')->with([
+        return view('main')->with([
             'popular' => $popular,
             'newest' => $newest,
             'prices' => $networkPrice->prices,
