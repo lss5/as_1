@@ -47,10 +47,12 @@
                                 <th scope="row">Hashrate</th>
                                 <td>{{ $product->hashrate }} {{ App\Product::$hashrates[$product->hashrate_name] }}</td>
                             </tr>
-                            <tr>
-                                <th scope="row">Power</th>
-                                <td>{{ $product->power }} W</td>
-                            </tr>
+                            @isset($product->power)
+                                <tr>
+                                    <th scope="row">Power</th>
+                                    <td>{{ $product->power }} W</td>
+                                </tr>
+                            @endisset
                             <tr>
                                 <th scope="row">Quantity</th>
                                 <td>{{ $product->quantity }} pcs</td>
@@ -80,6 +82,54 @@
                                     {{ date('d M Y', strtotime($product->created_at)) }}
                                 </td>
                             </tr>
+                            <tr>
+                                <th colspan="2" class="text-center">
+                                    Profit (24h)
+                                </th>
+                            </tr>
+                            <tr>
+                                <th scope="row">BTC revenue</th>
+                                <td>
+                                    {{ $product->btc_revenue }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">USD revenue</th>
+                                <td>
+                                    {{ $product->revenue }} $
+                                </td>
+                            </tr>
+                            @empty($product->power)
+                                <tr>
+                                    <th scope="row">
+                                        Profit
+                                        <small class="form-text text-muted py-0 my-0">
+                                            Without power cost
+                                        </small>
+                                    </th>
+                                    <td>
+                                        {{ round($product->revenue, 2) }} $
+                                    </td>
+                                </tr>
+                            @else
+                                <tr>
+                                    <th scope="row">
+                                        Cost
+                                        <small class="form-text text-muted py-0 my-0">
+                                            Calculation at the cost 0,06$/kWt
+                                        </small>
+                                    </th>
+                                    <td>
+                                        {{ round($product->power * 0.06 * 24 / 1000, 2) }} $
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">Profit</th>
+                                    <td>
+                                        {{ round($product->revenue - ($product->power * 0.06 * 24 / 1000), 2) }} $
+                                    </td>
+                                </tr>
+                            @endempty
                         </tbody>
                     </table>
                 </div>

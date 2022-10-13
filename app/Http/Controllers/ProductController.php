@@ -8,13 +8,13 @@ use App\Country;
 use App\Category;
 use App\User;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\StoreProduct;
-use Illuminate\Support\Str;
-use App\Filters\ProductFilters;
-use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use App\Filters\ProductFilters;
+use App\Http\Requests\StoreProduct;
 
 class ProductController extends Controller
 {
@@ -81,7 +81,7 @@ class ProductController extends Controller
         $country = Country::find($request->country);
         $category = Category::find($request->category);
 
-        $product = new Product;
+        $product = new Product();
         $product->title = Str::of($request->title)->ucfirst();
         $product->description = Str::of($request->description)->trim();
         $product->price = $request->price;
@@ -93,6 +93,8 @@ class ProductController extends Controller
         $product->isnew = $request->has('condition') ? 1 : 0;
         $product->user_id = Auth::user()->id;
         $product->country()->associate($country);
+
+        $product->fill_profit();
         $product->save();
         $product->categories()->attach($category->id);
 
@@ -103,6 +105,15 @@ class ProductController extends Controller
     {
         // Add count views page
         $product->increment('views');
+
+        if (empty($product->mining_timestamp)) {
+            $product->fill_profit();
+            $product->save();
+        } elseif (Carbon::parse($product->mining_timestamp)->diffInMinutes(now('UTC')) > 60) {
+            $product->fill_profit();
+            $product->save();
+        }
+        // TODO: transfer profit calculate here from blade
 
         return view('product.show')->with([
             'product' => $product,
@@ -133,6 +144,9 @@ class ProductController extends Controller
             'isnew' => $request->has('condition') ? 1 : 0,
         ]);
 
+        $product->fill_profit();
+        $product->save();
+
         if ($product->country->id != $request->country) {
             $country = Country::find($request->country);
             $product->country()->associate($country);
@@ -147,7 +161,7 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('home.listings', $product)->with('success', 'Listing updated');
+        return redirect()->route('products.show', $product)->with('success', 'Listing updated');
     }
 
     public function addImage(Request $request, Product $product)
