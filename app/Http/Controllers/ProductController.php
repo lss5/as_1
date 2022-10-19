@@ -109,7 +109,7 @@ class ProductController extends Controller
         if (empty($product->mining_timestamp)) {
             $product->fill_profit();
             $product->save();
-        } elseif (Carbon::parse($product->mining_timestamp)->diffInMinutes(now('UTC')) > 60) {
+        } elseif (Carbon::parse($product->mining_timestamp)->diffInMinutes(now('UTC')) > 60) { // TODO: diff minutes in .env (60)
             $product->fill_profit();
             $product->save();
         }
