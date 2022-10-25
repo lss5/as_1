@@ -10,7 +10,6 @@ CREATE TABLE `countries` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Afghanistan', 'AF', 'AFG', '004', 'ISO 3166-2:AF');
-INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Åland Islands', 'AX', 'ALA', '248', 'ISO 3166-2:AX');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Albania', 'AL', 'ALB', '008', 'ISO 3166-2:AL');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Algeria', 'DZ', 'DZA', '012', 'ISO 3166-2:DZ');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('American Samoa', 'AS', 'ASM', '016', 'ISO 3166-2:AS');
