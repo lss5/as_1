@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Carbon\Carbon;
 use Cmgmyr\Messenger\Traits\Messagable;
+use App\Notifications\SendVerifyWithQueueNotification;
 
 class User extends Authenticatable implements MustVerifyEmail 
 {
@@ -82,7 +83,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasVerifiedGA()
     {
-        return ! is_null($this->ga_verified_at);
+        return !is_null($this->ga_verified_at);
     }
 
     public function markGAVerified()
@@ -144,6 +145,11 @@ class User extends Authenticatable implements MustVerifyEmail
             $threads = $this->threads()->where('type', '=', $type)->whereNull('parent_id')->get();
         }
         return $threads;
+    }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new SendVerifyWithQueueNotification());
     }
 
 
