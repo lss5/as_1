@@ -90,17 +90,17 @@
                             <tr>
                                 <th scope="row">BTC revenue</th>
                                 <td>
-                                    {{ $product->btc_revenue }}
+                                    {{ number_format($product->btc_revenue, 8) }}
                                 </td>
                             </tr>
                             <tr>
                                 <th scope="row">USD revenue</th>
                                 <td>
-                                    {{ $product->revenue }} $
+                                    {{ number_format($product->revenue, 2) }} $
                                 </td>
                             </tr>
                             @empty($product->power)
-                                <tr>
+                                {{-- <tr>
                                     <th scope="row">
                                         Profit
                                         <small class="form-text text-muted py-0 my-0">
@@ -110,7 +110,7 @@
                                     <td>
                                         {{ round($product->revenue, 2) }} $
                                     </td>
-                                </tr>
+                                </tr> --}}
                             @else
                                 <tr>
                                     <th scope="row">

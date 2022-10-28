@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Product;
-use App\Image;
 use App\Country;
 use App\Category;
 use App\User;
@@ -12,12 +11,15 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProduct;
+use App\Jobs\ProductProfitFillJob;
 
 class ProductController extends Controller
 {
+    use SoftDeletes;
+
     public function __construct()
     {
         $this->authorizeResource(Product::class, 'product');
@@ -94,9 +96,10 @@ class ProductController extends Controller
         $product->user_id = Auth::user()->id;
         $product->country()->associate($country);
 
-        $product->fill_profit();
         $product->save();
         $product->categories()->attach($category->id);
+
+        ProductProfitFillJob::dispatch($product);
 
         return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
@@ -105,14 +108,15 @@ class ProductController extends Controller
     {
         // Add count views page
         $product->increment('views');
+        // UserProductCreatedJob::dispatch($product);
 
-        if (empty($product->mining_timestamp)) {
-            $product->fill_profit();
-            $product->save();
-        } elseif (Carbon::parse($product->mining_timestamp)->diffInMinutes(now('UTC')) > 60) { // TODO: diff minutes in .env (60)
-            $product->fill_profit();
-            $product->save();
-        }
+        // if (empty($product->mining_timestamp)) {
+            // $product->fill_profit();
+            // $product->save();
+        // } elseif (Carbon::parse($product->mining_timestamp)->diffInMinutes(now('UTC')) > 60) { // TODO: diff minutes in .env (60)
+        //     $product->fill_profit();
+        //     $product->save();
+        // }
         // TODO: transfer profit calculate here from blade
 
         return view('product.show')->with([
@@ -144,8 +148,7 @@ class ProductController extends Controller
             'isnew' => $request->has('condition') ? 1 : 0,
         ]);
 
-        $product->fill_profit();
-        $product->save();
+        ProductProfitFillJob::dispatch($product);
 
         if ($product->country->id != $request->country) {
             $country = Country::find($request->country);

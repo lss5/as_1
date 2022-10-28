@@ -2,13 +2,10 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
-use App\Services\ImportData\WhatToMine;
 
 class Product extends Model
 {
@@ -86,25 +83,4 @@ class Product extends Model
         return parent::delete();
     }
 
-    public function fill_profit()
-    {
-        if (!empty($this->hashrate)) {
-            $wtm = new WhatToMine();
-            $profit = $wtm->getProfit($this);
-
-            if (empty($profit)) {
-                return false;
-            }
-
-            $this->mining_time = 24;
-            $this->btc_revenue = preg_replace('/[^0-9\.,]/','', $profit->btc_revenue);
-            $this->revenue = preg_replace('/[^0-9\.,]/','', $profit->revenue);
-            $this->mining_timestamp = Carbon::createFromTimestamp($profit->timestamp);
-            $this->mining_direction = false;
-
-            return true;
-        }
-
-        return false;
-    }
 }
