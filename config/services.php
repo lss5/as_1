@@ -30,4 +30,12 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'binance' => [
+        'endpoint' => env('BINANCE_ENDPOINT', 'https://api.binance.com/api/v3/'),
+    ],
+
+    'whattomine' => [
+        'endpoint' => env('WTM_ENDPOINT', 'https://whattomine.com/coins/'),
+    ],
+
 ];

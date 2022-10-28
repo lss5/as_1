@@ -23,7 +23,7 @@ class Binance implements NetworkPrice
 
     public function __construct()
     {
-        $this->endpoint = env('API_ENDPOINT');
+        $this->endpoint = config('services.binance.endpoint');
         $this->dataClient = new ImportDataClient($this->endpoint);
         $this->setPrices();
     }

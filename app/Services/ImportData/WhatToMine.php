@@ -18,7 +18,7 @@ class WhatToMine
 
     public function __construct()
     {
-        $this->endpoint = env('WTM_ENDPOINT');
+        $this->endpoint = config('services.whattomine.endpoint');
         $this->dataClient = new ImportDataClient($this->endpoint);
     }
 
