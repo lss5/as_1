@@ -56,11 +56,13 @@
                             </div>
 
                             <p class="mb-1">
+                                @isset($thread->latestMessage->user->id)
                                 @if($thread->latestMessage->user->id == $auth_user_id)
                                     <small class="text-muted">You:</small>
                                 @else
                                     <small class="text-muted">{{ $thread->latestMessage->user->name }}:</small>
                                 @endif
+                                @endisset
                                 {{ html_entity_decode(Str::limit($thread->latestMessage->body, 99, '...')) }}
                             </p>
 

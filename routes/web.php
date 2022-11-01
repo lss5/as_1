@@ -33,7 +33,8 @@ Route::prefix('home')->middleware('auth')->name('home.')->group(function(){
 
     // Only auth users
 Route::middleware('auth')->group(function(){
-    Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'update', 'destroy']]);
+    Route::put('/products/{product}', 'ProductController@update')->name('products.update');
+    Route::resource('/products', 'ProductController', ['only' =>['create', 'edit', 'store', 'destroy']]);
     Route::put('/products/{product}/image', 'ProductController@addimage')->name('products.addimage');
     Route::put('/products/{product}/reactivate', 'ProductController@reactivate')->name('products.reactivate');
 

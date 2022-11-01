@@ -40,7 +40,13 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('home.index') }}" class="dropdown-item">
-                            Home
+                            Profile
+                        </a>
+                        <a href="{{ route('home.listings') }}" class="dropdown-item">
+                            Listings
+                        </a>
+                        <a href="{{ route('home.settings') }}" class="dropdown-item">
+                            Settings
                         </a>
                         <a href="{{ route('home.messages.index') }}" class="dropdown-item">
                             {{ __('Messages') }}

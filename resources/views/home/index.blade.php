@@ -40,6 +40,7 @@
                 </tr>
             </tbody>
         </table>
+
         <h2 class="h4">Contacts</h2>
         <table class="table w-100">
             <tbody>

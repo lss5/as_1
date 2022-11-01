@@ -15,17 +15,10 @@ class StoreProduct extends FormRequest
      */
     public function authorize()
     {
-        return true;
-
-        // $product = Product::find($this->route('product'));
-        // return $this->user()->can('update', $product);
+        $product = Product::find($this->route('product')->id);
+        return $product && $this->user()->can('update', $product);
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -44,5 +37,10 @@ class StoreProduct extends FormRequest
                 Rule::in(array_keys(Product::$hashrates)),
             ],
         ];
+    }
+
+    public function messages()
+    {
+        return parent::messages();
     }
 }
