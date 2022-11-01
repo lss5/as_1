@@ -19,6 +19,7 @@ class HomeController extends Controller
 {
     public function index(NetworkPrice $networkPrice)
     {
+        $networkPrice->setPrices();
 
         $popular = Product::whereDate('active_at', '>', Carbon::now())
                 ->has('images')

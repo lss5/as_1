@@ -5,16 +5,13 @@ namespace App\Services\ImportData;
 use App\Components\ImportDataClient;
 use App\Contracts\ImportData\NetworkPrice;
 use App\MarketPrice;
-use Carbon\Carbon;
-use GuzzleHttp\Exception\GuzzleException;
-use http\Env\Request;
-use http\Exception;
 use Illuminate\Support\Facades\Log;
+use App\Jobs\ExchangeRateUpdateJob;
 
 class Binance implements NetworkPrice
 {
-    protected $endpoint;
-    protected $dataClient;
+    public $endpoint;
+    public $dataClient;
 
     public $prices = [];
     public $coinPairs = [
@@ -25,24 +22,6 @@ class Binance implements NetworkPrice
     {
         $this->endpoint = config('services.binance.endpoint');
         $this->dataClient = new ImportDataClient($this->endpoint);
-        $this->setPrices();
-    }
-
-    public function setPrices()
-    {
-        try {
-            $local_prices = $this->getLocalPrices();
-            if ($local_prices->count() == 0 || $local_prices->first()->updated_at->diffInMinutes(now('UTC')) > 1) {
-                $prices = $this->loadPrices();
-                $this->prices = $this->savePrices($prices);
-                Log::info('Coins price updated: '.now('UTC'));
-            } else {
-                $this->prices = $local_prices;
-            }
-        } catch (\Exception $exception) {
-            $this->prices = $this->getLocalPrices();
-            Log::error('Load API error: '.$exception->getMessage());
-        }
     }
 
     public function loadPrices(): array
@@ -62,9 +41,14 @@ class Binance implements NetworkPrice
         return [];
     }
 
-    public function getLocalPrices()
+    public function setPrices()
     {
-        return MarketPrice::all()->unique()->sortBy('id');
+        $this->prices = MarketPrice::all()->unique()->sortBy('id');
+
+        if ($this->prices->count() == 0 || $this->prices->first()->updated_at->diffInMinutes(now('UTC')) > 0) {
+            ExchangeRateUpdateJob::dispatch();
+            Log::info('ExchangeRateUpdateJob created time: '.now('UTC'));
+        }
     }
 
     public function savePrices(array $prices)
@@ -85,8 +69,6 @@ class Binance implements NetworkPrice
                 'quoteVolume' => $item->quoteVolume,
             ]);
         }
-
-        return $this->prices = $this->getLocalPrices();
     }
 
 }
