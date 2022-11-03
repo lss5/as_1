@@ -12,9 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Filters\ProductFilters;
 use App\Http\Requests\StoreProduct;
+use App\Filters\ProductFilters;
 use App\Jobs\ProductProfitFillJob;
+use App\Notifications\ProductCreatedNotification;
 
 class ProductController extends Controller
 {
@@ -101,6 +102,8 @@ class ProductController extends Controller
 
         ProductProfitFillJob::dispatch($product);
 
+        $product->user->notify(new ProductCreatedNotification($product));
+
         return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
 
@@ -108,7 +111,6 @@ class ProductController extends Controller
     {
         // Add count views page
         $product->increment('views');
-        // UserProductCreatedJob::dispatch($product);
 
         // if (empty($product->mining_timestamp)) {
             // $product->fill_profit();
