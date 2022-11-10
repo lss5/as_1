@@ -17,19 +17,21 @@ Auth::routes(['verify' => true]);
 Route::get('/', 'HomeController@index')->name('index');
 
 Route::prefix('home')->name('home.')->middleware('auth','verified')->group(function(){
+    Route::get('/', 'HomeController@home')->name('index');
     Route::get('/products', 'HomeController@products')->name('products');
 
-    Route::get('/settings', 'HomeController@settings')->name('settings');
-    Route::patch('/settings/{user}', 'HomeController@setting')->name('settings.update');
+    Route::get('/edit', 'HomeController@edit')->name('edit');
+    Route::patch('/edit/{user}', 'HomeController@update')->name('update');
     
     Route::post('/contacts/{user}', 'ContactController@store')->name('contacts.store');
     Route::patch('/contacts/{contact}', 'ContactController@setmain')->name('contacts.setmain');
     Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
+
     Route::get('/f2a/{user}', 'HomeController@f2a')->name('f2a');
     Route::post('/f2a/{user}', 'HomeController@f2a_verify')->name('f2a.store');
+
     Route::get('/messages/create', 'MessageController@create')->name('messages.create');
     Route::resource('/messages', 'MessageController')->only(['store', 'update', 'index', 'show', 'destroy']);
-    Route::get('/{id?}', 'HomeController@home')->name('index');
 });
 
 Route::prefix('products')->name('products.')->group(function(){

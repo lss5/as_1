@@ -28,10 +28,6 @@ class ProductController extends Controller
 
     public function index(Request $request, ProductFilters $filters)
     {
-        // if (empty($request->get('order'))) {
-        //     $request->request->add(['order' => 'price']);
-        // }
-
         // Open search form
         $search = false;
         if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
@@ -48,6 +44,21 @@ class ProductController extends Controller
             'countries' => Country::all(),
             'categories' => Category::all(),
             'searchForm' => $search,
+        ]);
+    }
+
+    public function show(Product $product)
+    {
+        // Add count views page
+        $product->increment('views');
+
+        if (!empty($product->power)) {
+            $product->cost = round($product->power * 0.06 * 24 / 1000, 2);
+            $product->profit = round($product->revenue - ($product->power * 0.06 * 24 / 1000), 2);
+        }
+
+        return view('product.show')->with([
+            'product' => $product,
         ]);
     }
 
@@ -93,21 +104,6 @@ class ProductController extends Controller
         return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
 
-    public function show(Product $product)
-    {
-        // Add count views page
-        $product->increment('views');
-
-        if (!empty($product->power)) {
-            $product->cost = round($product->power * 0.06 * 24 / 1000, 2);
-            $product->profit = round($product->revenue - ($product->power * 0.06 * 24 / 1000), 2);
-        }
-
-        return view('product.show')->with([
-            'product' => $product,
-        ]);
-    }
-
     public function edit(Product $product)
     {
         return view('product.edit')->with([
@@ -141,6 +137,15 @@ class ProductController extends Controller
         return redirect()->route('products.show', $product)->with('success', 'Listing updated');
     }
 
+    public function destroy(Product $product)
+    {
+        foreach ($product->images as $image) {
+            $image->delete();
+        }
+        $product->delete();
+        return redirect()->route('home.products')->with('success', 'Product was deleted');
+    }
+
     public function addImage(Request $request, Product $product)
     {
         if (Auth::user()->can('update', $product))
@@ -155,15 +160,6 @@ class ProductController extends Controller
 
             return redirect()->route('products.edit', $product)->with('success', 'Photo uploaded');
         }
-    }
-
-    public function destroy(Product $product)
-    {
-        foreach ($product->images as $image) {
-            $image->delete();
-        }
-        $product->delete();
-        return redirect()->route('home.listings')->with('success', 'Product was deleted');
     }
 
     public function storeImage(Product $product, array $files)
@@ -193,7 +189,7 @@ class ProductController extends Controller
                 ])->save();
             }
 
-            return redirect()->route('home.listings')->with('success', 'Product republished');
+            return redirect()->route('home.products')->with('success', 'Product republished');
         } else {
             return redirect()->back()->with('warning', '403 | This action is unauthorized');
         }

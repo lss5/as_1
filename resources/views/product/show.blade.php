@@ -171,32 +171,25 @@
             @endif
         </div>
         @if (Auth::check() and $product->user->id != Auth::id())
-        <div class="row">
-            <div class="col-md-12">
-                <hr class="py-1">
-                <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
-                    <input type="hidden" name="parent_id" value="{{ $product->id }}">
-                    <input type="hidden" name="type" value="plaint">
-                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                        Report a scammer <i class="fas fa-headset"></i>
-                    </button>
-                </form>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr class="py-1">
+                    <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                        <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                        <input type="hidden" name="type" value="plaint">
+                        <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                            Report a scammer <i class="fas fa-headset"></i>
+                        </button>
+                    </form>
+                </div>
             </div>
-        </div>
         @endif
 
         @can('update', $product)
             <div class="row">
                 <div class="col-md-12">
                     <hr class="py-1">
-                    <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
-                        <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-primary btn-sm mx-1">Edit</a>
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-danger mx-1" onclick='return confirm("Delete item?");'>
-                            Delete <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
+                    <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-secondary btn-sm mx-1">{{ __('product.btn.edit') }}</a>
                 </div>
             </div>
         @endcan

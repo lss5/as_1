@@ -40,32 +40,25 @@ class HomeController extends Controller
         ]);
     }
 
-    public function home(Request $request, $id = null)
+    public function home(Request $request)
     {
-        $user = User::find($id);
+        // $user = User::find($id);
 
-        if($user) {
-            if (Auth::user()->cannot('view', $user)) {
-                $user = Auth::user();
-            }
-        } else {
-            $user = Auth::user();
-        }
+        // if($user) {
+        //     if (Auth::user()->cannot('view', $user)) {
+        //         $user = Auth::user();
+        //     }
+        // } else {
+        //     $user = Auth::user();
+        // }
 
         return view('home.index')->with([
-            'user' => $user,
+            'user' => Auth::user(),
         ]);
     }
 
     public function products(Request $request)
     {
-        // $access = Gate::inspect('create', Product::class);
-        // if ($access->allowed()) {
-
-        // } else {
-        //     $request->session()->flash('warning', $access->message());
-        // }
-
         $listings = Product::where('user_id', Auth::user()->id)
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(9);
@@ -73,17 +66,17 @@ class HomeController extends Controller
         return view('home.products')->with(['products' => $listings]);
     }
 
-    public function settings(Request $request)
+    public function edit(Request $request)
     {
         $user = User::find(Auth::user()->id);
         if (Auth::user()->can('update', $user)){
-            return view('home.settings')->with(['user' => $user]);
+            return view('home.edit')->with(['user' => $user]);
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
-    public function setting(UpdateUser $request, User $user)
+    public function update(UpdateUser $request, User $user)
     {
         if (Auth::user()->can('update', $user))
         {
@@ -98,7 +91,7 @@ class HomeController extends Controller
                 $user->save();
             }
 
-            return redirect()->route('home.settings')->with('success', 'Saved');
+            return redirect()->route('home.index')->with('success', 'Saved');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }

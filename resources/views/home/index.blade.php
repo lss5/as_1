@@ -2,8 +2,8 @@
 
 @section('content_p')
 <div class="row d-flex justify-content-start">
-    <div class="col-12 col-md-8 col-lg-6">
-        <h1 class="h4">Personal information</h1>
+        <div class="col-12 col-lg-8 mx-auto">
+        <h1 class="h4 my-2">{{ __('home.pages.index') }}</h1>
         <table class="table w-100">
             <tbody>
                 <tr>
@@ -147,6 +147,11 @@
                 </tr>
             </tbody>
           </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <a href="{{ route('home.edit') }}" type="button" class="btn btn-outline-secondary btn-sm mx-1">{{ __('product.btn.edit') }}</a>
     </div>
 </div>
 @endsection

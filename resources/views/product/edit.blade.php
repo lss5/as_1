@@ -1,9 +1,19 @@
-@extends('layouts.app')
+@extends('home.layout')
 
-@section('content')
-    <div class="container shadow-sm bg-white rounded py-3">
-        <h2>{{ __('product.pages.edit') }}</h2>
-        <hr class="pb-1">
+@section('content_p')
+<div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+        <div class="d-flex flex-row justify-content-between">
+            <h1 class="h4 my-2">{{ __('product.pages.edit') }}</h1>
+            <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick='return confirm("Delete item?");'>
+                    Delete <i class="fas fa-trash"></i>
+                </button>
+            </form>
+        </div>
+        <hr class="py-1">
         <div class="row">
             <div class="col-sm-12 col-lg-3">
                 <label class="mb-0">{{ __('product.image.title') }}</label>

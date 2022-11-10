@@ -29,7 +29,7 @@
     </form> --}}
 
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-12 col-lg-8 mx-auto">
             <div class="d-flex justify-content-between">
                 {{-- <h1 class="h3">{{ __('Messages') }}</h1> --}}
                 <div class="m-0 mb-2 p-0">

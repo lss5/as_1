@@ -1,9 +1,10 @@
-@extends('layouts.app')
+@extends('home.layout')
 
-@section('content')
-    <div class="container shadow-sm bg-white rounded py-3">
-        <h2>{{ __('product.pages.new') }}</h2>
-        <hr class="pb-1">
+@section('content_p')
+<div class="row">
+    <div class="col-12 col-lg-8 mx-auto">
+        <h1 class="h4 my-2">{{ __('product.pages.new') }}</h1>
+        <hr class="py-1">
         <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="row">
@@ -197,4 +198,5 @@
             </div>
         </form>
     </div>
+</div>
 @endsection

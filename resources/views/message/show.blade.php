@@ -4,7 +4,7 @@
 <?php $auth_user_id = Auth::user()->id; ?>
 
 <div class="row justify-content-center">
-    <div class="col-12 col-md-10 col-lg-8">
+    <div class="col-12 col-lg-8 mx-auto">
         <div class="m-0 py-2">
             <span class="h4 m-0">
                 @foreach($thread->participants as $participant)
@@ -20,17 +20,17 @@
                 <div>
                     @switch($thread->type)
                         @case('product')
-                            <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                            {{-- <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
                                 <span class="badge badge-secondary">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
-                            </a>
-                            {{ $thread->product->title }}
+                            </a> --}}
+                            {{-- {{ $thread->product->title }} --}}
                             @break
                         @case('support')
                             @if($thread->product)
-                                <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
+                                {{-- <a href="{{ route('products.show', $thread->product) }}" class="text-decoration-none text-reset h5 m-0">
                                     <span class="badge badge-success">{{ App\Thread::$types[$thread->type] }} <i class="fas fa-sm fa-external-link-alt"></i></span>
-                                </a>
-                                {{ $thread->product->title }}
+                                </a> --}}
+                                {{-- {{ $thread->product->title }} --}}
                             @else
                                 <p class="h5 m-0"><span class="badge badge-success">{{ $thread->subject }} <i class="fas fa-headset"></i></span></p>
                             @endif

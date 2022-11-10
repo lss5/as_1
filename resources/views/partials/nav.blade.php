@@ -10,10 +10,10 @@
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('products.create') }}">Sell<span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-danger px-3 py-1 mx-1 mt-1" href="{{ route('products.create') }}">Sell<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('products.index') }}">Buy<span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-success px-3 py-1 mx-1 mt-1" href="{{ route('products.index') }}">Buy<span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
@@ -40,14 +40,14 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('home.index') }}" class="dropdown-item">
-                            Profile
+                            {{ __('home.pages.lists') }}
                         </a>
                         <a href="{{ route('home.products') }}" class="dropdown-item">
                             {{ __('product.pages.lists') }}
                         </a>
-                        <a href="{{ route('home.settings') }}" class="dropdown-item">
+                        {{-- <a href="{{ route('home.edit') }}" class="dropdown-item">
                             Settings
-                        </a>
+                        </a> --}}
                         <a href="{{ route('home.messages.index') }}" class="dropdown-item">
                             {{ __('Messages') }}
                             <?php $count = Auth::user()->newThreadsCount(); ?>

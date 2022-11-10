@@ -2,19 +2,36 @@
 
 @section('content_p')
     <div class="row">
-        @forelse ($products as $product)
-            <div class="col-md-12 col-lg-4 my-2">
-                <div class="card">
-                    <div class="card-header">
-                        @if(is_null($product->active_at))
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
+        <div class="col-12 col-lg-8 mx-auto">
+            <div class="d-flex flex-row justify-content-between">
+                <h1 class="h4 my-2">{{ __('product.pages.index') }}</h1>
+                <a href="{{ route('products.create') }}" type="button" class="btn btn-success py-2"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('product.btn.new') }}</a>
+            </div>
+            @forelse ($products as $product)
+                <hr class="py-1">
+                <div class="row">
+                    {{-- col-1 --}}
+                    <div class="col-3">
+                        <a href="{{ route('products.show', $product) }}" class="text-decoration-none">
+                            @if ($product->images->count() > 0)
+                                <img src="{{ asset('storage/'.$product->images->first()->link) }}" class="card-img-top" alt="{{ $product->title }}">
+                            @else
+                                <img src="{{ asset('img/product-no-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
+                            @endif
+                        </a>
+                    </div>
+                    {{-- col-2 --}}
+                    <div class="col-7 d-flex flex-column">
+                        <div class="w-100">
+                            @if(is_null($product->active_at))
+                            <button type="button" class="btn btn-sm btn-outline-secondary" disabled>
                                 On moderation
                             </button>
                         @else
                             @if(now() < $product->active_at)
-                                <button type="button" class="btn btn-sm btn-success">
-                                    Active until
-                                    {{ date('d M', strtotime($product->active_at)) }}
+                                <button type="button" class="btn btn-sm btn-success active">
+                                    Active
+                                    (expires {{ date('d M', strtotime($product->active_at)) }})
                                 </button>
                             @else
                                 <button type="button" class="btn btn-sm btn-secondary">
@@ -28,79 +45,44 @@
                                 </form>
                             @endif
                         @endif
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-primary">View</a>
-                    </div>
-                    @if ($product->images->count() > 0)
-                        <img src="{{ asset('storage/'.$product->images->first()->link) }}" class="card-img-top" alt="{{ $product->title }}">
-                    @else
-                        <img src="{{ asset('img/product-no-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
-                    @endif
-                    <div class="card-body pb-2">
-                        <h5 class="card-title">
-                            <a href="{{ route('products.show', $product) }}" class="text-decoration-none text-reset">{!! Str::limit($product->title, 28, '') !!}</a>
-                            
-                        </h5>
-                        <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrates[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
-                        <p class="card-text">{!! Str::limit($product->description, 80, '...') !!}</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item py-2">
-                            <div class="row">
-                                <div class="col-auto mr-auto">
-                                    @if($product->user->hasVerifiedUser())
-                                        <i class="fas fa-user-check text-success"></i>
-                                    @else
-                                        <i class="fas fa-user fa-sm text-muted"></i>
-                                    @endif
-                                    {{ $product->user->name}}
-                                </div>
-                                <div class="col-auto">
-                                    <p class="h4 d-inline">
-                                        @if($product->user->hasVerifiedUser())
-                                            <span class="badge badge-success">{{ $product->price }} $</span>
-                                        @else
-                                            <span class="badge badge-secondary">{{ $product->price }} $</span>
-                                        @endif
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="card-footer text-muted py-2">
-                        <div class="row">
-                            <div class="col-auto mr-auto">
-                                <img src="{{ asset('img/flags/'.$product->country->alpha2_code.'.gif') }}" class="img-fluid pb-1" alt="{{$product->country->alpha2_code}}">
-                                <small>{!! Str::limit($product->country->name, 35, '') !!}</small>
-                            </div>
-                            <div class="col-auto">
-                                <small><i class="far fa-eye"></i> {{ $product->views }}</small>
-                            </div>
+                        </div>
+                        <a href="{{ route('products.show', $product) }}" class="text-decoration-none text-reset h5 my-1">{!! Str::limit($product->title, 28, '') !!}</a>
+                        <div class="w-100">
+                            <span class="h5 text-success">{{ $product->price }}$</span>
+                            <span class="badge badge-success">
+                                <span class="h6">
+                                    {{ round($product->revenue, 2) }} $/day
+                                </span>
+                            </span>
+                        </div>
+                        <div class="w-100">
+                            <h6 class="mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrates[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
+                        </div>
+                        <div class="w-100">
+                            {!! Str::limit($product->description, 80, '...') !!}
                         </div>
                     </div>
-                    <div class="card-footer text-muted py-2">
-                        <div class="row">
-                            <div class="col-auto mr-auto">
-                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
-                                    <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-secondary btn-sm">Edit</a>
-                                    @method('DELETE')
-                                    @csrf
-                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1" onclick='return confirm("Delete item?");'>
-                                        Delete <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="col-auto">
-
-                            </div>
-                        </div>
+                    {{-- col-3 --}}
+                    <div class="col-2 d-flex flex-column">
+                        <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary mb-1">View</a>
+                        <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-outline-dark btn-sm mb-1">Edit</a>
+                        {{-- <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-outline-danger w-100" onclick='return confirm("Delete item?");'>
+                                Delete <i class="fas fa-trash"></i>
+                            </button>
+                        </form> --}}
                     </div>
                 </div>
-            </div>
-        @empty
-            <div class="col-12">
-                <h2 class="h4">No products selling</h2>
-            </div>
-        @endforelse
+            @empty
+                <div class="col-12">
+                    <h2 class="h4">No products selling</h2>
+                </div>
+            @endforelse
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12 d-flex justify-content-center my-1">
             {{ $products->withQueryString()->links() }}
         </div>

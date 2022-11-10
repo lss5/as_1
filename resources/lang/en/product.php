@@ -14,6 +14,8 @@ return [
         'delete' => 'Delete',
         'back' => 'Back',
         'save' => 'Save',
+        'edit' => 'Edit',
+        'new' => 'New',
     ],
     'pages' => [
         'new' => 'New listing',
