@@ -44,6 +44,9 @@ class Product extends Model
         'moq' => 'MOQ',
     ];
 
+    public $cost;
+    public $profit;
+
     public function user()
     {
         return $this->belongsTo('App\User');

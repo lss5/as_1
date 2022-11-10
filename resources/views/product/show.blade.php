@@ -93,14 +93,8 @@
                                     {{ number_format($product->btc_revenue, 8) }}
                                 </td>
                             </tr>
-                            <tr>
-                                <th scope="row">USD revenue</th>
-                                <td>
-                                    {{ number_format($product->revenue, 2) }} $
-                                </td>
-                            </tr>
                             @empty($product->power)
-                                {{-- <tr>
+                                <tr>
                                     <th scope="row">
                                         Profit
                                         <small class="form-text text-muted py-0 my-0">
@@ -110,8 +104,14 @@
                                     <td>
                                         {{ round($product->revenue, 2) }} $
                                     </td>
-                                </tr> --}}
+                                </tr>
                             @else
+                                <tr>
+                                    <th scope="row">USD revenue</th>
+                                    <td>
+                                        {{ number_format($product->revenue, 2) }} $
+                                    </td>
+                                </tr>
                                 <tr>
                                     <th scope="row">
                                         Cost
@@ -120,13 +120,13 @@
                                         </small>
                                     </th>
                                     <td>
-                                        {{ round($product->power * 0.06 * 24 / 1000, 2) }} $
+                                        {{ $product->cost }} $
                                     </td>
                                 </tr>
                                 <tr>
                                     <th scope="row">Profit</th>
                                     <td>
-                                        {{ round($product->revenue - ($product->power * 0.06 * 24 / 1000), 2) }} $
+                                        {{ $product->profit }} $
                                     </td>
                                 </tr>
                             @endempty

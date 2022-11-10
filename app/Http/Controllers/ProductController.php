@@ -98,7 +98,10 @@ class ProductController extends Controller
         // Add count views page
         $product->increment('views');
 
-        // TODO: transfer profit calculate here from blade
+        if (!empty($product->power)) {
+            $product->cost = round($product->power * 0.06 * 24 / 1000, 2);
+            $product->profit = round($product->revenue - ($product->power * 0.06 * 24 / 1000), 2);
+        }
 
         return view('product.show')->with([
             'product' => $product,
