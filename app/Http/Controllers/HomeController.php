@@ -57,7 +57,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function listings(Request $request)
+    public function products(Request $request)
     {
         // $access = Gate::inspect('create', Product::class);
         // if ($access->allowed()) {
@@ -70,7 +70,7 @@ class HomeController extends Controller
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(9);
 
-        return view('home.listing')->with(['products' => $listings]);
+        return view('home.products')->with(['products' => $listings]);
     }
 
     public function settings(Request $request)

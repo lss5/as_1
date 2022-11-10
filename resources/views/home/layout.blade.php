@@ -9,7 +9,7 @@
                     <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.index') || request()->routeIs('home.f2a')) ? 'active' : '' }}" href="{{ route('home.index') }}">{{ __('Profile') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.listings')) ? 'active' : '' }}" href="{{ route('home.listings') }}">{{ __('Listings') }}</a>
+                    <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.products')) ? 'active' : '' }}" href="{{ route('home.products') }}">{{ __('product.pages.lists') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.settings')) ? 'active' : '' }}" href="{{ route('home.settings') }}">{{ __('Settings') }}</a>

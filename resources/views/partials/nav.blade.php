@@ -42,8 +42,8 @@
                         <a href="{{ route('home.index') }}" class="dropdown-item">
                             Profile
                         </a>
-                        <a href="{{ route('home.listings') }}" class="dropdown-item">
-                            Listings
+                        <a href="{{ route('home.products') }}" class="dropdown-item">
+                            {{ __('product.pages.lists') }}
                         </a>
                         <a href="{{ route('home.settings') }}" class="dropdown-item">
                             Settings
