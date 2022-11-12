@@ -52,7 +52,7 @@ class MessageController extends Controller
 
         $participants = [];
         $user = Auth::user();
-        $participant = User::getAdmin();
+        $participant = User::getFirstAdmin();
         $type = $request->has('type') ? $request->type : false;
         $parent_id = $request->has('parent_id') ? $request->parent_id : false;
 
@@ -128,7 +128,7 @@ class MessageController extends Controller
 
         $participants = [];
         $user = Auth::user();
-        $admin = User::getAdmin();
+        $admin = User::getFirstAdmin();
         $type = $request->has('type') ? $request->type : false;
         $parent_id = $request->has('parent_id') ? $request->parent_id : false;
 
