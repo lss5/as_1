@@ -42,28 +42,18 @@ class HomeController extends Controller
 
     public function home(Request $request)
     {
-        // $user = User::find($id);
-
-        // if($user) {
-        //     if (Auth::user()->cannot('view', $user)) {
-        //         $user = Auth::user();
-        //     }
-        // } else {
-        //     $user = Auth::user();
-        // }
-
         return view('home.index')->with([
-            'user' => Auth::user(),
+            'user' => Auth::user()->setLimitProduct(),
         ]);
     }
 
     public function products(Request $request)
     {
-        $listings = Product::where('user_id', Auth::user()->id)
+        $products = Product::where('user_id', Auth::user()->id)
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(9);
 
-        return view('home.products')->with(['products' => $listings]);
+        return view('home.products')->with(['products' => $products]);
     }
 
     public function edit(Request $request)

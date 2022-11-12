@@ -46,6 +46,7 @@ class Product extends Model
 
     public $cost;
     public $profit;
+    public $price_th;
 
     public function user()
     {

@@ -10,12 +10,14 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Filters\ProductFilters;
 use App\Jobs\ProductProfitFillJob;
 use App\Notifications\ProductCreatedNotification;
+
 
 class ProductController extends Controller
 {
@@ -64,30 +66,35 @@ class ProductController extends Controller
 
     public function create()
     {
-        // $errors = [];
-        // if (!Auth::user()->hasVerifiedGA()) {
-        //     $errors[] = __('validation.TOTP_authentication');
-        // }
+        $info = [];
+        $danger = [];
 
-        // if (Auth::user()->contacts()->count() < 1) {
-        //     $errors[] = __('validation.must_have_contact');
-        // }
+        if (Auth::user()->hasVerifiedGA()) {
+            if (Auth::user()->products()->count() >= config('product.limit_create_product_totp')) {
+                $info[] = __('validation.limit_product_plan_totp');
+            }
+        } else {
+            if (Auth::user()->products()->count() >= config('product.limit_create_product')) {
+                $danger[] = __('validation.limit_product_plan');
+            }
+        }
 
-        // if (Auth::user()->products()->count() >= config('product.limit_create_listing')) {
-        //     $errors[] = __('validation.limit_listing_plan');
-        // }
+        if (!empty($info)) {
+            return redirect()->route('home.products')
+                ->withErrors($info, 'info')
+                ->withErrors($danger, 'danger');
+        }
+        if (!empty($danger)) {
+            return redirect()->route('home.index')
+                ->withErrors($info, 'info')
+                ->withErrors($danger, 'danger');
+        }
 
-        // if (!empty($errors)) {
-        //     return redirect()->route('home.index')->withErrors($errors, 'danger');
-        // }
-
-        
         return view('product.create')->with([
-            'product' => new Product,
-            'product_images' => 0,
             'countries' => Country::all(),
             'categories' => Category::all(),
         ]);
+
     }
 
     public function store(StoreProductRequest $request)

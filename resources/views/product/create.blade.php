@@ -153,7 +153,7 @@
                         <div class="input-group-append">
                             <select class="custom-select @error('hashrateName') is-invalid @enderror" name="hashrateName" id="hashrateName">
                                 @foreach (App\Product::$hashrates as $uniq => $name)
-                                    <option @if(old('hashrateName') == $uniq || $product->hashrate_name == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
+                                    <option @if(old('hashrateName') == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
                                 @endforeach
                             </select>
                         </div>

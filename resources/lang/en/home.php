@@ -22,6 +22,11 @@ return [
         'list' => 'Profile',
         'lists' => 'Profile',
     ],
+    'menu' => [
+        'manage_products' => 'Listings manage',
+        'manage_users' => 'Users list',
+        'messages' => 'Messages',
+    ],
 
     // Fields
     'email' => [

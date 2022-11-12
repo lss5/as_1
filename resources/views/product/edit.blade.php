@@ -13,7 +13,7 @@
                 </button>
             </form>
         </div>
-        <hr class="py-1">
+        <hr class="py-1 my-2">
         <div class="row">
             <div class="col-sm-12 col-lg-3">
                 <label class="mb-0">{{ __('product.image.title') }}</label>

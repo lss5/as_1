@@ -40,7 +40,7 @@
                 </tr>
             </tbody>
         </table>
-
+{{-- 
         <h2 class="h4">Contacts</h2>
         <table class="table w-100">
             <tbody>
@@ -110,7 +110,22 @@
                     </td>
                 </tr>
             </tbody>
+        </table> --}}
+        {{-- Subscriptions --}}
+        <h2 class="h4">Opportunities</h2>
+        <table class="table w-100">
+            <tbody>
+                <tr>
+                    <th scope="row">Plan</th>
+                    <td>Start</td>
+                </tr>
+                <tr>
+                    <th scope="row">Listings/Limits</th>
+                    <td>{{ $user->products()->count() }}/<span class="text-success">{{ $user->limit_product }}</span></td>
+                </tr>
+            </tbody>
         </table>
+        {{-- Security --}}
         <h2 class="h4">Security</h2>
         <table class="table w-100">
             <tbody>
@@ -134,19 +149,6 @@
                 </tr>
             </tbody>
         </table>
-        <h2 class="h4">Subscription</h2>
-        <table class="table w-100">
-            <tbody>
-                <tr>
-                    <th scope="row">Plan</th>
-                    <td>Start</td>
-                </tr>
-                <tr>
-                    <th scope="row">Listings/Limits</th>
-                    <td>{{ $user->products()->count() }}/<span class="text-success">{{ config('product.limit_create_listing') }}</span></td>
-                </tr>
-            </tbody>
-          </table>
     </div>
 </div>
 <div class="row">

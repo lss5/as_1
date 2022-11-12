@@ -31,6 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public $limit_product;
+
     // ----- Relationships ----- //
     public function roles()
     {
@@ -105,7 +107,7 @@ class User extends Authenticatable implements MustVerifyEmail
         ])->save();
     }
 
-    public static function getAdmin()
+    public static function getFirstAdmin()
     {
         return Role::where('uniq_name', '=', 'admin')->first()->users()->first();
     }
@@ -122,7 +124,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $threads = $this->getThreadsByType($type, $product_id);
         }
         if ($type == 'support' || $type == 'plaint') {
-            $parent_user = User::getAdmin();
+            $parent_user = User::getFirstAdmin();
         }
 
         if ($threads) {
@@ -150,6 +152,17 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendEmailVerificationNotification()
     {
         $this->notify(new SendVerifyWithQueueNotification());
+    }
+
+    public function setLimitProduct()
+    {
+        if ($this->hasVerifiedGA()) {
+            $this->limit_product = config('product.limit_create_product_totp');
+        } else {
+            $this->limit_product = config('product.limit_create_product');
+        }
+
+        return $this;
     }
 
 

@@ -46,7 +46,10 @@ class StoreProductRequest extends FormRequest
     }
 
     public function messages()
-    {
-        return parent::messages();
-    }
+{
+    return [
+        'title.required' => 'Title is required and max:255 symbols',
+        'price.required' => 'Price is required',
+    ];
+}
 }

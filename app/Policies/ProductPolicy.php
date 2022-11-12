@@ -6,6 +6,8 @@ use App\Product;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Auth\Access\Response;
+use Illuminate\Auth\Access\AuthorizationException;
+
 
 class ProductPolicy
 {
@@ -14,12 +16,12 @@ class ProductPolicy
     public function viewAny(?User $user)
     {
         return true;
-        // return $user->hasAnyRoles(['admin', 'moder']);
     }
 
     public function view(?User $user, Product $product)
     {
         return true;
+        // return optional($user)->id === $post->user_id;
         // return $user->hasAnyRoles(['admin', 'moder']);
     }
 

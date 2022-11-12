@@ -16,6 +16,7 @@ return [
         'save' => 'Save',
         'edit' => 'Edit',
         'new' => 'New',
+        'view' => 'View',
     ],
     'pages' => [
         'new' => 'New listing',
@@ -68,5 +69,13 @@ return [
     'country' => [
         'title' => 'Location',
         'prompt' => 'Where is your product from',
+    ],
+    'created_at' => [
+        'title' => 'Date created',
+        'prompt' => 'Created at',
+    ],
+    'active_at' => [
+        'title' => 'Published to',
+        'prompt' => 'Active on',
     ],
 ];

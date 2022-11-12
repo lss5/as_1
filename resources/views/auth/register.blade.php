@@ -13,20 +13,20 @@
                 </div>
                 <input required type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}" placeholder="Username" aria-label="Username" aria-describedby="username-prepend" autofocus autocomplete="username">
                 @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="email-prepend"><i class="fas fa-envelope"></i></span>
                 </div>
-                <input required type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="E-mail" aria-label="email" aria-describedby="email-prepend" autocomplete="email">
-                @error('name')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                <input required type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="E-mail" aria-label="email" aria-describedby="email-prepend" autocomplete="email">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input-group mb-3">
@@ -35,9 +35,9 @@
                 </div>
                 <input required id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Password" aria-label="password" aria-describedby="password-prepend" autocomplete="new-password">
                 @error('password')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
                 @enderror
             </div>
             <div class="input-group mb-3">
@@ -52,7 +52,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="first-name-prepend"><i class="fas fa-user"></i></span>
                         </div>
-                        <input required id="first_name" name="first_name" type="text" value="{{ old('first_name') }}" class="form-control @error('country') is-invalid @enderror" placeholder="First name" autocomplete="given-name" aria-label="First name" aria-describedby="first-name-prepend">
+                        <input required id="first_name" name="first_name" type="text" value="{{ old('first_name') }}" class="form-control @error('first_name') is-invalid @enderror" placeholder="First name" autocomplete="given-name" aria-label="First name" aria-describedby="first-name-prepend">
                     </div>
                 </div>
                 <div class="col pl-1">

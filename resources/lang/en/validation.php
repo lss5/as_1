@@ -153,7 +153,7 @@ return [
     'attributes' => [],
 
     // custom validation messages
-    'TOTP_authentication' => 'You need to enable two-factor authentication to create a listing.',
     'must_have_contact' => 'You must have min 1 contact link to create a listing',
-    'limit_listing_plan' => 'Sorry, but we have a limit on the creation of listings.',
+    'limit_product_plan' => 'Sorry, but we have a limit on the creation of listings. The limit can be increased by enabling two-factor authentication.',
+    'limit_product_plan_totp' => 'At the moment, you have reached the maximum number of products that we offer to users with two-factor authentication enabled.',
 ];

@@ -34,19 +34,21 @@ Route::prefix('home')->name('home.')->middleware('auth','verified')->group(funct
     Route::resource('/messages', 'MessageController')->only(['store', 'update', 'index', 'show', 'destroy']);
 });
 
+Route::prefix('products')->name('products.')->middleware('auth','verified')->group(function(){
+    Route::get('/create', 'ProductController@create')->name('create');
+    Route::post('/', 'ProductController@store')->name('store');
+    Route::get('/{product}/edit', 'ProductController@edit')->name('edit');
+    Route::put('/{product}', 'ProductController@update')->name('update');
+    Route::delete('/{product}', 'ProductController@destroy')->name('destroy');
+    // additional actions
+    Route::put('/{product}/image', 'ProductController@addimage')->name('addimage');
+});
 Route::prefix('products')->name('products.')->group(function(){
     Route::get('/', 'ProductController@index')->name('index');
-    Route::get('/create', 'ProductController@create')->name('create')->middleware('auth');
-    Route::post('/', 'ProductController@store')->name('store')->middleware('auth');
     Route::get('/{product}', 'ProductController@show')->name('show');
-    Route::get('/{product}/edit', 'ProductController@edit')->name('edit')->middleware('auth');
-    Route::put('/{product}', 'ProductController@update')->name('update')->middleware('auth');
-    Route::delete('/{product}', 'ProductController@destroy')->name('destroy')->middleware('auth');
+    Route::get('/user/{user}', 'ProductController@user')->name('user'); // All products of User
     // additional actions
-    Route::put('/{product}/image', 'ProductController@addimage')->name('addimage')->middleware('auth');
     Route::put('/{product}/reactivate', 'ProductController@reactivate')->name('reactivate')->middleware('auth', 'can:admin');
-    // user products
-    Route::get('/user/{user}', 'ProductController@user')->name('user');
 });
 
 Route::delete('/{image}', 'ImageController@destroy')->middleware('auth')->name('images.destroy');
