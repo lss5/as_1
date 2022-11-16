@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Product;
 use App\Country;
 use App\Category;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Filters\ProductFilters;
-use Carbon\Carbon;
+use App\Notifications\ProductActivatedNotification;
 
 class ProductsController extends Controller
 {
@@ -67,27 +69,47 @@ class ProductsController extends Controller
         }
     }
 
-    public function activate(Request $request, Product $product)
+    public function restore(Request $request, $product)
     {
-        if (Auth::user()->can('restore', $product)) {
-            $product->forceFill([
-                'active_at' => Carbon::now()->addMonth(),
-            ])->save();
+        $product = Product::withTrashed()->find($product);
 
-            return redirect()->route('admin.products.index')->with('success', 'Product activated');
+        if (Auth::user()->can('restore', $product)) {
+            if ($product->status != 'restored') {
+                $product->restore();
+    
+                $product->fill([
+                    'status' => 'restored',
+                    'status_changed_at' => Carbon::now(),
+                ])->save();
+            }
+            return redirect()->route('admin.products.index')->with('success', 'Product restored');
         } else {
             return redirect()->back()->with('warning', '403 | This action is unauthorized');
         }
     }
 
-    public function restore(Request $request, $product)
+    // Statuses function
+    public function set_status(Request $request, Product $product)
     {
-        $product = Product::withTrashed()->find($product);
-        if (Auth::user()->can('restore', $product)) {
-            $product->restore();
-            return redirect()->route('admin.products.index')->with('success', 'Product restored');
+        if (Auth::user()->can('delete', $product)) {
+            $status = $request->input('status');
+            if ($product->status != $status && in_array($status, Product::$statuses)) {
+                $product->fill([
+                    'status' => $status,
+                    'status_changed_at' => Carbon::now(),
+                ])->save();
+                if ($status == 'active') {
+                    $product->fill([
+                        'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
+                    ])->save();
+                    $product->user->notify(new ProductActivatedNotification($product));
+                }
+            } else {
+                return redirect()->back()->withErrors(['Statuses error'], 'warning');
+            }
+            return redirect()->route('admin.products.index')->with('success', __('product.messages.activated'));
         } else {
-            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+            return redirect()->back()->withErrors(['403 | This action is unauthorized'], 'warning');
         }
     }
 }

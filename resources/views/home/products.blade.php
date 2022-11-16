@@ -4,7 +4,11 @@
     <div class="row">
         <div class="col-12 col-lg-8 mx-auto">
             <div class="d-flex flex-row justify-content-between">
-                <h1 class="h4 my-2">{{ __('product.pages.index') }}</h1>
+                @if ($products->count() > 0)
+                    <h1 class="h4 my-2">{{ __('product.pages.index') }}</h1>
+                @else
+                    <h1 class="h4 my-2">{{ __('product.messages.products_empty') }}</h1>
+                @endif
                 <a href="{{ route('products.create') }}" type="button" class="btn btn-success py-2"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('product.btn.new') }}</a>
             </div>
             @forelse ($products as $product)
@@ -49,42 +53,84 @@
                     </div>
                     {{-- col-3 --}}
                     <div class="col-5 col-sm-2 d-flex flex-column mt-2 mt-sm-0">
-                        @if(is_null($product->active_at))
-                            <button type="button" class="btn btn-sm btn-outline-primary mb-1">
-                                <i class="fas fa-user-shield"></i> On moderation
-                            </button>
-                        @else
-                            @if(now() < $product->active_at)
-                                <button type="button" class="btn btn-sm btn-outline-success my-1">
-                                    Active
-                                </button>
-                            @else
-                                <button type="button" class="btn btn-sm btn-secondary my-1">
-                                    Expired
-                                </button>
-                                <form action="{{ route('products.reactivate', $product) }}" method="POST" class="d-inline">
+                        {{-- Status --}}
+                        @switch($product->status)
+                            @case('active')
+                                <button type="button" class="btn btn-sm btn-success mb-1">
+                                    <i class="fas fa-check-circle"></i>
+                                @break
+                            @case('moderation')
+                                <button type="button" class="btn btn-sm btn-outline-primary mb-1">
+                                    <i class="fas fa-user-shield"></i>
+                                @break
+                            @case('expired')
+                                <button type="button" class="btn btn-sm btn-secondary mb-1">
+                                    <i class="fas fa-stopwatch"></i>
+                                @break
+                            @case('reactivation_rq')
+                                <button type="button" class="btn btn-sm btn-primary mb-1">
+                                    <i class="fas fa-user-shield"></i>
+                                @break
+                            @case('banned')
+                                <button type="button" class="btn btn-sm btn-danger mb-1">
+                                    <i class="fas fa-store-slash"></i>
+                                @break
+                            @case('canceled')
+                                <button type="button" class="btn btn-sm btn-outline-danger mb-1">
+                                    <i class="fas fa-shield-alt"></i>
+                                @break
+                            @case('restored')
+                                <button type="button" class="btn btn-sm btn-secondary mb-1">
+                                    <i class="fas fa-trash-restore"></i>
+                                @break
+                            @default
+                                <button type="button" class="btn btn-sm btn-outline-secondary mb-1">
+                        @endswitch
+                            {{ __('product.status.'.$product->status) }}
+                        </button>
+
+                        {{-- Actions --}}
+                        @switch($product->status)
+                            @case('expired')
+                                <form action="{{ route('home.products.reactivation', $product) }}" method="POST" class="d-inline">
                                     @csrf
-                                    @method('PUT')
-                                    <button class="btn btn-success btn-sm my-1" type="submit">RePublish</button>
+                                    @method('POST')
+                                    <button class="btn btn-success btn-sm" type="submit">{{ __('product.btn.reactivation_request') }}</button>
                                 </form>
-                            @endif
-                        @endif
-                        <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-secondary my-1">{{__('product.btn.view')}} <i class="fas fa-eye"></i></a>
-                        <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-sm btn-warning my-1">{{__('product.btn.edit')}} <i class="far fa-edit"></i></a>
-                        {{-- <form action="{{ route('products.destroy', $product) }}" method="POST" class="form-inline">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit" class="btn btn-sm btn-outline-danger w-100" onclick='return confirm("Delete item?");'>
-                                Delete <i class="fas fa-trash"></i>
-                            </button>
-                        </form> --}}
+                                @break
+                            @case('reactivation_rq')
+                                @break
+                            @case('banned')
+                                <form action="{{ route('home.messages.create') }}" method="GET" class="d-inline w-100">
+                                    <input type="hidden" name="type" value="support">
+                                    <button type="submit" class="btn btn-sm btn-outline-success w-100">
+                                        {{ __('product.btn.help') }} <i class="fas fa-headset"></i>
+                                    </button>
+                                </form>
+                                @break
+                            @case('canceled')
+                                <form action="{{ route('home.messages.create') }}" id="help-request-form" method="GET" class="d-inline">
+                                    <input type="hidden" name="type" value="support">
+                                    <button type="submit" class="btn btn-sm btn-outline-success">
+                                        {{ __('product.btn.help') }} <i class="fas fa-headset"></i>
+                                    </button>
+                                </form>
+                                @break
+                            @case('restored')
+                                <form action="{{ route('home.products.reactivation', $product) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('POST')
+                                    <button class="btn btn-success btn-sm" type="submit">{{ __('product.btn.reactivation_request') }}</button>
+                                </form>
+                                @break
+                            @default
+                        @endswitch
+                        @can('update', $product)
+                            <a href="{{ route('products.edit', $product) }}" type="button" class="btn btn-sm btn-warning my-1">{{__('product.btn.edit')}} <i class="far fa-edit"></i></a>
+                        @endcan
                     </div>
                 </div>
-            @empty
-                <div class="col-12">
-                    <h2 class="h4">No products selling</h2>
-                </div>
-            @endforelse
+            @endforeach
         </div>
     </div>
     <div class="row">

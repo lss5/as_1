@@ -28,6 +28,8 @@ class Product extends Model
         'revenue',
         'mining_timestamp',
         'mining_direction',
+        'status',
+        'status_changed_at',
     ];
 
     public static $hashrates = [
@@ -42,6 +44,33 @@ class Product extends Model
         'hashrate' => 'Hashrate',
         'power' => 'Power',
         'moq' => 'MOQ',
+    ];
+
+    public static $statuses = [
+        'active',
+        'moderation',
+        'expired',
+        'reactivation_rq',
+        'banned',
+        'canceled',
+        'restored',
+    ];
+
+    public static $status_default_after_user_edit = 'moderation';
+
+    public static $status_for_edit = [
+        'active',
+        'moderation',
+        'canceled',
+        'restored',
+    ];
+
+    public static $status_not_change_edit = [
+        'moderation',
+        'expired',
+        'reactivation_rq',
+        'banned',
+        'restored',
     ];
 
     public $cost;

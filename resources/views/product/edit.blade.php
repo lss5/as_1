@@ -26,7 +26,7 @@
                             <small class="form-text text-muted">
                                 <td>{{ date('d-m-Y H:i:s', strtotime($image->created_at)) }}</td>
                             </small>
-                            <form method="POST" action="{{ route('images.destroy', $image) }}">
+                            <form method="POST" action="{{ route('products.images.destroy', $image) }}">
                                 @method('DELETE')
                                 @csrf
                                 <button type="submit" onclick='return confirm("Delete photo?");' role="button" aria-pressed="true" class="btn btn-outline-danger btn-sm my-1">{{ __('product.btn.delete') }}</button>
@@ -37,6 +37,11 @@
                 @if ($product_images < 3)
                     <div class="row">
                         <div class="col-sm-12">
+                            @error('status')
+                                <small class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
                             @error('image')
                                 <small class="form-text text-danger">
                                     {{ $message }}

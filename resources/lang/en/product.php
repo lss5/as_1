@@ -15,8 +15,11 @@ return [
         'back' => 'Back',
         'save' => 'Save',
         'edit' => 'Edit',
+        'change' => 'Change',
         'new' => 'New',
         'view' => 'View',
+        'reactivation_request' => 'Reactivation request',
+        'help' => 'Help',
     ],
     'pages' => [
         'new' => 'New listing',
@@ -24,6 +27,20 @@ return [
         'index' => 'Your products',
         'list' => 'Listing',
         'lists' => 'Listings',
+    ],
+    'messages' => [
+        'products_empty' => 'No products selling',
+        'reactivation_request_sent' => 'Reactivation request sent to administrator',
+        'activated' => 'Product activated',
+    ],
+    'status' => [
+        'active' => 'Active',
+        'moderation' => 'On Moderation',
+        'expired' => 'Expired',
+        'reactivation_rq' => 'Reactivation checking',
+        'banned' => 'Banned',
+        'canceled' => 'Did not pass moderation',
+        'restored' => 'Restored',
     ],
 
     // Fields

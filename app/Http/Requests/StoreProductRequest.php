@@ -23,6 +23,7 @@ class StoreProductRequest extends FormRequest
             'isnew' => $this->has('condition') ? 1 : 0,
             'user_id' => $this->user()->id,
             'country_id' => $this->country,
+            'status' => 'moderation',
         ]);
     }
 
@@ -41,15 +42,20 @@ class StoreProductRequest extends FormRequest
             'country_id' => ['required', 'integer', 'exists:countries,id'],
             'hashrate_name' => ['required', 'string', Rule::in(array_keys(Product::$hashrates))],
             'isnew' => ['nullable'],
-            'image' => ['required', 'file', 'image', 'max:3000', 'dimensions:min_width=500,min_height=300'],
+            'image' => ['required', 'file', 'image', 'max:5000', 'dimensions:min_width=500,min_height=300'],
+            'status' => ['required', 'string', Rule::in(Product::$statuses)],
         ];
     }
 
     public function messages()
-{
-    return [
-        'title.required' => 'Title is required and max:255 symbols',
-        'price.required' => 'Price is required',
-    ];
-}
+    {
+        return [
+            'title.required' => 'Title is required and max:255 symbols',
+            'price.required' => 'Price is required',
+            'image.image' => 'The file under validation must be an image (jpeg, png, bmp, gif, svg, or webp)',
+            'image.file' => 'The file under validation must be an image (jpeg, png, bmp, gif, svg, or webp)',
+            'image.max' => 'The file under validation must be an image (jpeg, png, bmp, gif, svg, or webp)',
+            'image.dimensions' => 'The file under validation must be an image (jpeg, png, bmp, gif, svg, or webp)',
+        ];
+    }
 }

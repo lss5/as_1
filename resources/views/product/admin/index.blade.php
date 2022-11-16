@@ -28,6 +28,8 @@
         </div>
     </form>
 
+    @include('partials.alerts')
+
     <div class="row my-2">
         <div class="col-12">
             <h3>Manage listings</h3>
@@ -48,51 +50,148 @@
                             <th scope="col">Location</th>
                             <th scope="col">Price</th>
                             <th scope="col">Hashrate</th>
-                            <th scope="col">Power</th>
-                            <th scope="col">MOQ</th>
-                            <th scope="col">Quantity</th>
                             <th scope="col">Create</th>
-                            <th scope="col">Active</th>
+                            <th scope="col">Status changed</th>
+                            <th scope="col">Status</th>
                         </tr>
                     </thead>
                     <tbody>
                     @foreach ($products as $product)
                         <tr @if(!is_null($product->deleted_at))class="table-secondary"@endif>
                             <th scope="row">{{ $product->id }}</th>
-                            <td><a href="{{ route('products.show', $product) }}">{!! Str::limit($product->title, 25, '') !!}</a></td>
+                            <td class="d-flex flex-column">
+                                <a href="{{ route('products.show', $product) }}">{!! Str::limit($product->title, 25, '') !!}</a>
+                                @switch($product->status)
+                                    @case('active')
+                                        <button type="button" class="btn btn-sm btn-outline-success">
+                                        @break
+                                    @case('moderation')
+                                        <button type="button" class="btn btn-sm btn-outline-primary">
+                                        @break
+                                    {{-- @case('expired')
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        @break
+                                    @case('reactivation_rq')
+                                        <button type="button" class="btn btn-sm btn-secondary">
+                                        @break --}}
+                                    @case('banned')
+                                        <button type="button" class="btn btn-sm btn-danger">
+                                        @break
+                                    @case('canceled')
+                                        <button type="button" class="btn btn-sm btn-secondary">
+                                        @break
+                                    @case('restored')
+                                        <button type="button" class="btn btn-sm btn-secondary">
+                                        @break
+                                    @default
+                                        <button type="button" class="btn btn-sm btn-outline-secondary">
+                                @endswitch
+                                    {{ __('product.status.'.$product->status) }}
+                                </button>
+                            </td>
                             <td>{{ $product->user->name }}</td>
                             <td>{!! Str::limit($product->country->name, 22, '') !!}</td>
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->hashrate }} {{ $product->hashrate_name }}</td>
-                            <td>{{ $product->power }}</td>
-                            <td>{{ $product->moq }}</td>
-                            <td>{{ $product->quantity }}</td>
                             <td>{{ date('d-m-Y', strtotime($product->created_at)) }}</td>
-                            <td class="text-center">
+                            <td>{{ date('d-m h:i', strtotime($product->status_changed_at)) }}</td>
+                            <td>
                                 @if($product->trashed())
-                                    <form action="{{ route('admin.products.restore', $product) }}" method="POST">
+                                    <form action="{{ route('admin.products.restore', $product) }}" method="POST" class="mx-auto">
                                         @csrf
                                         @method('PUT')
                                         <button class="btn btn-outline-primary btn-sm" type="submit">Restore</button>
                                     </form>
                                 @else
+
+                                @error('status')
+                                    <small class="form-text text-danger">
+                                        {{ $message }}
+                                    </small>
+                                @enderror
+                                <form action="{{ route('admin.products.set_status', $product) }}" method="POST">
+                                    <select name="status" id="status" class="custom-select @error('status') is-invalid @enderror" aria-describedby="statusHelp">
+                                        @foreach (App\Product::$statuses as $status)
+                                            <option value="{{ $status }}" @if($status == $product->status || $status == old('status')) selected @endif>{{ ucfirst($status) }}</option>
+                                        @endforeach
+                                        @csrf
+                                        @method('POST')
+                                        <button class="btn btn-warning btn-sm" type="submit">{{ __('product.btn.change') }}</button>
+                                    </select>
+                                </form>
+{{-- 
+                                @switch($product->status)
+                                    @case('active')
+                                        <small class="d-block text-muted">Expired {{ date('d M', strtotime($product->active_at)) }}</small>
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'banned']) }}" method="POST">
+                                            <input type="hidden" name="status" value="ban">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-outline-danger btn-sm" type="submit">Ban</button>
+                                        </form>
+                                        @break
+                                    @case('moderation')
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'active']) }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-success btn-sm" type="submit">Activate</button>
+                                        </form>
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'banned']) }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-outline-danger btn-sm mt-1" type="submit">Ban</button>
+                                        </form>
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'banned']) }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-outline-danger btn-sm mt-1" type="submit">Ban</button>
+                                        </form>
+                                        @break
+                                    @case('expired')
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'active']) }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-success btn-sm" type="submit">ReActivate</button>
+                                        </form>
+                                        @break
+                                    @case('banned')
+                                        
+                                        @break
+                                    @case('canceled')
+                                        <button type="button" class="btn btn-sm btn-secondary my-1">
+                                            Canceled
+                                        </button>
+                                        @break
+                                    @case('restored')
+                                        <button type="button" class="btn btn-sm btn-secondary my-1">
+                                            Restored
+                                        </button>
+                                        <form action="{{ route('admin.products.set_status', ['product' => $product, 'status' => 'banned']) }}" method="POST">
+                                            @csrf
+                                            @method('POST')
+                                            <button class="btn btn-outline-danger btn-sm mt-1" type="submit">Ban</button>
+                                        </form>
+                                        @break
+                                    @default
+                                        
+                                @endswitch --}}
                                     @if(is_null($product->active_at))
-                                        <form action="{{ route('admin.products.activate', $product) }}" method="POST">
+                                        {{-- <form action="{{ route('admin.products.activate', $product) }}" method="POST">
                                             @csrf
                                             @method('PUT')
                                             <button class="btn btn-success btn-sm" type="submit">Activate</button>
-                                        </form>
+                                        </form> --}}
                                     @else
                                         @if(now() < $product->active_at)
-                                            <button type="button" class="btn btn-sm btn-outline-success">
+                                            {{-- <button type="button" class="btn btn-sm btn-outline-success">
                                                 Act {{ date('d M', strtotime($product->active_at)) }}
-                                            </button>
+                                            </button> --}}
                                         @else
-                                            <form action="{{ route('products.reactivate', $product) }}" method="POST" class="d-inline">
+                                            {{-- <form action="{{ route('products.reactivate', $product) }}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('PUT')
                                                 <button type="submit" class="btn btn-sm btn-outline-secondary">RePublic ({{ date('d M', strtotime($product->active_at)) }})</button>
-                                            </form>
+                                            </form> --}}
                                         @endif
                                     @endif
                                 @endif

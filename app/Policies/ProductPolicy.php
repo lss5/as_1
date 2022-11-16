@@ -13,6 +13,13 @@ class ProductPolicy
 {
     use HandlesAuthorization;
 
+    public function before($user, $ability)
+    {
+        if ($user->hasRole('admin')) {
+            return true;
+        }
+    }
+
     public function viewAny(?User $user)
     {
         return true;
@@ -32,21 +39,25 @@ class ProductPolicy
 
     public function update(User $user, Product $product)
     {
-        return ($user->id == $product->user_id || $user->hasRole('admin'));
+        if (in_array($product->status, Product::$status_for_edit)) {
+            return $user->id == $product->user_id;
+        }
     }
 
     public function delete(User $user, Product $product)
     {
-        return ($user->id == $product->user_id || $user->hasRole('admin'));
+        return $user->id == $product->user_id;
     }
-
+    
     public function restore(User $user, Product $product)
     {
-        return $user->hasRole('admin');
+        // return false;
+        return $user->hasRole('moder');
     }
 
     public function forceDelete(User $user, Product $product)
     {
-        return $user->hasRole('admin');
+        return false;
+        // return $user->hasRole('admin');
     }
 }

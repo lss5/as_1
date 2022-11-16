@@ -14,6 +14,11 @@
                 <div class="col-sm-12 col-lg-9 form-group">
                     <div class="row">
                         <div class="col-sm-12">
+                            @error('status')
+                                <small class="form-text text-danger">
+                                    {{ $message }}
+                                </small>
+                            @enderror
                             @error('image')
                                 <small class="form-text text-danger">
                                     {{ $message }}

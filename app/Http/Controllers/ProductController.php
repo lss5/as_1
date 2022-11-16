@@ -10,7 +10,6 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -37,7 +36,8 @@ class ProductController extends Controller
         }
 
         $products = Product::filter($filters)
-                ->whereDate('active_at', '>', Carbon::now())
+                ->where('status', '=', 'active')
+                // ->whereDate('active_at', '>', Carbon::now())
                 ->orderBy('products.created_at', 'desc')
                 ->simplePaginate(21);
 
@@ -99,7 +99,7 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $product = Product::create($request->validated());        
+        $product = Product::create($request->validated());
         $product->categories()->attach($request->category);
         $product->images()->create([
             'link' => $request->file('image')->store('products', 'public'),
@@ -108,7 +108,8 @@ class ProductController extends Controller
         ProductProfitFillJob::dispatch($product);
         $product->user->notify(new ProductCreatedNotification($product));
 
-        return redirect()->route('products.edit', $product)->with('success', 'New listing created');
+        return redirect()->route('home.products')->with('success', 'New listing created');
+        // return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
 
     public function edit(Product $product)
@@ -141,7 +142,8 @@ class ProductController extends Controller
             }
         }
 
-        return redirect()->route('products.show', $product)->with('success', 'Listing updated');
+        return redirect()->route('home.products')->with('success', 'Listing updated');
+        // return redirect()->route('products.show', $product)->with('success', 'Listing updated');
     }
 
     public function destroy(Product $product)
@@ -185,20 +187,5 @@ class ProductController extends Controller
         return view('product.user')->with([
             'user' => $user,
         ]);
-    }
-
-    public function reactivate(Request $request, Product $product)
-    {
-        if (Auth::user()->can('update', $product)) {
-            if(!is_null($product->active_at) && $product->active_at < Carbon::now()) {
-                $product->forceFill([
-                    'active_at' => Carbon::now()->addMonths(2),
-                ])->save();
-            }
-
-            return redirect()->route('home.products')->with('success', 'Product republished');
-        } else {
-            return redirect()->back()->with('warning', '403 | This action is unauthorized');
-        }
     }
 }

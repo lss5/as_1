@@ -6,4 +6,5 @@ return [
     'limit_photo_on_product' => env('LIMIT_PHOTO_ON_PRODUCT', 3),
     'height' => 600,
     'width' => 720,
+    'activate_period' => env('PRODUCT_ACTIVATE_PERIOD', 1), // Months
 ];

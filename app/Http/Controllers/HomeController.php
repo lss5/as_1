@@ -12,6 +12,7 @@ use App\Product;
 use App\User;
 use App\Country;
 use App\Http\Requests\UpdateUser;
+use App\Notifications\ProductModerationNotification;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
@@ -27,7 +28,7 @@ class HomeController extends Controller
                 ->limit(4)
                 ->get();
 
-        $newest = Product::whereDate('active_at', '>', Carbon::now())
+        $newest = Product::whereDate('status_changed_at', '>', Carbon::now())
                 ->has('images')
                 ->orderBy('created_at', 'desc')
                 ->limit(4)
@@ -84,6 +85,22 @@ class HomeController extends Controller
             return redirect()->route('home.index')->with('success', 'Saved');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        }
+    }
+
+    public function product_reactivation_request(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product)) {
+            if (in_array($product->status, Product::$status_not_change_edit)) {
+                $product->fill([
+                    'status' => 'reactivation_rq',
+                    'status_changed_at' => Carbon::now(),
+                ])->save();
+            }
+            $product->user->notify(new ProductModerationNotification($product));
+            return redirect()->route('home.products')->with('success', __('product.messages.reactivation_request_sent'));
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
         }
     }
 
