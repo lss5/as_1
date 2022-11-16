@@ -23,7 +23,7 @@ Route::prefix('home')->name('home.')->middleware('auth','verified')->group(funct
 
     Route::get('/edit', 'HomeController@edit')->name('edit');
     Route::patch('/edit/{user}', 'HomeController@update')->name('update');
-    
+
     Route::post('/contacts/{user}', 'ContactController@store')->name('contacts.store');
     Route::patch('/contacts/{contact}', 'ContactController@setmain')->name('contacts.setmain');
     Route::delete('/contacts/{contact}', 'ContactController@destroy')->name('contacts.destroy');
@@ -56,13 +56,16 @@ Route::prefix('products')->name('products.')->group(function(){
 
     // Only moder users
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::put('/products/restore/{product}', 'ProductsController@restore')->name('products.restore');
+    Route::get('/products', 'ProductsController@index')->name('products.index');
+    Route::get('/products/trashed', 'ProductsController@trashed')->name('products.trashed');
     Route::post('/products/status/{product}', 'ProductsController@set_status')->name('products.set_status');
+    Route::delete('/{product}', 'ProductsController@destroy')->name('products.destroy');
+    Route::put('/products/restore/{product}', 'ProductsController@restore')->name('products.restore');
 
     // Route::post('/products/activate/{product}', 'ProductsController@activate')->name('products.activate');
     // Route::post('/products/ban/{product}', 'ProductsController@banning')->name('products.banning');
     // Route::post('/products/cancel/{product}', 'ProductsController@cancel')->name('products.cancel');
 
     Route::resource('/users', 'UsersController');
-    Route::resource('/products', 'ProductsController');
+    // Route::resource('/products', 'ProductsController');
 });

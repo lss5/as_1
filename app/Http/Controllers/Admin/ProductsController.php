@@ -16,15 +16,39 @@ class ProductsController extends Controller
 {
     public function index(Request $request, ProductFilters $filters)
     {
-        if (Auth::user()->can('viewAny', Product::class)) {
+        if (Auth::user()->can('moder')) {
             $search = false;
             if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
                 $search = true;
             }
 
             $products = Product::filter($filters)
-                ->withTrashed()
+                // ->withTrashed()
                 ->orderBy('created_at', 'desc')
+                ->simplePaginate(50);
+
+            return view('product.admin.index')->with([
+                'products' => $products,
+                'countries' => Country::all(),
+                'categories' => Category::all(),
+                'searchForm' => $search,
+            ]);
+        }
+
+        return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+    }
+
+    public function trashed(Request $request, ProductFilters $filters)
+    {
+        if (Auth::user()->can('moder')) {
+            $search = false;
+            if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
+                $search = true;
+            }
+
+            $products = Product::filter($filters)
+                ->onlyTrashed()
+                ->orderBy('deleted_at', 'desc')
                 ->simplePaginate(50);
 
             return view('product.admin.index')->with([
@@ -71,7 +95,6 @@ class ProductsController extends Controller
     public function restore(Request $request, $product)
     {
         $product = Product::withTrashed()->find($product);
-
         if (Auth::user()->can('restore', $product)) {
             if ($product->status != 'restored') {
                 $product->restore();

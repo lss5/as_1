@@ -9,6 +9,7 @@ return [
     */
 
     'btn' => [
+        'active' => 'Active',
         'create' => 'Create',
         'cancel' => 'Cancel',
         'delete' => 'Delete',
@@ -20,6 +21,7 @@ return [
         'view' => 'View',
         'reactivation_request' => 'Reactivation request',
         'help' => 'Help',
+        'trashed' => 'Trashed',
     ],
     'pages' => [
         'new' => 'New listing',
