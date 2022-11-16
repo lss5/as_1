@@ -34,6 +34,7 @@ return [
         'activated' => 'Product activated',
     ],
     'status' => [
+        'created' => 'Created',
         'active' => 'Active',
         'moderation' => 'On Moderation',
         'expired' => 'Expired',

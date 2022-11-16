@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProductModerationNotification extends Notification implements ShouldQueue
+class ProductChangeStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -25,11 +25,13 @@ class ProductModerationNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
-        return (new MailMessage)->markdown('mail.product.moderation', [
+        return (new MailMessage)->markdown('mail.product.status', [
+            'product_title' => $this->product->title,
+            'title' => __('mail.product.status.'.$this->product->status.'.title'),
+            'body' => __('mail.product.status.'.$this->product->status.'.body'),
             'url' => route('products.show', $this->product),
             'user' => $this->product->user->first_name. ' ' .$this->product->user->last_name,
-            'status' => __('product.status.'.$this->product->status),
-        ])->subject(__('mail.product.moderation.subject'));
+        ])->subject(__('mail.product.status.'.$this->product->status.'.subject'));
     }
 
     public function toArray($notifiable)

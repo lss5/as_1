@@ -15,7 +15,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Filters\ProductFilters;
 use App\Jobs\ProductProfitFillJob;
-use App\Notifications\ProductCreatedNotification;
+use App\Notifications\ProductChangeStatusNotification;
 
 
 class ProductController extends Controller
@@ -105,8 +105,9 @@ class ProductController extends Controller
             'link' => $request->file('image')->store('products', 'public'),
         ]);
 
+        // Event Created
         ProductProfitFillJob::dispatch($product);
-        $product->user->notify(new ProductCreatedNotification($product));
+        $product->user->notify(new ProductChangeStatusNotification($product));
 
         return redirect()->route('home.products')->with('success', 'New listing created');
         // return redirect()->route('products.edit', $product)->with('success', 'New listing created');

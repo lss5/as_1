@@ -9,7 +9,7 @@ class AddStatusProductTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->char('status', 36)->default('moderation');
+            $table->char('status', 36)->default('created');
             $table->timestamp('status_changed_at')->useCurrent();
         });
     }

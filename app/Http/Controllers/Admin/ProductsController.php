@@ -11,7 +11,6 @@ use App\Country;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Filters\ProductFilters;
-use App\Notifications\ProductActivatedNotification;
 
 class ProductsController extends Controller
 {
@@ -94,16 +93,7 @@ class ProductsController extends Controller
         if (Auth::user()->can('delete', $product)) {
             $status = $request->input('status');
             if ($product->status != $status && in_array($status, Product::$statuses)) {
-                $product->fill([
-                    'status' => $status,
-                    'status_changed_at' => Carbon::now(),
-                ])->save();
-                if ($status == 'active') {
-                    $product->fill([
-                        'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
-                    ])->save();
-                    $product->user->notify(new ProductActivatedNotification($product));
-                }
+                $product->setStatus($status);
             } else {
                 return redirect()->back()->withErrors(['Statuses error'], 'warning');
             }

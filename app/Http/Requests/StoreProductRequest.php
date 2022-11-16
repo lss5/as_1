@@ -23,7 +23,7 @@ class StoreProductRequest extends FormRequest
             'isnew' => $this->has('condition') ? 1 : 0,
             'user_id' => $this->user()->id,
             'country_id' => $this->country,
-            'status' => 'moderation',
+            'status' => 'created',
         ]);
     }
 

@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Contracts\ImportData\NetworkPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
 use Carbon\Carbon;
 
 use App\Product;
 use App\User;
 use App\Country;
 use App\Http\Requests\UpdateUser;
-use App\Notifications\ProductModerationNotification;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
@@ -92,12 +90,8 @@ class HomeController extends Controller
     {
         if (Auth::user()->can('update', $product)) {
             if (in_array($product->status, Product::$status_not_change_edit)) {
-                $product->fill([
-                    'status' => 'reactivation_rq',
-                    'status_changed_at' => Carbon::now(),
-                ])->save();
+                $product->setStatus('reactivation_rq');
             }
-            $product->user->notify(new ProductModerationNotification($product));
             return redirect()->route('home.products')->with('success', __('product.messages.reactivation_request_sent'));
         } else {
             return redirect()->back()->with('warning', '403 | This action is unauthorized');

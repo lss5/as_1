@@ -2,10 +2,12 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
+use App\Notifications\ProductChangeStatusNotification;
 
 class Product extends Model
 {
@@ -47,6 +49,7 @@ class Product extends Model
     ];
 
     public static $statuses = [
+        'created',
         'active',
         'moderation',
         'expired',
@@ -66,6 +69,7 @@ class Product extends Model
     ];
 
     public static $status_not_change_edit = [
+        'created',
         'moderation',
         'expired',
         'reactivation_rq',
@@ -116,6 +120,27 @@ class Product extends Model
     {
         $this->forceFill(['active_at' => null])->save();
         return parent::delete();
+    }
+
+    public function setStatus($status)
+    {
+        $this->fill([
+            'status' => $status,
+            'status_changed_at' => Carbon::now(),
+        ])->save();
+
+        $this->user->notify(new ProductChangeStatusNotification($this));
+
+        if ($this->status == 'active') {
+            $this->fill([
+                'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
+            ])->save();
+        }
+        // if ($this->status == 'reactivation_rq') {
+        //     $product->user->notify(new ProductChangeStatusNotification($product));
+        // }
+
+        return true;
     }
 
 }
