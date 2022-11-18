@@ -51,9 +51,9 @@ class Product extends Model
     public static $statuses = [
         'created',
         'active',
+        'moderated',
         'moderation',
         'expired',
-        'reactivation_rq',
         'banned',
         'canceled',
         'restored',
@@ -72,7 +72,6 @@ class Product extends Model
         'created',
         'moderation',
         'expired',
-        'reactivation_rq',
         'banned',
         'restored',
     ];

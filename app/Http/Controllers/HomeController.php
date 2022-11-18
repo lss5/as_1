@@ -50,7 +50,7 @@ class HomeController extends Controller
     {
         $products = Product::where('user_id', Auth::user()->id)
                         ->orderBy('created_at', 'desc')
-                        ->simplePaginate(9);
+                        ->simplePaginate(12);
 
         return view('home.products')->with(['products' => $products]);
     }
@@ -83,18 +83,6 @@ class HomeController extends Controller
             return redirect()->route('home.index')->with('success', 'Saved');
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
-        }
-    }
-
-    public function product_reactivation_request(Request $request, Product $product)
-    {
-        if (Auth::user()->can('update', $product)) {
-            if (in_array($product->status, Product::$status_not_change_edit)) {
-                $product->setStatus('reactivation_rq');
-            }
-            return redirect()->route('home.products')->with('success', __('product.messages.reactivation_request_sent'));
-        } else {
-            return redirect()->back()->with('warning', '403 | This action is unauthorized');
         }
     }
 

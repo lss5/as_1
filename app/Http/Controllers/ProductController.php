@@ -189,4 +189,40 @@ class ProductController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function verify(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product)) {
+            if (in_array($product->status, Product::$status_not_change_edit)) {
+                $product->setStatus('moderation');
+            }
+            return redirect()->route('home.products')->with('success', __('product.messages.verify'));
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+        }
+    }
+
+    public function activate(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product)) {
+            if (in_array($product->status, ['moderated','canceled'])) {
+                $product->setStatus('active');
+            }
+            return redirect()->route('home.products')->with('success', __('product.messages.activated'));
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+        }
+    }
+
+    public function unpublish(Request $request, Product $product)
+    {
+        if (Auth::user()->can('update', $product)) {
+            if (in_array($product->status, ['active'])) {
+                $product->setStatus('canceled');
+            }
+            return redirect()->route('home.products')->with('success', __('product.messages.unpublish'));
+        } else {
+            return redirect()->back()->with('warning', '403 | This action is unauthorized');
+        }
+    }
 }

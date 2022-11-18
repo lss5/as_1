@@ -20,6 +20,11 @@ return [
                 'subject' => 'Listing activated',
                 'body' => 'Your listing has successfully passed moderation and is now available on the site!'
             ],
+            'moderated' => [
+                'title' => 'Listing moderated!',
+                'subject' => 'Listing available to publish',
+                'body' => 'Your product has been sent for moderation. The product will be available on the site after moderation.'
+            ],
             'moderation' => [
                 'title' => 'Listing sent for moderation',
                 'subject' => 'Listing sent for moderation',
@@ -29,11 +34,6 @@ return [
                 'title' => 'Listing has been Expired',
                 'subject' => 'Listing Expired',
                 'body' => 'Your product has been Expired'
-            ],
-            'reactivation_rq' => [
-                'title' => 'Request for Reactivation',
-                'subject' => 'Listing sent for moderation for Reactivation',
-                'body' => 'Your product has been Request for Reactivation'
             ],
             'banned' => [
                 'title' => 'Listing Banned!',

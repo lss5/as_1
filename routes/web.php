@@ -19,7 +19,6 @@ Route::get('/', 'HomeController@index')->name('index');
 Route::prefix('home')->name('home.')->middleware('auth','verified')->group(function(){
     Route::get('/', 'HomeController@home')->name('index');
     Route::get('/products', 'HomeController@products')->name('products');
-    Route::post('/reactivate/{product}', 'HomeController@product_reactivation_request')->name('products.reactivation');
 
     Route::get('/edit', 'HomeController@edit')->name('edit');
     Route::patch('/edit/{user}', 'HomeController@update')->name('update');
@@ -42,6 +41,9 @@ Route::prefix('products')->name('products.')->middleware('auth','verified')->gro
     Route::put('/{product}', 'ProductController@update')->name('update');
     Route::delete('/{product}', 'ProductController@destroy')->name('destroy');
     // additional actions
+    Route::post('/verify/{product}', 'ProductController@verify')->name('verify');
+    Route::post('/activate/{product}', 'ProductController@activate')->name('activate');
+    Route::post('/unpublish/{product}', 'ProductController@unpublish')->name('unpublish');
     Route::put('/image/{product}', 'ProductController@addimage')->name('addimage');
     Route::delete('/image/{image}', 'ImageController@destroy')->name('images.destroy');
 });
@@ -51,7 +53,6 @@ Route::prefix('products')->name('products.')->group(function(){
     Route::get('/{product}', 'ProductController@show')->name('show');
     Route::get('/user/{user}', 'ProductController@user')->name('user'); // All products of User
     // additional actions
-    // Route::put('/{product}/reactivate', 'ProductController@reactivate')->name('reactivate')->middleware('auth', 'can:admin');
 });
 
     // Only moder users
