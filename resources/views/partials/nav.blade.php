@@ -66,6 +66,11 @@
                                 <i class="far fa-images"></i> {{ __('home.menu.manage_products') }}
                             </a>
                         @endcan
+                        @can('viewAny', App\User::class)
+                            <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
+                                <i class="fas fa-cog"></i> {{ __('home.menu.app_settings') }}
+                            </a>
+                        @endcan
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();

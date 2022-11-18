@@ -62,6 +62,8 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
     Route::delete('/{product}', 'ProductsController@destroy')->name('products.destroy');
     Route::put('/products/restore/{product}', 'ProductsController@restore')->name('products.restore');
 
+    Route::get('/settings', 'SettingsController@index')->name('settings.index');
+
     // Route::post('/products/activate/{product}', 'ProductsController@activate')->name('products.activate');
     // Route::post('/products/ban/{product}', 'ProductsController@banning')->name('products.banning');
     // Route::post('/products/cancel/{product}', 'ProductsController@cancel')->name('products.cancel');

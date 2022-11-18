@@ -9,6 +9,7 @@ return [
     */
 
     'btn' => [
+        'add' => 'Add',
         'active' => 'Active',
         'create' => 'Create',
         'cancel' => 'Cancel',
@@ -22,6 +23,7 @@ return [
         'reactivation_request' => 'Reactivation request',
         'help' => 'Help',
         'trashed' => 'Trashed',
+        'sort' => 'Sort',
     ],
     'pages' => [
         'new' => 'New listing',
@@ -34,6 +36,8 @@ return [
         'products_empty' => 'No products selling',
         'reactivation_request_sent' => 'Reactivation request sent to administrator',
         'activated' => 'Product activated',
+        'status_changed' => 'Status changed successfully',
+        'status_not_changed' => 'Status change error',
     ],
     'status' => [
         'created' => 'Created',

@@ -21,11 +21,13 @@ return [
         'index' => 'Personal information',
         'list' => 'Profile',
         'lists' => 'Profile',
+        'categories' => 'Categories',
     ],
     'menu' => [
         'manage_products' => 'Listings manage',
         'manage_users' => 'Users list',
         'messages' => 'Messages',
+        'app_settings' => 'App settings',
     ],
 
     // Fields

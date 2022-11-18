@@ -24,10 +24,10 @@ class ProductsController extends Controller
 
             $products = Product::filter($filters)
                 // ->withTrashed()
-                ->orderBy('created_at', 'desc')
+                ->orderBy('status_changed_at', 'desc')
                 ->simplePaginate(50);
 
-            return view('product.admin.index')->with([
+            return view('admin.products.index')->with([
                 'products' => $products,
                 'countries' => Country::all(),
                 'categories' => Category::all(),
@@ -48,10 +48,10 @@ class ProductsController extends Controller
 
             $products = Product::filter($filters)
                 ->onlyTrashed()
-                ->orderBy('deleted_at', 'desc')
+                ->orderBy('created_at', 'desc')
                 ->simplePaginate(50);
 
-            return view('product.admin.index')->with([
+            return view('admin.products.index')->with([
                 'products' => $products,
                 'countries' => Country::all(),
                 'categories' => Category::all(),
@@ -118,9 +118,9 @@ class ProductsController extends Controller
             if ($product->status != $status && in_array($status, Product::$statuses)) {
                 $product->setStatus($status);
             } else {
-                return redirect()->back()->withErrors(['Statuses error'], 'warning');
+                return redirect()->back()->with('warning', __('product.messages.status_not_changed'));
             }
-            return redirect()->route('admin.products.index')->with('success', __('product.messages.activated'));
+            return redirect()->route('admin.products.index')->with('success', __('product.messages.status_changed'));
         } else {
             return redirect()->back()->withErrors(['403 | This action is unauthorized'], 'warning');
         }
