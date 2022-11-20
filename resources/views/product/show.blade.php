@@ -14,7 +14,7 @@
                             <input type="hidden" name="parent_id" value="{{ $product->id }}">
                             @if ($product->user->id == Auth::id())
                                 <input type="hidden" name="type" value="support">
-                                <button type="submit" class="btn btn-sm btn-outline-success mx-1">
+                                <button type="submit" class="btn btn-sm btn-outline-primary mx-1">
                                     Help request <i class="fas fa-headset"></i>
                                 </button>
                             @else

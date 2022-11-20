@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
-use App\Notifications\ProductChangeStatusNotification;
+use App\Events\ProductChangeStatus;
+
 
 class Product extends Model
 {
@@ -128,16 +129,13 @@ class Product extends Model
             'status_changed_at' => Carbon::now(),
         ])->save();
 
-        $this->user->notify(new ProductChangeStatusNotification($this));
-
         if ($this->status == 'active') {
             $this->fill([
                 'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
             ])->save();
         }
-        // if ($this->status == 'reactivation_rq') {
-        //     $product->user->notify(new ProductChangeStatusNotification($product));
-        // }
+
+        event(New ProductChangeStatus($this));
 
         return true;
     }
