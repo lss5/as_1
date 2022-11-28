@@ -33,42 +33,9 @@
                     </form>
                 </div>
             </li>
-            {{-- @switch($thread->type)
-                @case('product')
-                    <li class="list-group-item p-0 d-flex justify-content-start">
-                        <div class="w-25">
-                            @if ($thread->product->images->count() > 0)
-                                <img src="{{ asset('storage/'.$thread->product->images->first()->link) }}" alt="{{ $thread->product->title }}" class="img img-fluid">
-                            @else
-                                <img src="{{ asset('img/product-no-image.png') }}" alt="{{ $thread->product->title }}" class="img img-fluid">
-                            @endif
-                        </div>
-                        <div class="w-75" style="border: 1px solid rgba(0, 0, 0, 0.125); border-width: 0px; border-left-width: 1px;">
-                            <ul class="list-group list-group-flush w-100">
-                                <li class="list-group-item p-1">
-                                        {!! Str::limit($thread->product->title, 40, '') !!}
-                                    </a>
-                                </li>
-                                <li class="list-group-item p-1">{{ $thread->product->price }} $</li>
-                                <li class="list-group-item p-1">{{ $thread->product->hashrate }} {{ App\Product::$hashrates[$thread->product->hashrate_name] }}</li>
-                                <li class="list-group-item p-1">{{ $thread->product->power }} W</li>
-                                <li class="list-group-item p-1">{{ $thread->product->moq }} MOQ</li>
-                            </ul>
-                        </div>
-                    </li>
-                    @break
-
-                @case('support')
-                    <button class="btn btn-outline-success">
-                        {{ App\Thread::$types[$thread->type] }}
-                    </button>
-                    @break
-
-                @default
-            @endswitch --}}
 
             <li class="list-group-item p-2 ">
-                <form action="{{ route('messages.update', $thread->id) }}" method="post" class="form-inline">
+                <form action="{{ route('messages.update', $thread) }}" method="post" class="form-inline">
                     @csrf
                     @method('PUT')
                     <div class="col px-0">

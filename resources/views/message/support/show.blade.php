@@ -23,7 +23,7 @@
                 </div>
             </li>
             <li class="list-group-item p-2 ">
-                <form action="{{ route('support.update', $thread->id) }}" method="post" class="form-inline">
+                <form action="{{ route('support.update', $thread) }}" method="post" class="form-inline">
                     @csrf
                     @method('PUT')
                     <div class="col px-0">

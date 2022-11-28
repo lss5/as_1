@@ -21,15 +21,14 @@ class SupportController extends Controller
         return view('message.support.index')->with(['threads' => $threads]);
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, Thread $thread)
     {
-        $thread = Thread::findOrFail($id);
         if (Auth::user()->can('view', $thread)) {
             $thread->markAsRead(Auth::id());
             return view('message.support.show', compact('thread'));
         }
 
-        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $thread->id . ' was not found.');
     }
 
     public function create(Request $request)
@@ -66,13 +65,12 @@ class SupportController extends Controller
         return redirect()->route('support.index')->with('success', 'Help request is sended');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Thread $thread)
     {
         $request->validate([
             'message' => ['required', 'string'],
         ]);
 
-        $thread = Thread::findOrFail($id);
         if (Auth::user()->can('update', $thread)) {
 
             $thread->activateAllParticipants();
@@ -93,13 +91,13 @@ class SupportController extends Controller
                 'last_read' => new Carbon(),
             ])->save();
 
-            return redirect()->route('support.show', $id);
+            return redirect()->route('support.show', $thread);
         }
-        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $thread->id . ' was not found.');
 
     }
 
-    public function destroy($id)
+    public function destroy(Thread $thread)
     {
         //
     }

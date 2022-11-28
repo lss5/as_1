@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Validation\Rule;
-
-use Cmgmyr\Messenger\Models\Message;
 use Cmgmyr\Messenger\Models\Participant;
+use App\User;
+use App\Product;
 use App\Thread;
+use App\Message;
 
 class MessageController extends Controller
 {
@@ -31,15 +29,14 @@ class MessageController extends Controller
         ]);
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, Thread $thread)
     {
-        $thread = Thread::findOrFail($id);
         if (Auth::user()->can('view', $thread)) {
             $thread->markAsRead(Auth::id());
             return view('message.show', compact('thread'));
         }
 
-        return redirect()->route('messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('messages.index')->with('warning', 'The thread with ID: ' . $thread->id . ' was not found.');
     }
 
     public function create(Request $request, User $participant)
@@ -112,13 +109,12 @@ class MessageController extends Controller
         return redirect()->route('messages.index')->with('success', 'Message sended');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Thread $thread)
     {
         $request->validate([
             'message' => ['required', 'string'],
         ]);
 
-        $thread = Thread::findOrFail($id);
         if (Auth::user()->can('update', $thread)) {
 
             $thread->activateAllParticipants();
@@ -127,10 +123,10 @@ class MessageController extends Controller
             Message::create([
                 'thread_id' => $thread->id,
                 'user_id' => Auth::id(),
-                'body' => $request->message,
+                'body' => $request->input('message'),
             ]);
 
-            // Add replier as a participant
+            // Add replier as a participant and mark as Read
             $participant = Participant::firstOrCreate([
                 'thread_id' => $thread->id,
                 'user_id' => Auth::id(),
@@ -143,15 +139,14 @@ class MessageController extends Controller
             //     $thread->addParticipant(Request::input('recipients'));
             // }
 
-            return redirect()->route('messages.show', $id);
+            return redirect()->route('messages.show', $thread);
         }
-        return redirect()->route('messages.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('messages.index')->with('warning', 'The thread with ID: ' . $thread->id . ' was not found.');
 
     }
 
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, Thread $thread)
     {
-        $thread = Thread::findOrFail($id);
         $thread->removeParticipant(Auth::id());
         return redirect()->route('messages.index')->with('success', 'The thread "' . $thread->subject . '" archived.');
     }

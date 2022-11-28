@@ -34,18 +34,18 @@ Route::prefix('messages')->name('messages.')->middleware('auth','verified')->gro
     Route::get('/', 'MessageController@index')->name('index');
     Route::get('/create/{participant}', 'MessageController@create')->name('create');
     Route::post('/{participant}', 'MessageController@store')->name('store');
-    Route::get('/{message}', 'MessageController@show')->name('show');
-    Route::put('/{message}', 'MessageController@update')->name('update');
-    Route::delete('/{message}', 'MessageController@destroy')->name('destroy');
+    Route::get('/{thread}', 'MessageController@show')->name('show');
+    Route::put('/{thread}', 'MessageController@update')->name('update');
+    Route::delete('/{thread}', 'MessageController@destroy')->name('destroy');
 });
 // Support
 Route::prefix('support')->name('support.')->middleware('auth','verified')->group(function(){
     Route::get('/', 'SupportController@index')->name('index');
     Route::get('/create', 'SupportController@create')->name('create');
     Route::post('/', 'SupportController@store')->name('store');
-    Route::get('/{message}', 'SupportController@show')->name('show');
-    Route::put('/{message}', 'SupportController@update')->name('update');
-    Route::delete('/{message}', 'SupportController@destroy')->name('destroy');
+    Route::get('/{thread}', 'SupportController@show')->name('show');
+    Route::put('/{thread}', 'SupportController@update')->name('update');
+    Route::delete('/{thread}', 'SupportController@destroy')->name('destroy');
 });
 
 // Products for Auth Users
