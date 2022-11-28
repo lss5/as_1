@@ -28,6 +28,7 @@ return [
         'manage_users' => 'Users list',
         'messages' => 'Messages',
         'app_settings' => 'App settings',
+        'support' => 'Help requests',
     ],
 
     // Fields

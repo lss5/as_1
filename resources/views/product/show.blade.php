@@ -9,20 +9,12 @@
             <div class="col-md-12 col-lg-6">
                 <div class="d-flex justify-content-between align-items-center m-2">
                     <p class="h5 m-0">Seller: <a href="{{ route('products.user', $product->user) }}">{{ $product->user->name }}</a></p>
-                    @if (Auth::check())
-                        <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                    @if (Auth::check() && $product->user->id != Auth::id())
+                        <form action="{{ route('messages.create', $product->user) }}" method="GET" class="form-inline">
                             <input type="hidden" name="parent_id" value="{{ $product->id }}">
-                            @if ($product->user->id == Auth::id())
-                                <input type="hidden" name="type" value="support">
-                                <button type="submit" class="btn btn-sm btn-outline-primary mx-1">
-                                    Help request <i class="fas fa-headset"></i>
-                                </button>
-                            @else
-                                <input type="hidden" name="type" value="product">
-                                <button type="submit" class="btn btn-sm btn-success mx-1">
-                                    Send <i class="fas fa-envelope"></i>
-                                </button>
-                            @endif
+                            <button type="submit" class="btn btn-sm btn-success mx-1">
+                                Send <i class="fas fa-envelope"></i>
+                            </button>
                         </form>
                     @else
                         <small class="m-0">Please <a href="{{ route('login') }}">login</a> for send message to seller</small>
@@ -174,13 +166,13 @@
             <div class="row">
                 <div class="col-md-12">
                     <hr class="py-1">
-                    <form action="{{ route('home.messages.create') }}" method="GET" class="form-inline">
+                    {{-- <form action="{{ route('messages.create') }}" method="GET" class="form-inline">
                         <input type="hidden" name="parent_id" value="{{ $product->id }}">
                         <input type="hidden" name="type" value="plaint">
                         <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                             Report a scammer <i class="fas fa-headset"></i>
                         </button>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
         @endif

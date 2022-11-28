@@ -117,7 +117,7 @@
                         @endif
                             {{-- Help --}}
                         @if (in_array($product->status, ['banned','canceled']))
-                            <form action="{{ route('home.messages.create') }}" method="GET" class="d-inline">
+                            <form action="{{ route('messages.create') }}" method="GET" class="d-inline">
                                 <input type="hidden" name="type" value="support">
                                 <button type="submit" class="btn btn-sm btn-outline-primary my-1">
                                     {{ __('product.btn.help') }} <i class="fas fa-headset"></i>

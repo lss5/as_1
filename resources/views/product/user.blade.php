@@ -31,11 +31,9 @@
                         <th scope="row" colspan="2" class="text-center">
                             Contacts
                             @if (Auth::check() && $user->id != Auth::id())
-                                <form action="{{ route('home.messages.create') }}" method="GET" class="d-inline">
-                                    <input type="hidden" name="type" value="person">
-                                    <input type="hidden" name="parent_id" value="{{ $user->id }}">
+                                <form action="{{ route('messages.create', $user) }}" method="GET" class="d-inline">
                                     <button type="submit" class="btn btn-sm btn-success mx-1">
-                                        Send message <i class="fas fa-envelope"></i>
+                                        {{__('message.action.create')}} <i class="fas fa-envelope"></i>
                                     </button>
                                 </form>
                             @endif

@@ -97,7 +97,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasVerifiedUser()
     {
-        return ! is_null($this->user_verified_at);
+        return !is_null($this->user_verified_at);
     }
 
     public function markUserVerified()
@@ -110,43 +110,6 @@ class User extends Authenticatable implements MustVerifyEmail
     public static function getFirstAdmin()
     {
         return Role::where('uniq_name', '=', 'admin')->first()->users()->first();
-    }
-
-    public function getDialog($user_id = false, $product_id = false, $type)
-    {
-        if ($user_id) {
-            $parent_user = User::findOrFail($user_id);
-            $threads = $this->getThreadsByType($type);
-        }
-        if ($product_id) {
-            $product = Product::findOrFail($product_id);
-            $parent_user = User::findOrFail($product->user->id);
-            $threads = $this->getThreadsByType($type, $product_id);
-        }
-        if ($type == 'support' || $type == 'plaint') {
-            $parent_user = User::getFirstAdmin();
-        }
-
-        if ($threads) {
-            $threads = $threads->modelKeys();
-            // Search all dialog for parent user with Threads "person" of Auth user
-            // and get first Thread
-            $parent_user_participant = $parent_user->participants()->whereIn('thread_id', $threads)->first();
-            if ($parent_user_participant) {
-                return $parent_user_participant->thread_id;
-            }
-        }
-        return false;
-    }
-
-    public function getThreadsByType($type, $parent_id = false)
-    {
-        if ($parent_id) {
-            $threads = $this->threads()->where('type', '=', $type)->where('parent_id', '=', $parent_id)->get();
-        } else {
-            $threads = $this->threads()->where('type', '=', $type)->whereNull('parent_id')->get();
-        }
-        return $threads;
     }
 
     public function sendEmailVerificationNotification()

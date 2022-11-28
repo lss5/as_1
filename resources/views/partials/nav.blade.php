@@ -48,25 +48,30 @@
                         {{-- <a href="{{ route('home.edit') }}" class="dropdown-item">
                             Settings
                         </a> --}}
-                        <a href="{{ route('home.messages.index') }}" class="dropdown-item">
+                        <a href="{{ route('messages.index') }}" class="dropdown-item">
                             <i class="far fa-comments"></i> {{ __('home.menu.messages') }}
                             <?php $count = Auth::user()->newThreadsCount(); ?>
                             @if($count > 0)
                                 <span class="badge badge-success badge-pill">{{ $count }}</span>
                             @endif
                         </a>
-                        @can('viewAny', App\User::class)
+                        @can('moder')
                             <div class="dropdown-divider"></div>
-                            <a href="{{ route('admin.users.index') }}" class="dropdown-item">
-                                <i class="fas fa-users-cog"></i> {{ __('home.menu.manage_users') }}
-                            </a>
-                        @endcan
-                        @can('viewAny', App\User::class)
                             <a href="{{ route('admin.products.index') }}" class="dropdown-item">
                                 <i class="far fa-images"></i> {{ __('home.menu.manage_products') }}
                             </a>
                         @endcan
-                        @can('viewAny', App\User::class)
+                        @can('moder')
+                            <a href="{{ route('admin.support.index') }}" class="dropdown-item">
+                                <i class="fas fa-headset"></i> {{ __('home.menu.support') }}
+                            </a>
+                        @endcan
+                        @can('moder')
+                            <a href="{{ route('admin.users.index') }}" class="dropdown-item">
+                                <i class="fas fa-users-cog"></i> {{ __('home.menu.manage_users') }}
+                            </a>
+                        @endcan
+                        @can('moder')
                             <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
                                 <i class="fas fa-cog"></i> {{ __('home.menu.app_settings') }}
                             </a>

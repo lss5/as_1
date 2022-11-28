@@ -12,7 +12,7 @@
                     <a class="nav-link px-2 px-sm-4 {{ (request()->routeIs('home.products') || request()->routeIs('products.create') || request()->routeIs('products.edit')) ? 'active' : '' }}" href="{{ route('home.products') }}">{{ __('product.pages.lists') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link px-2 px-sm-4 {{ (request()->is('home/messages*')) ? 'active' : '' }}" href="{{ route('home.messages.index') }}">
+                    <a class="nav-link px-2 px-sm-4 {{ (request()->is('messages*') || request()->is('support*')) ? 'active' : '' }}" href="{{ route('messages.index') }}">
                         {{ __('Messages') }}
                         <?php $count = Auth::user()->newThreadsCount(); ?>
                         @if($count > 0)
