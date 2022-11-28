@@ -3,7 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -29,7 +29,8 @@ class NewMessageNotification extends Notification
             'thread_subject' => $this->message->thread->subject,
             'message' => $this->message->body,
             'url' => route('messages.show', $this->message->thread),
-            'user' => $this->message->user->first_name. ' ' .$this->message->user->last_name,
+            'author' => $this->message->user->name,
+            'user' => $notifiable->first_name. ' ' .$notifiable->last_name,
         ])->subject('New message');
     }
 

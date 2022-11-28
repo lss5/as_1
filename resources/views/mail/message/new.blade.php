@@ -2,6 +2,8 @@
 
 You have a new message in the thread with the subject: {{ $thread_subject }}
 
+> ***{{ $author }}:***
+
 > *{{ $message }}*
 
 @component('mail::button', ['url' => $url ?? ''])
