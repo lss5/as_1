@@ -28,7 +28,7 @@ class UpdateProductRequest extends FormRequest
         $this->merge([
             'title' => Str::ucfirst(trim($this->title)),
             'description' => trim($this->description),
-            'hashrate_name' => $this->hashrateName,
+            'hashrate_name' => Product::$algorithms[$this->algorithm],
             'isnew' => $this->has('condition') ? 1 : 0,
             'status' => $status,
             'status_changed_at' => Carbon::now(),
@@ -51,6 +51,7 @@ class UpdateProductRequest extends FormRequest
             'isnew' => ['nullable'],
             'status' => ['nullable', 'string', Rule::in(Product::$statuses)],
             'status_changed_at' => ['nullable'],
+            'algorithm' => ['required', 'string', Rule::in(array_keys(Product::$algorithms))],
         ];
     }
 

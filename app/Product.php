@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
 use App\Events\ProductChangeStatus;
-
+use App\Jobs\ProductProfitFillJob;
+use App\Notifications\ProductChangeStatusNotification;
 
 class Product extends Model
 {
@@ -23,6 +24,7 @@ class Product extends Model
         'quantity',
         'moq',
         'power',
+        'algorithm',
         'hashrate',
         'hashrate_name',
         'isnew',
@@ -36,9 +38,37 @@ class Product extends Model
     ];
 
     public static $hashrates = [
-        'ths' => 'Th/s',
-        'ghs' => 'Gh/s',
+        'hs' => 'H/s',
+        'khs' => 'kH/s',
         'mhs' => 'Mh/s',
+        'ghs' => 'Gh/s',
+        'ths' => 'Th/s',
+    ];
+
+    public static $algorithms = [
+        'sha256' => 'ths',
+        'scrypt' => 'ghs',
+        'x11' => 'ghs',
+        'sia' => 'ths',
+        'qk' => 'ghs',
+        'qb' => 'ghs',
+        'mg' => 'ghs',
+        'sk' => 'ghs',
+        'lbry' => 'ghs',
+        'bk14' => 'ths',
+        'cn' => 'khs',
+        'cst' => 'khs',
+        'eq' => 'khs',
+        'lre' => 'ghs',
+        'bcd' => 'mhs',
+        'l2z' => 'mhs',
+        'kec' => 'ghs',
+        'gro' => 'ghs',
+        'esg' => 'ghs',
+        'ct31' => 'hs',
+        'ct32' => 'hs',
+        'kd' => 'ths',
+        'hk' => 'ths',
     ];
 
     public static $sorting = [
@@ -80,6 +110,23 @@ class Product extends Model
     public $cost;
     public $profit;
     public $price_th;
+
+    protected static function booted()
+    {
+        static::created(function ($product) {
+            $product->user->notify(new ProductChangeStatusNotification($product));
+
+            if (!empty($product->hashrate)) {
+                ProductProfitFillJob::dispatch($product);
+            }
+        });
+
+        static::updated(function ($product) {
+            if (!empty($product->hashrate)) {
+                ProductProfitFillJob::dispatch($product);
+            }
+        });
+    }
 
     public function user()
     {

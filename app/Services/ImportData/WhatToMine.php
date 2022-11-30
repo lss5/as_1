@@ -22,7 +22,7 @@ class WhatToMine
         $this->dataClient = new ImportDataClient($this->endpoint);
     }
 
-    public function getProfit(Product $product)
+    public function getProfitBTC(Product $product)
     {
         try {
             $response = $this->dataClient->client->request('GET', '1.json', [

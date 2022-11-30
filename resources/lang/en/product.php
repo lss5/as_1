@@ -59,10 +59,6 @@ return [
         'title' => 'Photos',
         'prompt' => 'Select a photo and click upload, a 16:10 aspect ratio is recommended.',
     ],
-    'title' => [
-        'title' => 'Title',
-        'prompt' => 'max: 255 symbols',
-    ],
     'category' => [
         'title' => 'Category',
         'prompt' => '',
@@ -70,6 +66,10 @@ return [
     'isnew' => [
         'title' => 'Condition',
         'prompt' => 'Brand New',
+    ],
+    'title' => [
+        'title' => 'Title',
+        'prompt' => 'max: 255 symbols',
     ],
     'description' => [
         'title' => 'Description',
@@ -91,6 +91,10 @@ return [
         'title' => 'Power, Wt',
         'prompt' => 'Device power consumption',
     ],
+    'algorithm' => [
+        'title' => 'Algorithm',
+        'prompt' => 'Mining algorithm',
+    ],
     'hashrate' => [
         'title' => 'Hashrate',
     ],
@@ -105,5 +109,30 @@ return [
     'active_at' => [
         'title' => 'Published to',
         'prompt' => 'Active on',
+    ],
+    'algorithms' => [
+        'sha256' => 'SHA-256',
+        'scrypt' => 'Scrypt',
+        'x11' => 'X11',
+        'sia' => 'Sia',
+        'qk' => 'Quark',
+        'qb' => 'Qubit',
+        'mg' => 'Myr-Groestl',
+        'sk' => 'Skein',
+        'lbry' => 'LBRY',
+        'bk14' => 'Blake (14r)',
+        'cn' => 'CryptoNight',
+        'cst' => 'CryptoNightSTC',
+        'eq' => 'Equihash',
+        'lre' => 'Lyra2REv2',
+        'bcd' => 'BCD',
+        'l2z' => 'Lyra2z',
+        'kec' => 'Keccak',
+        'gro' => 'Groestl',
+        'esg' => 'Eaglesong',
+        'ct31' => 'Cuckatoo31',
+        'ct32' => 'Cuckatoo32',
+        'kd' => 'Kadena',
+        'hk' => 'Handshake',
     ],
 ];

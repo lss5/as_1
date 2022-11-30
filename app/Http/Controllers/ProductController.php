@@ -14,9 +14,6 @@ use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Filters\ProductFilters;
-use App\Jobs\ProductProfitFillJob;
-use App\Notifications\ProductChangeStatusNotification;
-
 
 class ProductController extends Controller
 {
@@ -105,10 +102,6 @@ class ProductController extends Controller
             'link' => $request->file('image')->store('products', 'public'),
         ]);
 
-        // Event Created
-        ProductProfitFillJob::dispatch($product);
-        $product->user->notify(new ProductChangeStatusNotification($product));
-
         return redirect()->route('home.products')->with('success', 'New listing created');
         // return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
@@ -126,8 +119,6 @@ class ProductController extends Controller
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->validated());
-
-        ProductProfitFillJob::dispatch($product);
 
         if ($product->country->id != $request->country) {
             $country = Country::find($request->country);

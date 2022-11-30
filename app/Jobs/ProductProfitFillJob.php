@@ -24,21 +24,27 @@ class ProductProfitFillJob implements ShouldQueue
 
     public function handle()
     {
-        if (!empty($this->product->hashrate)) {
-            $wtm = new WhatToMine();
-            $profit = $wtm->getProfit($this->product);
+        switch ($this->product->algorithm) {
+            case 'sha256':
+                $wtm = new WhatToMine();
+                $profit = $wtm->getProfitBTC($this->product);
 
-            if (empty($profit)) {
-                return false;
-            }
-
-            $this->product->mining_time = 24;
-            $this->product->btc_revenue = preg_replace('/[^0-9\.,]/','', $profit->btc_revenue);
-            $this->product->revenue = preg_replace('/[^0-9\.,]/','', $profit->revenue);
-            $this->product->mining_timestamp = Carbon::createFromTimestamp($profit->timestamp);
-            $this->product->mining_direction = false;
-
-            $this->product->save();
+                break;
+            default:
+                break;
         }
+
+        if (empty($profit)) {
+            return false;
+        }
+
+        $this->product->mining_time = 24;
+        $this->product->btc_revenue = preg_replace('/[^0-9\.,]/','', $profit->btc_revenue);
+        $this->product->revenue = preg_replace('/[^0-9\.,]/','', $profit->revenue);
+        $this->product->mining_timestamp = Carbon::createFromTimestamp($profit->timestamp);
+        $this->product->mining_direction = false;
+        $this->product->save();
+
+        return true;
     }
 }

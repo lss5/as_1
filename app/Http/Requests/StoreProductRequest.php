@@ -19,7 +19,7 @@ class StoreProductRequest extends FormRequest
         $this->merge([
             'title' => Str::ucfirst(trim($this->title)),
             'description' => trim($this->description),
-            'hashrate_name' => $this->hashrateName,
+            'hashrate_name' => Product::$algorithms[$this->algorithm],
             'isnew' => $this->has('condition') ? 1 : 0,
             'user_id' => $this->user()->id,
             'country_id' => $this->country,
@@ -44,6 +44,7 @@ class StoreProductRequest extends FormRequest
             'isnew' => ['nullable'],
             'image' => ['required', 'file', 'image', 'max:5000', 'dimensions:min_width=500,min_height=300'],
             'status' => ['required', 'string', Rule::in(Product::$statuses)],
+            'algorithm' => ['required', 'string', Rule::in(array_keys(Product::$algorithms))],
         ];
     }
 

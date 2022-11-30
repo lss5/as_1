@@ -38,20 +38,6 @@
         
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
-                    <label for="title">{{ __('product.title.title') }}</label>
-                </div>
-                <div class="col-sm-12 col-lg-9 form-group">
-                    @error('title')
-                        <small class="form-text text-danger">
-                            {{ $message }}
-                        </small>
-                    @enderror
-                    <input name="title" value="{{ old('title') }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp">
-                    <small class="form-text text-muted">{{ __('product.title.prompt') }}</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-12 col-lg-3">
                     <label for="category">{{ __('product.category.title') }}</label>
                 </div>
                 <div class="col-sm-12 col-lg-9 form-group">
@@ -78,6 +64,21 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-3">
+                    <label for="title">{{ __('product.title.title') }}</label>
+                </div>
+                <div class="col-sm-12 col-lg-9 form-group">
+                    @error('title')
+                        <small class="form-text text-danger">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                    <input name="title" value="{{ old('title') }}" type="text" class="form-control @error('title') is-invalid @enderror" id="title" aria-describedby="titleHelp">
+                    <small class="form-text text-muted">{{ __('product.title.prompt') }}</small>
+                </div>
+            </div>
+            
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
                     <label for="description">{{ __('product.description.title') }}</label>
@@ -146,6 +147,24 @@
                     @enderror
                     <input id="power" name="power" step="1" value="{{ old('power') }}" type="number" aria-describedby="powerHelp" class="form-control @error('power') is-invalid @enderror">
                     <small class="form-text text-muted">{{ __('product.power.prompt') }}</small>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-lg-3">
+                    <label for="algorithm">{{ __('product.algorithm.title') }}</label>
+                </div>
+                <div class="col-sm-12 col-lg-9 form-group">
+                    @error('algorithm')
+                        <small class="form-text text-danger">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                    <select name="algorithm" id="algorithm" class="custom-select @error('algorithm') is-invalid @enderror" aria-describedby="algorithmHelp">
+                        @foreach (App\Product::$algorithms as $alg => $hrt)
+                            <option value="{{ $alg }}" @if(old('algorithm') == $alg) selected @endif>{{ __('product.algorithms.'.$alg) }}</option>
+                        @endforeach
+                    </select>
+                    <small class="form-text text-muted">{{__('product.algorithm.prompt')}}</small>
                 </div>
             </div>
             <div class="row">
