@@ -9,10 +9,10 @@
                 @else
                     <h1 class="h4 my-2">{{ __('product.messages.products_empty') }}</h1>
                 @endif
-                <a href="{{ route('products.create') }}" type="button" class="btn btn-success py-2"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('product.btn.new') }}</a>
+                <a href="{{ route('products.create') }}" type="button" class="btn btn-sm btn-success my-2"><i class="fa fa-plus" aria-hidden="true"></i> {{ __('product.btn.new') }}</a>
             </div>
             @forelse ($products as $product)
-                <hr class="py-1 my-2">
+                <hr class="py-1 my-1">
                 <div class="row">
                     {{-- col-1 --}}
                     <div class="col-12 col-sm-3">
@@ -36,7 +36,7 @@
                                     @break
                                 @case('active')
                                     <span class="badge badge-success">
-                                        <i class="fas fa-globe"></i>
+                                        <i class="fas fa-check"></i>
                                     @break
                                 @case('moderation')
                                     <span class="badge badge-primary">
@@ -100,7 +100,7 @@
                             <form action="{{ route('products.verify', $product) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('POST')
-                                <button class="btn btn-success btn-sm" type="submit">
+                                <button class="btn btn-success btn-sm w-100" type="submit">
                                     <i class="fas fa-user-shield"></i></i> {{ __('product.btn.verify') }}
                                 </button>
                             </form>
@@ -110,16 +110,16 @@
                         <form action="{{ route('products.activate', $product) }}" method="POST" class="d-inline">
                             @csrf
                             @method('POST')
-                            <button class="btn btn-success btn-sm" type="submit">
+                            <button class="btn btn-success btn-sm w-100" type="submit">
                                 <i class="fas fa-globe"></i></i> {{ __('product.btn.publish') }}
                             </button>
                         </form>
                         @endif
                             {{-- Help --}}
                         @if (in_array($product->status, ['banned','canceled']))
-                            <form action="{{ route('messages.create') }}" method="GET" class="d-inline">
+                            <form action="{{ route('support.create') }}" method="GET" class="d-inline">
                                 <input type="hidden" name="type" value="support">
-                                <button type="submit" class="btn btn-sm btn-outline-primary my-1">
+                                <button type="submit" class="btn btn-sm btn-outline-primary w-100 my-1">
                                     {{ __('product.btn.help') }} <i class="fas fa-headset"></i>
                                 </button>
                             </form>
@@ -129,7 +129,7 @@
                         <form action="{{ route('products.unpublish', $product) }}" method="POST" class="d-inline">
                             @csrf
                             @method('POST')
-                            <button class="btn btn-secondary btn-sm" type="submit">
+                            <button class="btn btn-secondary btn-sm w-100" type="submit">
                                 <i class="fas fa-undo-alt"></i> {{ __('product.btn.unpublish') }}
                             </button>
                         </form>

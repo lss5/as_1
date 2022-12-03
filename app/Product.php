@@ -163,9 +163,19 @@ class Product extends Model
         return $filters->apply($builder);
     }
 
+    public function scopeForUser(Builder $query, User $user)
+    {
+        return $query->where('user_id', $user->id);
+    }
+
+    public function scopeActive(Builder $query)
+    {
+        return $query->where('status', 'active');
+    }
+
     public function delete()
     {
-        $this->forceFill(['active_at' => null])->save();
+        $this->forceFill(['status' => 'expired'])->save();
         return parent::delete();
     }
 

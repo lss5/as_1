@@ -39,7 +39,7 @@
                             @endif
                         </th>
                     </tr>
-                    @if($user->contacts()->count() < 1)
+                    {{-- @if($user->contacts()->count() < 1)
                         <tr>
                             <td colspan="2">Please add contact number</td>
                         </tr>
@@ -50,13 +50,13 @@
                                 <td>{{ $contact->value }}</td>
                             </tr>
                         @endforeach
-                    @endif
+                    @endif --}}
                 </tbody>
               </table>
         </div>
     </div>
     <div class="row my-2">
-        @if($user->products_active()->count() < 1)
+        @if($products->count() < 1)
             <div class="col-12">
                 <h5>No listings</h5>
             </div>
@@ -64,10 +64,10 @@
             <div class="col-12">
                 <h2 class="h4">listings</h1>
             </div>
-            @forelse ($user->products_active as $product)
-            <div class="col-sm-12 col-md-6 col-lg-4 my-1">
-                @include('partials.product_card')
-            </div>
+            @forelse ($products as $product)
+                <div class="col-sm-12 col-md-6 col-lg-4 my-1">
+                    @include('partials.product_card')
+                </div>
             @endforeach
         @endif
     </div>

@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Contracts\ImportData\NetworkPrice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Carbon\Carbon;
-
+use App\Contracts\ImportData\NetworkPrice;
+use App\Http\Requests\UpdateUser;
 use App\Product;
 use App\User;
 use App\Country;
-use App\Http\Requests\UpdateUser;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 
@@ -20,13 +18,13 @@ class HomeController extends Controller
     {
         $networkPrice->setPrices();
 
-        $popular = Product::whereDate('active_at', '>', Carbon::now())
+        $popular = Product::active()
                 ->has('images')
                 ->orderBy('views', 'desc')
                 ->limit(4)
                 ->get();
 
-        $newest = Product::whereDate('status_changed_at', '>', Carbon::now())
+        $newest = Product::active()
                 ->has('images')
                 ->orderBy('created_at', 'desc')
                 ->limit(4)
@@ -48,7 +46,7 @@ class HomeController extends Controller
 
     public function products(Request $request)
     {
-        $products = Product::where('user_id', Auth::user()->id)
+        $products = Product::ForUser(Auth::user())
                         ->orderBy('created_at', 'desc')
                         ->simplePaginate(12);
 

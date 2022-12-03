@@ -2,18 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Country;
-use App\Category;
-use App\User;
-
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Filters\ProductFilters;
+use App\Product;
+use App\Country;
+use App\Category;
+use App\User;
 
 class ProductController extends Controller
 {
@@ -33,8 +31,7 @@ class ProductController extends Controller
         }
 
         $products = Product::filter($filters)
-                ->where('status', '=', 'active')
-                // ->whereDate('active_at', '>', Carbon::now())
+                ->active()
                 ->orderBy('products.created_at', 'desc')
                 ->simplePaginate(21);
 
@@ -135,7 +132,6 @@ class ProductController extends Controller
         }
 
         return redirect()->route('home.products')->with('success', 'Listing updated');
-        // return redirect()->route('products.show', $product)->with('success', 'Listing updated');
     }
 
     public function destroy(Product $product)
@@ -178,6 +174,7 @@ class ProductController extends Controller
     {
         return view('product.user')->with([
             'user' => $user,
+            'products' => Product::ForUser($user)->active()->get(),
         ]);
     }
 

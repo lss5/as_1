@@ -54,11 +54,6 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Product');
     }
 
-    public function products_active()
-    {
-        return $this->hasMany('App\Product')->whereDate('active_at', '>', Carbon::now());
-    }
-
     public function contact_main()
     {
         return $this->hasMany('App\Contact')->where('ismain', true);

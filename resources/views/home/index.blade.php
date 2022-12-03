@@ -4,7 +4,7 @@
 <div class="row d-flex justify-content-start">
         <div class="col-12 col-lg-8 mx-auto">
         <h1 class="h4 my-2">{{ __('home.pages.index') }}</h1>
-        <table class="table w-100">
+        <table class="table w-100 my-1">
             <tbody>
                 <tr>
                     <th scope="row">Username</th>
@@ -37,6 +37,10 @@
                 <tr>
                     <th scope="row">Country</th>
                     <td>{{ $user->country->name }} <img src="{{ asset('img/flags/'.$user->country->alpha2_code.'.gif') }}" class="img-fluid" alt="{{$user->country->alpha2_code}}"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Listings/Limits</th>
+                    <td>{{ $user->products()->count() }}/<span class="text-success">{{ $user->limit_product }}</span></td>
                 </tr>
             </tbody>
         </table>
@@ -112,7 +116,7 @@
             </tbody>
         </table> --}}
         {{-- Subscriptions --}}
-        <h2 class="h4">Opportunities</h2>
+        {{-- <h2 class="h4">Opportunities</h2>
         <table class="table w-100">
             <tbody>
                 <tr>
@@ -124,7 +128,7 @@
                     <td>{{ $user->products()->count() }}/<span class="text-success">{{ $user->limit_product }}</span></td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
         {{-- Security --}}
         <h2 class="h4">Security</h2>
         <table class="table w-100">

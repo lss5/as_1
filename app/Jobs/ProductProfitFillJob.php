@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 use Carbon\Carbon;
 use App\Services\ImportData\WhatToMine;
@@ -24,15 +25,20 @@ class ProductProfitFillJob implements ShouldQueue
 
     public function handle()
     {
+        $wtm = new WhatToMine();
         switch ($this->product->algorithm) {
             case 'sha256':
-                $wtm = new WhatToMine();
-                $profit = $wtm->getProfitBTC($this->product);
-
+                $profit = $wtm->getProfit($this->product, '1.json');
                 break;
+
+            case 'scrypt':
+                $profit = $wtm->getProfit($this->product, '6.json');
+                break;
+
             default:
                 break;
         }
+        Log::info('ProductProfitFillJob - '.$this->product->algorithm);
 
         if (empty($profit)) {
             return false;

@@ -10,10 +10,10 @@
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link btn btn-danger px-3 py-1 mx-1 mt-1" href="{{ route('products.create') }}">Sell <i class="fas fa-handshake"></i><span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-danger px-3 py-1 mx-1 mt-1" href="{{ route('products.create') }}">Sell <i class="fas fa-comment-dollar"></i><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
-                <a class="nav-link btn btn-success px-3 py-1 mx-1 mt-1" href="{{ route('products.index') }}">Buy <i class="fas fa-server"></i><span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-success px-3 py-1 mx-1 mt-1" href="{{ route('products.index') }}">Buy <i class="fas fa-handshake"></i><span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item active">
                 <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
@@ -43,7 +43,7 @@
                             <i class="fas fa-user"></i> {{ __('home.pages.lists') }}
                         </a>
                         <a href="{{ route('home.products') }}" class="dropdown-item">
-                            <i class="fas fa-server"></i> {{ __('product.pages.lists') }}
+                            <i class="fas fa-images"></i> {{ __('product.pages.lists') }}
                         </a>
                         {{-- <a href="{{ route('home.edit') }}" class="dropdown-item">
                             Settings
@@ -57,13 +57,15 @@
                         </a>
                         @can('moder')
                             <div class="dropdown-divider"></div>
-                            <a href="{{ route('admin.products.index') }}" class="dropdown-item">
-                                <i class="far fa-images"></i> {{ __('home.menu.manage_products') }}
-                            </a>
                         @endcan
                         @can('moder')
-                            <a href="{{ route('admin.support.index') }}" class="dropdown-item">
-                                <i class="fas fa-headset"></i> {{ __('home.menu.support') }}
+                        <a href="{{ route('admin.support.index') }}" class="dropdown-item">
+                            <i class="fas fa-headset"></i> {{ __('home.menu.support') }}
+                        </a>
+                        @endcan
+                        @can('moder')
+                            <a href="{{ route('admin.products.index') }}" class="dropdown-item">
+                                <i class="far fa-images"></i> {{ __('home.menu.manage_products') }}
                             </a>
                         @endcan
                         @can('moder')
