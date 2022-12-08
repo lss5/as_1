@@ -14,6 +14,7 @@
         display: flex;
         justify-content: center;
         align-items: flex-end;
+        border-radius: 0;
     }
 </style>
 <div class="jumbotron m-0" id="main-slide">
@@ -22,7 +23,6 @@
         <p class="lead">P2P-platform for the sale of hardware and accessories for mining.</p>
         <hr class="my-4">
         <p>MAINTAINING THE BLOCKCHAIN WITH YOU!</p>
-        <a class="btn btn-success btn-lg" href="{{ route('products.index') }}" role="button">Buy now!</a>
     </div>
 </div>
 @if($prices->count() > 0)

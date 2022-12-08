@@ -1,8 +1,4 @@
 <div class="row">
-    <div class="col-12 col-md">
-        <img class="mb-2" src="{{ asset('img/logo_with_name.png') }}" alt="" width="118" height="66">
-        <small class="d-block mb-3 text-muted">© 2020-2023</small>
-    </div>
     <div class="col-6 col-md">
         <h5>About</h5>
         <ul class="list-unstyled text-small">
@@ -34,6 +30,11 @@
         <h5>Registration</h5>
         <ul class="list-unstyled text-small">
             <li><a class="text-muted" href="#">Privacy Policy</a></li>
+            <li><a class="text-muted" href="#">Terms and conditions</a></li>
         </ul>
+    </div>
+    <div class="col-12 d-flex flex-column align-items-center">
+        <img class="mb-2" src="{{ asset('img/logo_with_name.png') }}" alt="" width="118" height="66">
+        <small class="d-block mb-3 text-muted">© 2020-2023</small>
     </div>
 </div>

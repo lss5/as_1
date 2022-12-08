@@ -21,7 +21,7 @@
             @include('partials.nav')
             
         </nav>
-        <hr class="pb-1 m-0">
+        <hr class="p-0 m-0">
 
         <main role="main" class="m-0 p-0">
             @yield('content')
