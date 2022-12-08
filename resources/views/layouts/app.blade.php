@@ -16,9 +16,12 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body class="bg-white d-flex flex-column h-100">
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-md navbar-light">
+        {{-- <nav class="navbar navbar-light" style="background-color: #fff;"> --}}
             @include('partials.nav')
+            
         </nav>
+        <hr class="pb-1 m-0">
 
         <main role="main" class="m-0 p-0">
             @yield('content')

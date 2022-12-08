@@ -1,9 +1,24 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="jumbotron m-0">
-    <div class="container">
-        <h1 class="display-4">AsicSeller.com</h1>
+<style>
+    #main-slide {
+        min-height: 550px;
+        padding: 15px 0;
+        background: 
+		    linear-gradient(rgba(13, 47, 0, 0.7), rgba(1, 6, 0, 0.9)), 
+		    url( {{ asset('img/asic-main.jpg') }} ),
+            no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+    }
+</style>
+<div class="jumbotron m-0" id="main-slide">
+    <div class="container text-white">
+        <h1 class="display-4">Mining Equipment ASIC and GPU</h1>
         <p class="lead">P2P-platform for the sale of hardware and accessories for mining.</p>
         <hr class="my-4">
         <p>MAINTAINING THE BLOCKCHAIN WITH YOU!</p>
