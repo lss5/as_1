@@ -11,6 +11,7 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/vendor.js') }}" defer></script>
+    @yield('script')
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -19,7 +20,7 @@
         <nav class="navbar navbar-expand-md navbar-light">
         {{-- <nav class="navbar navbar-light" style="background-color: #fff;"> --}}
             @include('partials.nav')
-            
+
         </nav>
         <hr class="p-0 m-0">
 
@@ -27,7 +28,8 @@
             @yield('content')
         </main>
 
-        <footer class="container mt-auto pt-4 pb-2">
+        <footer class="mt-auto">
+            <hr class="p-0 m-0">
             @include('partials.footer')
         </footer>
 </body>

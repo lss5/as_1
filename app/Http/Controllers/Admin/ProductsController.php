@@ -30,7 +30,7 @@ class ProductsController extends Controller
             return view('admin.products.index')->with([
                 'products' => $products,
                 'countries' => Country::all(),
-                'categories' => Category::all(),
+                'categories' => Category::orderBy('sort')->get(),
                 'searchForm' => $search,
             ]);
         }
@@ -54,7 +54,7 @@ class ProductsController extends Controller
             return view('admin.products.index')->with([
                 'products' => $products,
                 'countries' => Country::all(),
-                'categories' => Category::all(),
+                'categories' => Category::orderBy('sort')->get(),
                 'searchForm' => $search,
             ]);
         }

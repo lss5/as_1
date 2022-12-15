@@ -22,7 +22,7 @@ class UsersController extends Controller
     {
         if (Auth::user()->can('viewAny', User::class)) {
             $users = User::all();
-            return view('users.index')->with('users', $users);
+            return view('admin.users.index')->with('users', $users);
         } else {
             return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
         }
@@ -42,7 +42,7 @@ class UsersController extends Controller
         {
             $roles = Role::all();
     
-            return view('users.edit')->with([
+            return view('admin.users.edit')->with([
                 'user' => $user,
                 'roles' => $roles,
             ])->with('warning', 'Warning! Dont edit Role' );

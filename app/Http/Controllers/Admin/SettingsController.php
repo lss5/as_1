@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Category;
+use App\Section;
 
 
 class SettingsController extends Controller
@@ -19,7 +20,8 @@ class SettingsController extends Controller
             //     ->simplePaginate(50);
 
             return view('admin.settings.index')->with([
-                'categories' => Category::all(),
+                'categories' => Category::orderBy('sort')->get(),
+                'sections' => Section::orderBy('sort')->get(),
             ]);
         }
     }

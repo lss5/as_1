@@ -16,10 +16,15 @@ Auth::routes(['verify' => true]);
 
 Route::get('/', 'HomeController@index')->name('index');
 
+Route::prefix('pages')->name('pages.')->group(function(){
+    Route::get('/{page}', 'PageController@show')->name('show');
+});
+
 Route::prefix('home')->name('home.')->middleware('auth','verified')->group(function(){
     Route::get('/', 'HomeController@home')->name('index');
     Route::get('/edit', 'HomeController@edit')->name('edit');
     Route::patch('/edit/{user}', 'HomeController@update')->name('update');
+
     Route::get('/products', 'HomeController@products')->name('products');
 
     Route::post('/contacts/{user}', 'ContactController@store')->name('contacts.store');
@@ -71,15 +76,44 @@ Route::prefix('products')->name('products.')->group(function(){
 });
 
 // Only moder users
-Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:moder')->group(function(){
-    Route::get('/products', 'ProductsController@index')->name('products.index');
-    Route::get('/products/trashed', 'ProductsController@trashed')->name('products.trashed');
-    Route::post('/products/status/{product}', 'ProductsController@set_status')->name('products.set_status');
-    Route::delete('/{product}', 'ProductsController@destroy')->name('products.destroy');
-    Route::put('/products/restore/{product}', 'ProductsController@restore')->name('products.restore');
+Route::prefix('admin/products')->name('admin.products.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/', 'ProductsController@index')->name('index');
+    Route::get('/trashed', 'ProductsController@trashed')->name('trashed');
+    Route::post('/status/{product}', 'ProductsController@set_status')->name('set_status');
+    Route::delete('/{product}', 'ProductsController@destroy')->name('destroy');
+    Route::put('/restore/{product}', 'ProductsController@restore')->name('restore');
+});
 
+Route::prefix('admin/categories')->name('admin.categories.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/create', 'CategoryController@create')->name('create');
+    Route::post('/', 'CategoryController@store')->name('store');
+    Route::get('/{category}/edit', 'CategoryController@edit')->name('edit');
+    Route::put('/{category}', 'CategoryController@update')->name('update');
+    Route::delete('/{category}', 'CategoryController@destroy')->name('destroy');
+});
+
+Route::prefix('admin/sections')->name('admin.sections.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/create', 'SectionController@create')->name('create');
+    Route::post('/', 'SectionController@store')->name('store');
+    Route::get('/{section}/edit', 'SectionController@edit')->name('edit');
+    Route::put('/{section}', 'SectionController@update')->name('update');
+    Route::delete('/{section}', 'SectionController@destroy')->name('destroy');
+});
+
+Route::prefix('admin/pages')->name('admin.pages.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/', 'PageController@index')->name('index');
+    Route::get('/create', 'PageController@create')->name('create');
+    Route::post('/', 'PageController@store')->name('store');
+    Route::get('/{page}/edit', 'PageController@edit')->name('edit');
+    Route::put('/{page}', 'PageController@update')->name('update');
+    Route::delete('/{page}', 'PageController@destroy')->name('destroy');
+});
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/users', 'UsersController');
+});
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::get('/settings', 'SettingsController@index')->name('settings.index');
     Route::get('/support', 'SupportController@index')->name('support.index');
-
-    Route::resource('/users', 'UsersController');
 });

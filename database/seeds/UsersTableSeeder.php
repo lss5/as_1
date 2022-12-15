@@ -29,6 +29,8 @@ class UsersTableSeeder extends Seeder
             'password' => Hash::make('12345678'),
         ]);
 
+        $admin->roles()->attach($adminRole);
+
         // $moder = User::create([
         //     'name' => 'Moderator',
         //     'first_name' => 'Ivan',
@@ -38,7 +40,6 @@ class UsersTableSeeder extends Seeder
         //     'password' => Hash::make('12345678'),
         // ]);
 
-        $admin->roles()->attach($adminRole);
         // $moder->roles()->attach($moderRole);
 
         User::create([

@@ -1,22 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<style>
-    #main-slide {
-        min-height: 550px;
-        padding: 15px 0;
-        background: 
-		    linear-gradient(rgba(13, 47, 0, 0.7), rgba(1, 6, 0, 0.9)), 
-		    url( {{ asset('img/asic-main.jpg') }} ),
-            no-repeat;
-        background-size: cover;
-        background-position: center;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-        border-radius: 0;
-    }
-</style>
 <div class="jumbotron m-0" id="main-slide">
     <div class="container text-white">
         <h1 class="display-4">Mining Equipment ASIC and GPU</h1>
@@ -68,5 +52,20 @@
         </div>
     </div>
 @endif
-<hr class="pb-1">
+<style>
+    #main-slide {
+        min-height: 550px;
+        padding: 15px 0;
+        background: 
+		    linear-gradient(rgba(13, 47, 0, 0.7), rgba(1, 6, 0, 0.9)), 
+		    url( {{ asset('img/asic-main.jpg') }} ),
+            no-repeat;
+        background-size: cover;
+        background-position: center;
+        display: flex;
+        justify-content: center;
+        align-items: flex-end;
+        border-radius: 0;
+    }
+</style>
 @endsection

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('admin.layout')
 
-@section('content')
+@section('content_p')
 <div class="row">
     <div class="col-12 col-lg-8 mx-auto">
         {{-- Buttons --}}

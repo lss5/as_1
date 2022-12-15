@@ -18,7 +18,8 @@
         "laravel/framework": "^7.29",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^2.4",
-        "sonata-project/google-authenticator": "^2.3"
+        "sonata-project/google-authenticator": "^2.3",
+        "tinymce/tinymce": "^6.3"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

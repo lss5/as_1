@@ -16,5 +16,15 @@
     "/webfonts/fa-solid-900.svg": "/webfonts/fa-solid-900.svg",
     "/webfonts/fa-solid-900.ttf": "/webfonts/fa-solid-900.ttf",
     "/webfonts/fa-solid-900.woff": "/webfonts/fa-solid-900.woff",
-    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2"
+    "/webfonts/fa-solid-900.woff2": "/webfonts/fa-solid-900.woff2",
+    "/js/tinymce/.npmignore": "/js/tinymce/.npmignore",
+    "/js/tinymce/CHANGELOG.md": "/js/tinymce/CHANGELOG.md",
+    "/js/tinymce/README.md": "/js/tinymce/README.md",
+    "/js/tinymce/bower.json": "/js/tinymce/bower.json",
+    "/js/tinymce/composer.json": "/js/tinymce/composer.json",
+    "/js/tinymce/license.txt": "/js/tinymce/license.txt",
+    "/js/tinymce/package.json": "/js/tinymce/package.json",
+    "/js/tinymce/tinymce.d.ts": "/js/tinymce/tinymce.d.ts",
+    "/js/tinymce/tinymce.js": "/js/tinymce/tinymce.js",
+    "/js/tinymce/tinymce.min.js": "/js/tinymce/tinymce.min.js"
 }

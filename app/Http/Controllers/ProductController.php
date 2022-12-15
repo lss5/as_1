@@ -38,7 +38,7 @@ class ProductController extends Controller
         return view('product.index')->with([
             'products' => $products,
             'countries' => Country::all(),
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('sort')->get(),
             'searchForm' => $search,
         ]);
     }
@@ -86,7 +86,7 @@ class ProductController extends Controller
 
         return view('product.create')->with([
             'countries' => Country::all(),
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('sort')->get(),
         ]);
 
     }
@@ -100,7 +100,6 @@ class ProductController extends Controller
         ]);
 
         return redirect()->route('home.products')->with('success', 'New listing created');
-        // return redirect()->route('products.edit', $product)->with('success', 'New listing created');
     }
 
     public function edit(Product $product)
@@ -109,7 +108,7 @@ class ProductController extends Controller
             'product' => $product,
             'product_images' => $product->images->count(),
             'countries' => Country::all(),
-            'categories' => Category::all(),
+            'categories' => Category::orderBy('sort')->get(),
         ]);
     }
 
