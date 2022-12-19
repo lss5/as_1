@@ -2,13 +2,60 @@
 
 @section('script')
 <script src="{{ asset('js/tinymce/tinymce.min.js') }}" referrerpolicy="origin"></script>
- <script>
-   tinymce.init({
-     selector: 'textarea#content',
-     plugins: 'code lists',
-     toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | indent outdent | bullist numlist | code'
-   });
- </script>
+<script>
+    const example_image_upload_handler = (blobInfo, progress) => new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        xhr.withCredentials = false;
+        xhr.open('POST', 'postAcceptor.php');
+        xhr.open('POST', '{{ route("admin.pages.image_upload") }}');
+        var token = '{{ csrf_token() }}';
+        xhr.setRequestHeader("X-CSRF-Token", token);
+
+        xhr.upload.onprogress = (e) => {
+            progress(e.loaded / e.total * 100);
+        };
+
+        xhr.onload = () => {
+            if (xhr.status === 403) {
+            reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+            return;
+            }
+
+            if (xhr.status < 200 || xhr.status >= 300) {
+            reject('HTTP Error: ' + xhr.status);
+            return;
+            }
+
+            const json = JSON.parse(xhr.responseText);
+
+            if (!json || typeof json.location != 'string') {
+            reject('Invalid JSON: ' + xhr.responseText);
+            return;
+            }
+
+            resolve(json.location);
+        };
+
+        xhr.onerror = () => {
+            reject('Image upload failed due to a XHR Transport error. Code: ' + xhr.status);
+        };
+
+        const formData = new FormData();
+        formData.append('file', blobInfo.blob(), blobInfo.filename());
+
+        xhr.send(formData);
+    });
+
+    tinymce.init({
+        selector: 'textarea#content',
+        statusbar: false,
+        plugins: 'code lists link image emoticons',
+        toolbar: 'undo redo | formatselect| bold italic | alignleft aligncenter alignright | bullist numlist | emoticons image',
+        images_upload_handler: example_image_upload_handler,
+        image_title: true,
+        file_picker_types: 'image',
+    });
+</script>
 @endsection
 
 @section('content_p')
@@ -43,6 +90,21 @@
                     </select>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-sm-12 col-lg-3">
+                    <label for="sort">Sort order</label>
+                </div>
+                <div class="col-sm-12 col-lg-9 form-group">
+                    @error('sort')
+                        <small class="form-text text-danger">
+                            {{ $message }}
+                        </small>
+                    @enderror
+                    <input id="sort" name="sort" step="1" value="{{ old('sort') ?? $page->sort }}" type="number" class="form-control @error('sort') is-invalid @enderror">
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
                     <label for="name">Name</label>

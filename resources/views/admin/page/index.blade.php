@@ -21,6 +21,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">List Name</th>
                     <th scope="col">Section</th>
+                    <th scope="col">Sort</th>
                     <th scope="col">Actions</th>
                 </tr>
             </thead>
@@ -31,6 +32,7 @@
                         <td>{{ $page->name }}</td>
                         <td>{{ $page->list_name }}</td>
                         <td>{{ $page->section->name }}</td>
+                        <td>{{ $page->sort }}</td>
                         <td>
                             <a href="{{ route('admin.pages.edit', $page) }}" type="button" class="btn btn-warning btn-sm">
                                 <i class="fas fa-pen"></i> {{ __('product.btn.change') }}

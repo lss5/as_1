@@ -104,6 +104,7 @@ Route::prefix('admin/pages')->name('admin.pages.')->namespace('Admin')->middlewa
     Route::get('/', 'PageController@index')->name('index');
     Route::get('/create', 'PageController@create')->name('create');
     Route::post('/', 'PageController@store')->name('store');
+    Route::post('/image', 'PageController@image_upload')->name('image_upload');
     Route::get('/{page}/edit', 'PageController@edit')->name('edit');
     Route::put('/{page}', 'PageController@update')->name('update');
     Route::delete('/{page}', 'PageController@destroy')->name('destroy');

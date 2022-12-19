@@ -11,7 +11,7 @@ class PageController extends Controller
 {
     public function index()
     {
-        $pages = Page::all();
+        $pages = Page::orderBy('section_id')->orderBy('sort')->get();
         return view('admin.page.index')->with([
             'pages' => $pages,
         ]);
@@ -32,6 +32,7 @@ class PageController extends Controller
             'uniq_name' => ['required', 'string', 'unique:pages'],
             'content' => ['required', 'string'],
             'section_id' => ['required', 'integer'],
+            'sort' => ['required', 'integer'],
         ]);
 
         $page = Page::create($data);
@@ -55,6 +56,7 @@ class PageController extends Controller
             'uniq_name' => ['required', 'string', 'unique:pages,uniq_name,'.$page->id],
             'content' => ['required', 'string'],
             'section_id' => ['required', 'integer'],
+            'sort' => ['required', 'integer'],
         ]);
 
         $page->update($data);
@@ -67,5 +69,11 @@ class PageController extends Controller
         $page->delete();
 
         return redirect()->route('admin.pages.index')->with('success', 'Page deleted');
+    }
+
+    public function image_upload(Request $request)
+    {
+        $link = $request->file('file')->store('pages', 'public');
+        return json_encode(array('location' => asset('storage/'.$link)));
     }
 }
