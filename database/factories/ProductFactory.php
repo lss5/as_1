@@ -8,7 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'user_id' => function (array $product) {
-            $users = App\User::where('name', 'like', '%user%')->get();
+            $users = App\User::where('name', 'like', '%Adminstrator%')->get();
             return $users->random()->id;
         },
         'country_id' => $faker->randomElement(array_keys(App\Country::all()->toArray())),

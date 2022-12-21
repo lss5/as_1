@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
+use Carbon\Carbon;
 
 class UsersTableSeeder extends Seeder
 {
@@ -27,20 +28,10 @@ class UsersTableSeeder extends Seeder
             'country_id' => 1,
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
+            'email_verified_at' => Carbon::now(),
         ]);
 
         $admin->roles()->attach($adminRole);
-
-        // $moder = User::create([
-        //     'name' => 'Moderator',
-        //     'first_name' => 'Ivan',
-        //     'last_name' => 'Ivanov',
-        //     'country_id' => 1,
-        //     'email' => 'moder@moder.com',
-        //     'password' => Hash::make('12345678'),
-        // ]);
-
-        // $moder->roles()->attach($moderRole);
 
         User::create([
             'name' => 'user1',
@@ -49,24 +40,7 @@ class UsersTableSeeder extends Seeder
             'country_id' => 1,
             'email' => 'user1@user.com',
             'password' => Hash::make('12345678'),
-        ]);
-
-        User::create([
-            'name' => 'user2',
-            'first_name' => 'Sidor',
-            'last_name' => 'Sidorov',
-            'country_id' => 1,
-            'email' => 'user2@user.com',
-            'password' => Hash::make('12345678'),
-        ]);
-
-        User::create([
-            'name' => 'user3',
-            'first_name' => 'Dmitry',
-            'last_name' => 'Dmitriev',
-            'country_id' => 1,
-            'email' => 'user3@user.com',
-            'password' => Hash::make('12345678'),
+            'email_verified_at' => Carbon::now(),
         ]);
     }
 }

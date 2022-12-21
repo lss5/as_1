@@ -14,9 +14,9 @@
             <li class="nav-item {{ (request()->is('products*')) ? 'active' : '' }}">
                 <a class="nav-link" href="{{ route('products.index') }}">Products <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
-            </li>
+            </li> --}}
         </ul>
 
         <!-- Right Side Of Navbar -->
