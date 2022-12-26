@@ -93,6 +93,7 @@ class Product extends Model
     public static $status_default_after_user_edit = 'moderation';
 
     public static $status_for_edit = [
+        'created',
         'active',
         'moderation',
         'canceled',
