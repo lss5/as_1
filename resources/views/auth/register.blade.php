@@ -18,34 +18,7 @@
                     </span>
                 @enderror
             </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="email-prepend"><i class="fas fa-envelope"></i></span>
-                </div>
-                <input required type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="E-mail" aria-label="email" aria-describedby="email-prepend" autocomplete="email">
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="password-prepend"><i class="fas fa-lock"></i></span>
-                </div>
-                <input required id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Password" aria-label="password" aria-describedby="password-prepend" autocomplete="new-password">
-                @error('password')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="new-password-prepend"><i class="fas fa-lock"></i></span>
-                </div>
-                <input required id="password-confirm" name="password_confirmation" type="password" class="form-control" placeholder="Confirm" aria-label="password" aria-describedby="new-password-prepend" autocomplete="new-password">
-            </div>
+
             <div class="row">
                 <div class="col pr-1">
                     <div class="input-group mb-3">
@@ -73,6 +46,35 @@
                         <strong>{{ $message }}</strong>
                     </span>
                 @enderror
+            </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="email-prepend"><i class="fas fa-envelope"></i></span>
+                </div>
+                <input required type="email" class="form-control @error('email') is-invalid @enderror" id="email" name="email" value="{{ old('email') }}" placeholder="E-mail" aria-label="email" aria-describedby="email-prepend" autocomplete="email">
+                @error('email')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="password-prepend"><i class="fas fa-lock"></i></span>
+                </div>
+                <input required id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" placeholder="Password" aria-label="password" aria-describedby="password-prepend" autocomplete="new-password">
+                @error('password')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="new-password-prepend"><i class="fas fa-lock"></i></span>
+                </div>
+                <input required id="password-confirm" name="password_confirmation" type="password" class="form-control" placeholder="Confirm" aria-label="password" aria-describedby="new-password-prepend" autocomplete="new-password">
             </div>
 
             <select name="country" id="country" class="custom-select @error('country') is-invalid @enderror">
