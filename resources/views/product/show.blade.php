@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title'){{ $product->title . ' ('.$product->country->name.') | ' . config('app.name', 'AsicSeller')}}@endsection
+@section('description'){!! trim(Str::limit($product->description, 140, '')) !!}@endsection
+@section('keywords'){!! Str::title($product->title) !!}@endsection
 
 @section('content')
     <div class="container py-3 my-3">

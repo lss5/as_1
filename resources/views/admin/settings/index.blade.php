@@ -20,18 +20,18 @@
             </div>
         </div>
         @isset($categories)
-        <ul class="list-group">
-            @foreach ($categories as $category)
-            <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                {{ $category->name }}<span class="badge badge-secondary">{{ $category->sort }}</span>
-                <div class="inline-flex">
-                    <a href="{{ route('admin.categories.edit', $category) }}" type="button" class="btn btn-warning btn-sm">
-                        <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                    </a>
-                </div>
-            </li>
-            @endforeach
-        </ul>
+            <ul class="list-group">
+                @foreach ($categories as $category)
+                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
+                    {{ $category->name }}<span class="badge badge-secondary">{{ $category->sort }}</span>
+                    <div class="inline-flex">
+                        <a href="{{ route('admin.categories.edit', $category) }}" type="button" class="btn btn-warning btn-sm">
+                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
+                        </a>
+                    </div>
+                </li>
+                @endforeach
+            </ul>
         @endisset
         {{-- Sections --}}
         <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
@@ -46,21 +46,47 @@
             </div>
         </div>
         @isset($sections)
-        <ul class="list-group">
-            @foreach ($sections as $section)
-            <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                {{ $section->name }}<span class="badge badge-secondary">{{ $section->sort }}</span>
-                <div class="inline-flex">
-                    <a href="{{ route('admin.sections.edit', $section) }}" type="button" class="btn btn-warning btn-sm">
-                        <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                    </a>
-                    {{-- <a href="{{ route('admin.section.trashed') }}" type="button" class="btn btn-outline-danger btn-sm">
-                        <i class="fas fa-trash"></i> {{ __('product.btn.delete') }}
-                    </a> --}}
-                </div>
-            </li>
-            @endforeach
-        </ul>
+            <ul class="list-group">
+                @foreach ($sections as $section)
+                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
+                    {{ $section->name }}<span class="badge badge-secondary">{{ $section->sort }}</span>
+                    <div class="inline-flex">
+                        <a href="{{ route('admin.sections.edit', $section) }}" type="button" class="btn btn-warning btn-sm">
+                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
+                        </a>
+                        {{-- <a href="{{ route('admin.section.trashed') }}" type="button" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i> {{ __('product.btn.delete') }}
+                        </a> --}}
+                    </div>
+                </li>
+                @endforeach
+            </ul>
+        @endisset
+        {{-- settings --}}
+        <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
+            <h5 class="m-0">Settings</h5>
+            <div class="inline-flex">
+                <a href="{{ route('admin.settings.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                    <i class="fas fa-plus"></i> {{ __('product.btn.add') }}
+                </a>
+            </div>
+        </div>
+        @isset($settings)
+            <ul class="list-group">
+                @foreach ($settings as $setting)
+                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
+                    {{ $setting->name }}: {{ $setting->value }}
+                    <div class="inline-flex">
+                        <a href="{{ route('admin.settings.edit', $setting) }}" type="button" class="btn btn-warning btn-sm">
+                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
+                        </a>
+                        {{-- <a href="{{ route('admin.section.trashed') }}" type="button" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-trash"></i> {{ __('product.btn.delete') }}
+                        </a> --}}
+                    </div>
+                </li>
+                @endforeach
+            </ul>
         @endisset
     </div>
 </div>

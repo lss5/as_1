@@ -100,6 +100,15 @@ Route::prefix('admin/sections')->name('admin.sections.')->namespace('Admin')->mi
     Route::delete('/{section}', 'SectionController@destroy')->name('destroy');
 });
 
+Route::prefix('admin/settings')->name('admin.settings.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/', 'SettingController@index')->name('index');
+    Route::get('/create', 'SettingController@create')->name('create');
+    Route::post('/', 'SettingController@store')->name('store');
+    Route::get('/{setting}/edit', 'SettingController@edit')->name('edit');
+    Route::put('/{setting}', 'SettingController@update')->name('update');
+    Route::delete('/{setting}', 'SettingController@destroy')->name('destroy');
+});
+
 Route::prefix('admin/pages')->name('admin.pages.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::get('/', 'PageController@index')->name('index');
     Route::get('/create', 'PageController@create')->name('create');
@@ -115,6 +124,5 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::get('/settings', 'SettingsController@index')->name('settings.index');
     Route::get('/support', 'SupportController@index')->name('support.index');
 });
