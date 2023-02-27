@@ -97,7 +97,7 @@ class HomeController extends Controller
                     $request->session()->flash('success', 'Secret key generated');
                 }
 
-                $url = GoogleQrUrl::generate('AsicSeller.com('.$user->email.')', $user->ga_secret);
+                $url = GoogleQrUrl::generate('AsicOffer.com('.$user->email.')', $user->ga_secret);
             }
 
             return view('home.2fa')->with([
