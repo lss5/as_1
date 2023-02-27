@@ -12,25 +12,30 @@ class ProductFilters extends QueryFilter
         return $this->builder->where('title', 'like', '%'.$value.'%');
     }
 
-    public function price($value)
+    public function price_min($value)
+    {
+        return $this->builder->where('price', '>=', $value);
+    }
+
+    public function price_max($value)
     {
         return $this->builder->where('price', '<=', $value);
     }
 
-    public function priceOrder($order = 'asc')
-    {
-        return $this->builder->orderBy('price', $order);
-    }
+    // public function priceOrder($order = 'asc')
+    // {
+    //     return $this->builder->orderBy('price', $order);
+    // }
 
     public function moq($value)
     {
         return $this->builder->where('moq', '<=', $value);
     }
 
-    public function power($value)
-    {
-        return $this->builder->where('power', '<=', $value);
-    }
+    // public function power($value)
+    // {
+    //     return $this->builder->where('power', '<=', $value);
+    // }
 
     public function hashrate($value)
     {
@@ -42,12 +47,12 @@ class ProductFilters extends QueryFilter
         return $this->builder->where('country_id', '=', $value);
     }
 
-    public function user($value)
-    {
-        return $this->builder->whereHas('user', function (Builder $query) use ($value) {
-            $query->where('users.name', 'like', '%'.$value.'%');
-        });
-    }
+    // public function user($value)
+    // {
+    //     return $this->builder->whereHas('user', function (Builder $query) use ($value) {
+    //         $query->where('users.name', 'like', '%'.$value.'%');
+    //     });
+    // }
 
     public function category($value)
     {

@@ -3,11 +3,15 @@
 @section('content')
 <div class="container">
     <form method="GET" action="{{ route('products.index') }}" class="w-100">
-        <div class="row my-2" id="collapseFilterButton">
+        @include('partials.search')
+        <div class="row collapse multi-collapse @if($searchForm) show @endif" id="collapseFilter">
+            @include('partials.filters')
+        </div>
+        <div class="row" id="collapseFilterButton">
             <div class="col-12">
                 <div class="form-inline">
                     <button type="button" class="btn btn-sm btn-secondary" data-toggle="collapse" data-target=".multi-collapse" aria-expanded="false" aria-controls="collapseFilter collapseFilterButton">
-                        Filters <i class="fas fa-search fa-xs"></i>
+                        Filters <i class="fas fa-filter"></i>
                     </button>
                     <div class="input-group mx-2 w-auto">
                         <select class="custom-select custom-select-sm" id="order" name="order" aria-label="Sort">
@@ -16,15 +20,11 @@
                             @endforeach
                         </select>
                         <div class="input-group-append">
-                            <button class="btn btn-sm btn-outline-secondary" type="submit">Sort</button>
+                            <button class="btn btn-sm btn-outline-secondary" type="submit">Sort <i class="fas fa-sort-amount-down-alt"></i></button>
                         </div>
                     </div>
                 </div>
-                
             </div>
-        </div>
-        <div class="row collapse multi-collapse @if($searchForm) show @endif" id="collapseFilter">
-            @include('partials.search')
         </div>
     </form>
 

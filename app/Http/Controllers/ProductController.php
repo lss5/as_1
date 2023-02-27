@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         // Open search form
         $search = false;
-        if ($request->anyFilled(['search', 'country', 'category', 'price', 'moq', 'power', 'hashrate', 'user', 'new'])) {
+        if ($request->anyFilled(['price_min', 'price_max', 'moq', 'hashrate', 'new'])) {
             $search = true;
         }
 
