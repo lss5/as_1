@@ -1,16 +1,5 @@
 <div class="form-group form-row my-0">
-    <div class="input-group col-md-6 col-sm-12 my-2">
-        <div class="input-group-prepend">
-            <label class="input-group-text" for="category">Category</label>
-        </div>
-        <select name="category" id="category" class="custom-select">
-            {{-- <option value @empty(request()->get('country')) selected @endempty>country...</option> --}}
-            @foreach (App\Category::where('top_menu', false)->orderBy('sort', 'asc')->get() as $category)
-                <option value="{{ $category->id }}" @if(request()->get('category') == $category->id) selected @endif>{{ $category->name }}</option>
-            @endforeach
-        </select>
-    </div>
-    <div class="input-group col-md-6 col-sm-12 mb-2 mt-md-2">
+    <div class="input-group col-12 col-lg-4 mb-1">
         <div class="input-group-prepend">
             <label class="input-group-text" for="country">Country</label>
         </div>
@@ -21,11 +10,10 @@
             @endforeach
         </select>
     </div>
-
-    <div class="input-group col-sm-12 mb-2">
+    <div class="input-group col-12 col-lg-8 mb-1">
         <input type="text" name="search" class="form-control" id="search" placeholder="search..." value="{{ request()->get('search') ?? '' }}">
         <div class="input-group-append">
-            <button type="submit" class="btn btn-primary">
+            <button type="submit" class="btn btn-success">
                 Find <i class="fas fa-search fa-xs"></i>
             </button>
         </div>

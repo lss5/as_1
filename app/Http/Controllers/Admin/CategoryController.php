@@ -19,7 +19,13 @@ class CategoryController extends Controller
             'name' => ['required', 'string'],
             'uniq_name' => ['required', 'string', 'unique:categories'],
             'sort' => ['required', 'integer'],
+            'top_menu' => ['nullable'],
         ]);
+        if (isset($data['top_menu'])) {
+            $data['top_menu'] = 1;
+        } else {
+            $data['top_menu'] = 0;
+        }
 
         $category = Category::create($data);
 
@@ -37,7 +43,13 @@ class CategoryController extends Controller
             'name' => ['required', 'string'],
             'uniq_name' => ['required', 'string', 'unique:categories,uniq_name,'.$category->id],
             'sort' => ['required', 'integer'],
+            'top_menu' => ['nullable'],
         ]);
+        if (isset($data['top_menu'])) {
+            $data['top_menu'] = 1;
+        } else {
+            $data['top_menu'] = 0;
+        }
 
         $category->update($data);
 

@@ -12,11 +12,11 @@
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item {{ (request()->is('products*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('products.index') }}">Products <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('products.index') }}">Offers <span class="sr-only">(current)</span></a>
             </li>
-            {{-- <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
-            </li> --}}
+            </li>
         </ul>
 
         <!-- Right Side Of Navbar -->
@@ -66,8 +66,8 @@
                         </a>
                         @endcan
                         @can('moder')
-                            <a href="{{ route('admin.products.index') }}" class="dropdown-item">
-                                <i class="far fa-images"></i> {{ __('home.menu.manage_products') }}
+                            <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
+                                <i class="far fa-images"></i> App Settings
                             </a>
                         @endcan
                         <div class="dropdown-divider"></div>

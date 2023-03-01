@@ -74,6 +74,11 @@ Route::prefix('products')->name('products.')->group(function(){
     Route::get('/{product}', 'ProductController@show')->name('show');
     Route::get('/user/{user}', 'ProductController@user')->name('user');
 });
+Route::prefix('category')->name('category.')->group(function(){
+    // Route::get('/', 'CategoryController@index')->name('index');
+    Route::get('/{category}', 'CategoryController@show')->name('show');
+    // Route::get('/{category}/{user}', 'CategoryController@user')->name('user');
+});
 
 // Only moder users
 Route::prefix('admin/products')->name('admin.products.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){

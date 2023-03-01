@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         // Open search form
         $search = false;
-        if ($request->anyFilled(['price_min', 'price_max', 'moq', 'hashrate', 'new'])) {
+        if ($request->anyFilled(['search', 'country', 'price_min', 'price_max', 'moq', 'hashrate', 'new'])) {
             $search = true;
         }
 
@@ -85,7 +85,7 @@ class ProductController extends Controller
         }
 
         return view('product.create')->with([
-            'countries' => Country::all(),
+            'countries' => Country::orderBy('name', 'asc')->get(),
             'categories' => Category::orderBy('sort')->get(),
         ]);
 
@@ -107,7 +107,7 @@ class ProductController extends Controller
         return view('product.edit')->with([
             'product' => $product,
             'product_images' => $product->images->count(),
-            'countries' => Country::all(),
+            'countries' => Country::orderBy('name', 'asc')->get(),
             'categories' => Category::orderBy('sort')->get(),
         ]);
     }

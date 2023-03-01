@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title'){{ $product->title . ' ('.$product->country->name.') | ' . config('app.name', 'AsicSeller')}}@endsection
+@section('title'){{ $product->title . ' ('.$product->country->name.') | ' . config('app.name', 'AsicOffer')}}@endsection
 @section('description'){!! trim(Str::limit($product->description, 140, '')) !!}@endsection
 @section('keywords'){!! Str::title($product->title) !!}@endsection
 
@@ -10,7 +10,8 @@
                 <h1 class="h3">
                     @foreach($product->categories as $category)
                         <span class="text-muted">
-                            {{ $category->name }} <i class="fas fa-chevron-right"></i>
+                            <a href="{{ route('category.show', $category) }}">{{ $category->name }}</a>
+                             <i class="fas fa-chevron-right"></i>
                         </span>
                     @endforeach
                     {{ $product->title }}</h1>

@@ -5,12 +5,8 @@ namespace App\Filters;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
-class ProductFilters extends QueryFilter
+class CategoryFilters extends QueryFilter
 {
-    public function search($value)
-    {
-        return $this->builder->where('title', 'like', '%'.$value.'%');
-    }
 
     public function price_min($value)
     {
@@ -32,10 +28,10 @@ class ProductFilters extends QueryFilter
         return $this->builder->where('moq', '<=', $value);
     }
 
-    // public function power($value)
-    // {
-    //     return $this->builder->where('power', '<=', $value);
-    // }
+    public function power($value)
+    {
+        return $this->builder->where('power', '<=', $value);
+    }
 
     public function hashrate($value)
     {

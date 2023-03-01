@@ -54,7 +54,20 @@
                     <input id="sort" name="sort" step="1" value="{{ old('sort') ?? $category->sort }}" type="number" class="form-control @error('sort') is-invalid @enderror">
                 </div>
             </div>
-
+            <div class="row">
+                <div class="col-sm-12 col-lg-3">
+                    <label for="top_menu">Top menu</label>
+                </div>
+                <div class="col-sm-12 col-lg-9 form-group">
+                    <div class="custom-control custom-switch">
+                        <input id="top_menu" name="top_menu" type="checkbox" class="custom-control-input"
+                        @if ($category->exists)
+                            @if (old('top_menu') ?? $category->top_menu == 1) checked="checked" @endif
+                        @endif>
+                        <label class="custom-control-label" for="top_menu">Top menu</label>
+                    </div>
+                </div>
+            </div>
             <hr class="pb-1">
             <div class="row">
                 <div class="col-12">
