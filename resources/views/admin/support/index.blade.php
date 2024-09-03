@@ -10,7 +10,7 @@
             <div class="list-group">
                 @forelse($threads as $thread)
                     <?php $auth_user_id = Auth::id(); ?>
-                    <a href="{{ route('messages.show', $thread) }}" class="list-group-item list-group-item-action">
+                    <a href="{{ route('profile.message.show', $thread) }}" class="list-group-item list-group-item-action">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">
                                 {{ Str::limit($thread->subject, 35, '...') }}

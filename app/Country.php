@@ -15,4 +15,9 @@ class Country extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    public function manufacturers()
+    {
+        return $this->hasMany('App\Manufacturer');
+    }
 }

@@ -15,12 +15,6 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // User::truncate();
-        // DB::table('role_user')->truncate();
-
-        $adminRole = Role::where('uniq_name', 'admin')->first();
-        $moderRole = Role::where('uniq_name', 'moder')->first();
-
         $admin = User::create([
             'name' => 'Adminstrator',
             'first_name' => 'Johnson',
@@ -31,6 +25,7 @@ class UsersTableSeeder extends Seeder
             'email_verified_at' => Carbon::now(),
         ]);
 
+        $adminRole = Role::where('uniq_name', 'admin')->first();
         $admin->roles()->attach($adminRole);
 
         User::create([

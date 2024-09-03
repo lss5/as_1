@@ -27,15 +27,15 @@ class SupportController extends Controller
         $thread = Thread::findOrFail($id);
         if (Auth::user()->can('view', $thread)) {
             $thread->markAsRead(Auth::id());
-            return view('message.support.show', compact('thread'));
+            return view('profile.messages.support.show', compact('thread'));
         }
 
-        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('profile.support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
     }
 
     public function create(Request $request)
     {
-        return view('message.support.create');
+        return view('profile.messages.support.create');
     }
 
     public function store(Request $request, User $participant)
@@ -64,7 +64,7 @@ class SupportController extends Controller
             'last_read' => new Carbon(),
         ]);
 
-        return redirect()->route('support.index')->with('success', 'Help request is sended');
+        return redirect()->route('profile.support.index')->with('success', 'Help request is sended');
     }
 
     public function update(Request $request, $id)
@@ -94,9 +94,9 @@ class SupportController extends Controller
                 'last_read' => new Carbon(),
             ])->save();
 
-            return redirect()->route('support.show', $id);
+            return redirect()->route('profile.support.show', $id);
         }
-        return redirect()->route('support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return redirect()->route('profile.support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
 
     }
 

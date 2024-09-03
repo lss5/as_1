@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
             <li class="nav-item">
-                <a class="nav-link btn btn-sm btn-outline-success text-success py-1 mr-1" href="{{ route('products.create') }}"><i class="fas fa-plus"></i> New sell<span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-sm btn-outline-success text-success py-1 mr-1" href="{{ route('profile.listing.create') }}"><i class="fas fa-plus"></i> New sell<span class="sr-only">(current)</span></a>
             </li>
             @guest
                 <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">
@@ -41,16 +41,16 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                        <a href="{{ route('home.index') }}" class="dropdown-item">
+                        <a href="{{ route('profile.index') }}" class="dropdown-item">
                             <i class="fas fa-user"></i> {{ __('home.pages.lists') }}
                         </a>
-                        <a href="{{ route('home.products') }}" class="dropdown-item">
+                        <a href="{{ route('profile.listing.index') }}" class="dropdown-item">
                             <i class="fas fa-images"></i> {{ __('product.pages.lists') }}
                         </a>
-                        {{-- <a href="{{ route('home.edit') }}" class="dropdown-item">
+                        {{-- <a href="{{ route('profile.edit') }}" class="dropdown-item">
                             Settings
                         </a> --}}
-                        <a href="{{ route('messages.index') }}" class="dropdown-item">
+                        <a href="{{ route('profile.message.index') }}" class="dropdown-item">
                             <i class="far fa-comments"></i> {{ __('home.menu.messages') }}
                             <?php $count = Auth::user()->newThreadsCount(); ?>
                             @if($count > 0)

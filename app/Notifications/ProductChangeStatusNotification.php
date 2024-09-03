@@ -7,15 +7,15 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ProductChangeStatusNotification extends Notification implements ShouldQueue
+class ListingChangeStatusNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $product;
+    protected $listing;
 
-    public function __construct($product)
+    public function __construct($listing)
     {
-        $this->product = $product;
+        $this->listing = $listing;
     }
 
     public function via($notifiable)
@@ -26,12 +26,12 @@ class ProductChangeStatusNotification extends Notification implements ShouldQueu
     public function toMail($notifiable)
     {
         return (new MailMessage)->markdown('mail.product.status', [
-            'product_title' => $this->product->title,
-            'title' => __('mail.product.status.'.$this->product->status.'.title'),
-            'body' => __('mail.product.status.'.$this->product->status.'.body'),
-            'url' => route('products.show', $this->product),
-            'user' => $this->product->user->first_name. ' ' .$this->product->user->last_name,
-        ])->subject(__('mail.product.status.'.$this->product->status.'.subject'));
+            'product_title' => $this->listing->title,
+            'title' => __('mail.product.status.'.$this->listing->status.'.title'),
+            'body' => __('mail.product.status.'.$this->listing->status.'.body'),
+            'url' => route('products.show', $this->listing),
+            'user' => $this->listing->user->first_name. ' ' .$this->listing->user->last_name,
+        ])->subject(__('mail.product.status.'.$this->listing->status.'.subject'));
     }
 
     public function toArray($notifiable)

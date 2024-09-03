@@ -35,7 +35,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
     }
 
     public function trashed(Request $request, ProductFilters $filters)
@@ -59,7 +59,7 @@ class ProductsController extends Controller
             ]);
         }
 
-        return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+        return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
     }
 
     public function show(Product $product)

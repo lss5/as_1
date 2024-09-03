@@ -24,7 +24,7 @@ class UsersController extends Controller
             $users = User::all();
             return view('admin.users.index')->with('users', $users);
         } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
@@ -32,7 +32,7 @@ class UsersController extends Controller
     {
         if (Auth::user()->can('view', $user)) {
         } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
@@ -47,7 +47,7 @@ class UsersController extends Controller
                 'roles' => $roles,
             ])->with('warning', 'Warning! Dont edit Role' );
         } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 
@@ -81,7 +81,7 @@ class UsersController extends Controller
     
             return redirect()->route('admin.users.index')->with('success', 'User has been updated.');
         } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
         }
 
     }
@@ -95,7 +95,7 @@ class UsersController extends Controller
     
             return redirect()->route('admin.users.index')->with('success', 'User has been deleted.');
         } else {
-            return redirect()->route('home.index')->with('warning', '403 | This action is unauthorized');
+            return redirect()->route('profile.index')->with('warning', '403 | This action is unauthorized');
         }
     }
 }

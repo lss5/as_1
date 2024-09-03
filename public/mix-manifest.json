@@ -1,6 +1,8 @@
 {
     "/js/app.js": "/js/app.js",
+    "/js/adminlte.min.js": "/js/adminlte.min.js",
     "/css/app.css": "/css/app.css",
+    "/css/adminlte.min.css": "/css/adminlte.min.css",
     "/js/vendor.js": "/js/vendor.js",
     "/webfonts/fa-brands-400.eot": "/webfonts/fa-brands-400.eot",
     "/webfonts/fa-brands-400.svg": "/webfonts/fa-brands-400.svg",

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Category;
 use App\Section;
 use App\Setting;
+use App\Manufacturer;
 
 
 class SettingController extends Controller
@@ -23,6 +24,7 @@ class SettingController extends Controller
             return view('admin.settings.index')->with([
                 'categories' => Category::orderBy('sort')->get(),
                 'sections' => Section::orderBy('sort')->get(),
+                'manufacturers' => Manufacturer::orderBy('sort')->get(),
                 'settings' => Setting::all(),
             ]);
         }

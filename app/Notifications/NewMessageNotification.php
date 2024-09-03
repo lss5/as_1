@@ -28,7 +28,7 @@ class NewMessageNotification extends Notification
         return (new MailMessage)->markdown('mail.message.new', [
             'thread_subject' => $this->message->thread->subject,
             'message' => $this->message->body,
-            'url' => route('messages.show', $this->message->thread),
+            'url' => route('profile.message.show', $this->message->thread),
             'author' => $this->message->user->name,
             'user' => $notifiable->first_name. ' ' .$notifiable->last_name,
         ])->subject('New message');
