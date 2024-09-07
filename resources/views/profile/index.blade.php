@@ -40,7 +40,7 @@
                 </tr>
                 <tr>
                     <th scope="row">Listings/Limits</th>
-                    <td>{{ $user->products()->count() }}/<span class="text-success">{{ $user->limit_product }}</span></td>
+                    {{-- <td>{{ $user->products()->count() }}/<span class="text-success">{{ $user->limit_product }}</span></td> --}}
                 </tr>
             </tbody>
         </table>

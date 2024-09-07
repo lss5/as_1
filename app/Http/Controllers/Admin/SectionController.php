@@ -8,6 +8,14 @@ use App\Section;
 
 class SectionController extends Controller
 {
+    public function index()
+    {
+        $sections = Section::orderBy('sort')->get();
+        return view('admin.section.index')->with([
+            'sections' => $sections,
+        ]);
+    }
+
     public function create()
     {
         return view('admin.section.create');
@@ -23,7 +31,7 @@ class SectionController extends Controller
 
         $section = Section::create($data);
 
-        return redirect()->route('admin.settings.index')->with('success', 'Section '.$section->name.' created');
+        return redirect()->route('admin.sections.index')->with('success', 'Section '.$section->name.' created');
     }
 
     public function edit(Section $section)
@@ -41,13 +49,13 @@ class SectionController extends Controller
 
         $section->update($data);
 
-        return redirect()->route('admin.settings.index')->with('success', 'Section '.$section->name.' updated');
+        return redirect()->route('admin.sections.index')->with('success', 'Section '.$section->name.' updated');
     }
 
     public function destroy(Section $section)
     {
         $section->delete();
 
-        return redirect()->route('admin.settings.index')->with('success', 'Section '.$section->name.' deleted');
+        return redirect()->route('admin.sections.index')->with('success', 'Section '.$section->name.' deleted');
     }
 }

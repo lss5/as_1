@@ -61,6 +61,11 @@
                             <div class="dropdown-divider"></div>
                         @endcan
                         @can('moder')
+                        <a href="{{ route('admin.index') }}" class="dropdown-item">
+                            <i class="fas fa-headset"></i> Administration
+                        </a>
+                        @endcan
+                        @can('moder')
                         <a href="{{ route('admin.support.index') }}" class="dropdown-item">
                             <i class="fas fa-headset"></i> {{ __('home.menu.support') }}
                         </a>

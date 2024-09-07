@@ -6,13 +6,13 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editing category {{ $category->name }}</h1>
+                        <h1>Editing coin {{ $coin->name }}</h1>
                     </div>
                 </div>
             </div>
         </section>
         <section class="content">
-            <form method="POST" action="{{ route('admin.categories.update', $category) }}" class="w-100">
+            <form method="POST" action="{{ route('admin.coin.update', $coin) }}" class="w-100">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -21,20 +21,15 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
-                                    <input type="text" id="inputName" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{ old('name') ?? $category->name }}">
+                                    <input type="text" id="inputName" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{ old('name') ?? $coin->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputShortName">Short name</label>
+                                    <input type="text" id="inputShortName" name="short_name" class="form-control  @error('short_name') is-invalid @enderror" value="{{ old('short_name') ?? $coin->short_name }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSort">Sort order</label>
-                                    <input type="number" step="1" id="inputSort" name="sort" class="form-control  @error('sort') is-invalid @enderror" value="{{ old('sort') ?? $category->sort }}">
-                                </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-switch">
-                                        <input id="top_menu" name="top_menu" type="checkbox" class="custom-control-input"
-                                        @if ($category->exists)
-                                            @if (old('top_menu') ?? $category->top_menu == 1) checked="checked" @endif
-                                        @endif>
-                                        <label class="custom-control-label" for="top_menu">Top menu</label>
-                                    </div>
+                                    <input type="number" step="1" id="inputSort" name="sort" class="form-control  @error('sort') is-invalid @enderror" value="{{ old('sort') ?? $coin->sort }}">
                                 </div>
                             </div>
                         </div>
@@ -42,7 +37,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.coin.index') }}" class="btn btn-secondary">Cancel</a>
                         <input type="submit" value="Save" class="btn btn-success float-right">
                     </div>
                 </div>

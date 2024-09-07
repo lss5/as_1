@@ -1,116 +1,77 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
-@section('content_p')
+@section('content')
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Variables</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div class="row my-2">
-    <div class="col-12">
-        <h3>App Settings</h3>
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <a href="{{ route('admin.settings.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-plus"></i> Create
+                                    </a>
+                                </div>
+                                <div class="card-tools">
+                                    <ul class="pagination pagination-sm float-right">
+                                        <li class="page-item"><a class="page-link" href="#">«</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                        <li class="page-item"><a class="page-link" href="#">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 10px">#ID</th>
+                                            <th>Name</th>
+                                            <th>Uniq name</th>
+                                            <th>Value</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($variables as $variale)
+                                            <tr>
+                                                <th scope="row">{{ $variale->id }}</th>
+                                                <td>{{ $variale->name }}</td>
+                                                <td>{{ $variale->uniq_name }}</td>
+                                                <td>{{ $variale->value }}</td>
+                                                <td class="project-actions">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.settings.edit', $variale) }}">
+                                                        <i class="fas fa-pencil-alt"></i> Edit
+                                                    </a>
+                                                    <form action="{{ route('admin.settings.destroy', $variale) }}" method="POST" class="form-inline d-inline">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete section?");'>
+                                                            <i class="fas fa-trash"></i> Detete
+                                                        </button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    <div class="col-12">
-        {{-- Categories --}}
-        <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
-            <h5 class="m-0">{{ __('home.pages.categories') }}</h5>
-            <div class="inline-flex">
-                <a href="{{ route('admin.categories.create') }}" type="button" class="btn btn-outline-success btn-sm">
-                    <i class="fas fa-plus"></i> {{ __('product.btn.add') }}
-                </a>
-                <a href="#" type="button" class="btn btn-outline-secondary btn-sm">
-                    <i class="fas fa-sort-numeric-up"></i> {{ __('product.btn.sort') }}
-                </a>
-            </div>
-        </div>
-        @isset($categories)
-            <ul class="list-group">
-                @foreach ($categories as $category)
-                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                    {{ $category->name }}<span class="badge badge-secondary">{{ $category->sort }}</span>
-                    <div class="inline-flex">
-                        <a href="{{ route('admin.categories.edit', $category) }}" type="button" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                        </a>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        @endisset
-        {{-- Sections --}}
-        <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
-            <h5 class="m-0">Sections</h5>
-            <div class="inline-flex">
-                <a href="{{ route('admin.sections.create') }}" type="button" class="btn btn-outline-success btn-sm">
-                    <i class="fas fa-plus"></i> {{ __('product.btn.add') }}
-                </a>
-                <a href="#" type="button" class="btn btn-outline-secondary btn-sm">
-                    <i class="fas fa-sort-numeric-up"></i> {{ __('product.btn.sort') }}
-                </a>
-            </div>
-        </div>
-        @isset($sections)
-            <ul class="list-group">
-                @foreach ($sections as $section)
-                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                    {{ $section->name }}<span class="badge badge-secondary">{{ $section->sort }}</span>
-                    <div class="inline-flex">
-                        <a href="{{ route('admin.sections.edit', $section) }}" type="button" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                        </a>
-                        {{-- <a href="{{ route('admin.section.trashed') }}" type="button" class="btn btn-outline-danger btn-sm">
-                            <i class="fas fa-trash"></i> {{ __('product.btn.delete') }}
-                        </a> --}}
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        @endisset
-        {{-- settings --}}
-        <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
-            <h5 class="m-0">Settings</h5>
-            <div class="inline-flex">
-                <a href="{{ route('admin.settings.create') }}" type="button" class="btn btn-outline-success btn-sm">
-                    <i class="fas fa-plus"></i> {{ __('product.btn.add') }}
-                </a>
-            </div>
-        </div>
-        @isset($settings)
-            <ul class="list-group">
-                @foreach ($settings as $setting)
-                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                    {{ $setting->name }}: {{ $setting->value }}
-                    <div class="inline-flex">
-                        <a href="{{ route('admin.settings.edit', $setting) }}" type="button" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                        </a>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        @endisset
-        {{-- Manufacturers --}}
-        <div class="w-100 d-flex flex-row justify-content-between align-items-center mb-1 mt-3">
-            <h5 class="m-0">Manufacturers</h5>
-            <div class="inline-flex">
-                <a href="{{ route('admin.manufacturers.create') }}" type="button" class="btn btn-outline-success btn-sm">
-                    <i class="fas fa-plus"></i> {{ __('product.btn.add') }}
-                </a>
-                <a href="#" type="button" class="btn btn-outline-secondary btn-sm">
-                    <i class="fas fa-sort-numeric-up"></i> {{ __('product.btn.sort') }}
-                </a>
-            </div>
-        </div>
-        @isset($manufacturers)
-            <ul class="list-group">
-                @foreach ($manufacturers as $manufacturer)
-                <li class="list-group-item d-flex flex-row justify-content-between align-items-center">
-                    {{ $manufacturer->name }}<span class="badge badge-secondary">{{ $manufacturer->sort }}</span>
-                    <div class="inline-flex">
-                        <a href="{{ route('admin.manufacturers.edit', $manufacturer) }}" type="button" class="btn btn-warning btn-sm">
-                            <i class="fas fa-pen"></i> {{ __('product.btn.change') }}
-                        </a>
-                    </div>
-                </li>
-                @endforeach
-            </ul>
-        @endisset
-    </div>
-</div>
 @endsection

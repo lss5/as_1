@@ -12,9 +12,9 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
-        Section::create(['name' => 'About', 'uniq_name' => 'about', 'sort' => '10']);
-        Section::create(['name' => 'Information', 'uniq_name' => 'information', 'sort' => '20']);
-        Section::create(['name' => 'Partners', 'uniq_name' => 'partners', 'sort' => '30']);
-        Section::create(['name' => 'Registration', 'uniq_name' => 'registration', 'sort' => '40']);
+        Section::create(['name' => 'About', 'sort' => '10']);
+        Section::create(['name' => 'Information', 'sort' => '20']);
+        Section::create(['name' => 'Partners', 'sort' => '30']);
+        Section::create(['name' => 'Registration', 'sort' => '40']);
     }
 }

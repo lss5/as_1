@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller
 {
+    public function index()
+    {
+        $manufacturers = Manufacturer::orderBy('sort')->get();
+        return view('admin.manufacturer.index')->with([
+            'manufacturers' => $manufacturers,
+        ]);
+    }
+
     public function create()
     {
         return view('admin.manufacturer.create')->with([
@@ -21,14 +29,14 @@ class ManufacturerController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'url' => ['required', 'string'],
+            'url' => ['nullable', 'string'],
             'sort' => ['required', 'integer'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
         ]);
 
         $manufacturer = Manufacturer::create($data);
 
-        return redirect()->route('admin.settings.index')->with('success', 'Category '.$manufacturer->name.' created');
+        return redirect()->route('admin.manufacturers.index')->with('success', 'Category '.$manufacturer->name.' created');
     }
 
     public function edit(Manufacturer $manufacturer)
@@ -44,20 +52,20 @@ class ManufacturerController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'uniq_name' => ['required', 'string', 'unique:manufacturers,uniq_name,'.$manufacturer->id],
+            'url' => ['nullable', 'string'], // 'unique:manufacturers,uniq_name,'.$manufacturer->id],
             'sort' => ['required', 'integer'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
         ]);
 
         $manufacturer->update($data);
 
-        return redirect()->route('admin.settings.index')->with('success', 'Manufacturer '.$manufacturer->name.' updated');
+        return redirect()->route('admin.manufacturers.index')->with('success', 'Manufacturer '.$manufacturer->name.' updated');
     }
 
     public function destroy(Manufacturer $manufacturer)
     {
         $manufacturer->delete();
 
-        return redirect()->route('admin.settings.index')->with('success', 'Manufacturer '.$manufacturer->name.' deleted');
+        return redirect()->route('admin.manufacturers.index')->with('success', 'Manufacturer '.$manufacturer->name.' deleted');
     }
 }

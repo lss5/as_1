@@ -49,9 +49,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Contact');
     }
 
-    public function products()
+    public function listings()
     {
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Listing');
     }
 
     public function contact_main()

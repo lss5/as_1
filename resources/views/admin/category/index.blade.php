@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Users</h1>
+                        <h1 class="m-0">Categories</h1>
                     </div>
                 </div>
             </div>
@@ -18,6 +18,11 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
+                                <div class="card-title">
+                                    <a href="{{ route('admin.categories.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                        <i class="fas fa-plus"></i> Create
+                                    </a>
+                                </div>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-right">
                                         <li class="page-item"><a class="page-link" href="#">«</a></li>
@@ -32,34 +37,29 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th style="width: 10px">#</th>
+                                            <th style="width: 10px">#ID</th>
                                             <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Products</th>
-                                            <th>Roles</th>
+                                            <th>Sort</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
+                                        @foreach ($categories as $category)
                                             <tr>
-                                                <td>{{ $user->id }}</td>
-                                                <td>{{ $user->name }}</td>
-                                                <td>{{ $user->email }}</td>
-                                                {{-- <td>{{ $user->products()->count() }}</td> --}}
-                                                <td><span class="badge bg-danger">5</span></td>
-                                                <td>{{ implode(', ', $user->roles()->get()->pluck('name')->toArray()) }}</td>
-                                                <td>
-                                                    @can('admin')
-                                                        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-warning btn-sm float-left">Edit</a>
-                                                    @endcan
-                                                    @can('admin')
-                                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST" class="float-left ml-1">
+                                                <th scope="row">{{ $category->id }}</th>
+                                                <td>{{ $category->name }}</td>
+                                                <td>{{ $category->sort }}</td>
+                                                <td class="project-actions">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.categories.edit', $category) }}">
+                                                        <i class="fas fa-pencil-alt"></i> Edit
+                                                    </a>
+                                                    <form action="{{ route('admin.categories.destroy', $category) }}" method="POST" class="form-inline d-inline">
+                                                        @method('DELETE')
                                                         @csrf
-                                                        {{ method_field('DELETE') }}
-                                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                                        </form>
-                                                    @endcan
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete category?");'>
+                                                            <i class="fas fa-trash"></i> Detete
+                                                        </button>
+                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -22,10 +22,7 @@ class SettingController extends Controller
             //     ->simplePaginate(50);
 
             return view('admin.settings.index')->with([
-                'categories' => Category::orderBy('sort')->get(),
-                'sections' => Section::orderBy('sort')->get(),
-                'manufacturers' => Manufacturer::orderBy('sort')->get(),
-                'settings' => Setting::all(),
+                'variables' => Setting::all(),
             ]);
         }
     }
@@ -48,28 +45,28 @@ class SettingController extends Controller
         return redirect()->route('admin.settings.index')->with('success', 'Setting '.$setting->name.' created');
     }
 
-    public function edit(Setting $setting)
+    public function edit(Setting $variable)
     {
-        return view('admin.settings.edit')->with(['setting' => $setting]);
+        return view('admin.settings.edit')->with(['variable' => $variable]);
     }
 
-    public function update(Request $request, Setting $setting)
+    public function update(Request $request, Setting $variale)
     {
         $data = $request->validate([
             'name' => ['required', 'string'],
-            'uniq_name' => ['required', 'string', 'unique:settings,uniq_name,'.$setting->id],
+            'uniq_name' => ['required', 'string', 'unique:settings,uniq_name,'.$variale->id],
             'value' => ['required', 'string'],
         ]);
 
-        $setting->update($data);
+        $variale->update($data);
 
-        return redirect()->route('admin.settings.index')->with('success', 'Setting '.$setting->name.' updated');
+        return redirect()->route('admin.settings.index')->with('success', 'Setting '.$variale->name.' updated');
     }
 
-    public function destroy(Setting $setting)
+    public function destroy(Setting $variable)
     {
-        $setting->delete();
+        $variable->delete();
 
-        return redirect()->route('admin.settings.index')->with('success', 'Setting '.$setting->name.' deleted');
+        return redirect()->route('admin.settings.index')->with('success', 'Setting '.$variable->name.' deleted');
     }
 }

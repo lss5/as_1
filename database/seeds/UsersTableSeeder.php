@@ -33,7 +33,7 @@ class UsersTableSeeder extends Seeder
             'first_name' => 'Petr',
             'last_name' => 'Petrov',
             'country_id' => 1,
-            'email' => 'user1@user.com',
+            'email' => 'user@user.com',
             'password' => Hash::make('12345678'),
             'email_verified_at' => Carbon::now(),
         ]);

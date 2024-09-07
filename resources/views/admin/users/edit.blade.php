@@ -1,120 +1,102 @@
-@extends('admin.layout')
+@extends('layouts.admin')
 
-@section('content_p')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12 col-lg-8 my-2">
-            <h3>Edit user {{ $user->name }}</h3>
+@section('content')
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Edit user {{ $user->name }}</h1>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-            <form action="{{ route('admin.users.update', $user) }}" method="POST">
+        <!-- Main content -->
+        <section class="content">
+            <form action="{{ route('admin.users.update', $user) }}" method="POST" class="w-100">
                 @csrf
                 @method('PUT')
-
-                <div class="form-group row">
-                    <label for="email" class="col-md-2 col-form-label text-md-right">Email</label>
-
-                    <div class="col-md-6">
-                        <input id="email" type="email" @cannot('restore', $user) readonly @endcannot class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email', $user->email) }}" required>
-
-                        @error('email')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">General</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                        title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="display: block;">
+                                <div class="form-group">
+                                    <label for="inputName">User Name</label>
+                                    <input type="text" id="inputName" name="name" class="form-control  @error('name') is-invalid @enderror" value="{{ $user->name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail">User Name</label>
+                                    <input type="email" id="inputEmail" name="email" class="form-control  @error('email') is-invalid @enderror" value="{{ $user->email }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputFirstName">First Name</label>
+                                    <input type="text" id="inputFirstName" name="first_name" class="form-control  @error('first_name') is-invalid @enderror" value="{{ $user->first_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputLastName">Last Name</label>
+                                    <input type="text" id="inputLastName" name="last_name" class="form-control  @error('last_name') is-invalid @enderror" value="{{ $user->last_name }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputBio">BIO</label>
+                                    <textarea id="inputBio" name="bio" class="form-control @error('bio') is-invalid @enderror" rows="4">{{ $user->bio }}</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputCountry">Country</label>
+                                    <select id="inputCountry" name="country" class="form-control custom-select @error('country') is-invalid @enderror">
+                                        <option disabled="">Select one</option>
+                                        @foreach (App\Country::all() as $country)
+                                            <option value="{{ $country->id }}"
+                                                @if (old('country') == $country->id || $user->country_id == $country->id) selected @endif>{{ $country->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="name" class="col-md-2 col-form-label text-md-right">Username</label>
-
-                    <div class="col-md-6">
-                        <input id="name" type="name" @cannot('restore', $user) readonly @endcannot class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $user->name) }}" required>
-
-                        @error('name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="verified" class="col-md-2 col-form-label text-md-right"></label>
-
-                    <div class="col-md-6">
-                        <div class="form-check">
-                            <input type="checkbox" name="verified" value="1" id="verified"
-                                @if($user->hasVerifiedUser()) checked @endif>
-                                <label class="form-check-label" for="verified">
-                                    Verified user
-                                </label>
+                    <div class="col-12">
+                        <div class="card card-danger">
+                            <div class="card-header">
+                                <h3 class="card-title">Permission</h3>
+                                <div class="card-tools">
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="roles">Roles</label>
+                                    <div class="col-md-6">
+                                        @foreach ($roles as $role)
+                                            <div class="form-check">
+                                                <input type="checkbox" name="roles[]" class="form-check-input" value="{{ $role->id }}" id="role{{ $role->id }}" @if ($user->roles->pluck('id')->contains($role->id)) checked @endif>
+                                                <label for="role{{ $role->id }}" class="form-check-label">{{ $role->name }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label for="roles" class="col-md-2 col-form-label text-md-right">Roles</label>
-
-                    <div class="col-md-6">
-                        @foreach ($roles as $role)
-                            <div class="form-check">
-                                <input type="checkbox" name="roles[]" value="{{ $role->id }}" id="role{{ $role->id }}"
-                                @if($user->roles->pluck('id')->contains($role->id)) checked @endif>
-                                <label for="role{{ $role->id }}">{{ $role->name }}</label>
-                            </div>
-                        @endforeach
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <a href="{{ route('admin.users.index') }}" class="btn btn-secondary">Cancel</a>
+                        <input type="submit" value="Save Changes" class="btn btn-success float-right">
                     </div>
                 </div>
-
-                <div class="form-group row">
-                    <label for="first_name" class="col-md-2 col-form-label text-md-right">First name</label>
-
-                    <div class="col-md-6">
-                        <input id="first_name" name="first_name" type="first_name" class="form-control @error('first_name') is-invalid @enderror" value="{{ old('first_name', $user->first_name) }}" required>
-
-                        @error('first_name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="last_name" class="col-md-2 col-form-label text-md-right">Last name</label>
-
-                    <div class="col-md-6">
-                        <input id="last_name" name="last_name" type="last_name" class="form-control @error('last_name') is-invalid @enderror" value="{{ old('last_name', $user->last_name) }}" required>
-
-                        @error('last_name')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="country" class="col-md-2 col-form-label text-md-right">{{ __('Country') }}</label>
-
-                    <div class="col-md-6">
-                        <select name="country" id="country" required class="custom-select @error('country') is-invalid @enderror">
-                            <option value selected>Country...</option>
-                            @foreach (App\Country::all() as $country)
-                                <option value="{{ $country->id }}" @if(old('country') == $country->id || $user->country_id == $country->id) selected @endif>{{ $country->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('country')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <button type="submit" class="btn btn-lg btn-success">Save</button>
             </form>
-        </div>
+        </section>
     </div>
-</div>
 @endsection
