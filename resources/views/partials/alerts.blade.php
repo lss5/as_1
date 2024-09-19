@@ -1,12 +1,9 @@
 @if (session('success'))
-<div class="col-md-12">
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <h5><i class="icon fas fa-check"></i> Success!</h5>
         {{ session('success')}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
     </div>
-</div>
 @endif
 
 @if (session('info'))
@@ -73,13 +70,12 @@
 
 @if ($errors->danger->any())
     <div class="col-md-12">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            @foreach ($errors->danger->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+        @foreach ($errors->danger->all() as $error)
+            <div class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <h5><i class="icon fas fa-ban"></i> Danger!</h5>
+                {{ $error }}
+            </div>
+        @endforeach
     </div>
 @endif

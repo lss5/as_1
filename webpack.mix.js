@@ -23,4 +23,5 @@ mix.css('resources/sass/adminlte.min.css', 'public/css');
 
 mix.copyDirectory('node_modules/@fortawesome/fontawesome-free/webfonts', 'public/webfonts');
 mix.copyDirectory('resources/assets/fonts', 'public/fonts');
+mix.copyDirectory('resources/assets/images', 'public/images');
 mix.copyDirectory('vendor/tinymce/tinymce', 'public/js/tinymce');

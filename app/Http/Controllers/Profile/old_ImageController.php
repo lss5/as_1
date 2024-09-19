@@ -5,14 +5,14 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Image;
-use App\Product;
+use App\Listing;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
 class ImageController extends Controller
 {
-    public function store(Request $request, Product $product)
+    public function store(Request $request, Listing $product)
     {
         if (Auth::user()->can('update', $product))
         {

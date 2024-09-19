@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 use App\User;
 
-class UpdateUser extends FormRequest
+class UpdateProfile extends FormRequest
 {
     public function authorize()
     {
@@ -15,9 +15,9 @@ class UpdateUser extends FormRequest
     public function rules()
     {
         return [
-            // 'name' => 'required| string| max:255| unique:users',
-            'first_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
+            'bio' => ['nullable', 'string', 'max:4096'],
             'country' => ['required', 'integer'],
         ];
     }

@@ -4,10 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('auth','verified')->group(function(){
         Route::get('/', 'ProfileController@index')->name('index');
-        Route::get('/edit', 'ProfileController@edit')->name('edit');
-        Route::patch('/edit/{user}', 'ProfileController@update')->name('update');
-
-        // Route::get('/products', 'ProfileController@products')->name('products');
+        Route::put('/edit/{user}', 'ProfileController@update')->name('update');
+        Route::post('/{user}', 'ProfileController@update_image')->name('update.image'); // Update photo profile
 
         Route::post('/contacts/{user}', 'ContactController@store')->name('contacts.store');
         Route::patch('/contacts/{contact}', 'ContactController@setmain')->name('contacts.setmain');
@@ -33,10 +31,10 @@ Route::prefix('profile/listings')->name('profile.listing.')->namespace('Profile'
     // Route::delete('/image/{image}', 'ImageController@destroy')->name('images.destroy');
 });
 
-Route::prefix('profile/images')->name('profile.image.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-    Route::put('/{product}', 'ImageController@store')->name('store');
-    Route::delete('/{image}', 'ImageController@destroy')->name('destroy');
-});
+// Route::prefix('profile/images')->name('profile.image.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+//     Route::put('/{parent_type}', 'ImageController@store')->name('store');
+//     Route::delete('/{image}', 'ImageController@destroy')->name('destroy');
+// });
 
 Route::prefix('profile/messages')->name('profile.message.')->namespace('Profile')->middleware('auth','verified')->group(function(){
     Route::get('/', 'MessageController@index')->name('index');

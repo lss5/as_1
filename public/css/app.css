@@ -14618,27 +14618,3 @@ h3 {
     border-color: #dee2e6;
   }
 }
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  margin: auto;
-}
-
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.form-signin input[type=email] {
-  margin-bottom: -1px;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-}
-
-.form-signin input[type=password] {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}

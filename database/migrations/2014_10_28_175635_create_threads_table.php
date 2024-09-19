@@ -12,9 +12,10 @@ class CreateThreadsTable extends Migration
         Schema::create(Models::table('threads'), function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject');
-            $table->timestamps();
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->string('type', 36)->nullable();
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -5,7 +5,7 @@
     <h1 class="h4 my-2">{{ __('home.pages.edit') }}</h1>
     <hr class="py-1">
     <form class="w-100" action="{{ route('profile.update', $user) }}" method="POST">
-        @method('PATCH')
+        @method('PUT')
         @csrf
         <div class="row">
             <div class="col-sm-12 col-lg-3">

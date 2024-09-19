@@ -10,9 +10,14 @@ class Image extends Model
 {
     protected $fillable = ['link'];
 
-    public function product()
+    // public function product()
+    // {
+    //     return $this->belongsTo('App\Product');
+    // }
+
+    public function users()
     {
-        return $this->belongsTo('App\Product');
+        return $this->morphedByMany('App\User', 'imageable');
     }
 
     public function save(array $options = [])
@@ -20,10 +25,10 @@ class Image extends Model
         $save = parent::save($options);
 
         // crop image
-        $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(720, 600, function ($constraint) {
-            $constraint->upsize();
-        });
-        $imageFacade->save();
+        // $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(720, 600, function ($constraint) {
+        //     $constraint->upsize();
+        // });
+        // $imageFacade->save();
 
         return $save;
     }

@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('sort')->unsigned();
+            $table->boolean('top_menu')->default(false);
             $table->timestamps();
         });
     }

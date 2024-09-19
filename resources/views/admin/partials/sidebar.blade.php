@@ -1,17 +1,24 @@
 <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-between">
         {{-- <div class="image">
             <img src="" class="img-circle elevation-2" alt="User Image">
         </div> --}}
         <div class="info">
             <a href="{{ route('profile.index') }}" class="d-block">{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</a>
         </div>
+        <a href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+            <i class="right fas fa-sign-out-alt"></i>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
     </div>
 
     <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
-            <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                aria-label="Search">
+            <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
                 <button class="btn btn-sidebar">
                     <i class="fas fa-search fa-fw"></i>
@@ -23,7 +30,7 @@
     <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{ route('admin.support.index') }}" class="nav-link">
+                <a href="{{ route('profile.index') }}" class="nav-link">
                     <i class="fas fa-user"></i>
                     <p>Profile</p>
                 </a>

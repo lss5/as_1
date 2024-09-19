@@ -27,7 +27,7 @@ Route::prefix('products')->name('products.')->group(function(){
     Route::get('/user/{user}', 'ProductController@user')->name('user');
 });
 Route::prefix('category')->name('category.')->group(function(){
-    // Route::get('/', 'CategoryController@index')->name('index');
+    Route::get('/', 'CategoryController@index')->name('index');
     Route::get('/{category}', 'CategoryController@show')->name('show');
     // Route::get('/{category}/{user}', 'CategoryController@user')->name('user');
 });

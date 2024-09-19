@@ -59,6 +59,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Contact')->where('ismain', true);
     }
 
+    public function images()
+    {
+        return $this->morphToMany('App\Image', 'imageable');
+    }
+
     // ----- Methods ----- //
     public function hasAnyRoles($roles)
     {
