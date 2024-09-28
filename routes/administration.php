@@ -10,12 +10,8 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
     Route::resource('/categories', 'CategoryController');
 });
 
-Route::prefix('admin/products')->name('admin.products.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::get('/', 'ProductsController@index')->name('index');
-    Route::get('/trashed', 'ProductsController@trashed')->name('trashed');
-    Route::post('/status/{product}', 'ProductsController@set_status')->name('set_status');
-    Route::delete('/{product}', 'ProductsController@destroy')->name('destroy');
-    Route::put('/restore/{product}', 'ProductsController@restore')->name('restore');
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/products', 'ProductController');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){

@@ -17,40 +17,12 @@ class Listing extends Model
 
     protected $guarded = [];
 
-    protected $table = 'products';
-
     public static $hashrates = [
         'hs' => 'H/s',
         'khs' => 'kH/s',
         'mhs' => 'Mh/s',
         'ghs' => 'Gh/s',
         'ths' => 'Th/s',
-    ];
-
-    public static $algorithms = [
-        'sha256' => 'ths',
-        'scrypt' => 'ghs',
-        'x11' => 'ghs',
-        'sia' => 'ths',
-        'qk' => 'ghs',
-        'qb' => 'ghs',
-        'mg' => 'ghs',
-        'sk' => 'ghs',
-        'lbry' => 'ghs',
-        'bk14' => 'ths',
-        'cn' => 'khs',
-        'cst' => 'khs',
-        'eq' => 'khs',
-        'lre' => 'ghs',
-        'bcd' => 'mhs',
-        'l2z' => 'mhs',
-        'kec' => 'ghs',
-        'gro' => 'ghs',
-        'esg' => 'ghs',
-        'ct31' => 'hs',
-        'ct32' => 'hs',
-        'kd' => 'ths',
-        'hk' => 'ths',
     ];
 
     public static $sorting = [
@@ -90,36 +62,41 @@ class Listing extends Model
         'restored',
     ];
 
-    public $cost;
-    public $profit;
-    public $price_th;
+    // public $cost;
+    // public $profit;
+    // public $price_th;
 
-    protected static function booted()
-    {
-        static::created(function ($listing) {
-            $listing->user->notify(new ListingChangeStatusNotification($listing));
+    // protected static function booted()
+    // {
+    //     static::created(function ($listing) {
+    //         $listing->user->notify(new ListingChangeStatusNotification($listing));
 
-            if (!empty($listing->hashrate)) {
-                ListingProfitFillJob::dispatch($listing);
-            }
-        });
+    //         if (!empty($listing->hashrate)) {
+    //             ListingProfitFillJob::dispatch($listing);
+    //         }
+    //     });
 
-        static::updated(function ($listing) {
-            if (!empty($listing->hashrate)) {
-                ListingProfitFillJob::dispatch($listing);
-            }
-        });
-    }
+    //     static::updated(function ($listing) {
+    //         if (!empty($listing->hashrate)) {
+    //             ListingProfitFillJob::dispatch($listing);
+    //         }
+    //     });
+    // }
 
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function comments()
+    public function scopeForUser(Builder $query, User $user)
     {
-        return $this->hasMany('App\Comment');
+        return $query->where('user_id', $user->id);
     }
+
+    // public function comments()
+    // {
+    //     return $this->hasMany('App\Comment');
+    // }
 
     public function images()
     {
@@ -129,6 +106,11 @@ class Listing extends Model
     public function country()
     {
         return $this->belongsTo('App\Country');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Product');
     }
 
     public function categories()
@@ -149,11 +131,6 @@ class Listing extends Model
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);
-    }
-
-    public function scopeForUser(Builder $query, User $user)
-    {
-        return $query->where('user_id', $user->id);
     }
 
     public function scopeActive(Builder $query)

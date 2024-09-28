@@ -76,6 +76,7 @@ class ProfileController extends Controller
         $imageFacade = ImageFacade::make(public_path('storage/'.$photo->link))->fit(256, 256, function ($constraint) {
             $constraint->upsize();
         });
+
         $imageFacade->save();
 
         return redirect()->route('profile.index')->with('success', 'Photo updated');

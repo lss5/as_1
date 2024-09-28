@@ -23,7 +23,7 @@
         <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
             <li class="nav-item">
-                <a class="nav-link btn btn-sm btn-outline-success text-success py-1 mr-1" href="{{ route('profile.listing.create') }}"><i class="fas fa-plus"></i> New sell<span class="sr-only">(current)</span></a>
+                <a class="nav-link btn btn-sm btn-outline-success text-success py-1 mr-1" href="{{ route('profile.listings.create') }}"><i class="fas fa-plus"></i> New sell<span class="sr-only">(current)</span></a>
             </li>
             @guest
                 <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">

@@ -15,15 +15,15 @@ class EventServiceProvider extends ServiceProvider
 {
 
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-        ProductChangeStatus::class => [
-            SendProductChangeStatusNotification::class,
-        ],
-        NewMessageEvent::class => [
-            NewMessageNotification::class,
-        ],
+        // Registered::class => [
+        //     SendEmailVerificationNotification::class,
+        // ],
+        // ProductChangeStatus::class => [
+        //     SendProductChangeStatusNotification::class,
+        // ],
+        // NewMessageEvent::class => [
+        //     NewMessageNotification::class,
+        // ],
     ];
 
     public function boot()

@@ -22,9 +22,9 @@
                             <div class="card-body box-profile">
                                 <div class="text-center">
                                     @if ($user->images->count() > 0)
-                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$user->images->first()->link) }}"" alt="{{ $user->name }}">
+                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$user->images->first()->link) }}" alt="{{ $user->name }}">
                                     @else
-                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/profile/user.png') }}" alt="{{ $user->name }}">
+                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ $user->name }}">
                                     @endif
                                 </div>
                                 <h3 class="profile-username text-center">{{ $user->first_name . ' ' . $user->last_name }}

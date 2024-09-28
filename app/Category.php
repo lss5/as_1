@@ -14,9 +14,9 @@ class Category extends Model
         'top_menu',
     ];
 
-    public function products()
+    public function listings()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany('App\Listing');
     }
 
     public function scopeFilter(Builder $builder, QueryFilter $filters)

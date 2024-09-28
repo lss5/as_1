@@ -8,6 +8,8 @@ class AddManufacturerIdToProductsTable extends Migration
 {
     public function up()
     {
+        return true;
+
         Schema::table('products', function (Blueprint $table) {
             $table->foreignId('manufacturer_id')->nullable()->constrained('manufacturers');
         });
@@ -15,9 +17,9 @@ class AddManufacturerIdToProductsTable extends Migration
 
     public function down()
     {
-        Schema::table('products', function (Blueprint $table) {
-            $table->dropForeign('products_manufacturer_id_foreign');
-            $table->dropColumn('manufacturer_id');
-        });
+        // Schema::table('products', function (Blueprint $table) {
+        //     $table->dropForeign('products_manufacturer_id_foreign');
+        //     $table->dropColumn('manufacturer_id');
+        // });
     }
 }

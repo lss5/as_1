@@ -37,7 +37,7 @@
             </li>
             <li class="nav-item">
                 <a href="{{ route('profile.listings.index') }}" class="nav-link">
-                    <i class="fas fa-server"></i>
+                    <i class="fas fa-tablet-alt"></i>
                     <p>Listings</p>
                 </a>
             </li>
@@ -72,13 +72,6 @@
                         </a>
                     </li>
                 </ul>
-            </li>
-            <li class="nav-header">SETTINGS</li>
-            <li class="nav-item">
-                <a href="{{ route('profile.listings.index') }}" class="nav-link">
-                    <i class="fas fa-bell"></i>
-                    <p>Notifications</p>
-                </a>
             </li>
             <li class="nav-header">ADMINISTRATION</li>
             <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithm*', 'admin/coin*') ? 'menu-open' : '') }}">

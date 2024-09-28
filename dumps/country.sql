@@ -1,13 +1,13 @@
-DROP TABLE IF EXISTS `countries`;
-CREATE TABLE `countries` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `alpha2_code` char(2) DEFAULT NULL,
-  `alpha3_code` char(3) DEFAULT NULL,
-  `numeric_code` char(3) DEFAULT NULL,
-  `iso31662_code` varchar(15) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+-- DROP TABLE IF EXISTS `countries`;
+-- CREATE TABLE `countries` (
+--   `id` int(11) NOT NULL AUTO_INCREMENT,
+--   `name` varchar(255) DEFAULT NULL,
+--   `alpha2_code` char(2) DEFAULT NULL,
+--   `alpha3_code` char(3) DEFAULT NULL,
+--   `numeric_code` char(3) DEFAULT NULL,
+--   `iso31662_code` varchar(15) DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Afghanistan', 'AF', 'AFG', '004', 'ISO 3166-2:AF');
 INSERT INTO countries (name, alpha2_code, alpha3_code, numeric_code, iso31662_code) VALUES ('Albania', 'AL', 'ALB', '008', 'ISO 3166-2:AL');

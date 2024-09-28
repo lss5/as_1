@@ -69,16 +69,6 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function edit(Product $product)
-    {
-        return redirect()->back();
-    }
-
-    public function update(Request $request, Product $product)
-    {
-        //
-    }
-
     public function destroy(Product $product)
     {
         if (Auth::user()->can('delete', $product)) {

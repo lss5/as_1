@@ -10,14 +10,19 @@ class Image extends Model
 {
     protected $fillable = ['link'];
 
-    // public function product()
-    // {
-    //     return $this->belongsTo('App\Product');
-    // }
-
     public function users()
     {
         return $this->morphedByMany('App\User', 'imageable');
+    }
+
+    public function products()
+    {
+        return $this->morphedByMany('App\Product', 'imageable');
+    }
+
+    public function listings()
+    {
+        return $this->morphedByMany('App\Listing', 'imageable');
     }
 
     public function save(array $options = [])

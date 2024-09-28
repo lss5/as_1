@@ -7,4 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Algorithm extends Model
 {
     protected $guarded = [];
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Product');
+    }
 }
