@@ -13,7 +13,7 @@
             </div>
             <input type="number" name="moq" class="form-control" id="moq" value="{{ request()->get('price_min') ?? '' }}" placeholder="pcs" aria-label="pcs">
         </div>
-        <div class="input-group col-lg-3 col-sm-6 col-12 mb-1 mb-lg-0 mb-md-0">
+        {{-- <div class="input-group col-lg-3 col-sm-6 col-12 mb-1 mb-lg-0 mb-md-0">
             <div class="input-group-prepend">
                 <span class="input-group-text" id="hashrate">Hashrate</span>
             </div>
@@ -23,7 +23,7 @@
                     <option @if(request()->get('hashrateName') == $uniq) selected @endif value="{{ $uniq }}">{{ $name }}</option>
                 @endforeach
             </select>
-        </div>
+        </div> --}}
         <div class="form-inline form-check mx-2">
             <input id="new" name="new" type="checkbox" value="1" class="custom-control-input"
             @if (request()->get('new') == 1) checked="checked" @endif>

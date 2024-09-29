@@ -6,10 +6,9 @@
     @endif
     <div class="card-body pb-2">
         <h5 class="card-title">
-            <a href="{{ route('products.show', $product) }}" class="stretched-link text-decoration-none text-reset">{!! Str::limit($product->title, 28, '') !!}</a>
-            
+            <a href="{{ route('listings.show', $product) }}" class="stretched-link text-decoration-none text-reset">{!! Str::limit($product->title, 28, '') !!}</a>
         </h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}}{{App\Product::$hashrates[$product->hashrate_name]}} | {{$product->power}}W | MOQ {{$product->moq}}pcs</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{$product->hashrate}} MOQ {{$product->moq}}pcs</h6>
         <p class="card-text">{!! Str::limit($product->description, 80, '...') !!}</p>
     </div>
     <ul class="list-group list-group-flush">

@@ -14,12 +14,12 @@ use App\Manufacturer;
 
 class ListingController extends Controller
 {
-    use SoftDeletes;
+    // use SoftDeletes;
 
-    public function __construct()
-    {
-        $this->authorizeResource(Listing::class, 'Listing');
-    }
+    // public function __construct()
+    // {
+    //     $this->authorizeResource(Listing::class, 'Listing');
+    // }
 
     public function index(Request $request, ListingFilters $filters)
     {
@@ -30,11 +30,11 @@ class ListingController extends Controller
         }
 
         $listing = Listing::filter($filters)
-                ->active()
+                // ->active()
                 ->orderBy('listings.created_at', 'desc')
                 ->simplePaginate(21);
 
-        return view('Listing.index')->with([
+        return view('listing.index')->with([
             'listings' => $listing,
             'countries' => Country::all(),
             'categories' => Category::orderBy('sort')->get(),

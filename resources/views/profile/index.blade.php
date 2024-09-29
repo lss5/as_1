@@ -41,6 +41,7 @@
                                         <b>Following</b> <a class="float-right">54</a>
                                     </li>
                                 </ul>
+                                <a href="#" class="btn btn-success btn-block">Request for company registration</a>
                             </div>
                         </div>
                         <div class="card card-success">
@@ -96,7 +97,7 @@
                         </div>
                         <div class="card">
                             <div class="card-header p-2">
-                                <button class="btn btn-success">Settings</button>
+                                <h3 class="card-title">Settings</h3>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('profile.update.image', $user) }}" method="POST" enctype="multipart/form-data">

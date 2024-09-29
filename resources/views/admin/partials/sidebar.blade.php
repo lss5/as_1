@@ -35,40 +35,34 @@
                     <p>Profile</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="{{ route('profile.listings.index') }}" class="nav-link">
+            <li class="nav-item {{ (request()->is('profile/listings*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('profile/listings*') ? 'active' : '') }}">
                     <i class="fas fa-server"></i>
-                    <p>Listings</p>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <i class="fas fa-tablet-alt"></i>
                     <p>Listings <i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                        <a href="{{ route('profile.listings.create') }}" class="nav-link {{ (request()->is('profile/listings/create') ? 'active' : '') }}">
+                            <i class="fas fa-plus nav-icon"></i>
+                            Create
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('profile.listings.index') }}" class="nav-link {{ (request()->is('profile/listings') ? 'active' : '') }}">
+                            <i class="far fa-check-square nav-icon"></i>
                             <p>Active</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fas fa-user-shield nav-icon"></i>
                             <p>Moderation</p>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
+                            <i class="fas fa-archive nav-icon"></i>
                             <p>Archive</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="far fa-circle nav-icon"></i>
-                            <p>Coins</p>
                         </a>
                     </li>
                 </ul>
@@ -78,6 +72,13 @@
                 <a href="{{ route('profile.listings.index') }}" class="nav-link">
                     <i class="fas fa-bell"></i>
                     <p>Notifications</p>
+                </a>
+            </li>
+            <li class="nav-header">MODERATION</li>
+            <li class="nav-item">
+                <a href="{{ route('profile.listings.index') }}" class="nav-link">
+                    <i class="fas fa-user-lock"></i>
+                    <p>Listings</p>
                 </a>
             </li>
             <li class="nav-header">ADMINISTRATION</li>

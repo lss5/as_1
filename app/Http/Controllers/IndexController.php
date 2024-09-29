@@ -3,28 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\ImportData\NetworkPrice;
+use App\Listing;
 use App\Product;
 use Illuminate\Http\Request;
 
-class MainController extends Controller
+class IndexController extends Controller
 {
     public function index(NetworkPrice $networkPrice)
     {
         $networkPrice->setPrices();
 
-        $popular = Product::active()
-                ->has('images')
-                ->orderBy('views', 'desc')
-                ->limit(4)
-                ->get();
-
-        $newest = Product::active()
-                ->has('images')
+        $popular = Listing:: //active()
+                has('images')
                 ->orderBy('created_at', 'desc')
                 ->limit(4)
                 ->get();
 
-        return view('main')->with([
+        $newest = Listing:: //active()
+                has('images')
+                ->orderBy('created_at', 'desc')
+                ->limit(4)
+                ->get();
+
+        return view('index')->with([
             'popular' => $popular,
             'newest' => $newest,
             'prices' => $networkPrice->prices,

@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes(['verify' => true]);
 
-Route::get('/', 'MainController@index')->name('index');
+Route::get('/', 'IndexController@index')->name('index');
 
 Route::prefix('pages')->name('pages.')->group(function(){
     Route::get('/{page}', 'PageController@show')->name('show');
 });
 
-Route::prefix('products')->name('products.')->group(function(){
-    Route::get('/', 'ProductController@index')->name('index');
-    Route::get('/{product}', 'ProductController@show')->name('show');
-    Route::get('/user/{user}', 'ProductController@user')->name('user');
+Route::prefix('listings')->name('listings.')->group(function(){
+    Route::get('/', 'ListingController@index')->name('index');
+    Route::get('/{listing}', 'ListingController@show')->name('show');
+    Route::get('/user/{user}', 'ListingController@user')->name('user');
 });
 Route::prefix('category')->name('category.')->group(function(){
     Route::get('/', 'CategoryController@index')->name('index');

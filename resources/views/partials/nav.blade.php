@@ -11,8 +11,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Left Side Of Navbar -->
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{ (request()->is('products*')) ? 'active' : '' }}">
-                <a class="nav-link" href="{{ route('products.index') }}">Offers <span class="sr-only">(current)</span></a>
+            <li class="nav-item {{ (request()->is('listings*')) ? 'active' : '' }}">
+                <a class="nav-link" href="{{ route('listings.index') }}">Offers <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Partners<span class="sr-only">(current)</span></a>
@@ -22,9 +22,9 @@
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
             <!-- Authentication Links -->
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                 <a class="nav-link btn btn-sm btn-outline-success text-success py-1 mr-1" href="{{ route('profile.listings.create') }}"><i class="fas fa-plus"></i> New sell<span class="sr-only">(current)</span></a>
-            </li>
+            </li> --}}
             @guest
                 <li class="nav-item {{ (request()->is('login')) ? 'active' : '' }}">
                     <a class="nav-link py-1" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -42,27 +42,27 @@
 
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                         <a href="{{ route('profile.index') }}" class="dropdown-item">
-                            <i class="fas fa-user"></i> {{ __('home.pages.lists') }}
+                            <i class="fas fa-user"></i> Account
                         </a>
-                        <a href="{{ route('profile.listing.index') }}" class="dropdown-item">
-                            <i class="fas fa-images"></i> {{ __('product.pages.lists') }}
+                        <a href="{{ route('profile.listings.create') }}" class="dropdown-item">
+                            <i class="fas fa-plus"></i> New sell
                         </a>
                         {{-- <a href="{{ route('profile.edit') }}" class="dropdown-item">
                             Settings
                         </a> --}}
-                        <a href="{{ route('profile.message.index') }}" class="dropdown-item">
+                        {{-- <a href="{{ route('profile.message.index') }}" class="dropdown-item">
                             <i class="far fa-comments"></i> {{ __('home.menu.messages') }}
                             <?php $count = Auth::user()->newThreadsCount(); ?>
                             @if($count > 0)
                                 <span class="badge badge-success badge-pill">{{ $count }}</span>
                             @endif
-                        </a>
+                        </a> --}}
                         @can('moder')
                             <div class="dropdown-divider"></div>
                         @endcan
                         @can('moder')
                         <a href="{{ route('admin.index') }}" class="dropdown-item">
-                            <i class="fas fa-headset"></i> Administration
+                            <i class="fas fa-toolbox"></i> Administration
                         </a>
                         @endcan
                         @can('moder')

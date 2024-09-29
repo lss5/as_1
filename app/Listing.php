@@ -140,7 +140,7 @@ class Listing extends Model
 
     public function delete()
     {
-        $this->forceFill(['status' => 'expired'])->save();
+        // $this->forceFill(['status' => 'expired'])->save();
         return parent::delete();
     }
 

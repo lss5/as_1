@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<form method="GET" action="{{ route('products.index') }}" class="container">
+<form method="GET" action="{{ route('listings.index') }}" class="container">
     <div class="d-flex flex-row flex-wrap justify-content-between mt-2 mb-1">
 
         <div class="d-flex flex-row justify-content-center flex-wrap">
@@ -16,7 +16,7 @@
             </button>
             <div class="input-group ml-1 w-auto">
                 <select class="custom-select custom-select-sm" id="order" name="order" aria-label="Sort">
-                    @foreach (App\Product::$sorting as $key => $value)
+                    @foreach (App\Listing::$sorting as $key => $value)
                         <option value="{{ $key }}" @if($key == request()->get('order')) selected @endif>{{ $value }}</option>
                     @endforeach
                 </select>
@@ -34,18 +34,18 @@
 
 <div class="container">
     <div class="row my-2">
-        @if($products->count() < 1)
+        @if($listings->count() < 1)
             <div class="col-12">
                 <h5>No find results</h5>
             </div>
         @else
-            @forelse ($products as $product)
+            @forelse ($listings as $product)
             <div class="col-sm-12 col-md-6 col-lg-4 my-1">
                 @include('partials.product_card')
             </div>
             @endforeach
             <div class="col-12 d-flex justify-content-center my-1">
-                {{ $products->withQueryString()->links() }}
+                {{ $listings->withQueryString()->links() }}
             </div>
         @endif
     </div>

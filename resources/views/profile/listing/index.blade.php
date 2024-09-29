@@ -20,11 +20,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">
-                                    <a href="{{ route('profile.listings.create') }}" type="button" class="btn btn-outline-success btn-sm">
-                                        <i class="fas fa-plus"></i> Create
-                                    </a>
-                                </div>
+                                <div class="card-title">Active</div>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-right">
                                         <li class="page-item"><a class="page-link" href="#">«</a></li>

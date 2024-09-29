@@ -150,8 +150,9 @@ class ListingController extends Controller
             $image->listings()->detach();
             $image->delete();
         }
+
         $listing->delete();
-        return redirect()->route('profile.listing.index')->with('success', 'Listing was deleted');
+        return redirect()->route('profile.listings.index')->with('success', 'Listing was deleted');
     }
 
     // public function verify(Request $request, Listing $listing)
