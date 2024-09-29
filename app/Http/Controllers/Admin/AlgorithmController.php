@@ -10,12 +10,12 @@ class AlgorithmController extends Controller
 {
     public function index()
     {
-        return view('admin.algorithms.index', ['algorithms' => Algorithm::orderBy('sort')->get()]);
+        return view('admin.algorithm.index', ['algorithms' => Algorithm::orderBy('sort')->get()]);
     }
 
     public function create()
     {
-        return view('admin.algorithms.create');
+        return view('admin.algorithm.create');
     }
 
     public function store(Request $request)
@@ -27,12 +27,12 @@ class AlgorithmController extends Controller
 
         $algorithm = Algorithm::create($validated);
 
-        return redirect()->route('admin.algorithm.index')->with('success', 'Algorithm '.$algorithm->name.' created');
+        return redirect()->route('admin.algorithms.index')->with('success', 'Algorithm '.$algorithm->name.' created');
     }
 
     public function edit(Algorithm $algorithm)
     {
-        return view('admin.algorithms.edit', ['algorithm' => $algorithm]);
+        return view('admin.algorithm.edit', ['algorithm' => $algorithm]);
     }
 
     public function update(Request $request, Algorithm $algorithm)
@@ -44,13 +44,13 @@ class AlgorithmController extends Controller
 
         $algorithm->update($validated);
 
-        return redirect()->route('admin.algorithm.index')->with('success', 'Algorithm '.$algorithm->name.' updated');
+        return redirect()->route('admin.algorithms.index')->with('success', 'Algorithm '.$algorithm->name.' updated');
     }
 
     public function destroy(Algorithm $algorithm)
     {
         $algorithm->delete();
 
-        return redirect()->route('admin.algorithm.index')->with('success', 'Algorithm '.$algorithm->name.' deleted');
+        return redirect()->route('admin.algorithms.index')->with('success', 'Algorithm '.$algorithm->name.' deleted');
     }
 }

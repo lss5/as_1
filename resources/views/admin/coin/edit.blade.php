@@ -12,7 +12,7 @@
             </div>
         </section>
         <section class="content">
-            <form method="POST" action="{{ route('admin.coin.update', $coin) }}" class="w-100">
+            <form method="POST" action="{{ route('admin.coins.update', $coin) }}" class="w-100">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('admin.coin.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.coins.index') }}" class="btn btn-secondary">Cancel</a>
                         <input type="submit" value="Save" class="btn btn-success float-right">
                     </div>
                 </div>

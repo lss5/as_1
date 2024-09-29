@@ -9,21 +9,20 @@ Route::prefix('administrator')->name('admin.')->namespace('Admin')->middleware('
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/categories', 'CategoryController');
 });
-
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/products', 'ProductController');
 });
-
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/manufacturers', 'ManufacturerController');
 });
-
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::resource('/algorithm', 'AlgorithmController');
+    Route::resource('/algorithms', 'AlgorithmController');
 });
-
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::resource('/coin', 'CoinController');
+    Route::resource('/coins', 'CoinController');
+});
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/statuses', 'StatusController');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){

@@ -82,8 +82,8 @@
                 </a>
             </li>
             <li class="nav-header">ADMINISTRATION</li>
-            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithm*', 'admin/coin*') ? 'menu-open' : '') }}">
-                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithm*', 'admin/coin*') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'active' : '') }}">
                     <i class="far fa-file-alt"></i>
                     <p>Products <i class="right fas fa-angle-left"></i></p>
                 </a>
@@ -107,15 +107,21 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.algorithm.index') }}" class="nav-link {{ (request()->is('admin/algorithm*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.algorithms.index') }}" class="nav-link {{ (request()->is('admin/algorithms*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Algoritms</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.coin.index') }}" class="nav-link {{ (request()->is('admin/coin*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.coins.index') }}" class="nav-link {{ (request()->is('admin/coins*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Coins</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.statuses.index') }}" class="nav-link {{ (request()->is('admin/statuses*') ? 'active' : '') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Statuses</p>
                         </a>
                     </li>
                 </ul>

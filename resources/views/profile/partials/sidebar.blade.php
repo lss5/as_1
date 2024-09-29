@@ -99,13 +99,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.algorithm.index') }}" class="nav-link {{ (request()->is('admin/algorithm*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.algorithms.index') }}" class="nav-link {{ (request()->is('admin/algorithm*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Algoritms</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.coin.index') }}" class="nav-link {{ (request()->is('admin/coin*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.coins.index') }}" class="nav-link {{ (request()->is('admin/coin*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Coins</p>
                         </a>

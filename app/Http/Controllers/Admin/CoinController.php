@@ -10,12 +10,12 @@ class CoinController extends Controller
 {
     public function index()
     {
-        return view('admin.coins.index', ['coins' => Coin::orderBy('sort')->get()]);
+        return view('admin.coin.index', ['coins' => Coin::orderBy('sort')->get()]);
     }
 
     public function create()
     {
-        return view('admin.coins.create');
+        return view('admin.coin.create');
     }
 
     public function store(Request $request)
@@ -28,12 +28,12 @@ class CoinController extends Controller
 
         $coin = Coin::create($validated);
 
-        return redirect()->route('admin.coin.index')->with('success', 'Coin '.$coin->name.' created');
+        return redirect()->route('admin.coins.index')->with('success', 'Coin '.$coin->name.' created');
     }
 
     public function edit(Coin $coin)
     {
-        return view('admin.coins.edit', ['coin' => $coin]);
+        return view('admin.coin.edit', ['coin' => $coin]);
     }
 
     public function update(Request $request, Coin $coin)
@@ -46,13 +46,13 @@ class CoinController extends Controller
 
         $coin->update($validated);
 
-        return redirect()->route('admin.coin.index')->with('success', 'Coin '.$coin->name.' updated');
+        return redirect()->route('admin.coins.index')->with('success', 'Coin '.$coin->name.' updated');
     }
 
     public function destroy(Coin $coin)
     {
         $coin->delete();
 
-        return redirect()->route('admin.coin.index')->with('success', 'Coin '.$coin->name.' deleted');
+        return redirect()->route('admin.coins.index')->with('success', 'Coin '.$coin->name.' deleted');
     }
 }

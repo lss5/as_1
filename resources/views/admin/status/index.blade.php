@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Manufacturers</h1>
+                        <h1 class="m-0">Statuses</h1>
                     </div>
                 </div>
             </div>
@@ -21,18 +21,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <a href="{{ route('admin.manufacturers.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                    <a href="{{ route('admin.statuses.create') }}" type="button" class="btn btn-outline-success btn-sm">
                                         <i class="fas fa-plus"></i> Create
                                     </a>
-                                </div>
-                                <div class="card-tools">
-                                    <ul class="pagination pagination-sm float-right">
-                                        <li class="page-item"><a class="page-link" href="#">«</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">»</a></li>
-                                    </ul>
                                 </div>
                             </div>
                             <div class="card-body p-0">
@@ -41,26 +32,24 @@
                                         <tr>
                                             <th style="width: 10px">#ID</th>
                                             <th>Name</th>
-                                            <th>URL</th>
-                                            <th>Sort</th>
+                                            <th>Uniq name</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($manufacturers as $manufacturer)
+                                        @foreach ($statuses as $status)
                                             <tr>
-                                                <th scope="row">{{ $manufacturer->id }}</th>
-                                                <td>{{ $manufacturer->name }}</td>
-                                                <td>{{ $manufacturer->url }}</td>
-                                                <td>{{ $manufacturer->sort }}</td>
+                                                <th scope="row">{{ $status->id }}</th>
+                                                <td>{{ $status->name }}</td>
+                                                <td>{{ $status->uniq_name }}</td>
                                                 <td class="project-actions">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.manufacturers.edit', $manufacturer) }}">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.statuses.edit', $status) }}">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('admin.manufacturers.destroy', $manufacturer) }}" method="POST" class="form-inline d-inline">
+                                                    <form action="{{ route('admin.statuses.destroy', $status) }}" method="POST" class="form-inline d-inline">
                                                         @method('DELETE')
                                                         @csrf
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete manufacturer?");'>
+                                                        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete status?");'>
                                                             <i class="fas fa-trash"></i> Detete
                                                         </button>
                                                     </form>

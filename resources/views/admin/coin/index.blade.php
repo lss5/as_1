@@ -14,12 +14,14 @@
 
         <section class="content">
             <div class="container-fluid">
+                @include('partials.alerts')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <a href="{{ route('admin.coin.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                    <a href="{{ route('admin.coins.create') }}" type="button" class="btn btn-outline-success btn-sm">
                                         <i class="fas fa-plus"></i> Create
                                     </a>
                                 </div>
@@ -52,10 +54,10 @@
                                                 <td>{{ $coin->short_name }}</td>
                                                 <td>{{ $coin->sort }}</td>
                                                 <td class="project-actions">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.coin.edit', $coin) }}">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.coins.edit', $coin) }}">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('admin.coin.destroy', $coin) }}" method="POST" class="form-inline d-inline">
+                                                    <form action="{{ route('admin.coins.destroy', $coin) }}" method="POST" class="form-inline d-inline">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete coin?");'>

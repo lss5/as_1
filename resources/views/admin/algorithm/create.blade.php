@@ -12,7 +12,7 @@
             </div>
         </section>
         <section class="content">
-            <form method="POST" action="{{ route('admin.algorithm.store') }}" class="w-100">
+            <form method="POST" action="{{ route('admin.algorithms.store') }}" class="w-100">
                 @csrf
                 <div class="row">
                     <div class="col-12">
@@ -32,7 +32,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('admin.algorithm.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('admin.algorithms.index') }}" class="btn btn-secondary">Cancel</a>
                         <input type="submit" value="Create" class="btn btn-success float-right">
                     </div>
                 </div>

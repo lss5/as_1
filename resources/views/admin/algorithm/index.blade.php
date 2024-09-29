@@ -14,12 +14,14 @@
 
         <section class="content">
             <div class="container-fluid">
+                @include('partials.alerts')
+
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <a href="{{ route('admin.algorithm.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                    <a href="{{ route('admin.algorithms.create') }}" type="button" class="btn btn-outline-success btn-sm">
                                         <i class="fas fa-plus"></i> Create
                                     </a>
                                 </div>
@@ -50,10 +52,10 @@
                                                 <td>{{ $algorithm->name }}</td>
                                                 <td>{{ $algorithm->sort }}</td>
                                                 <td class="project-actions">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.algorithm.edit', $algorithm) }}">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.algorithms.edit', $algorithm) }}">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('admin.algorithm.destroy', $algorithm) }}" method="POST" class="form-inline d-inline">
+                                                    <form action="{{ route('admin.algorithms.destroy', $algorithm) }}" method="POST" class="form-inline d-inline">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete algorithm?");'>
