@@ -20,7 +20,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">Active</div>
+                                <div class="card-title">{{ $card_title }}</div>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-right">
                                         <li class="page-item"><a class="page-link" href="#">«</a></li>
@@ -42,6 +42,7 @@
                                             <th>Serial number</th>
                                             <th>Price</th>
                                             <th>Location</th>
+                                            <th>Status</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -65,6 +66,11 @@
                                                 <td>{{ $listing->serial_number }}</td>
                                                 <td>{{ $listing->price }}</td>
                                                 <td>{{ $listing->country->name }}</td>
+                                                @if ($listing->statuses->count() > 0)
+                                                    <td>{{ $listing->statuses->last()->name . ' ' . $listing->statuses->last()->pivot->created_at }} </td>
+                                                @else
+                                                    <td></td>
+                                                @endif
                                                 <td class="project-actions">
                                                     <a class="btn btn-info btn-sm" href="{{ route('profile.listings.edit', $listing) }}">
                                                         <i class="fas fa-pencil-alt"></i> Edit

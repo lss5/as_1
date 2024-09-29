@@ -9,7 +9,6 @@ class Category extends Model
 {
     protected $fillable = [
         'name',
-        'uniq_name',
         'sort',
         'top_menu',
     ];
@@ -19,9 +18,9 @@ class Category extends Model
         return $this->belongsToMany('App\Listing');
     }
 
-    public function scopeFilter(Builder $builder, QueryFilter $filters)
-    {
-        return $filters->apply($builder);
-    }
+    // public function scopeFilter(Builder $builder, QueryFilter $filters)
+    // {
+    //     return $filters->apply($builder);
+    // }
 
 }

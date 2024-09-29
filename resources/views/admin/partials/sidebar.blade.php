@@ -42,25 +42,32 @@
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
+                        <a href="{{ route('profile.listings.index') }}" class="nav-link {{ (request()->is('profile/listings') ? 'active' : '') }}">
+                            <i class="fas fa-server nav-icon"></i>
+                            <p>All</p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('profile.listings.create') }}" class="nav-link {{ (request()->is('profile/listings/create') ? 'active' : '') }}">
                             <i class="fas fa-plus nav-icon"></i>
                             Create
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('profile.listings.index') }}" class="nav-link {{ (request()->is('profile/listings') ? 'active' : '') }}">
+                        <a href="{{ route('profile.listings.active') }}" class="nav-link {{ (request()->is('profile/listings/active') ? 'active' : '') }}">
                             <i class="far fa-check-square nav-icon"></i>
                             <p>Active</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('profile.listings.moderation') }}" class="nav-link {{ (request()->is('profile/listings/moderation') ? 'active' : '') }}">
                             <i class="fas fa-user-shield nav-icon"></i>
                             <p>Moderation</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('profile.listings.archive') }}" class="nav-link {{ (request()->is('profile/listings/archive') ? 'active' : '') }}">
                             <i class="fas fa-archive nav-icon"></i>
                             <p>Archive</p>
                         </a>
@@ -69,14 +76,14 @@
             </li>
             <li class="nav-header">SETTINGS</li>
             <li class="nav-item">
-                <a href="{{ route('profile.listings.index') }}" class="nav-link">
+                <a href="{{ route('profile.listings.active') }}" class="nav-link">
                     <i class="fas fa-bell"></i>
                     <p>Notifications</p>
                 </a>
             </li>
             <li class="nav-header">MODERATION</li>
             <li class="nav-item">
-                <a href="{{ route('profile.listings.index') }}" class="nav-link">
+                <a href="{{ route('profile.listings.active') }}" class="nav-link">
                     <i class="fas fa-user-lock"></i>
                     <p>Listings</p>
                 </a>

@@ -75,7 +75,7 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('profile.listings.index') }}" class="btn btn-secondary">Cancel</a>
+                        <a href="{{ route('profile.listings.active') }}" class="btn btn-secondary">Cancel</a>
                         <input type="submit" value="Create" class="btn btn-success float-right">
                     </div>
                 </div>

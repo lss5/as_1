@@ -32,7 +32,7 @@
                                 <p class="text-muted text-center">{{ $user->name }}</p>
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
-                                        <b>Listings</b> <a class="float-right">28</a>
+                                        <b>Listings</b> <a class="float-right" href="{{ route('profile.listings.index') }}">{{ $sum_listings }}</a>
                                     </li>
                                     <li class="list-group-item">
                                         <b>Followers</b> <a class="float-right">322</a>
@@ -74,7 +74,7 @@
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
                                         <span class="info-box-text text-center text-muted">Active Listings</span>
-                                        <span class="info-box-number text-center text-muted mb-0">13</span>
+                                        <span class="info-box-number text-center text-muted mb-0">{{ $active_listings }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +97,7 @@
                         </div>
                         <div class="card">
                             <div class="card-header p-2">
-                                <h3 class="card-title">Settings</h3>
+                                <h3 class="card-title">Information</h3>
                             </div>
                             <div class="card-body">
                                 <form action="{{ route('profile.update.image', $user) }}" method="POST" enctype="multipart/form-data">

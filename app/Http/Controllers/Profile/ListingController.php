@@ -10,6 +10,7 @@ use App\Http\Requests\Listing\UpdateListingRequest;
 use App\Listing;
 use App\Manufacturer;
 use App\Product;
+use App\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -18,11 +19,41 @@ class ListingController extends Controller
 {
     public function index()
     {
-        $listings = Listing::ForUser(Auth::user())
+        $listings = Listing::forUser(Auth::user())
             ->orderBy('created_at', 'desc')
             ->simplePaginate(20);
 
-        return view('profile.listing.index')->with(['listings' => $listings]);
+        return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'All']);
+    }
+
+    public function active()
+    {
+        $listings = Status::active()->first()
+            ->listings()->forUser(Auth::user())
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(20);
+
+        return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'Active']);
+    }
+
+    public function moderation()
+    {
+        $listings = Status::moderation()->first()
+            ->listings()->forUser(Auth::user())
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(20);
+
+        return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'Moderation']);
+    }
+
+    public function archive()
+    {
+        $listings = Status::archive()->first()
+            ->listings()->forUser(Auth::user())
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(20);
+
+        return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'Archive']);
     }
 
     public function create()
@@ -77,6 +108,9 @@ class ListingController extends Controller
 
         $category = Category::where('name', 'Hardware')->get();
         $listing->categories()->attach($category);
+
+        $status = Status::moderation()->get();
+        $listing->statuses()->attach($status);
 
         if ($request->has('image')) {
             $image = $listing->images()->create([

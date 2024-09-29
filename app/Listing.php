@@ -33,35 +33,6 @@ class Listing extends Model
         'moq' => 'MOQ',
     ];
 
-    public static $statuses = [
-        'created',
-        'active',
-        'moderated',
-        'moderation',
-        'expired',
-        'banned',
-        'canceled',
-        'restored',
-    ];
-
-    public static $status_default_after_user_edit = 'moderation';
-
-    public static $status_for_edit = [
-        'created',
-        'active',
-        'moderation',
-        'canceled',
-        'restored',
-    ];
-
-    public static $status_not_change_edit = [
-        'created',
-        'moderation',
-        'expired',
-        'banned',
-        'restored',
-    ];
-
     // public $cost;
     // public $profit;
     // public $price_th;
@@ -118,48 +89,53 @@ class Listing extends Model
         return $this->belongsToMany('App\Category');
     }
 
-    public function threads()
-    {
-        return $this->hasOne('App\Thread', 'parent_id');
-    }
-
     public function manufacturer()
     {
         return $this->belongsTo('App\Manufacturer');
     }
+
+    public function statuses()
+    {
+        return $this->belongsToMany('App\Status')->withTimestamps();
+    }
+
+    // public function threads()
+    // {
+    //     return $this->hasOne('App\Thread', 'parent_id');
+    // }
 
     public function scopeFilter(Builder $builder, QueryFilter $filters)
     {
         return $filters->apply($builder);
     }
 
-    public function scopeActive(Builder $query)
-    {
-        return $query->where('status', 'active');
-    }
+    // public function scopeActive(Builder $query)
+    // {
+    //     return $query->where('status', 'active');
+    // }
 
-    public function delete()
-    {
-        // $this->forceFill(['status' => 'expired'])->save();
-        return parent::delete();
-    }
+    // public function delete()
+    // {
+    //     // $this->forceFill(['status' => 'expired'])->save();
+    //     return parent::delete();
+    // }
 
-    public function setStatus($status)
-    {
-        $this->fill([
-            'status' => $status,
-            'status_changed_at' => Carbon::now(),
-        ])->save();
+    // public function setStatus($status)
+    // {
+    //     $this->fill([
+    //         'status' => $status,
+    //         'status_changed_at' => Carbon::now(),
+    //     ])->save();
 
-        if ($this->status == 'active') {
-            $this->fill([
-                'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
-            ])->save();
-        }
+    //     if ($this->status == 'active') {
+    //         $this->fill([
+    //             'active_at' => Carbon::now()->addMonths(config('product.activate_period')),
+    //         ])->save();
+    //     }
 
-        event(New ListingChangeStatus($this));
+    //     event(New ListingChangeStatus($this));
 
-        return true;
-    }
+    //     return true;
+    // }
 
 }

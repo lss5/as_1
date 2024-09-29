@@ -16,6 +16,9 @@ Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('au
 });
 
 Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::get('/listings/active', 'ListingController@active')->name('listings.active');
+    Route::get('/listings/moderation', 'ListingController@moderation')->name('listings.moderation');
+    Route::get('/listings/archive', 'ListingController@archive')->name('listings.archive');
     Route::resource('/listings', 'ListingController');
 });
 

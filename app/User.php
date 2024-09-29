@@ -83,17 +83,17 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
-    public function hasVerifiedGA()
-    {
-        return !is_null($this->ga_verified_at);
-    }
+    // public function hasVerifiedGA()
+    // {
+    //     return !is_null($this->ga_verified_at);
+    // }
 
-    public function markGAVerified()
-    {
-        return $this->forceFill([
-            'ga_verified_at' => $this->freshTimestamp(),
-        ])->save();
-    }
+    // public function markGAVerified()
+    // {
+    //     return $this->forceFill([
+    //         'ga_verified_at' => $this->freshTimestamp(),
+    //     ])->save();
+    // }
 
     public function hasVerifiedUser()
     {
@@ -127,6 +127,5 @@ class User extends Authenticatable implements MustVerifyEmail
 
         return $this;
     }
-
 
 }

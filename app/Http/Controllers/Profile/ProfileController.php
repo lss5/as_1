@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Profile;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Product;
 use App\User;
 use App\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfile;
+use App\Status;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -17,8 +17,16 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
+        $sum_listings = Auth::user()->listings()->count();
+
+        $active_listings = Status::active()->first()
+            ->listings()->forUser(Auth::user())
+            ->count();
+
         return view('profile.index')->with([
-            'user' => Auth::user()->setLimitProduct(),
+            'user' => Auth::user(), //->setLimitProduct(),
+            'sum_listings' => $sum_listings,
+            'active_listings' => $active_listings,
         ]);
     }
 
