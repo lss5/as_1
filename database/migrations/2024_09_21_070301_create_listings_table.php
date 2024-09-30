@@ -25,10 +25,10 @@ class CreateListingsTable extends Migration
             $table->integer('quantity')->unsigned();
             $table->integer('moq')->unsigned();
             $table->string('serial_number')->nullable();
-            $table->foreignId('country_id')->nullable()->constrained('countries');
             $table->text('description')->nullable();
-            $table->timestamp('active_at')->nullable();
-            // $table->timestamp('status_changed_at')->useCurrent();
+            $table->foreignId('country_id')->nullable()->constrained('countries');
+            $table->foreignId('status_id')->nullable()->constrained('statuses');
+            $table->timestamp('status_changed_at')->useCurrent();
         });
     }
 

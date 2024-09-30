@@ -83,7 +83,7 @@
             </li>
             <li class="nav-header">MODERATION</li>
             <li class="nav-item">
-                <a href="{{ route('profile.listings.active') }}" class="nav-link">
+                <a href="{{ route('admin.listings.index') }}" class="nav-link">
                     <i class="fas fa-user-lock"></i>
                     <p>Listings</p>
                 </a>

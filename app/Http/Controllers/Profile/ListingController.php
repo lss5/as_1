@@ -11,6 +11,7 @@ use App\Listing;
 use App\Manufacturer;
 use App\Product;
 use App\Status;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ImageFacade;
@@ -23,13 +24,13 @@ class ListingController extends Controller
             ->orderBy('created_at', 'desc')
             ->simplePaginate(20);
 
-        return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'All']);
+            return view('profile.listing.index')->with(['listings' => $listings, 'card_title' => 'All']);
     }
 
     public function active()
     {
-        $listings = Status::active()->first()
-            ->listings()->forUser(Auth::user())
+        $listings = Listing::forUser(Auth::user())
+            ->statusActive()
             ->orderBy('created_at', 'desc')
             ->simplePaginate(20);
 
@@ -38,8 +39,8 @@ class ListingController extends Controller
 
     public function moderation()
     {
-        $listings = Status::moderation()->first()
-            ->listings()->forUser(Auth::user())
+        $listings = Listing::forUser(Auth::user())
+            ->statusModeration()
             ->orderBy('created_at', 'desc')
             ->simplePaginate(20);
 
@@ -48,8 +49,8 @@ class ListingController extends Controller
 
     public function archive()
     {
-        $listings = Status::archive()->first()
-            ->listings()->forUser(Auth::user())
+        $listings = Listing::forUser(Auth::user())
+            ->statusArchive()
             ->orderBy('created_at', 'desc')
             ->simplePaginate(20);
 
@@ -104,13 +105,12 @@ class ListingController extends Controller
             'serial_number' => $request->serial_number,
             'country_id' => $request->country_id,
             'description' => $request->description,
+            'status_id' => Status::moderation()->first()->id,
+            'status_changed_at' => Carbon::now(),
         ]);
 
         $category = Category::where('name', 'Hardware')->get();
         $listing->categories()->attach($category);
-
-        $status = Status::moderation()->get();
-        $listing->statuses()->attach($status);
 
         if ($request->has('image')) {
             $image = $listing->images()->create([
@@ -150,6 +150,8 @@ class ListingController extends Controller
             'serial_number' => $request->serial_number,
             'country_id' => $request->country_id,
             'description' => $request->description,
+            'status_id' => Status::moderation()->first()->id,
+            'status_changed_at' => Carbon::now(),
         ]);
 
         if ($request->has('image')) {

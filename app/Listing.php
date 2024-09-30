@@ -89,14 +89,24 @@ class Listing extends Model
         return $this->belongsToMany('App\Category');
     }
 
-    public function manufacturer()
+    public function status()
     {
-        return $this->belongsTo('App\Manufacturer');
+        return $this->belongsTo('App\Status');
     }
-
-    public function statuses()
+    public function scopeStatusActive(Builder $query)
     {
-        return $this->belongsToMany('App\Status')->withTimestamps();
+        $status = Status::active()->first();
+        return $query->where('status_id', $status->id);
+    }
+    public function scopeStatusModeration(Builder $query)
+    {
+        $status = Status::moderation()->first();
+        return $query->where('status_id', $status->id);
+    }
+    public function scopeStatusArchive(Builder $query)
+    {
+        $status = Status::Archive()->first();
+        return $query->where('status_id', $status->id);
     }
 
     // public function threads()
@@ -108,11 +118,6 @@ class Listing extends Model
     {
         return $filters->apply($builder);
     }
-
-    // public function scopeActive(Builder $query)
-    // {
-    //     return $query->where('status', 'active');
-    // }
 
     // public function delete()
     // {

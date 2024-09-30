@@ -20,7 +20,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <div class="card-title">{{ $card_title }}</div>
+                                <div class="card-title">Moderation</div>
                                 <div class="card-tools">
                                     <ul class="pagination pagination-sm float-right">
                                         <li class="page-item"><a class="page-link" href="#">«</a></li>
@@ -35,11 +35,10 @@
                                 <table class="table table-bordered table-striped dtr-inline">
                                     <thead>
                                         <tr>
+                                            <th style="width: 10px">User</th>
                                             <th style="width: 10px">Photo</th>
                                             <th>Product</th>
                                             <th>Quantity</th>
-                                            <th>MOQ</th>
-                                            <th>Serial number</th>
                                             <th>Price</th>
                                             <th>Location</th>
                                             <th>Status</th>
@@ -49,7 +48,8 @@
                                     <tbody>
                                         @foreach ($listings as $listing)
                                             <tr>
-                                                <th scope="row">
+                                                <th scope="row">{{ $listing->user->name }}</th>
+                                                <td>
                                                     @if ($listing->images->count() > 0)
                                                         <img class="profile-user-img border-1" src="{{ asset('storage/'.$listing->images->first()->link) }}" alt="{{ $listing->model }}">
                                                     @else
@@ -59,25 +59,18 @@
                                                             <img class="profile-user-img border-1" src="{{ asset('images/site/no-photo-product.jpeg') }}">
                                                         @endif
                                                     @endif
-                                                </th>
+                                                </td>
                                                 <td>{{ $listing->product->manufacturer->name . ' ' . $listing->product->model }} @if ($listing->is_new) (NEW) @endif</td>
                                                 <td>{{ $listing->quantity }}</td>
-                                                <td>{{ $listing->moq }}</td>
-                                                <td>{{ $listing->serial_number }}</td>
                                                 <td>{{ $listing->price }}</td>
                                                 <td>{{ $listing->country->name }}</td>
-                                                <td>{{ $listing->status->name . ' ' . $listing->status_changed_at }} </td>
+                                                <td>
+                                                    {{ $listing->status->name }} : {{ $listing->status_changed_at }}
+                                                </td>
                                                 <td class="project-actions">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('profile.listings.edit', $listing) }}">
-                                                        <i class="fas fa-pencil-alt"></i> Edit
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.listings.show', $listing) }}">
+                                                        <i class="fas fa-pencil-alt"></i> Show
                                                     </a>
-                                                    <form action="{{ route('profile.listings.destroy', $listing) }}" method="POST" class="form-inline d-inline">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete product model?");'>
-                                                            <i class="fas fa-trash"></i> Detete
-                                                        </button>
-                                                    </form>
                                                 </td>
                                             </tr>
                                         @endforeach

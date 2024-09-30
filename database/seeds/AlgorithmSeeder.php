@@ -3,7 +3,7 @@
 use App\Algorithm;
 use Illuminate\Database\Seeder;
 
-class AlgorithmsSeeder extends Seeder
+class AlgorithmSeeder extends Seeder
 {
     /**
      * Run the database seeds.

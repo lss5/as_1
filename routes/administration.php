@@ -26,6 +26,10 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/listings', 'ListingController');
+});
+
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/pages', 'PageController');
     Route::post('/image', 'PageController@image_upload')->name('pages.image_upload');
 });
