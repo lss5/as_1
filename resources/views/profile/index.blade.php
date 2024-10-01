@@ -111,9 +111,7 @@
                                                     <label class="custom-file-label" for="inputPhoto"></label>
                                                 </div>
                                                 <div class="input-group-append">
-                                                    <button type="submit" class="input-group-text">
-                                                        Update
-                                                    </button>
+                                                    <button type="submit" class="input-group-text">Update</button>
                                                 </div>
                                               </div>
                                               <small id="inputPhotoHelp" class="form-text text-muted">Min. width/height: 500px, Max. size 3Mb</small>
@@ -177,6 +175,34 @@
                                         <div class="offset-sm-2 col-sm-10">
                                             <button type="submit" class="btn btn-danger">Save</button>
                                         </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header p-2">
+                                <h3 class="card-title">Notification</h3>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-horizontal" action="{{ route('profile.update', $user) }}" method="POST">
+                                    @method('PUT')
+                                    @csrf
+                                    <div class="form-group ">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox">
+                                            <label class="form-check-label">New personal message</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" checked>
+                                            <label class="form-check-label">Change status listing</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox">
+                                            <label class="form-check-label">News asicseller plathform</label>
+                                        </div>
+                                      </div>
+                                    <div class="form-group row">
+                                        <button type="submit" class="btn btn-success">Update</button>
                                     </div>
                                 </form>
                             </div>
