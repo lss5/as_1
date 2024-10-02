@@ -71,7 +71,7 @@ class Listing extends Model
 
     public function images()
     {
-        return $this->morphToMany('App\Image', 'imageable');
+        return $this->morphMany('App\Image', 'imageable');
     }
 
     public function country()

@@ -181,30 +181,28 @@
                         </div>
                         <div class="card">
                             <div class="card-header p-2">
-                                <h3 class="card-title">Notification</h3>
+                                <h3 class="card-title">Contacts</h3>
                             </div>
                             <div class="card-body">
-                                <form class="form-horizontal" action="{{ route('profile.update', $user) }}" method="POST">
-                                    @method('PUT')
-                                    @csrf
-                                    <div class="form-group ">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">New personal message</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" checked>
-                                            <label class="form-check-label">Change status listing</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label">News asicseller plathform</label>
-                                        </div>
-                                      </div>
-                                    <div class="form-group row">
-                                        <button type="submit" class="btn btn-success">Update</button>
+                                <div class="row">
+                                    <div class="col-12 table-responsive">
+                                        <table class="table">
+                                            <tbody>
+                                                @foreach ($contacts as $contact)
+                                                    <tr>
+                                                        <td>
+                                                            {{ App\Contact::$types[$contact->type] }}
+                                                            @if ($contact->ismain)
+                                                                <span class="badge badge-success">Main</span>
+                                                            @endif
+                                                        </td>
+                                                        <td>{{ $contact->value }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>

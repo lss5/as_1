@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
@@ -17,12 +18,13 @@ class ProfileController extends Controller
 {
     public function index(Request $request)
     {
-        $sum_listings = Auth::user()->listings()->count();
-
-        $active_listings = Listing::forUser(Auth::user())->statusActive()->count();
+        $user = Auth::user();
+        $sum_listings = $user->listings()->count();
+        $active_listings = Listing::forUser($user)->statusActive()->count();
 
         return view('profile.index')->with([
-            'user' => Auth::user(), //->setLimitProduct(),
+            'user' => $user, //->setLimitProduct(),
+            'contacts' => Contact::forUser($user)->orderBy('ismain', 'desc')->get(),
             'sum_listings' => $sum_listings,
             'active_listings' => $active_listings,
         ]);
@@ -46,7 +48,7 @@ class ProfileController extends Controller
 
     public function update_image(Request $request, User $user)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'photo' => 'required| file| image| max:3000| dimensions:min_width=500,min_height=300',
         ]);
 

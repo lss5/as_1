@@ -16,10 +16,19 @@ Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('au
 });
 
 Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::resource('/contacts', 'ContactController');
+});
+
+Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('auth','verified')->group(function(){
     Route::get('/listings/active', 'ListingController@active')->name('listings.active');
     Route::get('/listings/moderation', 'ListingController@moderation')->name('listings.moderation');
     Route::get('/listings/archive', 'ListingController@archive')->name('listings.archive');
     Route::resource('/listings', 'ListingController');
+});
+
+Route::prefix('profile/notifications')->name('profile.notifications.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::get('/', 'NotificationController@index')->name('index');
+    Route::put('/', 'NotificationController@update')->name('update');
 });
 
 // Route::prefix('profile/listings')->name('profile.listing.')->namespace('Profile')->middleware('auth','verified')->group(function(){

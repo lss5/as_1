@@ -61,7 +61,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function images()
     {
-        return $this->morphToMany('App\Image', 'imageable');
+        return $this->morphMany('App\Image', 'imageable');
     }
 
     // ----- Methods ----- //

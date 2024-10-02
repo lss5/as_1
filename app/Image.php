@@ -8,35 +8,27 @@ use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
-    protected $fillable = ['link'];
+    protected $guarded = [];
 
-    public function users()
+    public function imageable()
     {
-        return $this->morphedByMany('App\User', 'imageable');
+        return $this->morphTo();
     }
 
-    public function products()
-    {
-        return $this->morphedByMany('App\Product', 'imageable');
-    }
+    // public function users()
+    // {
+    //     return $this->morphedByMany('App\User', 'imageable');
+    // }
 
-    public function listings()
-    {
-        return $this->morphedByMany('App\Listing', 'imageable');
-    }
+    // public function products()
+    // {
+    //     return $this->morphedByMany('App\Product', 'imageable');
+    // }
 
-    public function save(array $options = [])
-    {
-        $save = parent::save($options);
-
-        // crop image
-        // $imageFacade = ImageFacade::make(public_path('storage/'.$this->link))->fit(720, 600, function ($constraint) {
-        //     $constraint->upsize();
-        // });
-        // $imageFacade->save();
-
-        return $save;
-    }
+    // public function listings()
+    // {
+    //     return $this->morphedByMany('App\Listing', 'imageable');
+    // }
 
     public function delete()
     {

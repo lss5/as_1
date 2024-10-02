@@ -35,6 +35,12 @@
                     <p>Profile</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('profile.contacts.index') }}" class="nav-link {{ (request()->is('profile/contacts*') ? 'active' : '') }}">
+                    <i class="fas fa-phone-square-alt"></i>
+                    <p>Contacts</p>
+                </a>
+            </li>
             <li class="nav-item {{ (request()->is('profile/listings*') ? 'menu-open' : '') }}">
                 <a class="nav-link {{ (request()->is('profile/listings*') ? 'active' : '') }}">
                     <i class="fas fa-server"></i>
@@ -74,9 +80,8 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-header">SETTINGS</li>
             <li class="nav-item">
-                <a href="{{ route('profile.listings.active') }}" class="nav-link">
+                <a href="{{ route('profile.notifications.index') }}" class="nav-link">
                     <i class="fas fa-bell"></i>
                     <p>Notifications</p>
                 </a>
