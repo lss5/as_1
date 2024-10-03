@@ -1,14 +1,16 @@
 <div class="sidebar">
-    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center justify-content-between">
-        {{-- <div class="image">
-            <img src="" class="img-circle elevation-2" alt="User Image">
-        </div> --}}
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex align-items-center">
+        <div class="image">
+            @if (Auth::user()->images->count() > 0)
+                <img class="img-circle elevation-2" src="{{ asset('storage/'.Auth::user()->images->first()->link) }}" alt="{{ Auth::user()->name }}">
+            @else
+                <img class="img-circle elevation-2" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ Auth::user()->name }}">
+            @endif
+        </div>
         <div class="info">
             <a href="{{ route('profile.index') }}" class="d-block">{{ auth()->user()->first_name . ' ' . auth()->user()->last_name }}</a>
         </div>
-        <a href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">
+        <a href="{{ route('logout') }}" class="pl-2" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="right fas fa-sign-out-alt"></i>
         </a>
         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

@@ -27,8 +27,7 @@
                                         <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ $user->name }}">
                                     @endif
                                 </div>
-                                <h3 class="profile-username text-center">{{ $user->first_name . ' ' . $user->last_name }}
-                                </h3>
+                                <h3 class="profile-username text-center">{{ $user->first_name . ' ' . $user->last_name }}</h3>
                                 <p class="text-muted text-center">{{ $user->name }}</p>
                                 <ul class="list-group list-group-unbordered mb-3">
                                     <li class="list-group-item">
