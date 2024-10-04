@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Profile;
 
+use App\Company;
 use App\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -27,6 +28,7 @@ class ProfileController extends Controller
             'contacts' => Contact::forUser($user)->orderBy('ismain', 'desc')->get(),
             'sum_listings' => $sum_listings,
             'active_listings' => $active_listings,
+            'company' => Company::forUser(Auth::user())->first(),
         ]);
     }
 

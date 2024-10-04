@@ -51,8 +51,8 @@
                                     <input type="text" id="inputSerialNumber" name="serial_number" value="{{ $listing->serial_number }}" class="form-control" disabled>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputSerialNumber">Location of product</label>
-                                    <input type="text" id="inputSerialNumber" name="serial_number" value="{{ $listing->country->name }}" class="form-control" disabled>
+                                    <label for="inputCountry">Location of product</label>
+                                    <input type="text" id="inputCountry" name="country" value="{{ $listing->country->name }}" class="form-control" disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>Description</label>

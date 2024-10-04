@@ -40,7 +40,6 @@
                                         <b>Following</b> <a class="float-right">54</a>
                                     </li>
                                 </ul>
-                                <a href="#" class="btn btn-success btn-block">Request for company registration</a>
                             </div>
                         </div>
                         <div class="card card-success">
@@ -48,17 +47,20 @@
                                 <h3 class="card-title">About Me</h3>
                             </div>
                             <div class="card-body">
+                                @if ($company)
+                                    <strong><i class="fas fa-building mr-1"></i> Company <a href="{{ route('profile.companies.edit', $company) }}" class="text-muted">Edit</a></strong>
+                                    <p class="text-muted mb-1">{{ $company->name }} </p>
+                                    <p class="text-muted mb-1">{{ $company->legal_address }}</p>
+                                    <p class="text-muted">{{ $company->country->name }}</p>
+                                    <hr>
+                                @endif
+
                                 <strong><i class="fas fa-map-marker-alt mr-1"></i> Location</strong>
                                 <p class="text-muted">{{ $user->country->name }}</p>
-
                                 <hr>
 
                                 <strong><i class="fab fa-bitcoin"></i> Payments</strong>
-                                <p class="text-muted">
-                                    <span class="tag tag-danger">USD</span>
-                                    <span class="tag tag-success">BTC</span>
-                                    <span class="tag tag-info">ETC</span>
-                                    <span class="tag tag-warning">USDT(ERC20/TRC20)</span>
+                                <p class="text-muted"> USD BTC ETC USDT(ERC20/TRC20)
                                 </p>
                                 <hr>
 
@@ -72,7 +74,7 @@
                             <div class="col-12 col-sm-4">
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Active Listings</span>
+                                        <a href="{{ route('profile.listings.active') }}" class="info-box-text text-center text-muted">Active Listings</a>
                                         <span class="info-box-number text-center text-muted mb-0">{{ $active_listings }}</span>
                                     </div>
                                 </div>
@@ -80,8 +82,14 @@
                             <div class="col-12 col-sm-4">
                                 <div class="info-box bg-light">
                                     <div class="info-box-content">
-                                        <span class="info-box-text text-center text-muted">Total amount spent</span>
-                                        <span class="info-box-number text-center text-muted mb-0">2000</span>
+                                        @if ($company)
+                                            <span class="info-box-text text-center text-muted">{{ $company->status->name }} Company</span>
+                                            <span class="info-box-number text-center text-muted mb-0">{{ $company->name }}</span>
+                                        @else
+                                            <span class="info-box-text text-center text-muted">Company (not created)</span>
+                                            <a href="{{ route('profile.companies.create') }}" class="btn btn-sm btn-outline-success btn-block">Registration</a>
+                                            {{-- <span class="info-box-number text-center text-muted mb-0">{{ $company->name }}</span> --}}
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -112,8 +120,8 @@
                                                 <div class="input-group-append">
                                                     <button type="submit" class="input-group-text">Update</button>
                                                 </div>
-                                              </div>
-                                              <small id="inputPhotoHelp" class="form-text text-muted">Min. width/height: 500px, Max. size 3Mb</small>
+                                            </div>
+                                            <small id="inputPhotoHelp" class="form-text text-muted">Min. width/height: 500px, Max. size 3Mb</small>
                                         </div>
                                     </div>
                                 </form>

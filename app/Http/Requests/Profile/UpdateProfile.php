@@ -17,7 +17,7 @@ class UpdateProfile extends FormRequest
         return [
             'first_name' => ['nullable', 'string', 'max:255'],
             'last_name' => ['nullable', 'string', 'max:255'],
-            'bio' => ['nullable', 'string', 'max:4096'],
+            'bio' => ['nullable', 'string', 'max:10240'],
             'country' => ['required', 'integer'],
         ];
     }

@@ -15,21 +15,6 @@ class Image extends Model
         return $this->morphTo();
     }
 
-    // public function users()
-    // {
-    //     return $this->morphedByMany('App\User', 'imageable');
-    // }
-
-    // public function products()
-    // {
-    //     return $this->morphedByMany('App\Product', 'imageable');
-    // }
-
-    // public function listings()
-    // {
-    //     return $this->morphedByMany('App\Listing', 'imageable');
-    // }
-
     public function delete()
     {
         if (Storage::disk('public')->exists($this->link)) {

@@ -25,8 +25,11 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
     Route::resource('/statuses', 'StatusController');
 });
 
-Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:moder')->group(function(){
     Route::resource('/listings', 'ListingController');
+});
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:moder')->group(function(){
+    Route::resource('/companies', 'CompanyController')->only('index', 'update', 'edit', 'destroy');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){

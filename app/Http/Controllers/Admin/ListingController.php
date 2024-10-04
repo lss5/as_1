@@ -36,7 +36,7 @@ class ListingController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.listings.index')->with('success', 'Status changed');
+        return redirect()->route('admin.listings.index')->with('success', 'Status listing changed');
     }
 
     public function destroy(Listing $listing)

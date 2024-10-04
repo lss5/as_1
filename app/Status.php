@@ -14,6 +14,11 @@ class Status extends Model
         return $this->hasMany('App\Listing');
     }
 
+    public function companies()
+    {
+        return $this->hasMany('App\Company');
+    }
+
     public function scopeActive(Builder $query)
     {
         return $query->where('uniq_name', 'active');

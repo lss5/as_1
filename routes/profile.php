@@ -31,26 +31,9 @@ Route::prefix('profile/notifications')->name('profile.notifications.')->namespac
     Route::put('/', 'NotificationController@update')->name('update');
 });
 
-// Route::prefix('profile/listings')->name('profile.listing.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-//     Route::get('/', 'ListingController@index')->name('index');
-//     Route::get('/create', 'ListingController@create')->name('create');
-//     Route::post('/', 'ListingController@store')->name('store');
-//     Route::get('/{listing}/edit', 'ListingController@edit')->name('edit');
-//     Route::put('/{listing}', 'ListingController@update')->name('update');
-//     Route::delete('/{listing}', 'ListingController@destroy')->name('destroy');
-
-//     // additional actions
-//     Route::post('/verify/{listing}', 'ListingController@verify')->name('verify');
-//     Route::post('/activate/{listing}', 'ListingController@activate')->name('activate');
-//     Route::post('/unpublish/{listing}', 'ListingController@unpublish')->name('unpublish');
-//     // Route::put('/image/{listing}', 'ListingController@addimage')->name('addimage');
-//     // Route::delete('/image/{image}', 'ImageController@destroy')->name('images.destroy');
-// });
-
-// Route::prefix('profile/images')->name('profile.image.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-//     Route::put('/{parent_type}', 'ImageController@store')->name('store');
-//     Route::delete('/{image}', 'ImageController@destroy')->name('destroy');
-// });
+Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::resource('/companies', 'CompanyController')->only('create', 'store', 'update', 'edit');
+});
 
 // Route::prefix('profile/messages')->name('profile.message.')->namespace('Profile')->middleware('auth','verified')->group(function(){
 //     Route::get('/', 'MessageController@index')->name('index');
