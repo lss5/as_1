@@ -2,6 +2,14 @@
 
 namespace App\Providers;
 
+use App\Company;
+use App\Contact;
+use App\Listing;
+use App\Policies\CompanyPolice;
+use App\Policies\ContactPolicy;
+use App\Policies\ListingPolicy;
+use App\Policies\UserPolicy;
+use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,8 +21,10 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // App\Product::class => App\Policies\ProductPolicy::class,
-        // App\User::class => App\Policies\UserPolicy::class,
+        Company::class => CompanyPolice::class,
+        Contact::class => ContactPolicy::class,
+        Listing::class => ListingPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -27,11 +37,11 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('admin', function($user){
-            return $user->hasRole('admin');
+            return $user->isAdmin();
         });
 
         Gate::define('moder', function($user){
-            return $user->hasAnyRoles(['admin', 'moder']);
+            return $user->isAdmin() || $user->isModerator();
         });
     }
 }

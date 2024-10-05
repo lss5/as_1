@@ -12,12 +12,12 @@ class ThreadPolicy
 
     public function viewAny(User $user)
     {
-        return $user->hasAnyRoles(['admin', 'moder']) ? true : false;
+        return $user->isAdmin() || $user->isModerator();
     }
 
     public function view(User $user, Thread $thread)
     {
-        if ($user->hasAnyRoles(['admin', 'moder'])) return true;
+        if ($user->isAdmin() || $user->isModerator()) return true;
 
         $participants = $thread->participantsUserIds();
         foreach ($participants as $participant) {
@@ -31,12 +31,12 @@ class ThreadPolicy
 
     public function create(User $user)
     {
-        return $user->hasAnyRoles(['admin', 'moder']) ? true : false;
+        return $user->isAdmin() || $user->isModerator() ? true : false;
     }
 
     public function update(User $user, Thread $thread)
     {
-        if ($user->hasAnyRoles(['admin', 'moder'])) return true;
+        if ($user->isAdmin() || $user->isModerator()) return true;
 
         $participants = $thread->participantsUserIds();
         foreach ($participants as $participant) {
@@ -50,12 +50,12 @@ class ThreadPolicy
 
     public function delete(User $user, Thread $thread)
     {
-        return $user->hasAnyRoles(['admin', 'moder']) ? true : false;
+        return $user->isAdmin() || $user->isModerator() ? true : false;
     }
 
     public function restore(User $user, Thread $thread)
     {
-        return $user->hasAnyRoles(['admin', 'moder']) ? true : false;
+        return $user->isAdmin() || $user->isModerator() ? true : false;
     }
 
     public function forceDelete(User $user, Thread $thread)

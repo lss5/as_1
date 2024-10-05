@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Contact;
+use App\Company;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ContactPolicy
+class CompanyPolice
 {
     use HandlesAuthorization;
 
@@ -22,7 +22,7 @@ class ContactPolicy
         return true;
     }
 
-    public function view(User $user, Contact $contact)
+    public function view(User $user, Company $company)
     {
         return true;
     }
@@ -32,22 +32,22 @@ class ContactPolicy
         return true;
     }
 
-    public function update(User $user, Contact $contact)
+    public function update(User $user, Company $company)
     {
-        return ($user->id == $contact->user->id || $user->isAdmin());
+        return ($user->id == $company->user->id || $user->isAdmin());
     }
 
-    public function delete(User $user, Contact $contact)
+    public function delete(User $user, Company $company)
     {
-        return ($user->id == $contact->user->id || $user->isAdmin());
+        return ($user->id == $company->user->id || $user->isAdmin());
     }
 
-    public function restore(User $user, Contact $contact)
+    public function restore(User $user, Company $company)
     {
         return $user->isAdmin();
     }
 
-    public function forceDelete(User $user, Contact $contact)
+    public function forceDelete(User $user, Company $company)
     {
         return $user->isAdmin();
     }

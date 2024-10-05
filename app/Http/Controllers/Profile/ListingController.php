@@ -18,6 +18,11 @@ use Intervention\Image\Facades\Image as ImageFacade;
 
 class ListingController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Listing::class, 'listing');
+    }
+
     public function index()
     {
         $listings = Listing::forUser(Auth::user())
@@ -59,36 +64,9 @@ class ListingController extends Controller
 
     public function create()
     {
-        // $info = [];
-        // $danger = [];
-
-        // if (Auth::user()->hasVerifiedGA()) {
-        //     if (Auth::user()->products()->count() >= config('product.limit_create_product_totp')) {
-        //         $info[] = __('validation.limit_product_plan_totp');
-        //     }
-        // } else {
-        //     if (Auth::user()->products()->count() >= config('product.limit_create_product')) {
-        //         $danger[] = __('validation.limit_product_plan');
-        //     }
-        // }
-
-        // if (! empty($info)) {
-        //     return redirect()->route('profile.listings.index')
-        //         ->withErrors($info, 'info')
-        //         ->withErrors($danger, 'danger');
-        // }
-        // if (! empty($danger)) {
-        //     return redirect()->route('profile.index')
-        //         ->withErrors($info, 'info')
-        //         ->withErrors($danger, 'danger');
-        // }
-
         return view('profile.listing.create')->with([
             'products' => Product::all(),
             'countries' => Country::all(),
-            // 'countries' => Country::orderBy('name', 'asc')->get(),
-            // 'categories' => Category::orderBy('sort')->get(),
-            // 'manufacturers' => Manufacturer::orderBy('sort')->get(),
         ]);
 
     }

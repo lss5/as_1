@@ -12,9 +12,9 @@ use Intervention\Image\Facades\Image as ImageFacade;
 
 class CompanyController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        //
+        $this->authorizeResource(Company::class, 'company');
     }
 
     public function create()
@@ -65,11 +65,6 @@ class CompanyController extends Controller
         $imageFacade->save();
 
         return redirect()->route('profile.index')->with('success', 'Request for registering Company was send');
-    }
-
-    public function show(Company $company)
-    {
-        //
     }
 
     public function edit(Company $company)
@@ -131,7 +126,6 @@ class CompanyController extends Controller
             });
             $imageFacade->save();
         }
-
 
         return redirect()->route('profile.index')->with('success', 'Request for registering Company was send');
     }

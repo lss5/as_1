@@ -77,6 +77,8 @@
                     <p>Notifications</p>
                 </a>
             </li>
+
+            @canany(['admin', 'moder'])
             <li class="nav-header">MODERATION</li>
             <li class="nav-item">
                 <a href="{{ route('admin.listings.index') }}" class="nav-link">
@@ -90,6 +92,9 @@
                     <p>Companies</p>
                 </a>
             </li>
+            @endcanany
+
+            @can('admin')
             <li class="nav-header">ADMINISTRATION</li>
             <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'menu-open' : '') }}">
                 <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'active' : '') }}">
@@ -182,6 +187,8 @@
                     </li>
                 </ul>
             </li>
+            @endcan
+
         </ul>
     </nav>
 </div>

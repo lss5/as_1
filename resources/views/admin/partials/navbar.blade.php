@@ -5,14 +5,14 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        @can('moder')
+        @canany(['admin','moder'])
             <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('admin.index') }}" class="nav-link">Dashboard</a>
             </li>
         @else
-            <li class="nav-item d-none d-sm-inline-block">
+            {{-- <li class="nav-item d-none d-sm-inline-block">
                 <a href="{{ route('index') }}" class="nav-link">Home</a>
-            </li>
+            </li> --}}
         @endcan
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Help Request</a>

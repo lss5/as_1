@@ -29,7 +29,7 @@ class ListingChangeStatusNotification extends Notification implements ShouldQueu
             'product_title' => $this->listing->title,
             'title' => __('mail.product.status.'.$this->listing->status.'.title'),
             'body' => __('mail.product.status.'.$this->listing->status.'.body'),
-            'url' => route('products.show', $this->listing),
+            'url' => route('listings.show', $this->listing),
             'user' => $this->listing->user->first_name. ' ' .$this->listing->user->last_name,
         ])->subject(__('mail.product.status.'.$this->listing->status.'.subject'));
     }

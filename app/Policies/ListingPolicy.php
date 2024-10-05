@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Contact;
+use App\Listing;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ContactPolicy
+class ListingPolicy
 {
     use HandlesAuthorization;
 
@@ -22,7 +22,7 @@ class ContactPolicy
         return true;
     }
 
-    public function view(User $user, Contact $contact)
+    public function view(User $user, Listing $listing)
     {
         return true;
     }
@@ -32,22 +32,22 @@ class ContactPolicy
         return true;
     }
 
-    public function update(User $user, Contact $contact)
+    public function update(User $user, Listing $listing)
     {
-        return ($user->id == $contact->user->id || $user->isAdmin());
+        return ($user->id == $listing->user->id || $user->isAdmin());
     }
 
-    public function delete(User $user, Contact $contact)
+    public function delete(User $user, Listing $listing)
     {
-        return ($user->id == $contact->user->id || $user->isAdmin());
+        return ($user->id == $listing->user->id || $user->isAdmin());
     }
 
-    public function restore(User $user, Contact $contact)
+    public function restore(User $user, Listing $listing)
     {
         return $user->isAdmin();
     }
 
-    public function forceDelete(User $user, Contact $contact)
+    public function forceDelete(User $user, Listing $listing)
     {
         return $user->isAdmin();
     }

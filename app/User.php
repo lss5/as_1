@@ -69,23 +69,23 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Company');
     }
 
-    // ----- Methods ----- //
-    public function hasAnyRoles($roles)
-    {
-        if ($this->roles()->whereIn('uniq_name', $roles)->first()) {
-            return true;
-        }
-
-        return false;
-    }
-
+    // ----- Roles ----- //
     public function hasRole($role)
     {
         if ($this->roles()->where('uniq_name', $role)->first()) {
             return true;
         }
-
         return false;
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isModerator()
+    {
+        return $this->hasRole('moder');
     }
 
     // public function hasVerifiedGA()

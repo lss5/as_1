@@ -9,38 +9,45 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(User $user)
+    public function before($user, $ability)
     {
-        return $user->hasRole('admin');
+        if ($user->isAdmin() || $user->isModerator()) {
+            return true;
+        }
     }
 
-    public function view(User $user, User $model)
+    public function viewAny(User $current_user)
     {
-        return $user->hasRole('admin') || $user->id === $model->id;
+        return true;
     }
 
-    public function create(User $user)
+    public function view(User $current_user, User $user)
     {
-        return $user->hasRole('admin');
+        return $current_user->id === $user->id || $current_user->isAdmin();
     }
 
-    public function update(User $user, User $model)
+    public function create(User $current_user)
     {
-        return $user->hasRole('admin') || $user->id === $model->id;
+        return $current_user->isAdmin();
     }
 
-    public function delete(User $user, User $model)
+    public function update(User $current_user, User $user)
     {
-        return $user->hasRole('admin');
+        return $current_user->id === $user->id || $current_user->isAdmin();
     }
 
-    public function restore(User $user, User $model)
+    public function delete(User $current_user, User $user)
     {
-        return $user->hasRole('admin');
+        return $current_user->isAdmin();
     }
 
-    public function forceDelete(User $user, User $model)
+    public function restore(User $current_user, User $user)
     {
-        return false;
+        return $current_user->isAdmin();
+    }
+
+    public function forceDelete(User $current_user, User $user)
+    {
+        return $current_user->isAdmin();
     }
 }

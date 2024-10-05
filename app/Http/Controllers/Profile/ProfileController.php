@@ -4,22 +4,28 @@ namespace App\Http\Controllers\Profile;
 
 use App\Company;
 use App\Contact;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Country;
+use App\Listing;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfile;
-use App\Listing;
 use Sonata\GoogleAuthenticator\GoogleAuthenticator;
 use Sonata\GoogleAuthenticator\GoogleQrUrl;
 use Intervention\Image\Facades\Image as ImageFacade;
 
 class ProfileController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     public function index(Request $request)
     {
         $user = Auth::user();
+
         $sum_listings = $user->listings()->count();
         $active_listings = Listing::forUser($user)->statusActive()->count();
 
@@ -50,6 +56,8 @@ class ProfileController extends Controller
 
     public function update_image(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         $request->validate([
             'photo' => 'required| file| image| max:3000| dimensions:min_width=500,min_height=300',
         ]);

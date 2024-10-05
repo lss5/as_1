@@ -8,6 +8,14 @@ class Product extends Model
 {
     protected $guarded = [];
 
+    public static $hashrates = [
+        'hs' => 'H/s',
+        'khs' => 'kH/s',
+        'mhs' => 'Mh/s',
+        'ghs' => 'Gh/s',
+        'ths' => 'Th/s',
+    ];
+
     public function manufacturer()
     {
         return $this->belongsTo('App\Manufacturer');

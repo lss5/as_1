@@ -17,14 +17,6 @@ class Listing extends Model
 
     protected $guarded = [];
 
-    public static $hashrates = [
-        'hs' => 'H/s',
-        'khs' => 'kH/s',
-        'mhs' => 'Mh/s',
-        'ghs' => 'Gh/s',
-        'ths' => 'Th/s',
-    ];
-
     public static $sorting = [
         'created_at' => 'Created',
         'price' => 'Price',
@@ -32,10 +24,6 @@ class Listing extends Model
         'power' => 'Power',
         'moq' => 'MOQ',
     ];
-
-    // public $cost;
-    // public $profit;
-    // public $price_th;
 
     // protected static function booted()
     // {
@@ -63,11 +51,6 @@ class Listing extends Model
     {
         return $query->where('user_id', $user->id);
     }
-
-    // public function comments()
-    // {
-    //     return $this->hasMany('App\Comment');
-    // }
 
     public function images()
     {

@@ -33,7 +33,7 @@
                         <div class="d-flex w-100 justify-content-between align-content-end">
                             <small>{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
                             <p class="m-0 h6">
-                                @if ($thread->latestMessage->user->hasAnyRoles(['admin', 'moder']))
+                                @if ($thread->latestMessage->user->isAdmin() || $thread->latestMessage->user->isModerator())
                                     <span class="badge badge-success">Answered</span>
                                 @endif
                             </p>
