@@ -52,3 +52,7 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/settings', 'SettingController');
 });
+
+Route::prefix('admin')->name('admin.profits.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::get('/profits/{product}', 'ProfitController@update')->name('update');
+});

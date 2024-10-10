@@ -12,4 +12,9 @@ class Algorithm extends Model
     {
         return $this->belongsToMany('App\Product');
     }
+
+    public function profits()
+    {
+        return $this->hasMany('App\Profit');
+    }
 }

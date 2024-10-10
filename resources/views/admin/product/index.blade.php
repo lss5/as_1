@@ -46,6 +46,7 @@
                                             <th>Power</th>
                                             <th>Coins</th>
                                             <th>Algorithms</th>
+                                            <th>Profit</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
@@ -72,6 +73,11 @@
                                                     @foreach ($product->algorithms as $algorithm)
                                                         {{ $algorithm->name }}
                                                     @endforeach
+                                                </td>
+                                                <td>
+                                                    @if ($product->profits->count() > 0)
+                                                        Updated {{ $product->profits()->first()->updated_time->isoFormat('DD MMM HH:MM') }}
+                                                    @endif
                                                 </td>
                                                 <td class="project-actions">
                                                     <a class="btn btn-info btn-sm" href="{{ route('admin.products.edit', $product) }}">

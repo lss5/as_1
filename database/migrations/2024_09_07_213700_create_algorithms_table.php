@@ -17,6 +17,8 @@ class CreateAlgorithmsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
+            $table->string('uniq_name');
+            $table->string('hashrate_name');
             $table->integer('sort')->unsigned()->default(10);
         });
     }

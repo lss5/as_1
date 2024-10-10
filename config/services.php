@@ -35,7 +35,7 @@ return [
     ],
 
     'whattomine' => [
-        'endpoint' => env('WTM_ENDPOINT', 'https://whattomine.com/coins/'),
+        'endpoint' => env('WTM_ENDPOINT', 'https://whattomine.com/'),
     ],
 
 ];

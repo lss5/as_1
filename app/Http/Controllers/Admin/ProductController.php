@@ -7,6 +7,7 @@ use App\Coin;
 use App\Http\Controllers\Controller;
 use App\Manufacturer;
 use App\Product;
+use App\Profit;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image as ImageFacade;
 

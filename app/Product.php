@@ -41,4 +41,9 @@ class Product extends Model
         return $this->hasMany('App\Listing');
     }
 
+    public function profits()
+    {
+        return $this->hasMany('App\Profit');
+    }
+
 }

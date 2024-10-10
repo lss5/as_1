@@ -22,6 +22,8 @@ class AlgorithmController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string'],
+            'uniq_name' => ['required', 'string'],
+            'hashrate_name' => ['required', 'string'],
             'sort' => ['required', 'integer'],
         ]);
 
@@ -39,6 +41,8 @@ class AlgorithmController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string'],
+            'uniq_name' => ['required', 'string'],
+            'hashrate_name' => ['required', 'string'],
             'sort' => ['required', 'integer'],
         ]);
 

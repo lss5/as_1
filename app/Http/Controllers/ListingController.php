@@ -45,11 +45,11 @@ class ListingController extends Controller
     public function show(Listing $listing)
     {
         // Add count views page
-        $listing->increment('views');
+        // $listing->increment('views');
 
         if (!empty($listing->power)) {
-            $listing->cost = round($listing->power * 0.06 * 24 / 1000, 2);
-            $listing->profit = round($listing->revenue - ($listing->power * 0.06 * 24 / 1000), 2);
+            $listing->cost = round($listing->product->power * 0.06 * 24 / 1000, 2);
+            $listing->profit = round($listing->revenue - ($listing->product->power * 0.06 * 24 / 1000), 2);
         }
 
         return view('listing.show')->with([

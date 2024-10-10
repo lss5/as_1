@@ -75,8 +75,29 @@
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary">Cancel</a>
-                        <input type="submit" value="Save" class="btn btn-success float-right">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Profits</h3>
+                            </div>
+                            <div class="card-body">
+                                @if ($product->profits->count() > 0)
+                                    <ul>
+                                        @foreach ($product->profits as $profit)
+                                        <li>
+                                            {{ $profit->coin_tag }}:{{ $profit->cost/100 }} updated {{ $profit->updated_time->isoFormat('DD MMM HH:MM') }}
+                                        </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <input type="submit" value="Save" class="btn btn-success">
+                        <a href="{{ route('admin.profits.update', $product) }}" class="btn btn-secondary ml-2">Update profit</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn btn-secondary float-right">Cancel</a>
                     </div>
                 </div>
             </form>

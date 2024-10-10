@@ -1,44 +1,44 @@
 @extends('layouts.app')
-@section('title'){{ $product->title . ' ('.$product->country->name.') | ' . config('app.name', 'AsicOffer')}}@endsection
-@section('description'){!! trim(Str::limit($product->description, 140, '')) !!}@endsection
-@section('keywords'){!! Str::title($product->title) !!}@endsection
+@section('title'){{ $listing->title . ' ('.$listing->country->name.') | ' . config('app.name', 'AsicOffer')}}@endsection
+@section('description'){!! trim(Str::limit($listing->description, 140, '')) !!}@endsection
+@section('keywords'){!! Str::title($listing->title) !!}@endsection
 
 @section('content')
     <div class="container py-3 my-3">
         <div class="row">
             <div class="col-12">
                 <h1 class="h3">
-                    @foreach($product->categories as $category)
+                    @foreach($listing->categories as $category)
                         <span class="text-muted">
-                            <a href="{{ route('category.show', $category) }}">{{ $category->name }}</a>
+                            <a href="#">{{ $category->name }}</a>
                              <i class="fas fa-chevron-right"></i>
                         </span>
                     @endforeach
-                    {{ $product->title }}</h1>
+                    {{ $listing->title }}</h1>
             </div>
             <div class="col-md-12 col-lg-6">
                 <div class="d-flex justify-content-between align-items-center">
                     <p class="h6 m-0">
                         <i class="fas fa-user"></i>
-                        <a href="{{ route('products.user', $product->user) }}">
-                            {{ $product->user->name }}
+                        <a href="#">
+                            {{ $listing->user->name }}
                         </a>
-                        <small>({{ $product->country->name }})</small>
+                        <small>({{ $listing->country->name }})</small>
                     </p>
                     <small class="text-muted m-0">
-                        Registered: {{ date('d M Y', strtotime($product->user->created_at)) }}
+                        Registered: {{ date('d M Y', strtotime($listing->user->created_at)) }}
                     </small>
                     
                 </div>
-                @if($product->user->hasVerifiedUser())
+                @if($listing->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
                 @endif
 
                 <div class="d-flex align-items-center justify-content-center" style="min-height: 100px">
                     <h3>
-                        {{ $product->price }}$
+                        {{ $listing->price }}$
                         <span class="h6 text-muted">
-                            or {{ round($product->price / $product->hashrate, 2) }} $/th
+                            or {{ round($listing->price / $listing->product->hashrate, 2) }} $/th
                         </span>
                     </h3>
                     <span class="text-muted">
@@ -46,9 +46,9 @@
                 </div>
                 <div class="d-flex justify-content-around align-items-center">
                     @if (Auth::check())
-                        @if($product->user->id != Auth::id())
-                            <form action="{{ route('profile.message.create', $product->user) }}" method="GET" class="form-inline">
-                                <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                        @if($listing->user->id != Auth::id())
+                            <form action="{{ route('profile.message.create', $listing->user) }}" method="GET" class="form-inline">
+                                <input type="hidden" name="parent_id" value="{{ $listing->id }}">
                                 <button type="submit" class="btn btn-success">
                                     Send message <i class="fas fa-envelope"></i>
                                 </button>
@@ -66,49 +66,52 @@
                         <tbody>
                             <tr>
                                 <th scope="row">Condition</th>
-                                <td>@if($product->isnew) New @else Used @endif</td>
+                                <td>@if($listing->isnew) New @else Used @endif</td>
                             </tr>
                             <tr>
                                 <th scope="row">Algorithm</th>
-                                <td>{{ __('product.algorithms.'.$product->algorithm) }}</td>
+                                <td>{{ __('product.algorithms.'.$listing->algorithm) }}</td>
                             </tr>
                             <tr>
                                 <th scope="row">Hashrate</th>
-                                <td>{{ $product->hashrate }} {{ App\Product::$hashrates[$product->hashrate_name] }}</td>
+                                <td>{{ $listing->product->hashrate }}</td>
                             </tr>
-                            @isset($product->power)
-                                <tr>
-                                    <th scope="row">Power</th>
-                                    <td>{{ $product->power }} W</td>
-                                </tr>
-                            @endisset
+                            <tr>
+                                <th scope="row">Power</th>
+                                <td>{{ $listing->product->power }} W</td>
+                            </tr>
                             <tr>
                                 <th scope="row">Quantity</th>
-                                <td>{{ $product->quantity }} pcs</td>
+                                <td>{{ $listing->quantity }} pcs</td>
                             </tr>
                             <tr>
                                 <th scope="row">Minimum order quantity</th>
-                                <td>{{ $product->moq }} pcs</td>
+                                <td>{{ $listing->moq }} pcs</td>
                             </tr>
                             <tr>
                                 <th scope="row">Published</th>
                                 <td>
-                                    {{ date('d M Y', strtotime($product->created_at)) }}
+                                    {{ date('d M Y', strtotime($listing->created_at)) }}
                                 </td>
                             </tr>
-                            @if ($product->algorithm == 'sha256' || $product->algorithm == 'scrypt')
-                                <tr>
-                                    <th colspan="2" class="text-center">
-                                        Profit (24h)
-                                    </th>
-                                </tr>
+                            <tr>
+                                <th colspan="2" class="text-center">
+                                    Profit (24h)
+                                </th>
+                            </tr>
+                            @foreach ($listing->product->profits as $profit)
+                            <tr>
+                                <th colspan="2" class="text-start text-muted">
+                                    {{ $profit->coin_name }} ({{ $profit->coin_tag }})
+                                </th>
+                            </tr>
                                 <tr>
                                     <th scope="row">BTC revenue</th>
                                     <td>
-                                        {{ number_format($product->btc_revenue, 8) }}
+                                        {{ number_format($profit->btc_revenue / 100000000, 8) }}
                                     </td>
                                 </tr>
-                                @empty($product->power)
+                                @empty($listing->product->power)
                                     <tr>
                                         <th scope="row">
                                             Profit
@@ -117,14 +120,14 @@
                                             </small>
                                         </th>
                                         <td>
-                                            {{ round($product->revenue, 2) }} $
+                                            {{ round($profit->cost, 2) }} $
                                         </td>
                                     </tr>
                                 @else
                                     <tr>
                                         <th scope="row">USD revenue</th>
                                         <td>
-                                            {{ number_format($product->revenue, 2) }} $
+                                            {{ number_format($profit->cost / 100, 2) }} $
                                         </td>
                                     </tr>
                                     <tr>
@@ -135,24 +138,24 @@
                                             </small>
                                         </th>
                                         <td>
-                                            {{ $product->cost }} $
+                                            {{ round($listing->product->power * 0.06 * 24 / 1000, 2) }} $
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row">Profit</th>
                                         <td>
-                                            {{ $product->profit }} $
+                                            {{ round(($profit->cost / 100) - ($listing->product->power * 0.06 * 24 / 1000), 2) }} $
                                         </td>
                                     </tr>
                                 @endempty
-                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
                 {{-- <h4>Contacts</h4>
                 <table class="table table-sm table-borderless w-auto">
                     <tbody>
-                    @foreach ($product->user->contacts as $contact)
+                    @foreach ($listing->user->contacts as $contact)
                         <tr>
                         @if ($contact->type == 'tg')
                             <th scope="row">
@@ -172,26 +175,26 @@
                     @endforeach
                     </tbody>
                 </table> --}}
-                {{ $product->description }}
+                {{ $listing->description }}
             </div>
-            @if ($product->images->count() > 0)
+            @if ($listing->images->count() > 0)
                 <div class="col-md-12 col-lg-6 text-center">
-                    @foreach ($product->images as $image)
-                    <img src="{{ asset('storage/'.$image->link) }}" class="img img-fluid my-1" alt="{{ $product->title }}">
+                    @foreach ($listing->images as $image)
+                        <img src="{{ asset('storage/'.$image->link) }}" class="img img-fluid my-1" alt="{{ $listing->title }}">
                     @endforeach
                 </div>
             @else
                 <div class="col-md-12 col-lg-6">
-                    <img src="{{ asset('img/product-no-image.png') }}" class="img img-fluid" alt="{{ $product->title }}">
+                    <img src="{{ asset('img/product-no-image.png') }}" class="img img-fluid" alt="{{ $listing->title }}">
                 </div>
             @endif
         </div>
-        {{-- @if (Auth::check() and $product->user->id != Auth::id())
+        {{-- @if (Auth::check() and $listing->user->id != Auth::id())
             <div class="row">
                 <div class="col-md-12">
                     <hr class="py-1">
                     <form action="{{ route('profile.message.create') }}" method="GET" class="form-inline">
-                        <input type="hidden" name="parent_id" value="{{ $product->id }}">
+                        <input type="hidden" name="parent_id" value="{{ $listing->id }}">
                         <input type="hidden" name="type" value="plaint">
                         <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                             Report a scammer <i class="fas fa-headset"></i>
@@ -201,11 +204,11 @@
             </div>
         @endif --}}
 
-        @can('update', $product)
+        @can('update', $listing)
             <div class="row">
                 <div class="col-md-12">
                     <hr class="py-1">
-                    <a href="{{ route('profile.listing.edit', $product) }}" type="button" class="btn btn-outline-secondary btn-sm mx-1">{{ __('product.btn.edit') }}</a>
+                    <a href="{{ route('profile.listings.edit', $listing) }}" type="button" class="btn btn-outline-secondary btn-sm mx-1">{{ __('product.btn.edit') }}</a>
                 </div>
             </div>
         @endcan
