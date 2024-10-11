@@ -195,7 +195,7 @@
                                     <div class="col-12 table-responsive">
                                         <table class="table">
                                             <tbody>
-                                                @foreach ($contacts as $contact)
+                                                @forelse ($contacts as $contact)
                                                     <tr>
                                                         <td>
                                                             {{ App\Contact::$types[$contact->type] }}
@@ -205,7 +205,9 @@
                                                         </td>
                                                         <td>{{ $contact->value }}</td>
                                                     </tr>
-                                                @endforeach
+                                                @empty
+                                                    Please add <a href="{{ route('profile.contacts.index') }}">contacts</a>
+                                                @endforelse
                                             </tbody>
                                         </table>
                                     </div>

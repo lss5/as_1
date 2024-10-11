@@ -35,14 +35,14 @@ Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('au
     Route::resource('/companies', 'CompanyController')->only('create', 'store', 'update', 'edit');
 });
 
-// Route::prefix('profile/messages')->name('profile.message.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-//     Route::get('/', 'MessageController@index')->name('index');
-//     Route::get('/create/{participant}', 'MessageController@create')->name('create');
-//     Route::post('/{participant}', 'MessageController@store')->name('store');
-//     Route::get('/{thread}', 'MessageController@show')->name('show');
-//     Route::put('/{thread}', 'MessageController@update')->name('update');
-//     Route::delete('/{thread}', 'MessageController@destroy')->name('destroy');
-// });
+Route::prefix('profile/messages')->name('profile.messages.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::get('/', 'MessageController@index')->name('index');
+    Route::get('/create/{listing}', 'MessageController@create')->name('create');
+    // Route::post('/{listing}', 'MessageController@store')->name('store');
+    Route::get('/{thread}', 'MessageController@show')->name('show');
+    Route::put('/{thread}', 'MessageController@update')->name('update');
+    Route::delete('/{thread}', 'MessageController@destroy')->name('destroy');
+});
 
 // Route::prefix('profile/support')->name('profile.support.')->namespace('Profile')->middleware('auth','verified')->group(function(){
 //     Route::get('/', 'SupportController@index')->name('index');

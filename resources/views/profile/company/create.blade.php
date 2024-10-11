@@ -20,16 +20,16 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="inputImageLogo">Logo image</label>
-                                    <input type="file" id="inputImageLogo" name="image_logo" class="form-control-file  @error('image_logo') is-invalid @enderror">
-                                    <small id="inputImageLogoHelp" class="form-text text-muted">Min. width/height: 256px, Max. size 2048kb</small>
+                                    <input type="file" id="inputImageLogo" name="image_logo" class="form-control-file">
+                                    <small id="inputImageLogoHelp" class="form-text text-muted @error('image_logo') text-red @enderror">Min. width/height: 256px, Max. size 2048kb</small>
                                     @error('image')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputImageHeader">Header image</label>
-                                    <input type="file" id="inputImageHeader" name="image_header" class="form-control-file  @error('image_header') is-invalid @enderror">
-                                    <small id="inputImageHeaderHelp" class="form-text text-muted">We recommend using the size 1024*256px (4:1). Max. size 4096kb</small>
+                                    <input type="file" id="inputImageHeader" name="image_header" class="form-control-file">
+                                    <small id="inputImageHeaderHelp" class="form-text text-muted @error('image_header') text-red @enderror">We recommend using the size 1024*256px (4:1). Max. size 4096kb</small>
                                     @error('image')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="selectContry">Location of company</label>
-                                    <select class="custom-select rounded-0 @error('country_id') is-invalid @enderror" name="country" id="selectContry">
+                                    <select class="custom-select rounded-0 @error('country') is-invalid @enderror" name="country" id="selectContry">
                                         <option @empty(old('country')) selected @endempty>Please select</option>
                                         @foreach ($countries as $country)
                                             <option value="{{ $country->id }}" @if(old('country') == $country->id) selected @endif>{{ $country->name }}</option>

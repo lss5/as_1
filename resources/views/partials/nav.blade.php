@@ -50,13 +50,13 @@
                         {{-- <a href="{{ route('profile.edit') }}" class="dropdown-item">
                             Settings
                         </a> --}}
-                        {{-- <a href="{{ route('profile.message.index') }}" class="dropdown-item">
+                        <a href="{{ route('profile.messages.index') }}" class="dropdown-item">
                             <i class="far fa-comments"></i> {{ __('home.menu.messages') }}
                             <?php $count = Auth::user()->newThreadsCount(); ?>
                             @if($count > 0)
                                 <span class="badge badge-success badge-pill">{{ $count }}</span>
                             @endif
-                        </a> --}}
+                        </a>
                         @can('moder')
                             <div class="dropdown-divider"></div>
                         @endcan

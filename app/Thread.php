@@ -8,13 +8,13 @@ class Thread extends ParentThread
 {
     protected $fillable = ['subject', 'parent_id', 'type'];
 
-    public static $types = [
-        'support' => 'Support',
-    ];
+    // public static $types = [
+    //     'support' => 'Support',
+    // ];
 
-    public function product()
+    public function listing()
     {
-        return $this->belongsTo('App\Product', 'parent_id');
+        return $this->belongsTo('App\Listing', 'parent_id');
     }
 
     public function messages()

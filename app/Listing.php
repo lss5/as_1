@@ -94,7 +94,7 @@ class Listing extends Model
 
     // public function threads()
     // {
-    //     return $this->hasOne('App\Thread', 'parent_id');
+    //     return $this->hasMany('App\Thread', 'parent_id');
     // }
 
     public function scopeFilter(Builder $builder, QueryFilter $filters)

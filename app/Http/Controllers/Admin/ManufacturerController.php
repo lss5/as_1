@@ -27,10 +27,10 @@ class ManufacturerController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => ['required', 'string'],
-            'description' => ['nullable', 'string'],
-            'url' => ['nullable', 'string'],
-            'sort' => ['required', 'integer'],
+            'name' => ['required', 'string', 'max:255'],
+            'description' => ['nullable', 'string', 'max:52345'],
+            'url' => ['nullable', 'string', 'max:255'],
+            'sort' => ['required', 'integer', 'max:255'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
         ]);
 
@@ -52,7 +52,7 @@ class ManufacturerController extends Controller
         $data = $request->validate([
             'name' => ['required', 'string'],
             'description' => ['nullable', 'string'],
-            'url' => ['nullable', 'string'], // 'unique:manufacturers,uniq_name,'.$manufacturer->id],
+            'url' => ['nullable', 'string'],
             'sort' => ['required', 'integer'],
             'country_id' => ['required', 'integer', 'exists:countries,id'],
         ]);

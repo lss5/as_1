@@ -27,8 +27,8 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image_logo' => ['nullable', 'file', 'image', 'max:2048', 'dimensions:min_width=256,min_height=256'],
-            'image_header' => ['nullable', 'file', 'image', 'max:4096', 'dimensions:min_width=1024,min_height=256'],
+            'image_logo' => ['required', 'file', 'image', 'max:2048', 'dimensions:min_width=256,min_height=256'],
+            'image_header' => ['required', 'file', 'image', 'max:4096', 'dimensions:min_width=1024,min_height=256'],
             'name' => ['required', 'string', 'max:255'],
             'legal_address' => ['required', 'string', 'max:255'],
             'actual_address' => ['required', 'string', 'max:255'],
@@ -78,8 +78,8 @@ class CompanyController extends Controller
     public function update(Request $request, Company $company)
     {
         $request->validate([
-            'image_logo' => ['nullable', 'file', 'image', 'max:2048', 'dimensions:min_width=256,min_height=256'],
-            'image_header' => ['nullable', 'file', 'image', 'max:4096', 'dimensions:min_width=1024,min_height=256'],
+            'image_logo' => ['required', 'file', 'image', 'max:2048', 'dimensions:min_width=256,min_height=256'],
+            'image_header' => ['required', 'file', 'image', 'max:4096', 'dimensions:min_width=1024,min_height=256'],
             'name' => ['required', 'string', 'max:255'],
             'legal_address' => ['required', 'string', 'max:255'],
             'actual_address' => ['required', 'string', 'max:255'],

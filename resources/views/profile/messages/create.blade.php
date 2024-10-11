@@ -1,46 +1,205 @@
-@extends('layouts.profile')
+@extends('layouts.admin')
 
 @section('content')
-<?php $auth_user_id = Auth::user()->id; ?>
-
-<div class="row d-flex justify-content-center">
-    <div class="col-sm-12 col-lg-8">
-        {{-- validation errors --}}
-        @if ($errors->any())
-            <ul class="list-group mb-2">
-                @foreach ($errors->all() as $error)
-                    <li class="list-group-item list-group-item-danger">{{ $error }}</li>
-                @endforeach
-            </ul>
-        @endif
-
-        <form method="POST" action="{{ route('profile.message.store', $participant) }}">
-            @csrf
-            @if($parent_id)
-                <input type="hidden" name="parent_id" value="{{ $parent_id }}">
-            @endif
-            <div class="form-group row">
-                <label for="participants" class="col-sm-2 col-form-label"><strong>{{ __('New message') }}</strong></label>
-                <div class="col-sm-10">
-                    <input type="text" readonly class="form-control-plaintext" id="participants" value="{{ $participant->first_name.' '.$participant->last_name }} ({{ $participant->name }})">
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Messages</h1>
+                    </div>
                 </div>
             </div>
-            <div class="form-group row">
-                <label for="subject" class="col-sm-2 col-form-label"><strong>Subject</strong></label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control @error('subject') is-invalid @enderror" name="subject" id="subject" value="{{ old('subject') ?? $subject }}">
+        </div>
+
+        <section class="content">
+            <div class="container-fluid">
+                @include('partials.alerts')
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card direct-chat direct-chat-primary">
+                            <div class="card-header ui-sortable-handle" style="cursor: move;">
+                                <h3 class="card-title">Direct Chat</h3>
+
+                                <div class="card-tools">
+                                    <span title="3 New Messages" class="badge badge-primary">3</span>
+                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" title="Contacts" data-widget="chat-pane-toggle">
+                                        <i class="fas fa-comments"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body" style="display: block;">
+                                <div class="direct-chat-messages">
+                                    <div class="direct-chat-msg">
+                                        <div class="direct-chat-infos clearfix">
+                                            <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                            <span class="direct-chat-timestamp float-right">23 Jan 2:00 pm</span>
+                                        </div>
+                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                        <div class="direct-chat-text">
+                                            Is this template really for free? That's unbelievable!
+                                        </div>
+                                    </div>
+              
+                                    <!-- Message to the right -->
+                                    <div class="direct-chat-msg right">
+                                        <div class="direct-chat-infos clearfix">
+                                            <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                            <span class="direct-chat-timestamp float-left">23 Jan 2:05 pm</span>
+                                        </div>
+                                        <!-- /.direct-chat-infos -->
+                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                        <!-- /.direct-chat-img -->
+                                        <div class="direct-chat-text">
+                                            You better believe it!
+                                        </div>
+                                    </div>
+                
+                                    <div class="direct-chat-msg">
+                                        <div class="direct-chat-infos clearfix">
+                                            <span class="direct-chat-name float-left">Alexander Pierce</span>
+                                            <span class="direct-chat-timestamp float-right">23 Jan 5:37 pm</span>
+                                        </div>
+                                        <img class="direct-chat-img" src="dist/img/user1-128x128.jpg" alt="message user image">
+                                        <div class="direct-chat-text">
+                                            Working with AdminLTE on a great new app! Wanna join?
+                                        </div>
+                                    </div>
+                
+                                    <div class="direct-chat-msg right">
+                                        <div class="direct-chat-infos clearfix">
+                                            <span class="direct-chat-name float-right">Sarah Bullock</span>
+                                            <span class="direct-chat-timestamp float-left">23 Jan 6:10 pm</span>
+                                        </div>
+                                        <img class="direct-chat-img" src="dist/img/user3-128x128.jpg" alt="message user image">
+                                        <div class="direct-chat-text">
+                                            I would love to.
+                                        </div>
+                                    </div>
+                              </div>
+                              <!--/.direct-chat-messages-->
+              
+                              <!-- Contacts are loaded here -->
+                              <div class="direct-chat-contacts">
+                                <ul class="contacts-list">
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user1-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          Count Dracula
+                                          <small class="contacts-list-date float-right">2/28/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">How have you been? I was...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user7-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          Sarah Doe
+                                          <small class="contacts-list-date float-right">2/23/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">I will be waiting for...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user3-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          Nadia Jolie
+                                          <small class="contacts-list-date float-right">2/20/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">I'll call you back at...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user5-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          Nora S. Vans
+                                          <small class="contacts-list-date float-right">2/10/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">Where is your new...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user6-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          John K.
+                                          <small class="contacts-list-date float-right">1/27/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">Can I take a look at...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                  <li>
+                                    <a href="#">
+                                      <img class="contacts-list-img" src="dist/img/user8-128x128.jpg" alt="User Avatar">
+              
+                                      <div class="contacts-list-info">
+                                        <span class="contacts-list-name">
+                                          Kenneth M.
+                                          <small class="contacts-list-date float-right">1/4/2015</small>
+                                        </span>
+                                        <span class="contacts-list-msg">Never mind I found...</span>
+                                      </div>
+                                      <!-- /.contacts-list-info -->
+                                    </a>
+                                  </li>
+                                  <!-- End Contact Item -->
+                                </ul>
+                                <!-- /.contacts-list -->
+                              </div>
+                              <!-- /.direct-chat-pane -->
+                            </div>
+                            <!-- /.card-body -->
+                            <div class="card-footer" style="display: block;">
+                              <form action="#" method="post">
+                                <div class="input-group">
+                                  <input type="text" name="message" placeholder="Type Message ..." class="form-control">
+                                  <span class="input-group-append">
+                                    <button type="button" class="btn btn-primary">Send</button>
+                                  </span>
+                                </div>
+                              </form>
+                            </div>
+                            <!-- /.card-footer-->
+                          </div>
+                    </div>
                 </div>
             </div>
-            <ul class="list-group">
-                {{-- <li class="list-group-item p-2">{{ $subject }}</li> --}}
-                <li class="list-group-item p-2">
-                    <textarea class="form-control @error('message') is-invalid @enderror" id="message" name="message" rows="3" autofocus>{{ old('message') ?? '' }}</textarea>
-                    <small id="textHelp" class="form-text text-muted">Describe your problem or question</small>
-                </li>
-            </ul>
-            <button type="submit" class="btn btn-success my-2" role="button" aria-pressed="true">Send <i class="fas fa-paper-plane"></i></button>
-            <a href="{{ route('profile.message.index') }}" class="btn btn-outline-secondary m-2" role="button" aria-pressed="false">Cancel</a>
-        </form>
+        </section>
     </div>
-</div>
 @endsection

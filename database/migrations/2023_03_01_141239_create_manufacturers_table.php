@@ -13,7 +13,7 @@ class CreateManufacturersTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('url')->nullable();
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             // $table->unsignedBigInteger('country_id')->nullable();
             $table->foreignId('country_id')->nullable()->constrained('countries');
             $table->integer('sort')->unsigned()->default(10);

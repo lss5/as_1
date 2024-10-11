@@ -32,6 +32,16 @@
                     <p>Contacts</p>
                 </a>
             </li>
+            <li class="nav-item">
+                <a href="{{ route('profile.messages.index') }}" class="nav-link {{ (request()->is('profile/messages*') ? 'active' : '') }}">
+                    <i class="fas fa-comments"></i>
+                    <p>Messages</p>
+                    <?php $count = Auth::user()->newThreadsCount(); ?>
+                    @if($count > 0)
+                        <span class="badge badge-danger">{{ $count }}</span>
+                    @endif
+                </a>
+            </li>
             <li class="nav-item {{ (request()->is('profile/listings*') ? 'menu-open' : '') }}">
                 <a class="nav-link {{ (request()->is('profile/listings*') ? 'active' : '') }}">
                     <i class="fas fa-server"></i>

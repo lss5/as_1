@@ -47,12 +47,13 @@
                 <div class="d-flex justify-content-around align-items-center">
                     @if (Auth::check())
                         @if($listing->user->id != Auth::id())
-                            <form action="{{ route('profile.message.create', $listing->user) }}" method="GET" class="form-inline">
+                            <a href="{{ route('profile.messages.create', $listing) }}" class="btn btn-success">Send message</a>
+                            {{-- <form action="{{ route('profile.messages.create', $listing) }}" method="GET" class="form-inline">
                                 <input type="hidden" name="parent_id" value="{{ $listing->id }}">
                                 <button type="submit" class="btn btn-success">
                                     Send message <i class="fas fa-envelope"></i>
                                 </button>
-                            </form>
+                            </form> --}}
                         @endif
                         <a type="submit" href="#" class="btn btn-outline-success">
                             In bookmark <i class="fas fa-bookmark"></i>
@@ -193,7 +194,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <hr class="py-1">
-                    <form action="{{ route('profile.message.create') }}" method="GET" class="form-inline">
+                    <form action="{{ route('profile.messages.create') }}" method="GET" class="form-inline">
                         <input type="hidden" name="parent_id" value="{{ $listing->id }}">
                         <input type="hidden" name="type" value="plaint">
                         <button type="submit" class="btn btn-sm btn-outline-danger mx-1">

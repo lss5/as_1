@@ -22,7 +22,7 @@ class StatusController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string'],
-            'uniq_name' => ['required', 'string'],
+            'uniq_name' => ['required', 'string', 'unique:statuses,uniq_name'],
         ]);
 
         $status = Status::create($validated);
@@ -39,7 +39,7 @@ class StatusController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string'],
-            'uniq_name' => ['required', 'string'],
+            'uniq_name' => ['required', 'string', 'unique:statuses,uniq_name,'.$status->id],
         ]);
 
         $status->update($validated);

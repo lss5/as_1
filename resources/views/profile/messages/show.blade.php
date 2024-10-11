@@ -1,87 +1,76 @@
-@extends('layouts.profile')
+@extends('layouts.admin')
 
 @section('content')
 <?php $auth_user_id = Auth::user()->id; ?>
 
-<div class="row d-flex justify-content-center">
-    <div class="col-12 col-lg-8">
-        <div class="m-0 py-2">
-            <span class="h4 m-0">
-                @foreach($thread->participants as $participant)
-                    @if($participant->user->id != $auth_user_id)
-                        <a href="{{ route('products.user', $participant->user) }}" class="text-decoration-none">
-                            {{ $participant->user->first_name.' '.$participant->user->last_name }} ({{ $participant->user->name }})
-                        </a>
-                    @endif
-                @endforeach
-            </span>
+    <div class="content-wrapper">
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Messages</h1>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <ul class="list-group">
-            <li class="list-group-item p-2 d-flex justify-content-between align-items-center">
-                <div>
-                    <span class="badge badge-secondary">Subject</span>
-                    <strong>{{ $thread->subject }}</strong>
-                </div>
-                <div>
-                    <form action="{{ route('profile.message.destroy', $thread) }}" method="POST" class="form-inline">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick='return confirm("Delete all messages?");'>
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </form>
-                </div>
-            </li>
+        <section class="content">
+            <div class="container-fluid">
+                @include('partials.alerts')
 
-            <li class="list-group-item p-2 ">
-                <form action="{{ route('profile.message.update', $thread) }}" method="post" class="form-inline">
-                    @csrf
-                    @method('PUT')
-                    <div class="col px-0">
-                        <textarea name="message" placeholder="Write a message..." class="form-control w-100 @error('message') is-invalid @enderror" autofocus>{{ old('message') ?? ''}}</textarea>
-                    </div>
-                    <div class="col-auto px-0 pl-2">
-                        <button type="submit" class="btn btn- btn-primary d-block w-100">
-                            <i class="fas fa-reply"></i>
-                        </button>
-                    </div>
-                </form>
-            </li>
-            <?php $prev_message_date = false; ?>
-            @forelse($thread->messages as $message)
-                @if($prev_message_date)
-                    @if($message->created_at->day != $prev_message_date->day || $message->created_at->month != $prev_message_date->month || $message->created_at->year != $prev_message_date->year)
-                        <li class="list-group-item text-decoration-none border-bottom-0 p-2 px-3 disabled">
-                            <div class="d-flex w-100 flex-column align-items-center ">
-                                <small class="text-muted">{{ $message->created_at->isoFormat('D MMM YYYY') }}</small>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card direct-chat direct-chat-primary">
+                            <div class="card-header ui-sortable-handle">
+                                <div class="d-flex justify-content-between align-items-center h4 m-0">
+                                    <a href="{{ route('listings.show', $thread->parent_id) }}">{{ $thread->subject }}</a></h3>
+                                    <form action="{{ route('profile.messages.destroy', $thread) }}" method="POST" class="form-inline">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete all messages?'');">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                        </li>
-                    @endif
-                @else
-                    <li class="list-group-item text-decoration-none border-bottom-0 p-2 px-3 disabled">
-                        <div class="d-flex w-100 flex-column align-items-center ">
-                            @if($message->created_at->day == now()->day)
-                                <small class="text-muted">Today</small>
-                            @else
-                                <small class="text-muted">{{ $message->created_at->isoFormat('D MMM YYYY') }}</small>
-                            @endif
+                            <div class="card-body" style="display: block;">
+                                <div class="direct-chat-messages">
+                                    @forelse($thread->messages as $message)
+                                        <div class="direct-chat-msg @if($message->user->id == $auth_user_id) right @endif">
+                                            <div class="direct-chat-infos clearfix">
+                                                <span class="direct-chat-name @if($message->user->id == $auth_user_id) float-right @else float-left @endif">{{ $message->user->name }}</span>
+                                                <span class="direct-chat-timestamp @if($message->user->id == $auth_user_id) float-left @else float-right @endif">{{ $message->created_at->format('d M Y H:i:s') }}</span>
+                                                {{-- <span class="direct-chat-timestamp float-right"></span> --}}
+                                            </div>
+                                            @if ($message->user->images->count() > 0)
+                                                <img class="direct-chat-img" src="{{ asset('storage/'.$message->user->images->first()->link) }}" alt="{{ $message->user->name }}">
+                                            @else
+                                                <img class="direct-chat-img" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ $message->user->name }}">
+                                            @endif
+                                            <div class="direct-chat-text">
+                                                {{ html_entity_decode($message->body) }}
+                                            </div>
+                                        </div>
+                                    @empty
+                                    @endforelse
+                                </div>
+                            </div>
+                            <div class="card-footer d-block">
+                                <form action="{{ route('profile.messages.update', $thread) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="input-group">
+                                        <input type="text" name="message" placeholder="Type Message ..." mozactionhint="send" autofocus class="form-control @error('message') is-invalid @enderror">
+                                        <span class="input-group-append">
+                                            <button type="sumbit" class="btn btn-primary">Send</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </li>
-                @endif
-                <li class="list-group-item text-decoration-none p-2 px-3 @if($message->user->id == $auth_user_id) @endif">
-                    <div class="d-flex w-100 flex-column
-                        @if($message->user->id == $auth_user_id) align-items-end @else align-items-start @endif">
-                        {{-- <h5 class="mb-1">{{ $message->user->name }}</h5> --}}
-                        <small class="text-muted"></small>
-                        <p class="mb-1 @if($message->user->id == $auth_user_id) text-right @else text-left @endif">{{ html_entity_decode($message->body) }}</p>
-                            <small class="text-muted"><b>@if($message->user->id == $auth_user_id) You @else {{ $message->user->name }} @endif </b>{{ $message->created_at->isoFormat('HH:mm') }}</small>
                     </div>
-                </li>
-                <?php $prev_message_date = $message->created_at; ?>
-            @endforeach
-        </ul>
+                </div>
+            </div>
+        </section>
     </div>
-</div>
 @endsection
-    
