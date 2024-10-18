@@ -23,14 +23,14 @@
                             <div class="card-header ui-sortable-handle">
                                 <div class="d-flex justify-content-between align-items-center h4 m-0">
                                     <h3 class="card-title">Dialogs</h3>
-                                    <a href="{{ route('admin.supports.create') }}" class="btn btn-sm btn-success">Create</a>
+                                    <a href="{{ route('profile.supports.create') }}" class="btn btn-sm btn-success">Create</a>
                                 </div>
                             </div>
                             <div class="direct-chat-contacts-old bg-dark">
                                 @forelse($threads as $thread)
                                     <ul class="contacts-list">
                                         <li>
-                                            <a href="{{ route('admin.supports.show', $thread) }}">
+                                            <a href="{{ route('profile.supports.show', $thread) }}">
                                                 <img class="contacts-list-img" src="{{ asset('images/site/no-photo-user.png') }}" alt="User Avatar">
                                                 <div class="contacts-list-info">
                                                     <span class="contacts-list-name">{{ $thread->latestMessage->user->name }}

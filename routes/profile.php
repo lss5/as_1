@@ -36,19 +36,18 @@ Route::prefix('profile')->name('profile.')->namespace('Profile')->middleware('au
 });
 
 Route::prefix('profile/messages')->name('profile.messages.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-    Route::get('/', 'MessageController@index')->name('index');
-    Route::get('/create/{listing}', 'MessageController@create')->name('create');
-    // Route::post('/{listing}', 'MessageController@store')->name('store');
-    Route::get('/{thread}', 'MessageController@show')->name('show');
-    Route::put('/{thread}', 'MessageController@update')->name('update');
-    Route::delete('/{thread}', 'MessageController@destroy')->name('destroy');
+    Route::get('/', 'ThreadController@index')->name('index');
+    Route::get('/create/{listing}', 'ThreadController@create')->name('create');
+    Route::get('/{thread}', 'ThreadController@show')->name('show');
+    Route::put('/{thread}', 'ThreadController@update')->name('update');
+    Route::delete('/{thread}', 'ThreadController@destroy')->name('destroy');
 });
 
-// Route::prefix('profile/support')->name('profile.support.')->namespace('Profile')->middleware('auth','verified')->group(function(){
-//     Route::get('/', 'SupportController@index')->name('index');
-//     Route::get('/create', 'SupportController@create')->name('create');
-//     Route::post('/', 'SupportController@store')->name('store');
-//     Route::get('/{thread}', 'SupportController@show')->name('show');
-//     Route::put('/{thread}', 'SupportController@update')->name('update');
-//     Route::delete('/{thread}', 'SupportController@destroy')->name('destroy');
-// });
+Route::prefix('profile/supports')->name('profile.supports.')->namespace('Profile')->middleware('auth','verified')->group(function(){
+    Route::get('/', 'SupportController@index')->name('index');
+    Route::get('/create', 'SupportController@create')->name('create');
+    Route::post('/create', 'SupportController@store')->name('store');
+    Route::get('/{thread}', 'SupportController@show')->name('show');
+    Route::put('/{thread}', 'SupportController@update')->name('update');
+    Route::delete('/{thread}', 'SupportController@destroy')->name('destroy');
+});

@@ -19,36 +19,37 @@ class SupportController extends Controller
     {
         $threads = Thread::where('type', '=', $this::$type)->latest('updated_at')->get();
 
-        return view('admin.support.index')->with(['threads' => $threads]);
+        return view('admin.support.index', ['threads' => $threads]);
     }
 
-    public function show(Request $request, $id)
+    public function show(Request $request, Thread $thread)
     {
-        $thread = Thread::findOrFail($id);
-        if (Auth::user()->can('view', $thread)) {
-            $thread->markAsRead(Auth::id());
-            return view('profile.messages.support.show', compact('thread'));
-        }
+        $thread->markAsRead(Auth::id());
 
-        return redirect()->route('profile.support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
+        return view('admin.support.show', ['thread' => $thread]);
     }
 
     public function create(Request $request)
     {
-        return view('profile.messages.support.create');
+        return view('admin.support.create', [
+            'users' => User::orderBy('name')->get(),
+        ]);
     }
 
-    public function store(Request $request, User $participant)
+    public function store(Request $request)
     {
         $request->validate([
-            'message' => ['required', 'string'],
-            'subject' => ['required', 'string'],
+            'message' => ['required', 'string', 'max:255'],
+            'subject' => ['required', 'string', 'max:30000'],
+            'user' => ['required', 'integer', 'exists:users,id'],
         ]);
 
         $thread = Thread::create([
             'subject' => $request->input('subject'),
             'type' => $this::$type,
         ]);
+
+        $thread->addParticipant($request->input('user'));
 
         // Message
         Message::create([
@@ -64,40 +65,35 @@ class SupportController extends Controller
             'last_read' => new Carbon(),
         ]);
 
-        return redirect()->route('profile.support.index')->with('success', 'Help request is sended');
+        return redirect()->route('admin.support.index')->with('success', 'Help request is sended');
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Thread $thread)
     {
         $request->validate([
             'message' => ['required', 'string'],
         ]);
 
-        $thread = Thread::findOrFail($id);
-        if (Auth::user()->can('update', $thread)) {
+        $thread->activateAllParticipants();
 
-            $thread->activateAllParticipants();
+        // Message
+        Message::create([
+            'thread_id' => $thread->id,
+            'user_id' => Auth::id(),
+            'body' => $request->message,
+        ]);
 
-            // Message
-            Message::create([
-                'thread_id' => $thread->id,
-                'user_id' => Auth::id(),
-                'body' => $request->message,
-            ]);
+        // Add replier as a participant
+        $participant = Participant::firstOrCreate([
+            'thread_id' => $thread->id,
+            'user_id' => Auth::id(),
+        ]);
 
-            // Add replier as a participant
-            $participant = Participant::firstOrCreate([
-                'thread_id' => $thread->id,
-                'user_id' => Auth::id(),
-            ]);
-            $participant->fill([
-                'last_read' => new Carbon(),
-            ])->save();
+        $participant->fill([
+            'last_read' => new Carbon(),
+        ])->save();
 
-            return redirect()->route('profile.support.show', $id);
-        }
-        return redirect()->route('profile.support.index')->with('warning', 'The thread with ID: ' . $id . ' was not found.');
-
+        return redirect()->route('admin.support.show', $thread);
     }
 
     public function destroy($id)

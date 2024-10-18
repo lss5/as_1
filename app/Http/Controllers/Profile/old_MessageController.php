@@ -26,7 +26,7 @@ class MessageController extends Controller
         // All threads that user is participating in, with new messages
         // $threads = Thread::forUserWithNewMessages(Auth::id())->latest('updated_at')->get();
 
-        return view('profile.messages.index')->with([
+        return view('profile.message.index')->with([
             'threads' => $threads,
         ]);
     }
@@ -38,7 +38,7 @@ class MessageController extends Controller
         // }
         $thread->markAsRead(Auth::id());
 
-        return view('profile.messages.show', compact('thread'));
+        return view('profile.message.show', compact('thread'));
 
         // return redirect()->route('profile.messages.index')->with('warning', 'The thread with ID: ' . $thread->id . ' was not found.');
     }
@@ -56,7 +56,6 @@ class MessageController extends Controller
             'parent_id' => $listing->id,
         ]);
         
-        // dd($thread);
         return redirect()->route('profile.messages.show', $thread);
 
         // $request->validate([
@@ -79,7 +78,7 @@ class MessageController extends Controller
         //     return redirect()->route('profile.message.show', $thread->first());
         // }
 
-        // return view('profile.messages.create')->with([
+        // return view('profile.message.create')->with([
         //     'participant' => $participant,
         //     'parent_id' => $parent_id,
         //     'subject' => isset($product) ? $product->title : '',

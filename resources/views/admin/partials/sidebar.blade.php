@@ -82,9 +82,15 @@
                 </ul>
             </li>
             <li class="nav-item">
-                <a href="{{ route('profile.notifications.index') }}" class="nav-link">
+                <a href="{{ route('profile.notifications.index') }}" class="nav-link {{ (request()->is('profile/notifications') ? 'active' : '') }}">
                     <i class="fas fa-bell"></i>
                     <p>Notifications</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('profile.supports.index') }}" class="nav-link {{ (request()->is('profile/supports*') ? 'active' : '') }}">
+                    <i class="fas fa-headset"></i>
+                    <p>Support</p>
                 </a>
             </li>
 
@@ -100,6 +106,12 @@
                 <a href="{{ route('admin.companies.index') }}" class="nav-link">
                     <i class="fas fa-building"></i>
                     <p>Companies</p>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ route('admin.supports.index') }}" class="nav-link {{ (request()->is('admin/supports*') ? 'active' : '') }}">
+                    <i class="fas fa-headset"></i>
+                    <p>Support</p>
                 </a>
             </li>
             @endcanany

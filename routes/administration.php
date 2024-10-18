@@ -31,6 +31,14 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:moder')->group(function(){
     Route::resource('/companies', 'CompanyController')->only('index', 'update', 'edit', 'destroy');
 });
+Route::prefix('admin/supports')->name('admin.supports.')->namespace('Admin')->middleware('auth','verified')->group(function(){
+    Route::get('/', 'SupportController@index')->name('index');
+    Route::get('/create', 'SupportController@create')->name('create');
+    Route::post('/create', 'SupportController@store')->name('store');
+    Route::get('/{thread}', 'SupportController@show')->name('show');
+    Route::put('/{thread}', 'SupportController@update')->name('update');
+    Route::delete('/{thread}', 'SupportController@destroy')->name('destroy');
+});
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/pages', 'PageController');
