@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(AlgorithmSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(CoinSeeder::class);
     }
 }
