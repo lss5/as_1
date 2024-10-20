@@ -4606,46 +4606,52 @@ readers do not read off random characters that represent icons */
 
 @charset "UTF-8";
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-Light.ttf");
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-Thin.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-Thin.ttf") format("ttf");
   font-style: normal;
   font-weight: 100;
 }
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-Regular.ttf");
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-ExtraLight.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-ExtraLight.ttf") format("ttf");
+  font-style: normal;
+  font-weight: 200;
+}
+@font-face {
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-Light.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-Light.ttf") format("ttf");
+  font-style: normal;
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-Regular.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-Regular.ttf") format("ttf");
   font-style: normal;
   font-weight: 400;
 }
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-Medium.ttf");
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-Medium.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-Medium.ttf") format("ttf");
   font-style: normal;
   font-weight: 500;
 }
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-Bold.ttf");
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-SemiBold.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-SemiBold.ttf") format("ttf");
+  font-style: normal;
+  font-weight: 600;
+}
+@font-face {
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-Bold.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-Bold.ttf") format("ttf");
   font-style: normal;
   font-weight: 700;
 }
 @font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-LightItalic.ttf");
-  font-style: italic;
-  font-weight: 100;
-}
-@font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-Italic.ttf");
-  font-style: italic;
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Ubuntu";
-  src: url("/fonts/ubuntu/Ubuntu-BoldItalic.ttf");
-  font-style: italic;
-  font-weight: bold;
+  font-family: "Suse";
+  src: url("/fonts/suse/webfonts/SUSE-ExtraBold.woff2") format("woff2"), url("/fonts/suse/ttf/SUSE-ExtraBold.ttf") format("ttf");
+  font-style: normal;
+  font-weight: 800;
 }
 /*!
  * Bootstrap v4.5.3 (https://getbootstrap.com/)
@@ -4680,7 +4686,7 @@ readers do not read off random characters that represent icons */
   --breakpoint-md: 768px;
   --breakpoint-lg: 992px;
   --breakpoint-xl: 1200px;
-  --font-family-sans-serif: "Ubuntu", sans-serif;
+  --font-family-sans-serif: "Suse", sans-serif;
   --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
@@ -4703,7 +4709,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Suse", sans-serif;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.6;
@@ -10206,7 +10212,7 @@ a.close.disabled {
   z-index: 1070;
   display: block;
   margin: 0;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Suse", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
@@ -10308,7 +10314,7 @@ a.close.disabled {
   z-index: 1060;
   display: block;
   max-width: 276px;
-  font-family: "Ubuntu", sans-serif;
+  font-family: "Suse", sans-serif;
   font-style: normal;
   font-weight: 400;
   line-height: 1.6;
