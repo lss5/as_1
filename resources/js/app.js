@@ -1,6 +1,5 @@
-// require('./bootstrap');
-const bootstrap = require('bootstrap');
+require('./bootstrap');
 
-$(document).ready(function () {
-    bsCustomFileInput.init()
-});
+// $(document).ready(function () {
+//     bsCustomFileInput.init()
+// });

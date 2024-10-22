@@ -25,7 +25,7 @@ class ForgotPasswordController extends Controller
     {
         $request->validate([
             'email' => 'required| email',
-            'g-recaptcha-response' => 'required| captcha',
+            // 'g-recaptcha-response' => 'required| captcha',
         ]);
     }
 }

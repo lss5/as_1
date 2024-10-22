@@ -13,13 +13,6 @@
     @yield('script')
 </head>
 
-<body>
-    <nav class="navbar navbar-expand-md navbar-light">
-    {{-- <nav class="navbar navbar-light" style="background-color: #fff;"> --}}
-        @include('partials.nav')
-    </nav>
-
-    @yield('content')
-</body>
+@yield('content')
 
 </html>
