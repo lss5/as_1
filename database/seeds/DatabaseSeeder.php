@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AlgorithmSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(CoinSeeder::class);
+        $this->call(ManufacturerSeeder::class);
     }
 }
