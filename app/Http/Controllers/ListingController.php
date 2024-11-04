@@ -14,13 +14,6 @@ use App\Manufacturer;
 
 class ListingController extends Controller
 {
-    // use SoftDeletes;
-
-    // public function __construct()
-    // {
-    //     $this->authorizeResource(Listing::class, 'Listing');
-    // }
-
     public function index(Request $request, ListingFilters $filters)
     {
         // Open search form
@@ -57,17 +50,6 @@ class ListingController extends Controller
         ]);
     }
 
-    // public function storeImage(Listing $listing, array $files)
-    // {
-    //     foreach ($files as $key => $file) {
-    //         $listing->images()->create([
-    //             'link' => $file->store('listings', 'public'),
-    //         ]);
-    //     }
-
-    //     return true;
-    // }
-
     public function user(User $user)
     {
         return view('Listing.user')->with([
@@ -75,5 +57,4 @@ class ListingController extends Controller
             'listings' => Listing::ForUser($user)->active()->get(),
         ]);
     }
-
 }

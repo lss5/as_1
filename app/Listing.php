@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filters\QueryFilter;
 use App\Events\ListingChangeStatus;
-use App\Jobs\ListingProfitFillJob;
+// use App\Jobs\ListingProfitFillJob;
 use App\Notifications\ListingChangeStatusNotification;
 
 class Listing extends Model

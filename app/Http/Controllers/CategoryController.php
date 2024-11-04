@@ -29,24 +29,4 @@ class CategoryController extends Controller
             'searchForm' => $search,
         ]);
     }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
-    public function edit(Category $category)
-    {
-        //
-    }
-
-    public function update(Request $request, Category $category)
-    {
-        //
-    }
-
-    public function destroy(Category $category)
-    {
-        //
-    }
 }

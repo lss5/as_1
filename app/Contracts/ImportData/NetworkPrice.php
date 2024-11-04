@@ -4,7 +4,8 @@ namespace App\Contracts\ImportData;
 
 interface NetworkPrice
 {
+    public function getPrices();
+
     public function loadPrices();
-    public function setPrices();
     public function savePrices(array $price);
 }

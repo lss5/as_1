@@ -10,18 +10,22 @@ use App\Jobs\ExchangeRateUpdateJob;
 
 class Binance implements NetworkPrice
 {
-    public $endpoint;
     public $dataClient;
-
-    public $prices = [];
-    public $coinPairs = [
-
-    ];
 
     public function __construct()
     {
-        $this->endpoint = config('services.binance.endpoint');
-        $this->dataClient = new ImportDataClient($this->endpoint);
+        $this->dataClient = new ImportDataClient(config('services.binance.endpoint'));
+    }
+
+    public function getPrices()
+    {
+        $prices = MarketPrice::all()->unique()->sortBy('id');
+
+        if ($prices->count() == 0 || $prices->first()->updated_at->diffInMinutes(now('UTC')) > 10) {
+            ExchangeRateUpdateJob::dispatch();
+        }
+
+        return $prices;
     }
 
     public function loadPrices(): array
@@ -38,17 +42,8 @@ class Binance implements NetworkPrice
         }
 
         Log::error('API Response code: '.$response->getStatusCode());
+
         return [];
-    }
-
-    public function setPrices()
-    {
-        $this->prices = MarketPrice::all()->unique()->sortBy('id');
-
-        if ($this->prices->count() == 0 || $this->prices->first()->updated_at->diffInMinutes(now('UTC')) > 0) {
-            ExchangeRateUpdateJob::dispatch();
-            Log::info('ExchangeRateUpdateJob created time: '.now('UTC'));
-        }
     }
 
     public function savePrices(array $prices)

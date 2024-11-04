@@ -11,8 +11,6 @@ class IndexController extends Controller
 {
     public function index(NetworkPrice $networkPrice)
     {
-        $networkPrice->setPrices();
-
         $popular = Listing:: //active()
                 has('images')
                 ->orderBy('created_at', 'desc')
@@ -28,7 +26,7 @@ class IndexController extends Controller
         return view('index')->with([
             'popular' => $popular,
             'newest' => $newest,
-            'prices' => $networkPrice->prices,
+            'prices' => $networkPrice->getPrices(),
         ]);
     }
 }

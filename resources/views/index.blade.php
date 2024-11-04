@@ -9,9 +9,31 @@
         <p>MAINTAINING THE BLOCKCHAIN WITH YOU!</p>
     </div>
 </div>
-@if($prices->count() > 0)
-    @include('partials.coins_price')
-@endif
+<div class="bg-dark text-white py-3">
+    <div class="container">
+        <div class="row">
+            @forelse ($prices as $price)
+                <div class="col-sm-6 col-md-3 col-lg-2 text-center mb-2">
+                    <span class="fs-5 fw-medium">
+                        <img src="{{ asset('images/coins/'.$price->symbol.'.png') }}" class="img-fluid" style="max-height: 30px" alt="{{$price->symbol}}">
+                        {{ round($price->lastPrice, 6) }}$
+                    </span>
+                    @if ($price->priceChangePercent > 0)
+                        <div class="h6 mb-0 text-success">
+                            ({{ round($price->priceChangePercent, 2) }}%)
+                        </div>
+                    @else
+                        <div class="h6 mb-0 text-danger">
+                            ({{ round($price->priceChangePercent, 2) }}%)
+                        </div>
+                    @endif
+                </div>
+            @empty
+                
+            @endforelse
+        </div>
+    </div>
+</div>
 <div class="container mt-4 mt-lg-5">
     <div class="row">
         <div class="col-md-4">
@@ -58,7 +80,7 @@
         padding: 15px 0;
         background: 
 		    linear-gradient(rgba(13, 47, 0, 0.7), rgba(1, 6, 0, 0.9)), 
-		    url( {{ asset('img/asic-main.jpg') }} ),
+		    url( {{ asset('images/pages/index-slide.jpg') }} ),
             no-repeat;
         background-size: cover;
         background-position: center;
