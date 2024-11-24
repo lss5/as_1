@@ -39,11 +39,11 @@
                                     <input type="text" id="inputModel" name="model" class="form-control  @error('model') is-invalid @enderror" value="{{ old('model') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputHashrate">Hashrate</label>
+                                    <label for="inputHashrate">Hashrate, h/s</label>
                                     <input type="number" step="0.1" id="inputHashrate" name="hashrate" class="form-control  @error('hashrate') is-invalid @enderror" value="{{ old('hashrate') }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputPower">Power</label>
+                                    <label for="inputPower">Power, watts</label>
                                     <input type="number" step="0.1" id="inputPower" name="power" class="form-control  @error('power') is-invalid @enderror" value="{{ old('power') }}">
                                 </div>
                                 <div class="form-group">
@@ -67,6 +67,19 @@
                                     @error('coins')
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputWeight">Weight, gramm</label>
+                                    <input type="number" step="0.1" id="inputWeight" name="weight" class="form-control  @error('weight') is-invalid @enderror" value="{{ old('weight') }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectCooling">Cooling</label>
+                                    <select class="custom-select rounded-0 @error('cooling') is-invalid @enderror" name="cooling" id="selectCooling">
+                                        <option @empty(old('cooling')) selected @endempty>Please select</option>
+                                        @foreach ($coolings as $key => $name)
+                                            <option value="{{ $key }}" @if(old('cooling') == $key) selected @endif>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>

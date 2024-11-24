@@ -16,6 +16,11 @@ class Product extends Model
         'ths' => 'Th/s',
     ];
 
+    public static $coolings = [
+        'hydro' => 'Hydro',
+        'air' => 'Air cooling',
+    ];
+
     public function manufacturer()
     {
         return $this->belongsTo('App\Manufacturer');

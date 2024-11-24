@@ -28,6 +28,7 @@ class ProductController extends Controller
             'manufacturers' => Manufacturer::all(),
             'algorithms' => Algorithm::all(),
             'coins' => Coin::all(),
+            'coolings' => Product::$coolings,
         ]);
     }
 
@@ -48,6 +49,8 @@ class ProductController extends Controller
             'model' => $request->model,
             'power' => $request->power,
             'hashrate' => $request->hashrate,
+            'weight' => $request->weight,
+            'cooling' => $request->cooling,
         ]);
 
         if ($request->has('image')) {
@@ -74,6 +77,7 @@ class ProductController extends Controller
             'manufacturers' => Manufacturer::all(),
             'algorithms' => Algorithm::all(),
             'coins' => Coin::all(),
+            'coolings' => Product::$coolings,
         ]);
     }
 
@@ -94,6 +98,8 @@ class ProductController extends Controller
             'model' => $request->model,
             'power' => $request->power,
             'hashrate' => $request->hashrate,
+            'weight' => $request->weight,
+            'cooling' => $request->cooling,
         ]);
 
         if ($request->has('image')) {

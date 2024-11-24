@@ -21,7 +21,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <a href="{{ route('admin.products.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                    <a href="{{ route('admin.products.create') }}" type="button" class="btn btn-success btn-sm">
                                         <i class="fas fa-plus"></i> Create
                                     </a>
                                 </div>
@@ -76,7 +76,7 @@
                                                 </td>
                                                 <td>
                                                     @if ($product->profits->count() > 0)
-                                                        Updated {{ $product->profits()->first()->updated_time->isoFormat('DD MMM HH:MM') }}
+                                                        Updated {{ $product->profits()->first()->updated_time->format('d M Y H:i:s') }}
                                                     @endif
                                                 </td>
                                                 <td class="project-actions">

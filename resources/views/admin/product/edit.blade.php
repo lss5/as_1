@@ -69,6 +69,19 @@
                                         <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
+                                <div class="form-group">
+                                    <label for="inputWeight">Weight, gramm</label>
+                                    <input type="number" step="0.1" id="inputWeight" name="weight" class="form-control  @error('weight') is-invalid @enderror" value="{{ old('weight') ?? $product->weight }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="selectCooling">Cooling</label>
+                                    <select class="custom-select rounded-0 @error('cooling') is-invalid @enderror" name="cooling" id="selectCooling">
+                                        <option @empty(old('cooling')) selected @endempty>Please select</option>
+                                        @foreach ($coolings as $key => $name)
+                                            <option value="{{ $key }}" @if(old('cooling') == $key || $product->cooling == $key) selected @endif>{{ $name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -84,7 +97,7 @@
                                     <ul>
                                         @foreach ($product->profits as $profit)
                                         <li>
-                                            {{ $profit->coin_tag }}:{{ $profit->cost/100 }} updated {{ $profit->updated_time->isoFormat('DD MMM HH:MM') }}
+                                            {{ $profit->coin_tag }}:{{ $profit->cost/100 }} updated {{ $profit->updated_time->format('d M Y H:i:s') }}
                                         </li>
                                         @endforeach
                                     </ul>
