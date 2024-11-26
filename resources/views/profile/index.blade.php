@@ -60,8 +60,7 @@
                                 <hr>
 
                                 <strong><i class="fab fa-bitcoin"></i> Payments</strong>
-                                <p class="text-muted"> USD BTC ETC USDT(ERC20/TRC20)
-                                </p>
+                                <p class="text-muted">{{ $user->payments }}</p>
                                 <hr>
 
                                 <strong><i class="far fa-file-alt mr-1"></i> Bio</strong>
@@ -155,7 +154,13 @@
                                     <div class="form-group row">
                                         <label for="inputBio" class="col-sm-2 col-form-label">BIO</label>
                                         <div class="col-sm-10">
-                                            <textarea class="form-control @error('bio') is-invalid @enderror" id="inputBio" name="bio" placeholder="Experience">{{ old('bio') ?? $user->bio }}</textarea>
+                                            <textarea class="form-control @error('bio') is-invalid @enderror" rows="3" id="inputBio" name="bio" placeholder="Experience">{{ old('bio') ?? $user->bio }}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="inputPayments" class="col-sm-2 col-form-label">Payments</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control @error('payments') is-invalid @enderror" rows="2" id="inputPayments" name="payments" placeholder="What are the payment methods">{{ old('payments') ?? $user->payments }}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group row">
