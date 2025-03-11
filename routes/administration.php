@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\Admin\AdministratorController;
+use App\Http\Controllers\Admin\PropertyController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('administrator')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
-    Route::get('/', 'AdministratorController@index')->name('index');
+    Route::get('/', [AdministratorController::class, 'index'])->name('index');
 });
 
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
@@ -11,6 +13,9 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 });
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/products', 'ProductController');
+});
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/properties', PropertyController::class);
 });
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/manufacturers', 'ManufacturerController');

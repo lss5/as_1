@@ -36,14 +36,25 @@
                                         <label class="custom-control-label" for="top_menu">Top menu</label>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label>Properties for Products</label>
+                                    <select multiple class="form-control @error('properties') is-invalid @enderror" name="properties[]">
+                                        @foreach ($properties as $property)
+                                            <option value="{{ $property->id }}" @if (in_array($property->id, $category_properties)) selected @endif>{{ $property->title }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('properties')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-3">
                     <div class="col-12">
-                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary">Cancel</a>
-                        <input type="submit" value="Save" class="btn btn-success float-right">
+                        <input type="submit" value="Save" class="btn btn-success">
+                        <a href="{{ route('admin.categories.index') }}" class="btn btn-secondary float-right">Cancel</a>
                     </div>
                 </div>
             </form>

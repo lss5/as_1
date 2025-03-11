@@ -118,12 +118,18 @@
 
             @can('admin')
             <li class="nav-header">ADMINISTRATION</li>
-            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'menu-open' : '') }}">
-                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties') ? 'active' : '') }}">
                     <i class="far fa-file-alt"></i>
                     <p>Products <i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->is('admin/products*') ? 'active' : '') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Product Models</p>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a href="{{ route('admin.categories.index') }}" class="nav-link {{ (request()->is('admin/categories*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
@@ -131,9 +137,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->is('admin/products*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.properties.index') }}" class="nav-link {{ (request()->is('admin/properties*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
-                            <p>Product Models</p>
+                            <p>Properties</p>
                         </a>
                     </li>
                     <li class="nav-item">

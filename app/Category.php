@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Filters\QueryFilter;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
@@ -13,9 +14,18 @@ class Category extends Model
         'top_menu',
     ];
 
-    public function listings()
+    protected $casts = [
+        'top_menu' => 'boolean',
+    ];
+
+    public function listings(): BelongsToMany
     {
-        return $this->belongsToMany('App\Listing');
+        return $this->belongsToMany(Listing::class);
+    }
+
+    public function properties(): BelongsToMany
+    {
+        return $this->BelongsToMany(Property::class);
     }
 
     // public function scopeFilter(Builder $builder, QueryFilter $filters)

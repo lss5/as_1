@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Product extends Model
 {
     protected $guarded = [];
 
-    public static $hashrates = [
+    public static array $hashrates = [
         'hs' => 'H/s',
         'khs' => 'kH/s',
         'mhs' => 'Mh/s',
@@ -16,7 +17,7 @@ class Product extends Model
         'ths' => 'Th/s',
     ];
 
-    public static $coolings = [
+    public static array $coolings = [
         'hydro' => 'Hydro',
         'air' => 'Air cooling',
     ];
@@ -24,6 +25,12 @@ class Product extends Model
     public function manufacturer()
     {
         return $this->belongsTo('App\Manufacturer');
+    }
+
+    public function properties(): BelongsToMany
+    {
+        return $this->BelongsToMany(Property::class)
+            ->withPivot('value');
     }
 
     public function algorithms()
