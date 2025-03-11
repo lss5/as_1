@@ -16,6 +16,7 @@ class CreateAlgorithmProductTable extends Migration
         Schema::create('algorithm_product', function (Blueprint $table) {
             $table->foreignId('algorithm_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->primary(['algorithm_id', 'product_id']);
         });
     }
 

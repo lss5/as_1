@@ -16,6 +16,7 @@ class CreateCategoryListingTable extends Migration
         Schema::create('category_listing', function (Blueprint $table) {
             $table->foreignId('category_id')->nullable()->constrained('categories');
             $table->foreignId('listing_id')->nullable()->constrained('listings');
+            $table->primary(['category_id', 'listing_id']);
         });
     }
 

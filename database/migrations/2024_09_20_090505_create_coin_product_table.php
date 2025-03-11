@@ -16,6 +16,7 @@ class CreateCoinProductTable extends Migration
         Schema::create('coin_product', function (Blueprint $table) {
             $table->foreignId('coin_id')->constrained();
             $table->foreignId('product_id')->constrained();
+            $table->primary(['coin_id', 'product_id']);
         });
     }
 
