@@ -6,7 +6,7 @@
 
         <div class="d-flex flex-row justify-content-center flex-wrap">
             @foreach (App\Category::where('top_menu', true)->orderBy('sort', 'asc')->get() as $category)
-            <a href="{{ route('category.show', $category) }}" class="btn btn-sm {{ (request()->is('category/'.$category->id )) ? 'btn-outline-success' : 'btn-success' }} mr-1">{{ $category->name }}</a>
+            <a href="{{ route('categories.show', $category) }}" class="btn btn-sm {{ (request()->is('categories/'.$category->id )) ? 'btn-outline-success' : 'btn-success' }} mr-1">{{ $category->name }}</a>
         @endforeach
         </div>
 

@@ -26,7 +26,7 @@ Route::prefix('listings')->name('listings.')->group(function(){
     Route::get('/{listing}', 'ListingController@show')->name('show');
     Route::get('/user/{user}', 'ListingController@user')->name('user');
 });
-Route::prefix('category')->name('category.')->group(function(){
+Route::prefix('categories')->name('categories.')->group(function(){
     Route::get('/', 'CategoryController@index')->name('index');
     Route::get('/{category}', 'CategoryController@show')->name('show');
     // Route::get('/{category}/{user}', 'CategoryController@user')->name('user');
