@@ -40,7 +40,7 @@
                                     <label>Properties for Products</label>
                                     <select multiple class="form-control @error('properties') is-invalid @enderror" name="properties[]">
                                         @foreach ($properties as $property)
-                                            <option value="{{ $property->id }}" @if (in_array($property->id, $category_properties)) selected @endif>{{ $property->title }}</option>
+                                            <option value="{{ $property->id }}" @if (in_array($property->id, $category_properties)) selected @endif>{{ $property->title .', '. $property->unit}}</option>
                                         @endforeach
                                     </select>
                                     @error('properties')

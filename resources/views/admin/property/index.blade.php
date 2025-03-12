@@ -50,6 +50,7 @@
                                             <tr>
                                                 <th scope="row">{{ $property->id }}</th>
                                                 <td>{{ $property->title }}</td>
+                                                <td>{{ $property->unit }}</td>
                                                 <td>{{ $property->sort }}</td>
                                                 <td class="project-actions">
                                                     <a class="btn btn-info btn-sm" href="{{ route('admin.properties.edit', $property) }}">
