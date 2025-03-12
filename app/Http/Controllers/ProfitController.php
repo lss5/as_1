@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Profit;
-use Illuminate\Http\Request;
+use App\Models\Profit;
 
 class ProfitController extends Controller
 {
@@ -20,7 +19,7 @@ class ProfitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Profit  $profit
+     * @param  \App\Models\Profit  $profit
      * @return \Illuminate\Http\Response
      */
     public function show(Profit $profit)

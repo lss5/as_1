@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Filters\QueryFilter;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model

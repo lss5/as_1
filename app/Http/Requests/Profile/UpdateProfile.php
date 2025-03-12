@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\User;
 
 class UpdateProfile extends FormRequest
 {

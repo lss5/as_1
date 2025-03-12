@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,11 +16,11 @@ class Manufacturer extends Model
 
     public function products()
     {
-        return $this->belongsToMany('App\Product');
+        return $this->belongsToMany('App\Models\Product');
     }
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('App\Models\Country');
     }
 }

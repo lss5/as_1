@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,12 +14,12 @@ class Profit extends Model
 
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Models\Product');
     }
 
     public function algorithm()
     {
-        return $this->belongsTo('App\Algorithm');
+        return $this->belongsTo('App\Models\Algorithm');
     }
 
 }

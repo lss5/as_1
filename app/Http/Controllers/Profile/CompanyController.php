@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Company;
-use App\Country;
 use App\Http\Controllers\Controller;
-use App\Status;
+use App\Models\Company;
+use App\Models\Country;
+use App\Models\Status;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ImageFacade;

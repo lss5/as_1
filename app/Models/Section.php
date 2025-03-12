@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +14,6 @@ class Section extends Model
 
     public function pages()
     {
-        return $this->hasMany('App\Page')->orderBy('sort');
+        return $this->hasMany('App\Models\Page')->orderBy('sort');
     }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Algorithm;
 use App\Http\Controllers\Controller;
+use App\Models\Algorithm;
 use Illuminate\Http\Request;
 
 class AlgorithmController extends Controller

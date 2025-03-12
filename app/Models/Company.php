@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -11,7 +11,7 @@ class Company extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
     public function scopeForUser(Builder $query, User $user)
     {
@@ -20,16 +20,16 @@ class Company extends Model
 
     public function images()
     {
-        return $this->morphMany('App\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('App\Models\Country');
     }
 
     public function status()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\Models\Status');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-use App\Coin;
+use App\Models\Coin;
 use Illuminate\Database\Seeder;
 
 class CoinSeeder extends Seeder

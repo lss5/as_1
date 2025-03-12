@@ -2,9 +2,9 @@
 
 namespace App\Services\ImportData;
 
-use Illuminate\Support\Facades\Log;
 use App\Components\ImportDataClient;
-use App\Product;
+use App\Models\Product;
+use Illuminate\Support\Facades\Log;
 
 class WhatToMine
 {

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Listing;
-use App\Message;
-use App\Thread;
+use App\Models\Listing;
+use App\Models\Message;
+use App\Models\Thread;
 use Carbon\Carbon;
 use Cmgmyr\Messenger\Models\Participant;
 use Illuminate\Http\Request;
@@ -29,12 +29,12 @@ class ThreadController extends Controller
         if ($thread) {
             return redirect()->route('profile.messages.show', $thread);
         }
-        
+
         $thread = Thread::create([
             'subject' => $listing->product->manufacturer->name . ' ' . $listing->product->model,
             'parent_id' => $listing->id,
         ]);
-        
+
         return redirect()->route('profile.messages.show', $thread);
     }
 
@@ -48,7 +48,7 @@ class ThreadController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Thread  $thread
+     * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\Response
      */
     public function edit(Thread $thread)
@@ -60,7 +60,7 @@ class ThreadController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Thread  $thread
+     * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Thread $thread)

@@ -1,9 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Intervention\Image\Facades\Image as ImageFacade;
 use Illuminate\Support\Facades\Storage;
 
 class Image extends Model

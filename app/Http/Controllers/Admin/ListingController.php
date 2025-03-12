@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Listing;
-use App\Status;
+use App\Models\Listing;
+use App\Models\Status;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 

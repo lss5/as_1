@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Cmgmyr\Messenger\Models\Message as ParentMessage;
 use App\Events\NewMessageEvent;
+use Cmgmyr\Messenger\Models\Message as ParentMessage;
 use Illuminate\Support\Facades\Log;
 
 class Message extends ParentMessage

@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
-use App\Listing;
+use App\Models\Listing;
+use App\Models\Message;
+use App\Models\Thread;
 use Carbon\Carbon;
+use Cmgmyr\Messenger\Models\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Cmgmyr\Messenger\Models\Participant;
-use App\User;
-use App\Product;
-use App\Thread;
-use App\Message;
 
 class MessageController extends Controller
 {
@@ -50,12 +48,12 @@ class MessageController extends Controller
         if ($thread) {
             return redirect()->route('profile.messages.show', $thread);
         }
-        
+
         $thread = Thread::create([
             'subject' => $listing->product->manufacturer->name . ' ' . $listing->product->model,
             'parent_id' => $listing->id,
         ]);
-        
+
         return redirect()->route('profile.messages.show', $thread);
 
         // $request->validate([

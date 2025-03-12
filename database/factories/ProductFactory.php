@@ -2,16 +2,16 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Product;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
 $factory->define(Product::class, function (Faker $faker) {
     return [
         'user_id' => function (array $product) {
-            $users = App\User::where('name', 'like', '%Adminstrator%')->get();
+            $users = \App\Models\User::where('name', 'like', '%Adminstrator%')->get();
             return $users->random()->id;
         },
-        'country_id' => $faker->randomElement(array_keys(App\Country::all()->toArray())),
+        'country_id' => $faker->randomElement(array_keys(\App\Models\Country::all()->toArray())),
         'title' => $faker->text(70),
         'description' => $faker->text(4096),
         'price' => $faker->numberBetween(200, 900),

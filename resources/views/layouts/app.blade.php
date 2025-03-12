@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', App\Setting::where('uniq_name', 'meta_title')->first()->value ?? '')</title>
-    <meta name="description" content="@yield('description', App\Setting::where('uniq_name', 'meta_description')->first()->value ?? '')">
-    <meta name="keywords" content="@yield('keywords', App\Setting::where('uniq_name', 'meta_keywords')->first()->value ?? '')">
+    <title>@yield('title', \App\Models\Setting::where('uniq_name', 'meta_title')->first()->value ?? '')</title>
+    <meta name="description" content="@yield('description', \App\Models\Setting::where('uniq_name', 'meta_description')->first()->value ?? '')">
+    <meta name="keywords" content="@yield('keywords', \App\Models\Setting::where('uniq_name', 'meta_keywords')->first()->value ?? '')">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Scripts -->

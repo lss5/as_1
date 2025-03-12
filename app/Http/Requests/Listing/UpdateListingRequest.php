@@ -2,11 +2,8 @@
 
 namespace App\Http\Requests\Listing;
 
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
-use App\Listing;
 use Carbon\Carbon;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateListingRequest extends FormRequest
 {

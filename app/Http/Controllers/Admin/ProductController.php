@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Algorithm;
-use App\Coin;
 use App\Http\Controllers\Controller;
-use App\Manufacturer;
-use App\Product;
-use App\Profit;
+use App\Models\Algorithm;
+use App\Models\Coin;
+use App\Models\Manufacturer;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image as ImageFacade;
 
@@ -57,13 +56,13 @@ class ProductController extends Controller
             $image = $product->images()->create([
                 'link' => $request->file('image')->store('products', 'public'),
             ]);
-            
+
             $imageFacade = ImageFacade::make(public_path('storage/'.$image->link))->fit(1024, 1024, function ($constraint) {
                 $constraint->upsize();
             });
             $imageFacade->save();
         }
-            
+
         $product->algorithms()->sync($request->algorithms);
         $product->coins()->sync($request->coins);
 

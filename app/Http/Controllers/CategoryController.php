@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Category;
-use App\Country;
 use App\Filters\CategoryFilters;
+use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller

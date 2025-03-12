@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Company;
-use App\Contact;
-use App\User;
-use App\Country;
-use App\Listing;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Profile\UpdateProfile;
-use Sonata\GoogleAuthenticator\GoogleAuthenticator;
-use Sonata\GoogleAuthenticator\GoogleQrUrl;
+use App\Models\Company;
+use App\Models\Contact;
+use App\Models\Country;
+use App\Models\Listing;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ImageFacade;
 
 class ProfileController extends Controller

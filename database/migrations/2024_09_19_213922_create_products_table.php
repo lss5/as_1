@@ -18,8 +18,6 @@ class CreateProductsTable extends Migration
             $table->timestamps();
             $table->foreignId('manufacturer_id')->nullable()->constrained('manufacturers');
             $table->string('model', 255);
-            $table->Integer('power')->nullable();
-            $table->Integer('hashrate')->nullable();
         });
     }
 

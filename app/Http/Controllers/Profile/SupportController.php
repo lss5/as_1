@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\Profile;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
+use App\Models\Thread;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use Cmgmyr\Messenger\Models\Participant;
-use App\Thread;
-use App\User;
-use App\Message;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SupportController extends Controller
 {

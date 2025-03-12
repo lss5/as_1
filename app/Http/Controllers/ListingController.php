@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Request;
 use App\Filters\ListingFilters;
-use App\Listing;
-use App\Country;
-use App\Category;
-use App\User;
-use App\Manufacturer;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Listing;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class ListingController extends Controller
 {

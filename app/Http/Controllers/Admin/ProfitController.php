@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Product;
-use App\Profit;
+use App\Models\Product;
+use App\Models\Profit;
 use App\Services\ImportData\WhatToMine;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,7 +45,7 @@ class ProfitController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Profit  $profit
+     * @param  \App\Models\Profit  $profit
      * @return \Illuminate\Http\Response
      */
     public function show(Profit $profit)
@@ -56,7 +56,7 @@ class ProfitController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Profit  $profit
+     * @param  \App\Models\Profit  $profit
      * @return \Illuminate\Http\Response
      */
     public function edit(Profit $profit)
@@ -104,7 +104,7 @@ class ProfitController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Profit  $profit
+     * @param  \App\Models\Profit  $profit
      * @return \Illuminate\Http\Response
      */
     public function destroy(Profit $profit)

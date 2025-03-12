@@ -1,6 +1,6 @@
 <?php
 
-use App\Algorithm;
+use App\Models\Algorithm;
 use Illuminate\Database\Seeder;
 
 class AlgorithmSeeder extends Seeder

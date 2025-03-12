@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Company;
-use App\Contact;
-use App\Listing;
+use App\Models\Company;
+use App\Models\Contact;
+use App\Models\Listing;
+use App\Models\User;
 use App\Policies\CompanyPolice;
 use App\Policies\ContactPolicy;
 use App\Policies\ListingPolicy;
 use App\Policies\UserPolicy;
-use App\User;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 

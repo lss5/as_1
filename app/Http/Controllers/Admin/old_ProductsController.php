@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Filters\ProductFilters;
+use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
-use App\Product;
-use App\Country;
-use App\Category;
-use App\Http\Controllers\Controller;
-use App\Filters\ProductFilters;
 
 class ProductsController extends Controller
 {
@@ -88,7 +87,7 @@ class ProductsController extends Controller
         if (Auth::user()->can('restore', $product)) {
             if ($product->status != 'restored') {
                 $product->restore();
-    
+
                 $product->fill([
                     'status' => 'restored',
                     'status_changed_at' => Carbon::now(),

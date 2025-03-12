@@ -3,9 +3,6 @@
 namespace App\Http\Requests\Listing;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Str;
-use App\Listing;
 
 class StoreListingRequest extends FormRequest
 {

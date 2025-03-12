@@ -1,15 +1,14 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
+use App\Notifications\SendVerifyWithQueueNotification;
+use Cmgmyr\Messenger\Traits\Messagable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Carbon\Carbon;
-use Cmgmyr\Messenger\Traits\Messagable;
-use App\Notifications\SendVerifyWithQueueNotification;
 
-class User extends Authenticatable implements MustVerifyEmail 
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
     use Messagable;
@@ -37,37 +36,37 @@ class User extends Authenticatable implements MustVerifyEmail
     // ----- Relationships ----- //
     public function roles()
     {
-        return $this->belongsToMany('App\Role');
+        return $this->belongsToMany('App\Models\Role');
     }
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('App\Models\Country');
     }
 
     public function contacts()
     {
-        return $this->hasMany('App\Contact');
+        return $this->hasMany('App\Models\Contact');
     }
 
     public function listings()
     {
-        return $this->hasMany('App\Listing');
+        return $this->hasMany('App\Models\Listing');
     }
 
     public function contact_main()
     {
-        return $this->hasMany('App\Contact')->where('ismain', true);
+        return $this->hasMany('App\Models\Contact')->where('ismain', true);
     }
 
     public function images()
     {
-        return $this->morphMany('App\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function companies()
     {
-        return $this->hasMany('App\Company');
+        return $this->hasMany('App\Models\Company');
     }
 
     // ----- Roles ----- //

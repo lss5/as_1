@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -8,21 +8,21 @@ class Country extends Model
 {
     public function products()
     {
-        return $this->hasMany('App\Product');
+        return $this->hasMany('App\Models\Product');
     }
 
     public function users()
     {
-        return $this->hasMany('App\User');
+        return $this->hasMany('App\Models\User');
     }
 
     public function manufacturers()
     {
-        return $this->hasMany('App\Manufacturer');
+        return $this->hasMany('App\Models\Manufacturer');
     }
 
     public function companies()
     {
-        return $this->hasMany('App\Company');
+        return $this->hasMany('App\Models\Company');
     }
 }

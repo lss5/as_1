@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Manufacturer;
-use App\Country;
+use App\Models\Country;
+use App\Models\Manufacturer;
 use Illuminate\Http\Request;
 
 class ManufacturerController extends Controller

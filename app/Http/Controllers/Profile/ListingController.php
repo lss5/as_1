@@ -2,17 +2,15 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Category;
-use App\Country;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Listing\StoreListingRequest;
 use App\Http\Requests\Listing\UpdateListingRequest;
-use App\Listing;
-use App\Manufacturer;
-use App\Product;
-use App\Status;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\Listing;
+use App\Models\Product;
+use App\Models\Status;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image as ImageFacade;
 

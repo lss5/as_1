@@ -2,13 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use App\Models\Setting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\Controller;
-use App\Category;
-use App\Section;
-use App\Setting;
-use App\Manufacturer;
 
 
 class SettingController extends Controller

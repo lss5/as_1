@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Coin;
 use App\Http\Controllers\Controller;
+use App\Models\Coin;
 use Illuminate\Http\Request;
 
 class CoinController extends Controller

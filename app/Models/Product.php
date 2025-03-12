@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -24,7 +24,7 @@ class Product extends Model
 
     public function manufacturer()
     {
-        return $this->belongsTo('App\Manufacturer');
+        return $this->belongsTo('App\Models\Manufacturer');
     }
 
     public function properties(): BelongsToMany
@@ -35,27 +35,27 @@ class Product extends Model
 
     public function algorithms()
     {
-        return $this->belongsToMany('App\Algorithm');
+        return $this->belongsToMany('App\Models\Algorithm');
     }
 
     public function coins()
     {
-        return $this->belongsToMany('App\Coin');
+        return $this->belongsToMany('App\Models\Coin');
     }
 
     public function images()
     {
-        return $this->morphMany('App\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function listings()
     {
-        return $this->hasMany('App\Listing');
+        return $this->hasMany('App\Models\Listing');
     }
 
     public function profits()
     {
-        return $this->hasMany('App\Profit');
+        return $this->hasMany('App\Models\Profit');
     }
 
 }

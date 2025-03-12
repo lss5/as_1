@@ -4,9 +4,9 @@ namespace App\Services\ImportData;
 
 use App\Components\ImportDataClient;
 use App\Contracts\ImportData\NetworkPrice;
-use App\MarketPrice;
-use Illuminate\Support\Facades\Log;
 use App\Jobs\ExchangeRateUpdateJob;
+use App\Models\MarketPrice;
+use Illuminate\Support\Facades\Log;
 
 class Binance implements NetworkPrice
 {

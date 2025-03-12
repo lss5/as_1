@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Category;
-use App\Property;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Property;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {

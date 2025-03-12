@@ -15,11 +15,11 @@ class CreateAlgorithmsTable extends Migration
     {
         Schema::create('algorithms', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('name');
             $table->string('uniq_name');
             $table->string('hashrate_name');
             $table->integer('sort')->unsigned()->default(10);
+            $table->timestamps();
         });
     }
 

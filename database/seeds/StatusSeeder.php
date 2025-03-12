@@ -1,6 +1,6 @@
 <?php
 
-use App\Status;
+use App\Models\Status;
 use Illuminate\Database\Seeder;
 
 class StatusSeeder extends Seeder
@@ -16,7 +16,7 @@ class StatusSeeder extends Seeder
             'Active' => 'active',
             'Moderation' => 'moderation',
             'Archive' => 'archive',
-            'Rejection' => 'rejection',
+            'Disallowed' => 'disallowed',
         ];
 
         foreach ($statuses as $name => $uniq_name) {

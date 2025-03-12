@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
+use App\Models\Section;
 use Illuminate\Http\Request;
-use App\Page;
-use App\Section;
 
 class PageController extends Controller
 {

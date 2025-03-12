@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Cmgmyr\Messenger\Models\Thread as ParentThread;
 
@@ -14,7 +14,7 @@ class Thread extends ParentThread
 
     public function listing()
     {
-        return $this->belongsTo('App\Listing', 'parent_id');
+        return $this->belongsTo(Listing::class, 'parent_id');
     }
 
     public function messages()

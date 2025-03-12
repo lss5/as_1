@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Contracts\ImportData\NetworkPrice;
-use App\Listing;
-use App\Product;
-use Illuminate\Http\Request;
+use App\Models\Listing;
 
 class IndexController extends Controller
 {

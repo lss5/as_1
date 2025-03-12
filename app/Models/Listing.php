@@ -1,15 +1,13 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Carbon\Carbon;
+use App\Filters\QueryFilter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filters\QueryFilter;
-use App\Events\ListingChangeStatus;
+
 // use App\Jobs\ListingProfitFillJob;
-use App\Notifications\ListingChangeStatusNotification;
 
 class Listing extends Model
 {
@@ -44,7 +42,7 @@ class Listing extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function scopeForUser(Builder $query, User $user)
@@ -54,27 +52,27 @@ class Listing extends Model
 
     public function images()
     {
-        return $this->morphMany('App\Image', 'imageable');
+        return $this->morphMany('App\Models\Image', 'imageable');
     }
 
     public function country()
     {
-        return $this->belongsTo('App\Country');
+        return $this->belongsTo('App\Models\Country');
     }
 
     public function product()
     {
-        return $this->belongsTo('App\Product');
+        return $this->belongsTo('App\Models\Product');
     }
 
     public function categories()
     {
-        return $this->belongsToMany('App\Category');
+        return $this->belongsToMany('App\Models\Category');
     }
 
     public function status()
     {
-        return $this->belongsTo('App\Status');
+        return $this->belongsTo('App\Models\Status');
     }
     public function scopeStatusActive(Builder $query)
     {

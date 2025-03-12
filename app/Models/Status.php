@@ -1,9 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class Status extends Model
 {
@@ -11,12 +11,12 @@ class Status extends Model
 
     public function listings()
     {
-        return $this->hasMany('App\Listing');
+        return $this->hasMany('App\Models\Listing');
     }
 
     public function companies()
     {
-        return $this->hasMany('App\Company');
+        return $this->hasMany('App\Models\Company');
     }
 
     public function scopeActive(Builder $query)

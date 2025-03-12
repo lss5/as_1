@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Role;
-use App\Country;
 use App\Http\Requests\Profile\UpdateProfile;
-use Illuminate\Http\Request;
+use App\Models\Country;
+use App\Models\Role;
+use App\Models\User;
 use Auth;
 
 class UsersController extends Controller

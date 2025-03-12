@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Listing;
-use App\User;
+use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ListingPolicy

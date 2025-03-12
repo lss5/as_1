@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Profile;
 
-use App\Contact;
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
