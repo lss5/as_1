@@ -30,6 +30,14 @@ class CreateListingsTable extends Migration
             $table->foreignId('status_id')->nullable()->constrained('statuses');
             $table->timestamp('status_changed_at')->useCurrent();
         });
+
+        Schema::create('category_listing', function (Blueprint $table) {
+            $table->foreignId('category_id')->nullable()->constrained('categories');
+            $table->foreignId('listing_id')->nullable()->constrained('listings');
+
+            $table->primary(['category_id', 'listing_id']);
+            $table->unique(['category_id', 'listing_id']);
+        });
     }
 
     /**
@@ -39,6 +47,7 @@ class CreateListingsTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('category_listing');
         Schema::dropIfExists('listings');
     }
 }

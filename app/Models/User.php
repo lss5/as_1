@@ -33,7 +33,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public $limit_product;
 
-    // ----- Relationships ----- //
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role');

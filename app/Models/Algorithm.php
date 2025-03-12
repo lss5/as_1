@@ -8,6 +8,8 @@ class Algorithm extends Model
 {
     protected $guarded = [];
 
+    public $timestamps = false;
+
     public function products()
     {
         return $this->belongsToMany('App\Models\Product');

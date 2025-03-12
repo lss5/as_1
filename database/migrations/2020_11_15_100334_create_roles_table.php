@@ -17,7 +17,16 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('uniq_name');
-            $table->timestamps();
+
+            $table->unique('uniq_name');
+        });
+
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->foreignId('role_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+
+            $table->primary(['role_id', 'user_id']);
+            $table->unique(['role_id', 'user_id']);
         });
     }
 
@@ -28,6 +37,7 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('role_user');
         Schema::dropIfExists('roles');
     }
 }

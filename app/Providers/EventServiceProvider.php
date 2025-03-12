@@ -7,7 +7,6 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 // use Illuminate\Support\Facades\Event;
 use App\Events\ProductChangeStatus;
-use App\Events\NewMessageEvent;
 use App\Listeners\SendProductChangeStatusNotification;
 use App\Listeners\NewMessageNotification;
 
@@ -20,9 +19,6 @@ class EventServiceProvider extends ServiceProvider
         ],
         // ProductChangeStatus::class => [
         //     SendProductChangeStatusNotification::class,
-        // ],
-        // NewMessageEvent::class => [
-        //     NewMessageNotification::class,
         // ],
     ];
 

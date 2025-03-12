@@ -7,15 +7,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
-    protected $fillable = [
-        'name',
-        'sort',
-        'top_menu',
-    ];
+    protected $guarded = [];
 
     protected $casts = [
         'top_menu' => 'boolean',
     ];
+
+    public $timestamps = false;
 
     public function listings(): BelongsToMany
     {

@@ -17,7 +17,6 @@ class CreateSectionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('sort')->unsigned()->default(1);
-            $table->timestamps();
         });
     }
 

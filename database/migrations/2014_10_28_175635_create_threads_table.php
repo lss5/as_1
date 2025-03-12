@@ -10,7 +10,7 @@ class CreateThreadsTable extends Migration
     public function up()
     {
         Schema::create(Models::table('threads'), function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('subject');
             $table->bigInteger('parent_id')->unsigned()->nullable();
             $table->string('type', 36)->nullable();

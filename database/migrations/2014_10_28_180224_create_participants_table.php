@@ -15,9 +15,9 @@ class CreateParticipantsTable extends Migration
     public function up()
     {
         Schema::create(Models::table('participants'), function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('thread_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->id();
+            $table->foreignId('thread_id')->constrained(Models::table('threads'));
+            $table->foreignId('user_id')->constrained('users');
             $table->timestamp('last_read')->nullable();
             $table->timestamps();
             $table->softDeletes();
