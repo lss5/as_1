@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Category extends Model
 {
+    const CACHE_KEY_TOP_MENU = 'categories_top_menu';
+
     protected $guarded = [];
 
     protected $casts = [

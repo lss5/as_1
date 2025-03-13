@@ -19,8 +19,7 @@
         "popper.js": "^1.12",
         "resolve-url-loader": "^5.0.0",
         "sass": "^1.15.2",
-        "sass-loader": "^8.0.0",
-        "vue-template-compiler": "^0.1.0"
+        "sass-loader": "^8.0.0"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.15.4",

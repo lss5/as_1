@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class CategoryController extends Controller
 {
@@ -43,6 +44,8 @@ class CategoryController extends Controller
         $category = Category::create($data);
         $category->properties()->sync($request->properties);
 
+        Cache::forget(Category::CACHE_KEY_TOP_MENU);
+
         return redirect()->route('admin.categories.index')->with('success', 'Category '.$category->name.' created');
     }
 
@@ -73,12 +76,16 @@ class CategoryController extends Controller
         $category->update($data);
         $category->properties()->sync($request->properties);
 
+        Cache::forget(Category::CACHE_KEY_TOP_MENU);
+
         return redirect()->route('admin.categories.index')->with('success', 'Category '.$category->name.' updated');
     }
 
     public function destroy(Category $category)
     {
         $category->delete();
+
+        Cache::forget(Category::CACHE_KEY_TOP_MENU);
 
         return redirect()->route('admin.categories.index')->with('success', 'Category '.$category->name.' deleted');
     }

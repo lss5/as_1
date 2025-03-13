@@ -62,7 +62,7 @@
             </div>
         @else
             <div class="col-12">
-                <h2 class="h4">listings</h1>
+                <h2 class="h4">listings</h2>
             </div>
             @forelse ($products as $product)
                 <div class="col-sm-12 col-md-6 col-lg-4 my-1">

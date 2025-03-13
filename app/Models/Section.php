@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
-    const SECTIONS_CACHE_KEY = 'footer_sections';
+    const CACHE_KEY_ALL_PAGES = 'sections_all_pages';
 
     protected $guarded = [];
 

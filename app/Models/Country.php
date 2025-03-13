@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
+    const CACHE_KEY_ALL = 'countries_all';
+
     public $timestamps = false;
 
     public function products()

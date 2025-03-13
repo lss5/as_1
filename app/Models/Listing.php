@@ -13,9 +13,11 @@ class Listing extends Model
 {
     use SoftDeletes;
 
+    const CACHE_KEY_ORDER_FIELDS = 'listings_order_fields';
+
     protected $guarded = [];
 
-    public static $sorting = [
+    public static array $order_fields = [
         'created_at' => 'Created',
         'price' => 'Price',
         'hashrate' => 'Hashrate',

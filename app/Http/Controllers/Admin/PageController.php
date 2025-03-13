@@ -38,7 +38,7 @@ class PageController extends Controller
 
         $page = Page::create($data);
 
-        Cache::forget(Section::SECTIONS_CACHE_KEY);
+        Cache::forget(Section::CACHE_KEY_ALL_PAGES);
 
         return redirect()->route('admin.pages.index')->with('success', 'Page '.$page->name.' created');
     }
@@ -63,6 +63,8 @@ class PageController extends Controller
         ]);
 
         $page->update($data);
+
+        Cache::forget(Section::CACHE_KEY_ALL_PAGES);
 
         return redirect()->route('admin.pages.index')->with('success', 'Page '.$page->name.' update');
     }
