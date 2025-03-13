@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+    const SECTIONS_CACHE_KEY = 'footer_sections';
+
     protected $guarded = [];
 
     public $timestamps = false;

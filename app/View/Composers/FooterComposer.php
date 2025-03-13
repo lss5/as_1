@@ -15,7 +15,7 @@ class FooterComposer
 
     public function compose(View $view): void
     {
-        $sections = Cache::remember('footer_sections', 60*60*24, function () {
+        $sections = Cache::remember(Section::SECTIONS_CACHE_KEY, 60*60*24, function () {
              return $this->section->with('pages')->orderBy('sort')->get();
         });
         $view->with('sections', $sections);

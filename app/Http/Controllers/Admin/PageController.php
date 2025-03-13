@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\Section;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class PageController extends Controller
 {
@@ -36,6 +37,8 @@ class PageController extends Controller
         ]);
 
         $page = Page::create($data);
+
+        Cache::forget(Section::SECTIONS_CACHE_KEY);
 
         return redirect()->route('admin.pages.index')->with('success', 'Page '.$page->name.' created');
     }
