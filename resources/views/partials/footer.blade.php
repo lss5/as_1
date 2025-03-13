@@ -1,6 +1,6 @@
 <div class="container pt-4 pb-2">
     <div class="row">
-        @foreach (App\Section::orderBy('sort')->get() as $section)
+        @foreach ($sections as $section)
             <div class="col-6 col-lg-3">
                 <h5>{{ $section->name }}</h5>
                 <ul class="list-unstyled text-small">
