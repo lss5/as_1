@@ -17,20 +17,20 @@
 
         xhr.onload = () => {
             if (xhr.status === 403) {
-            reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
-            return;
+                reject({ message: 'HTTP Error: ' + xhr.status, remove: true });
+                return;
             }
 
             if (xhr.status < 200 || xhr.status >= 300) {
-            reject('HTTP Error: ' + xhr.status);
-            return;
+                reject('HTTP Error: ' + xhr.status);
+                return;
             }
 
             const json = JSON.parse(xhr.responseText);
 
             if (!json || typeof json.location != 'string') {
-            reject('Invalid JSON: ' + xhr.responseText);
-            return;
+                reject('Invalid JSON: ' + xhr.responseText);
+                return;
             }
 
             resolve(json.location);

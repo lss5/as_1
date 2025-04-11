@@ -5,9 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>AsicSeller Administration</title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/vendor.js') }}" defer></script>
-    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
     @yield('script')
@@ -38,6 +36,9 @@
         </footer>
 
     </div>
+    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/admin.js') }}" defer></script>
+    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
 </body>
 
 </html>
