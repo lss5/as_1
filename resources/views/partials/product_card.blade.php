@@ -2,7 +2,7 @@
     @if ($product->images->count() > 0)
         <img src="{{ asset('storage/'.$product->images->first()->link) }}" class="card-img-top" alt="{{ $product->title }}">
     @else
-        <img src="{{ asset('img/product-no-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
+        <img src="{{ asset('images/common/no-product-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
     @endif
     <div class="card-body pb-2">
         <h5 class="card-title">

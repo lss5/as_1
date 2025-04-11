@@ -17,7 +17,7 @@
                 @if (Auth::user()->images->count() > 0)
                     <img src="{{ asset('storage/'.Auth::user()->images->first()->link) }}" alt="Seller" width="36" height="36" class="rounded-circle">
                 @else
-                    <img src="{{ asset('images/site/no-photo-user.png') }}" alt="default user photo" width="32" height="32" class="rounded-circle">
+                    <img src="{{ asset('images/common/no-photo-user.png') }}" alt="default user photo" width="32" height="32" class="rounded-circle">
                 @endif
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
@@ -48,7 +48,7 @@
 <header class="py-3">
     <div class="container d-flex flex-wrap justify-content-center">
         <a href="/" class="d-flex align-items-center mb-3 mb-lg-0 me-lg-auto text-dark text-decoration-none">
-            <img src="{{ asset('img/logo.png') }}" alt="" width="36" height="36">
+            <img src="{{ asset('images/common/logo.png') }}" alt="" width="36" height="36">
             <span class="fs-3 ms-1">AsicSeller</span>
         </a>
         <form class="col-12 col-lg-auto mb-2 mb-lg-0">

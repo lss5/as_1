@@ -11,7 +11,7 @@
             </div>
         @endforeach
         <div class="col-12 d-flex flex-column align-items-center">
-            <img class="mb-2" src="{{ asset('img/logo_with_name.png') }}" alt="" width="118" height="66">
+            <img class="mb-2" src="{{ asset('images/common/logo-with-name.png') }}" alt="" width="118" height="66">
             <small class="d-block mb-3 text-muted">© 2020-2023</small>
         </div>
     </div>

@@ -1,7 +1,7 @@
 <div class="container">
     <!-- Image and text -->
     <a class="navbar-brand" href="{{ url('/') }}">
-        <img src="{{ asset('img/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+        <img src="{{ asset('images/common/logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
         {{ config('app.name', 'AsicSeller') }}
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">

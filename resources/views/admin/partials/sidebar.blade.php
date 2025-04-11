@@ -4,7 +4,7 @@
             @if (Auth::user()->images->count() > 0)
                 <img class="img-circle elevation-2" src="{{ asset('storage/'.Auth::user()->images->first()->link) }}" alt="{{ Auth::user()->name }}">
             @else
-                <img class="img-circle elevation-2" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ Auth::user()->name }}">
+                <img class="img-circle elevation-2" src="{{ asset('images/common/no-photo-user.png') }}" alt="{{ Auth::user()->name }}">
             @endif
         </div>
         <div class="info">

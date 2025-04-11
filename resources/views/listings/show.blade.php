@@ -28,7 +28,7 @@
                     <small class="text-muted m-0">
                         Registered: {{ date('d M Y', strtotime($listing->user->created_at)) }}
                     </small>
-                    
+
                 </div>
                 @if($listing->user->hasVerifiedUser())
                     <h6 class="text-success"><i class="fas fa-user-check text-success"></i> Verified seller</h6>
@@ -186,7 +186,7 @@
                 </div>
             @else
                 <div class="col-md-12 col-lg-6">
-                    <img src="{{ asset('img/product-no-image.png') }}" class="img img-fluid" alt="{{ $listing->title }}">
+                    <img src="{{ asset('images/common/no-product-image.png') }}" class="img img-fluid" alt="{{ $listing->title }}">
                 </div>
             @endif
         </div>

@@ -24,7 +24,7 @@
                                     @if ($user->images->count() > 0)
                                         <img class="profile-user-img img-fluid img-circle" src="{{ asset('storage/'.$user->images->first()->link) }}" alt="{{ $user->name }}">
                                     @else
-                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ $user->name }}">
+                                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('images/common/no-photo-user.png') }}" alt="{{ $user->name }}">
                                     @endif
                                 </div>
                                 <h3 class="profile-username text-center">{{ $user->first_name . ' ' . $user->last_name }}</h3>
@@ -168,7 +168,7 @@
                                         <div class="col-sm-10">
                                             <select name="country" id="inputCountry" class="custom-select @error('country') is-invalid @enderror">
                                                 <option value selected>Select a country</option>
-                                                @foreach (App\Country::all() as $country)
+                                                @foreach ($countries as $country)
                                                     <option value="{{ $country->id }}" @if (old('country') == $country->id || $user->country_id == $country->id) selected @endif>{{ $country->name }}</option>
                                                 @endforeach
                                             </select>

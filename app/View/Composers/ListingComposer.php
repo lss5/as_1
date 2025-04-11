@@ -11,8 +11,8 @@ use Illuminate\View\View;
 class ListingComposer
 {
     public function __construct(
-        private Category $category,
-        private Country $country,
+        private readonly Category $category,
+        private readonly Country $country,
     ) {}
 
     public function compose(View $view): void

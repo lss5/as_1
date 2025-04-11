@@ -32,7 +32,7 @@ class ProfileController extends Controller
             'contacts' => Contact::forUser($user)->orderBy('ismain', 'desc')->get(),
             'sum_listings' => $sum_listings,
             'active_listings' => $active_listings,
-            'company' => Company::forUser(Auth::user())->first(),
+            'company' => Company::forUser($user)->first(),
         ]);
     }
 

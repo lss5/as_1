@@ -28,7 +28,7 @@
                                     <ul class="contacts-list">
                                         <li>
                                             <a href="{{ route('profile.messages.show', $thread) }}">
-                                                <img class="contacts-list-img" src="{{ asset('images/site/no-photo-user.png') }}" alt="User Avatar">
+                                                <img class="contacts-list-img" src="{{ asset('images/common/no-photo-user.png') }}" alt="User Avatar">
                                                 <div class="contacts-list-info">
                                                     <span class="contacts-list-name">{{ $thread->latestMessage->user->name }}
                                                         <small class="contacts-list-date float-right">{{ $thread->latestMessage->created_at->diffForHumans() }}</small>
@@ -42,7 +42,7 @@
                                     <ul class="contacts-list">
                                         <li>
                                             <a href="#">
-                                                
+
 
                                                 <div class="contacts-list-info">
                                                     <span class="contacts-list-name">

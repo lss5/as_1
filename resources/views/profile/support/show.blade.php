@@ -36,7 +36,7 @@
                                             @if ($message->user->images->count() > 0)
                                                 <img class="direct-chat-img" src="{{ asset('storage/'.$message->user->images->first()->link) }}" alt="{{ $message->user->name }}">
                                             @else
-                                                <img class="direct-chat-img" src="{{ asset('images/site/no-photo-user.png') }}" alt="{{ $message->user->name }}">
+                                                <img class="direct-chat-img" src="{{ asset('images/common/no-photo-user.png') }}" alt="{{ $message->user->name }}">
                                             @endif
                                             <div class="direct-chat-text">
                                                 {{ html_entity_decode($message->body) }}

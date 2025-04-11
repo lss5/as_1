@@ -2,12 +2,12 @@
     @if ($product->images->count() > 0)
         <img src="{{ asset('storage/'.$product->images->first()->link) }}" class="card-img-top" alt="{{ $product->title }}">
     @else
-        <img src="{{ asset('img/product-no-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
+        <img src="{{ asset('images/common/no-product-image.png') }}" class="card-img-top" alt="{{ $product->title }}">
     @endif
     <div class="card-body pb-2">
         <h5 class="card-title">
             <a href="{{ route('listings.show', $product) }}" class="stretched-link text-decoration-none text-reset">{!! Str::limit($product->product->model, 22, '') !!}</a>
-            
+
         </h5>
         <h6 class="card-subtitle mb-2 text-muted"> {{$product->moq}}pcs</h6>
     </div>
