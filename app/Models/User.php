@@ -31,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public $limit_product;
+    public int $limit_product;
 
     public function roles()
     {
@@ -121,7 +121,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new SendVerifyWithQueueNotification());
     }
 
-    public function setLimitProduct()
+    public function setLimitProduct(): int
     {
         if ($this->hasVerifiedGA()) {
             $this->limit_product = config('product.limit_create_product_totp');
@@ -129,7 +129,7 @@ class User extends Authenticatable implements MustVerifyEmail
             $this->limit_product = config('product.limit_create_product');
         }
 
-        return $this;
+        return $this->limit_product;
     }
 
 }

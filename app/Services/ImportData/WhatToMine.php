@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\Log;
 
 class WhatToMine
 {
-    protected $endpoint;
-    protected $dataClient;
+    protected ImportDataClient $dataClient;
 
     public function __construct()
     {
-        $this->endpoint = config('services.whattomine.endpoint');
-        $this->dataClient = new ImportDataClient($this->endpoint);
+        $this->dataClient = new ImportDataClient(config('services.whattomine.endpoint'));
     }
 
     public function getProfit(Product $product, $uri)

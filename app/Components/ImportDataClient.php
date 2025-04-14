@@ -6,8 +6,8 @@ use GuzzleHttp\Client;
 
 class ImportDataClient
 {
-    public $client;
-    public $endpoint;
+    public Client $client;
+    public string $endpoint;
 
     public function __construct($endpoint)
     {

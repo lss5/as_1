@@ -52,9 +52,8 @@
                         </a> --}}
                         <a href="{{ route('profile.messages.index') }}" class="dropdown-item">
                             <i class="far fa-comments"></i> {{ __('home.menu.messages') }}
-                            <?php $count = Auth::user()->newThreadsCount(); ?>
-                            @if($count > 0)
-                                <span class="badge badge-success badge-pill">{{ $count }}</span>
+                            @if(Auth::user()->newThreadsCount())
+                                <span class="badge badge-success badge-pill">{{ Auth::user()->newThreadsCount() }}</span>
                             @endif
                         </a>
                         @can(\App\Models\Role::ROLE_MODERATOR)

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Log;
 
 class Binance implements NetworkPrice
 {
-    public $dataClient;
+    public ImportDataClient $dataClient;
 
     public function __construct()
     {
