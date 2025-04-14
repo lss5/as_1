@@ -41,6 +41,7 @@
                                         <tr>
                                             <th style="width: 10px">#ID</th>
                                             <th>Title</th>
+                                            <th>Unit</th>
                                             <th>Sort</th>
                                             <th>Actions</th>
                                         </tr>

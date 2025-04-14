@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\Property\StorePropertyRequest;
+use App\Http\Requests\Admin\Property\UpdatePropertyRequest;
 use App\Models\Property;
-use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
@@ -20,15 +21,9 @@ class PropertyController extends Controller
         return view('admin.property.create');
     }
 
-    public function store(Request $request)
+    public function store(StorePropertyRequest $request)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string'],
-            'unit' => ['nullable', 'string'],
-            'sort' => ['nullable', 'integer'],
-        ]);
-
-        $property = Property::create($validated);
+        $property = Property::create($request->validated());
 
         return redirect()->route('admin.properties.index')->with('success', 'Property '.$property->title.' created');
     }
@@ -40,15 +35,9 @@ class PropertyController extends Controller
         ]);
     }
 
-    public function update(Request $request, Property $property)
+    public function update(UpdatePropertyRequest $request, Property $property)
     {
-        $validated = $request->validate([
-            'title' => ['required', 'string'],
-            'unit' => ['nullable', 'string'],
-            'sort' => ['nullable', 'integer'],
-        ]);
-
-        $property->update($validated);
+        $property->update($request->validated());
 
         return redirect()->route('admin.properties.index')->with('success', 'Property '.$property->title.' updated');
     }
