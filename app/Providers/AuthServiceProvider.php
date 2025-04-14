@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Listing;
+use App\Models\Role;
 use App\Models\User;
 use App\Policies\CompanyPolice;
 use App\Policies\ContactPolicy;
@@ -32,15 +33,15 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
 
-        Gate::define('admin', function($user){
+        Gate::define(Role::ROLE_ADMIN, function($user){
             return $user->isAdmin();
         });
 
-        Gate::define('moder', function($user){
+        Gate::define(Role::ROLE_MODERATOR, function($user){
             return $user->isAdmin() || $user->isModerator();
         });
     }

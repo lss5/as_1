@@ -57,20 +57,20 @@
                                 <span class="badge badge-success badge-pill">{{ $count }}</span>
                             @endif
                         </a>
-                        @can('moder')
+                        @can(\App\Models\Role::ROLE_MODERATOR)
                             <div class="dropdown-divider"></div>
                         @endcan
-                        @can('moder')
+                        @can(\App\Models\Role::ROLE_MODERATOR)
                         <a href="{{ route('admin.index') }}" class="dropdown-item">
                             <i class="fas fa-toolbox"></i> Administration
                         </a>
                         @endcan
-                        @can('moder')
+                        @can(\App\Models\Role::ROLE_MODERATOR)
                         <a href="{{ route('admin.support.index') }}" class="dropdown-item">
                             <i class="fas fa-headset"></i> {{ __('home.menu.support') }}
                         </a>
                         @endcan
-                        @can('moder')
+                        @can(\App\Models\Role::ROLE_MODERATOR)
                             <a href="{{ route('admin.settings.index') }}" class="dropdown-item">
                                 <i class="far fa-images"></i> App Settings
                             </a>

@@ -77,14 +77,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return false;
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->hasRole(Role::ROLE_ADMIN);
     }
 
-    public function isModerator()
+    public function isModerator(): bool
     {
-        return $this->hasRole('moder');
+        return $this->hasRole(Role::ROLE_MODERATOR);
     }
 
     // public function hasVerifiedGA()
