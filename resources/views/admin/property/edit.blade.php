@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Editing algorithm {{ $property->name }}</h1>
+                        <h1>Editing property {{ $property->title }}</h1>
                     </div>
                 </div>
             </div>
@@ -19,6 +19,28 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
+                                <div class="form-group">
+                                    <label>Categories</label>
+                                    <select multiple class="form-control @error('categories') is-invalid @enderror" name="categories[]">
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}" @if (in_array($category->id, $property_categories)) selected @endif>{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('categories')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Type values</label>
+                                    <select class="custom-select rounded-0 @error('value_type') is-invalid @enderror" name="value_type">
+                                        @foreach ($value_types as $value_type)
+                                            <option value="{{ $value_type }}" @if(old('value_type') == $value_type || $property->value_type == $value_type) selected @endif>{{ $value_type }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('value_type')
+                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
+                                </div>
                                 <div class="form-group">
                                     <label for="inputTitle">Title</label>
                                     <input type="text" id="inputTitle" name="title" class="form-control  @error('title') is-invalid @enderror" value="{{ old('title') ?? $property->title }}">

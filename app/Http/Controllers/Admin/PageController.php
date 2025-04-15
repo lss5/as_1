@@ -32,7 +32,7 @@ class PageController extends Controller
             'list_name' => ['required', 'string'],
             'uniq_name' => ['required', 'string', 'unique:pages'],
             'content' => ['required', 'string'],
-            'section_id' => ['required', 'integer'],
+            'section_id' => ['required', 'integer', 'exists:sections,id'],
             'sort' => ['required', 'integer'],
         ]);
 

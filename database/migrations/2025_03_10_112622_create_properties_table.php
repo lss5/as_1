@@ -2,7 +2,7 @@
 
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\Property;
+use App\Models\Property\Property;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('unit');
+            $table->string('value_type');
             $table->integer('sort')->unsigned()->default(10);
         });
 
@@ -49,10 +50,21 @@ return new class extends Migration
 
             $table->primary(['category_id', 'property_id']);
         });
+
+        Schema::create('property_values', function (Blueprint $table) {
+            $table->id();
+            $table->string('value');
+            $table->foreignIdFor(Property::class)
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
+            $table->integer('sort')->unsigned()->default(10);
+        });
     }
 
     public function down(): void
     {
+        Schema::dropIfExists('property_values');
         Schema::dropIfExists('category_property');
         Schema::dropIfExists('product_property');
         Schema::dropIfExists('properties');
