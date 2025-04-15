@@ -12,10 +12,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        // Role::truncate();
-
-        Role::create(['name' => 'Premium', 'uniq_name' => 'premium']);
-        Role::create(['name' => 'Administrator', 'uniq_name' => 'admin']);
-        Role::create(['name' => 'Moderator', 'uniq_name' => 'moder']);
+        Role::query()->create(['name' => 'Administrator', 'uniq_name' => Role::ROLE_ADMIN]);
+        Role::query()->create(['name' => 'Moderator', 'uniq_name' => Role::ROLE_MODERATOR]);
     }
 }
