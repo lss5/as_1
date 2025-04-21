@@ -109,7 +109,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.supports.index') }}" class="nav-link {{ (request()->is('admin/supports*') ? 'active' : '') }}">
+                <a href="{{ route('admin.supports.index') }}" class="nav-link {{ (request()->is('admin-panel/supports*') ? 'active' : '') }}">
                     <i class="fas fa-headset"></i>
                     <p>Support</p>
                 </a>
@@ -118,76 +118,76 @@
 
             @can('admin')
             <li class="nav-header">ADMINISTRATION</li>
-            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties*', 'admin/property-values*') ? 'menu-open' : '') }}">
-                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties', 'admin/property-values') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin-panel/categories*', 'admin-panel/products*', 'admin-panel/manufacturers*', 'admin-panel/algorithms*', 'admin-panel/coins*', 'admin-panel/statuses*', 'admin-panel/properties*', 'admin-panel/property-values*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('admin-panel/categories*', 'admin-panel/products*', 'admin-panel/manufacturers*', 'admin-panel/algorithms*', 'admin-panel/coins*', 'admin-panel/statuses*', 'admin-panel/properties', 'admin-panel/property-values') ? 'active' : '') }}">
                     <i class="far fa-file-alt"></i>
                     <p>Products <i class="right fas fa-angle-left"></i></p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->is('admin/products*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.products.index') }}" class="nav-link {{ (request()->is('admin-panel/products*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Product Models</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.categories.index') }}" class="nav-link {{ (request()->is('admin/categories*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.categories.index') }}" class="nav-link {{ (request()->is('admin-panel/categories*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Categories</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.properties.index') }}" class="nav-link {{ (request()->is('admin/properties*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.properties.index') }}" class="nav-link {{ (request()->is('admin-panel/properties*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Properties</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.property-values.index') }}" class="nav-link {{ (request()->is('admin/property-values*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.property-values.index') }}" class="nav-link {{ (request()->is('admin-panel/property-values*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Property values</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.manufacturers.index') }}" class="nav-link {{ (request()->is('admin/manufacturers*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.manufacturers.index') }}" class="nav-link {{ (request()->is('admin-panel/manufacturers*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Manufacturers</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.algorithms.index') }}" class="nav-link {{ (request()->is('admin/algorithms*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.algorithms.index') }}" class="nav-link {{ (request()->is('admin-panel/algorithms*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Algoritms</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.coins.index') }}" class="nav-link {{ (request()->is('admin/coins*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.coins.index') }}" class="nav-link {{ (request()->is('admin-panel/coins*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Coins</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.statuses.index') }}" class="nav-link {{ (request()->is('admin/statuses*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.statuses.index') }}" class="nav-link {{ (request()->is('admin-panel/statuses*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Statuses</p>
                         </a>
                     </li>
                 </ul>
             </li>
-            <li class="nav-item {{ (request()->is('admin/pages*', 'admin/sections*') ? 'menu-open' : '') }}">
-                <a class="nav-link {{ (request()->is('admin/pages*', 'admin/sections*') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin-panel/pages*', 'admin-panel/sections*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('admin-panel/pages*', 'admin-panel/sections*') ? 'active' : '') }}">
                     <i class="fas fa-copy"></i>
                     <p>Pages</p> <i class="right fas fa-angle-left"></i>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.pages.index') }}" class="nav-link {{ (request()->is('admin/pages*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.pages.index') }}" class="nav-link {{ (request()->is('admin-panel/pages*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Pages</p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('admin.sections.index') }}" class="nav-link {{ (request()->is('admin/sections*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.sections.index') }}" class="nav-link {{ (request()->is('admin-panel/sections*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Sections</p>
                         </a>
@@ -201,20 +201,20 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="{{ route('admin.users.index') }}" class="nav-link {{ (request()->is('admin/users*') ? 'active' : '') }}">
+                <a href="{{ route('admin.users.index') }}" class="nav-link {{ (request()->is('admin-panel/users*') ? 'active' : '') }}">
                     <i class="fas fa-users-cog"></i>
                     <p>Users</p>
                 </a>
             </li>
-            <li class="nav-item {{ (request()->is('admin/settings*') ? 'menu-open' : '') }}">
-                <a href="#" class="nav-link {{ (request()->is('admin/settings*') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin-panel/settings*') ? 'menu-open' : '') }}">
+                <a href="#" class="nav-link {{ (request()->is('admin-panel/settings*') ? 'active' : '') }}">
                     <i class="fas fa-cog"></i>
                     <p>Settings <i class="right fas fa-angle-left"></i>
                     </p>
                 </a>
                 <ul class="nav nav-treeview">
                     <li class="nav-item">
-                        <a href="{{ route('admin.settings.index') }}" class="nav-link {{ (request()->is('admin/settings*') ? 'active' : '') }}">
+                        <a href="{{ route('admin.settings.index') }}" class="nav-link {{ (request()->is('admin-panel/settings*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Variables</p>
                         </a>

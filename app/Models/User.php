@@ -68,8 +68,10 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany('App\Models\Company');
     }
 
-    // ----- Roles ----- //
-    public function hasRole($role)
+    /**
+     * Roles helper functions
+     */
+    public function hasRole(string $role): bool
     {
         if ($this->roles()->where('uniq_name', $role)->first()) {
             return true;
