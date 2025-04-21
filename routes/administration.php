@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdministratorController;
 use App\Http\Controllers\Admin\Property\PropertyController;
+use App\Http\Controllers\Admin\Property\PropertyValueController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('administrator')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
@@ -16,6 +17,9 @@ Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','c
 });
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/properties', PropertyController::class);
+});
+Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
+    Route::resource('/property-values', PropertyValueController::class);
 });
 Route::prefix('admin')->name('admin.')->namespace('Admin')->middleware('auth','can:admin')->group(function(){
     Route::resource('/manufacturers', 'ManufacturerController');

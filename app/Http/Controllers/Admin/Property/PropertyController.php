@@ -13,7 +13,7 @@ class PropertyController extends Controller
     public function index()
     {
         return view('admin.property.index', [
-            'properties' => Property::all(),
+            'properties' => Property::with('categories:name')->get(),
         ]);
     }
 

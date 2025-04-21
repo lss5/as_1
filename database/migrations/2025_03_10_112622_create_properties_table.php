@@ -50,21 +50,10 @@ return new class extends Migration
 
             $table->primary(['category_id', 'property_id']);
         });
-
-        Schema::create('property_values', function (Blueprint $table) {
-            $table->id();
-            $table->string('value');
-            $table->foreignIdFor(Property::class)
-                ->constrained()
-                ->cascadeOnDelete()
-                ->cascadeOnUpdate();
-            $table->integer('sort')->unsigned()->default(10);
-        });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('property_values');
         Schema::dropIfExists('category_property');
         Schema::dropIfExists('product_property');
         Schema::dropIfExists('properties');

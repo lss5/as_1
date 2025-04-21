@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Properties</h1>
+                        <h1 class="m-0">Property values</h1>
                     </div>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="card-title">
-                                    <a href="{{ route('admin.properties.create') }}" type="button" class="btn btn-outline-success btn-sm">
+                                    <a href="{{ route('admin.property-values.create') }}" type="button" class="btn btn-outline-success btn-sm">
                                         <i class="fas fa-plus"></i> Create
                                     </a>
                                 </div>
@@ -40,26 +40,24 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 10px">#ID</th>
-                                            <th>Title</th>
-                                            <th>Unit</th>
+                                            <th>Value</th>
                                             <th>Sort</th>
-                                            <th>Categories</th>
+                                            <th>Property</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($properties as $property)
+                                        @foreach ($propertyValues as $value)
                                             <tr>
-                                                <th scope="row">{{ $property->id }}</th>
-                                                <td>{{ $property->title }}</td>
-                                                <td>{{ $property->unit }}</td>
-                                                <td>{{ $property->sort }}</td>
-                                                <td>{{ implode(', ', $property->categories->pluck('name')->toArray()) }}</td>
+                                                <th scope="row">{{ $value->id }}</th>
+                                                <td>{{ $value->value }}</td>
+                                                <td>{{ $value->sort }}</td>
+                                                <td>{{ $value->property->title }}</td>
                                                 <td class="project-actions">
-                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.properties.edit', $property) }}">
+                                                    <a class="btn btn-info btn-sm" href="{{ route('admin.property-values.edit', $value) }}">
                                                         <i class="fas fa-pencil-alt"></i> Edit
                                                     </a>
-                                                    <form action="{{ route('admin.properties.destroy', $property) }}" method="POST" class="form-inline d-inline">
+                                                    <form action="{{ route('admin.property-values.destroy', $value) }}" method="POST" class="form-inline d-inline">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("Delete algorithm?");'>

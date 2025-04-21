@@ -38,20 +38,29 @@
                                         @endforeach
                                     </select>
                                     @error('value_type')
-                                    <span class="error invalid-feedback">{{ $message }}</span>
+                                        <span class="error invalid-feedback">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputTitle">Title</label>
                                     <input type="text" id="inputTitle" name="title" class="form-control  @error('title') is-invalid @enderror" value="{{ old('title') }}">
+                                    @error('title')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputUnit">Unit of measurement</label>
                                     <input type="text" id="inputUnit" name="unit" class="form-control  @error('unit') is-invalid @enderror" value="{{ old('unit') }}">
+                                    @error('unit')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="inputSort">Sort order</label>
-                                    <input type="number" step="1" id="inputSort" name="sort" class="form-control  @error('sort') is-invalid @enderror" value="{{ old('sort') }}">
+                                    <input type="number" step="1" id="inputSort" name="sort" class="form-control  @error('sort') is-invalid @enderror" value="{{ old('sort') ?? 10 }}">
+                                    @error('sort')
+                                        <span class="error invalid-feedback">{{ $message }}</span>
+                                    @enderror
                                 </div>
                             </div>
                         </div>

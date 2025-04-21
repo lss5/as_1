@@ -118,8 +118,8 @@
 
             @can('admin')
             <li class="nav-header">ADMINISTRATION</li>
-            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties*') ? 'menu-open' : '') }}">
-                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties') ? 'active' : '') }}">
+            <li class="nav-item {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties*', 'admin/property-values*') ? 'menu-open' : '') }}">
+                <a class="nav-link {{ (request()->is('admin/categories*', 'admin/products*', 'admin/manufacturers*', 'admin/algorithms*', 'admin/coins*', 'admin/statuses*', 'admin/properties', 'admin/property-values') ? 'active' : '') }}">
                     <i class="far fa-file-alt"></i>
                     <p>Products <i class="right fas fa-angle-left"></i></p>
                 </a>
@@ -140,6 +140,12 @@
                         <a href="{{ route('admin.properties.index') }}" class="nav-link {{ (request()->is('admin/properties*') ? 'active' : '') }}">
                             <i class="far fa-circle nav-icon"></i>
                             <p>Properties</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('admin.property-values.index') }}" class="nav-link {{ (request()->is('admin/property-values*') ? 'active' : '') }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Property values</p>
                         </a>
                     </li>
                     <li class="nav-item">
